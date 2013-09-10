@@ -1,0 +1,11 @@
+/* This stylesheet is used to style the admin option form of the plugin. */
+
+.extendable_options {
+	height: 0;
+	overflow: hidden;
+}
+
+fieldset.group {
+	border-left:1px solid #333;
+	padding-left: 20px;
+}

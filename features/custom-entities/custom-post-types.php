@@ -1,0 +1,10 @@
+<?php
+
+// register post types
+
+//
+
+
+
+
+
