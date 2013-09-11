@@ -12,20 +12,9 @@
  * @copyright 2013 Pixelgrade Media
  */
 
-//$adminForm = new PixTypesFormField('pixsettings', 'main');
-//
-//// get our settings
-//require_once( $this->plugin_basepath.'plugin-settings.php' );
-//
-//// build our page settings from our settings array
-//$adminForm->fromArray($plugin_options);
-//
-//$renderer = new AdminPixTypesFormRenderer('PixTypes_settings');
-//$renderer->setManager($manager = new PixTypesFormOptionsManager('PixTypes_settings'));
-//
-//if ( isset($_POST['submitted'])) {
-//    $manager->save($_POST['PixTypes_settings']);
-//}
-//
-//$renderer->render($adminForm);
+// include custom post types
 
+$theme_types = get_option('pixtypes_theme_settings');
+$theme_name = WPGRADE_SHORTNAME;
+$to_check =  $theme_name . '_pixtypes_theme';
+$kkkt = array_key_exists($to_check, $theme_types);

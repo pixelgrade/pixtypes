@@ -56,11 +56,21 @@ class PixTypes {
 	protected $plugin_screen_hook_suffix = null;
 
 	/**
+	 * Path to the plugin.
+	 *
+	 * @since    1.0.0
+	 * @var      string
+	 */
+	protected $plugin_basepath = null;
+
+	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 *
 	 * @since     1.0.0
 	 */
 	protected function __construct() {
+
+		$this->plugin_basepath = plugin_dir_path( __FILE__ );
 
 		// Load plugin text domain
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
@@ -80,6 +90,8 @@ class PixTypes {
 //		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 //		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
+		add_action( 'init', array( $this, 'register_entities'), 999999);
+		add_action( 'shutdown', array( $this, 'on_shutdown' ) );
 	}
 
 	/**
@@ -110,23 +122,33 @@ class PixTypes {
 
 		// get options defined by theme
 		$theme_types = get_option('pixtypes_theme_settings');
+		$types_settings = get_option('pixtypes_settings');
 		$theme_name = WPGRADE_SHORTNAME;
 
 		/**
-		 * Check if the current theme already has options in db
-		 * In this case return true, we have nothing else to do here
+		 * Check if the current theme has theme options in db
 		 */
 
 		$to_check =  $theme_name . '_pixtypes_theme';
-		$kkkt = array_keys($theme_types, $to_check);
-		if ( !empty( $kkkt ) ) {
-			return;
+		$key_exists = array_key_exists($to_check, $theme_types);
+		if ( $key_exists ) {
+
+			/**
+			 * Check if theme options have already been ported in plugin options
+			 * In this case return true, we have nothing else to do here
+			 */
+			$plugin_has_this = array_key_exists($theme_name, $types_settings['themes']);
+			if ( $plugin_has_this ){
+				return;
+			} else {
+				$types_settings['themes'][$theme_name] = $types_settings[$to_check];
+				update_option('pixtypes_settings', $types_settings);
+			}
 		}
 
 		// go through themes options
-		$ttttt = array_keys($theme_types, $to_check);
 		foreach ( $theme_types as $key => $theme ) {
-			array_keys($theme, $theme_name . '_pixtypes_theme');
+			// for what ??
 		}
 	}
 
@@ -192,7 +214,6 @@ class PixTypes {
 		if ( $screen->id == $this->plugin_screen_hook_suffix ) {
 			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'js/admin.js', __FILE__ ), array( 'jquery' ), $this->version );
 		}
-
 	}
 
 	/**
@@ -242,6 +263,31 @@ class PixTypes {
 		return array_merge( array( 'settings' => '<a href="' . admin_url( 'plugins.php?page=pixtypes' ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>' ), $links );
 	}
 
+	function register_entities(){
+		require_once( $this->plugin_basepath . 'features/custom-entities/custom-post-types.php' );
+	}
+
+	/**
+	 * Ensure that we input an unique slug for a custom post type
+	 * @param $post_type string keyname for a custom post type
+	 * @return string $slug
+	 */
+	function resolve_custom_post_type_slug( $post_type ){
+		$slug = null;
+		$object = get_post_type_object( $post_type );
+		// if the rewrite is defined, we get the slug
+		$rewrite = $object->rewrite;
+		if ( is_array( $rewrite ) ) {
+			$slug = $rewrite['slug'];
+		} else { // otherwise the  slug is the name of th post type
+			$slug = $post_type;
+		}
+
+		return $slug;
+	}
 
 
+	function on_shutdown(){
+
+	}
 }
