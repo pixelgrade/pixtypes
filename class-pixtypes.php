@@ -119,51 +119,58 @@ class PixTypes {
 	 */
 	public static function activate( $network_wide ) {
 
-		/** get options defined by theme */
+		/** get options defined by themes */
 		$theme_types = get_option('pixtypes_theme_settings');
 		$types_settings = get_option('pixtypes_settings');
-		$theme_name = WPGRADE_SHORTNAME; /** current theme name*/
+		$current_theme = '_pixtypes_theme';
 
-		if ( empty($types_settings) ) { /** if this is empty we still need to initialize the plugin*/
+		// init settings
+		if ( empty($theme_types) ) {
+			$theme_types = array();
+		}
+
+		if ( empty($types_settings) ) {
 			$types_settings = array('themes' => array());
 		}
 
-		$current_theme = $theme_name . '_pixtypes_theme';
-		$key_exists = array_key_exists($current_theme, $theme_types);
-		$plugin_has_this = array_key_exists($theme_name, $types_settings['themes']);
+		/** A pixelgrade theme will always have this constant so we know we can import new settings **/
+		if ( defined('WPGRADE_SHORTNAME') ) $current_theme = WPGRADE_SHORTNAME . $current_theme;
 
-		/** Check if theme options have already been imported in plugin options or if we have something to import */
-		if ( $key_exists && !$plugin_has_this ) {
+		if ( !empty($theme_types) ) {
+			foreach ( $theme_types as $theme_key => $theme) {
+				$theme_name = str_replace('_pixtypes_theme', '', $theme_key);
+				/** for our current theme we try to prioritize slugs */
+				if ( $theme_key == $current_theme ) {
 
-			/** POST TYPES **/
-			if (!empty( $theme_types[$current_theme]['post_types']) ){
-				foreach ( $theme_types[$current_theme]['post_types'] as $key => $post_type ) {
+					/** POST TYPES slugs **/
+					if (!empty( $theme_types[$current_theme]['post_types']) ){
+						foreach ( $theme_types[$current_theme]['post_types'] as $key => $post_type ) {
+							$testable_slug = $is_slug_unique = '';
+							$testable_slug = str_replace ( $theme_name.'-', '', $post_type["rewrite"]["slug"]);
+							if ( isset( $post_type["rewrite"] ) && self::is_custom_post_type_slug_unique($testable_slug) ) {
+								/** this slug is unique we can quit the theme suffix */
+								$theme_types[$current_theme]['post_types'][$key]["rewrite"]["slug"] = $testable_slug;
+							}
+						}
+					}
 
-					$testable_slug = str_replace ( $theme_name.'-', '', $post_type["rewrite"]["slug"]);
-
-					if ( isset( $post_type["rewrite"] ) && self::is_custom_post_type_slug_unique($testable_slug) ) {
-						/** this slug is unique we can quit the theme suffix */
-						$theme_types[$current_theme]['post_types'][$key]["rewrite"]["slug"] = $testable_slug;
+					/** TAXONOMIES slugs **/
+					if (!empty( $theme_types[$current_theme]['taxonomies'] ) ) {
+						foreach ( $theme_types[$current_theme]['taxonomies'] as $key => $tax ) {
+							$testable_slug = $is_slug_unique = '';
+							$testable_slug = str_replace ( $theme_name.'-', '', $tax["rewrite"]["slug"]);
+							if ( isset( $tax["rewrite"] ) && self::is_tax_slug_unique($testable_slug) ) {
+								/** this slug is unique we can quit the theme suffix */
+								$theme_types[$current_theme]['taxonomies'][$key]["rewrite"]["slug"] = $testable_slug;
+							}
+						}
 					}
 				}
+				$types_settings['themes'][$theme_name] = $theme_types[$theme_key];
 			}
-
-			/** TAXONOMIES **/
-			if (!empty( $theme_types[$current_theme]['taxonomies'] ) ) {
-				foreach ( $theme_types[$current_theme]['taxonomies'] as $key => $tax ) {
-
-					$testable_slug = str_replace ( $theme_name.'-', '', $tax["rewrite"]["slug"]);
-
-					if ( isset( $tax["rewrite"] ) && self::is_tax_slug_unique($testable_slug) ) {
-						/** this slug is unique we can quit the theme suffix */
-						$theme_types[$current_theme]['taxonomies'][$key]["rewrite"]["slug"] = $testable_slug;
-					}
-				}
-			}
-
-			$types_settings['themes'][$theme_name] = $theme_types[$current_theme];
-//				update_option('pixtypes_settings', $types_settings);
 		}
+
+		update_option('pixtypes_settings', $types_settings);
 	}
 
 	/**
@@ -171,7 +178,7 @@ class PixTypes {
 	 * @since    1.0.0
 	 * @param    boolean    $network_wide    True if WPMU superadmin uses "Network Deactivate" action, false if WPMU is disabled or plugin is deactivated on an individual blog.
 	 */
-	public static function deactivate( $network_wide ) {
+	static function deactivate( $network_wide ) {
 		// TODO: Define deactivation functionality here
 	}
 
@@ -180,7 +187,7 @@ class PixTypes {
 	 *
 	 * @since    1.0.0
 	 */
-	public function load_plugin_textdomain() {
+	function load_plugin_textdomain() {
 
 		$domain = $this->plugin_slug;
 		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
@@ -196,7 +203,7 @@ class PixTypes {
 	 *
 	 * @return    null    Return early if no settings page is registered.
 	 */
-	public function enqueue_admin_styles() {
+	function enqueue_admin_styles() {
 
 		if ( ! isset( $this->plugin_screen_hook_suffix ) ) {
 			return;
@@ -216,7 +223,7 @@ class PixTypes {
 	 *
 	 * @return    null    Return early if no settings page is registered.
 	 */
-	public function enqueue_admin_scripts() {
+	function enqueue_admin_scripts() {
 
 		if ( ! isset( $this->plugin_screen_hook_suffix ) ) {
 			return;
@@ -233,7 +240,7 @@ class PixTypes {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() {
+	function enqueue_styles() {
 		wp_enqueue_style( $this->plugin_slug . '-plugin-styles', plugins_url( 'css/public.css', __FILE__ ), array(), $this->version );
 	}
 
@@ -249,7 +256,7 @@ class PixTypes {
 	/**
 	 * Register the administration menu for this plugin into the WordPress Dashboard menu.
 	 */
-	public function add_plugin_admin_menu() {
+	function add_plugin_admin_menu() {
 
 		$this->plugin_screen_hook_suffix = add_options_page(
 			__( 'PixTypes', $this->plugin_slug ),
@@ -264,14 +271,14 @@ class PixTypes {
 	/**
 	 * Render the settings page for this plugin.
 	 */
-	public function display_plugin_admin_page() {
+	function display_plugin_admin_page() {
 		include_once( 'views/admin.php' );
 	}
 
 	/**
 	 * Add settings action link to the plugins page.
 	 */
-	public function add_action_links( $links ) {
+	function add_action_links( $links ) {
 		return array_merge( array( 'settings' => '<a href="' . admin_url( 'plugins.php?page=pixtypes' ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>' ), $links );
 	}
 
@@ -284,7 +291,7 @@ class PixTypes {
 	 * @param $slug string
 	 * @return boolean
 	 */
-	function is_custom_post_type_slug_unique( $slug ){
+	static function is_custom_post_type_slug_unique( $slug ){
 
 		global $wp_post_types;
 		$is_unique = true; /** Suppose it's true */
@@ -307,7 +314,7 @@ class PixTypes {
 	 * @param $slug string
 	 * @return boolean
 	 */
-	function is_tax_slug_unique( $slug ){
+	static function is_tax_slug_unique( $slug ){
 
 		global $wp_taxonomies;
 		$is_unique = true; /** Suppose it's true */
