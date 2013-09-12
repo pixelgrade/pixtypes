@@ -90,8 +90,7 @@ class PixTypes {
 //		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 //		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
-		add_action( 'init', array( $this, 'register_entities'), 999999);
-		add_action( 'shutdown', array( $this, 'on_shutdown' ) );
+		add_action( 'init', array( $this, 'register_entities'), 99999);
 	}
 
 	/**
@@ -120,43 +119,56 @@ class PixTypes {
 	 */
 	public static function activate( $network_wide ) {
 
-		// get options defined by theme
+		/** get options defined by theme */
 		$theme_types = get_option('pixtypes_theme_settings');
 		$types_settings = get_option('pixtypes_settings');
-		$theme_name = WPGRADE_SHORTNAME;
+		$theme_name = WPGRADE_SHORTNAME; /** current theme name*/
 
-		/**
-		 * Check if the current theme has theme options in db
-		 */
-
-		$to_check =  $theme_name . '_pixtypes_theme';
-		$key_exists = array_key_exists($to_check, $theme_types);
-		if ( $key_exists ) {
-
-			/**
-			 * Check if theme options have already been ported in plugin options
-			 * In this case return true, we have nothing else to do here
-			 */
-			$plugin_has_this = array_key_exists($theme_name, $types_settings['themes']);
-			if ( $plugin_has_this ){
-				return;
-			} else {
-				$types_settings['themes'][$theme_name] = $types_settings[$to_check];
-				update_option('pixtypes_settings', $types_settings);
-			}
+		if ( empty($types_settings) ) { /** if this is empty we still need to initialize the plugin*/
+			$types_settings = array('themes' => array());
 		}
 
-		// go through themes options
-		foreach ( $theme_types as $key => $theme ) {
-			// for what ??
+		$current_theme = $theme_name . '_pixtypes_theme';
+		$key_exists = array_key_exists($current_theme, $theme_types);
+		$plugin_has_this = array_key_exists($theme_name, $types_settings['themes']);
+
+		/** Check if theme options have already been imported in plugin options or if we have something to import */
+		if ( $key_exists && !$plugin_has_this ) {
+
+			/** POST TYPES **/
+			if (!empty( $theme_types[$current_theme]['post_types']) ){
+				foreach ( $theme_types[$current_theme]['post_types'] as $key => $post_type ) {
+
+					$testable_slug = str_replace ( $theme_name.'-', '', $post_type["rewrite"]["slug"]);
+
+					if ( isset( $post_type["rewrite"] ) && self::is_custom_post_type_slug_unique($testable_slug) ) {
+						/** this slug is unique we can quit the theme suffix */
+						$theme_types[$current_theme]['post_types'][$key]["rewrite"]["slug"] = $testable_slug;
+					}
+				}
+			}
+
+			/** TAXONOMIES **/
+			if (!empty( $theme_types[$current_theme]['taxonomies'] ) ) {
+				foreach ( $theme_types[$current_theme]['taxonomies'] as $key => $tax ) {
+
+					$testable_slug = str_replace ( $theme_name.'-', '', $tax["rewrite"]["slug"]);
+
+					if ( isset( $tax["rewrite"] ) && self::is_tax_slug_unique($testable_slug) ) {
+						/** this slug is unique we can quit the theme suffix */
+						$theme_types[$current_theme]['taxonomies'][$key]["rewrite"]["slug"] = $testable_slug;
+					}
+				}
+			}
+
+			$types_settings['themes'][$theme_name] = $theme_types[$current_theme];
+//				update_option('pixtypes_settings', $types_settings);
 		}
 	}
 
 	/**
 	 * Fired when the plugin is deactivated.
-	 *
 	 * @since    1.0.0
-	 *
 	 * @param    boolean    $network_wide    True if WPMU superadmin uses "Network Deactivate" action, false if WPMU is disabled or plugin is deactivated on an individual blog.
 	 */
 	public static function deactivate( $network_wide ) {
@@ -268,26 +280,48 @@ class PixTypes {
 	}
 
 	/**
-	 * Ensure that we input an unique slug for a custom post type
-	 * @param $post_type string keyname for a custom post type
-	 * @return string $slug
+	 * Check if this post_type's slug is unique
+	 * @param $slug string
+	 * @return boolean
 	 */
-	function resolve_custom_post_type_slug( $post_type ){
-		$slug = null;
-		$object = get_post_type_object( $post_type );
-		// if the rewrite is defined, we get the slug
-		$rewrite = $object->rewrite;
-		if ( is_array( $rewrite ) ) {
-			$slug = $rewrite['slug'];
-		} else { // otherwise the  slug is the name of th post type
-			$slug = $post_type;
+	function is_custom_post_type_slug_unique( $slug ){
+
+		global $wp_post_types;
+		$is_unique = true; /** Suppose it's true */
+
+		foreach ( $wp_post_types as $key => $post_type){
+			$rewrite = $post_type->rewrite;
+			/** if this post_type has a rewrite rule check for it */
+			if ( !empty( $rewrite ) && isset($rewrite["slug"]) && $slug == $rewrite["slug"] ){
+				$is_unique = false;
+			} elseif ( $slug == $key ) { /** the post_type doesn't have a slug param, so the slug is the name itself */
+				$is_unique = false;
+			}
 		}
 
-		return $slug;
+		return $is_unique;
 	}
 
+	/**
+	 * Check if this taxnonomie's slug is unique
+	 * @param $slug string
+	 * @return boolean
+	 */
+	function is_tax_slug_unique( $slug ){
 
-	function on_shutdown(){
+		global $wp_taxonomies;
+		$is_unique = true; /** Suppose it's true */
 
+		foreach ( $wp_taxonomies as $key => $tax){
+			$rewrite = $tax->rewrite;
+			/** if this post_type has a rewrite rule check for it */
+			if ( !empty( $rewrite ) && isset($rewrite["slug"]) && $slug == $rewrite["slug"] ){
+				$is_unique = false;
+			} elseif ( $slug == $key ) { /** the post_type doesn't have a slug param, so the slug is the name itself */
+				$is_unique = false;
+			}
+		}
+
+		return $is_unique;
 	}
 }
