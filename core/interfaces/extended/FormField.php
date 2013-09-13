@@ -10,37 +10,24 @@
  * @author     Pixel Grade Team
  * @copyright  (c) 2013, Pixel Grade Media
  */
-interface PixtypesFormField extends PixtypesHTMLTag {
+interface PixtypesFormField extends PixtypesHTMLElement {
 
 	/**
-	 * @param string meta key
-	 * @return boolean true if key exists, false otherwise
+	 * @return boolean true if field has errors
 	 */
-	function hasmeta($key);
+	function has_errors();
 
 	/**
-	 * @return mixed value or default
+	 * @return string first error message
 	 */
-	function getmeta($key, $default = null);
+	function one_error();
 
 	/**
-	 * @return static $this
-	 */
-	function setmeta($key, $value);
-
-	/**
-	 * If the key is currently a non-array value it will be converted to an
-	 * array maintaning the previous value (along with the new one).
+	 * Render field emulates wordpress template behaviour. First searches for
+	 * name, then searches field type and so on.
 	 *
-	 * @param  string name
-	 * @param  mixed  value
-	 * @return static $this
+	 * @return string
 	 */
-	function addmeta($name, $value);
-
-	/**
-	 * @return PixtypesMeta form meta
-	 */
-	function meta();
+	function render();
 
 } # interface

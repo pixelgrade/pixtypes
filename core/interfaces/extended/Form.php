@@ -10,7 +10,7 @@
  * @author     Pixel Grade Team
  * @copyright  (c) 2013, Pixel Grade Media
  */
-interface PixtypesForm extends PixtypesHTMLTag {
+interface PixtypesForm extends PixtypesHTMLElement {
 
 	/**
 	 * @return static $this
@@ -22,38 +22,52 @@ interface PixtypesForm extends PixtypesHTMLTag {
 	 */
 	function field($fieldname);
 
-	// Helpers
-	// ------------------------------------------------------------------------
-
-	/**
-	 * @param string meta key
-	 * @return boolean true if key exists, false otherwise
-	 */
-	function hasmeta($key);
-
-	/**
-	 * @return mixed value or default
-	 */
-	function getmeta($key, $default = null);
-
 	/**
 	 * @return static $this
 	 */
-	function setmeta($key, $value);
+	function errors($errors);
 
 	/**
-	 * If the key is currently a non-array value it will be converted to an
-	 * array maintaning the previous value (along with the new one).
+	 * @param string field name
+	 * @return array error keys with messages
+	 */
+	function errors_for($fieldname);
+
+	/**
+	 * Autocomplete meta object passed on by the processor.
 	 *
-	 * @param  string name
-	 * @param  mixed  value
+	 * @param PixtypesMeta autocomplete values
 	 * @return static $this
 	 */
-	function addmeta($name, $value);
+	function autocomplete(PixtypesMeta $autocomplete);
 
 	/**
-	 * @return PixtypesMeta form meta
+	 * Retrieves the value registered for auto-complete. This will not fallback
+	 * to the default value set in the configuration since fields are
+	 * responsible for managing their internal complexity.
+	 *
+	 * Typically the autocomplete values are what the processor passes on to
+	 * the form.
+	 *
+	 * @return mixed
 	 */
-	function meta();
+	function autovalue($key, $default = null);
+
+	/**
+	 * @return string
+	 */
+	function startform();
+
+	/**
+	 * @return string
+	 */
+	function endform();
+
+	/**
+	 * @param string template path
+	 * @param array  configuration
+	 * @return string
+	 */
+	function fieldtemplate($templatepath, $conf = array());
 
 } # interface

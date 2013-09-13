@@ -6,6 +6,7 @@
 	/* @var string $idname */
 	/* @var string $label */
 	/* @var string $desc */
+	/* @var string $rendering */
 
 	// [!!] the counter field needs to be able to work inside other fields; if
 	// the field is in another field it will have a null label
@@ -15,14 +16,14 @@
 	$attrs = array
 		(
 			'name' => $name,
-			'type' => 'number',
 			'id' => $idname,
+			'type' => 'number',
 			'value' => $value,
 			'step' => 1,
 			'class' => array(),
 		);
 
-	$is_inline_field = empty($label);
+	$is_inline_field = empty($label) || $rendering == 'inline';
 
 	if ($field->has_errors()) {
 		$error_message = $field->one_error();

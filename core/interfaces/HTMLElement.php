@@ -10,23 +10,23 @@
  * @author     Pixel Grade Team
  * @copyright  (c) 2013, Pixel Grade Media
  */
-interface PixtypesMeta {
+interface PixtypesHTMLElement {
 
 	/**
 	 * @param string meta key
 	 * @return boolean true if key exists, false otherwise
 	 */
-	function has($key);
+	function hasmeta($key);
 
 	/**
 	 * @return mixed value or default
 	 */
-	function get($key, $default = null);
+	function getmeta($key, $default = null);
 
 	/**
 	 * @return static $this
 	 */
-	function set($key, $value);
+	function setmeta($key, $value);
 
 	/**
 	 * Set the key if it's not already set.
@@ -34,7 +34,7 @@ interface PixtypesMeta {
 	 * @param string key
 	 * @param string value
 	 */
-	function ensure($key, $value);
+	function ensuremeta($key, $value);
 
 	/**
 	 * If the key is currently a non-array value it will be converted to an
@@ -44,18 +44,11 @@ interface PixtypesMeta {
 	 * @param  mixed  value
 	 * @return static $this
 	 */
-	function add($name, $value);
+	function addmeta($name, $value);
 
 	/**
-	 * @return array all metadata as array
+	 * @return PixtypesMeta form meta
 	 */
-	function metadata_array();
-
-	/**
-	 * Shorthand for a calling set on multiple keys.
-	 *
-	 * @return static $this
-	 */
-	function overwritemeta($overwrites);
+	function meta();
 
 } # interface

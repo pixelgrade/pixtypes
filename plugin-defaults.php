@@ -2,9 +2,23 @@
 	(
 		// Default article settings
 		'enable_portfolio' => true,
-		'portfolio_single_item_label' => 'Proiect',
-		'portfolio_multiple_items_label' => 'Proiects'
 
-		// Other comment settings
-	
+	#
+	# "Technical Stuff" fields
+	#
+
+		'portfolio_single_item_label' => 'Proiect',
+		'portfolio_multiple_items_label' => 'Proiects',
+
+		'portfolio_change_single_item_slug' => true,
+		'portfolio_new_single_item_slug' => 'portfolio',
+
+		'portfolio_change_archive_slug' => false,
+		'portfolio_new_archive_slug' => '',
+
+		'portfolio_change_category_slug' => true,
+		'portfolio_new_category_slug' => 'portfolio-category',
+
+		'portfolio_use_tags' => true
+
 	); # config

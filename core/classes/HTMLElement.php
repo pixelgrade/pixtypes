@@ -15,7 +15,7 @@
  * @author     Pixel Grade Team
  * @copyright  (c) 2013, Pixel Grade Media
  */
-class PixtypesHTMLElementImpl extends PixtypesHTMLTagImpl {
+class PixtypesHTMLElementImpl extends PixtypesHTMLTagImpl implements PixtypesHTMLElement {
 
 	/** @var array configuration values */
 	protected $meta = null;
@@ -73,6 +73,17 @@ class PixtypesHTMLElementImpl extends PixtypesHTMLTagImpl {
 	 */
 	function setmeta($key, $value) {
 		$this->meta->set($key, $value);
+		return $this;
+	}
+
+	/**
+	 * Set the key if it's not already set.
+	 *
+	 * @param string key
+	 * @param string value
+	 */
+	function ensuremeta($key, $value) {
+		$this->meta->ensure($key, $value);
 		return $this;
 	}
 

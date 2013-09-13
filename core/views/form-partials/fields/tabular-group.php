@@ -6,6 +6,7 @@
 	/* @var string $idname */
 	/* @var string $label */
 	/* @var string $desc */
+	/* @var string $rendering */
 ?>
 
 <tr valign="top">

@@ -6,6 +6,7 @@
 	/* @var string $idname */
 	/* @var string $label */
 	/* @var string $desc */
+	/* @var string $rendering */
 
 	// [!!] a switch is a checkbox that is only ever either on or off; not to
 	// be confused with a fully functional checkbox which may be many values
@@ -42,7 +43,11 @@
 
 ?>
 
-<label for="<?php echo $idname ?>">
+<?php if ($rendering == 'inline'): ?>
 	<input <?php echo $field->htmlattributes($attrs) ?> />
-	<?php echo $processed_label ?>
-</label>
+<?php else: # rendering != 'inline' ?>
+	<label for="<?php echo $idname ?>">
+		<input <?php echo $field->htmlattributes($attrs) ?> />
+		<?php echo $processed_label ?>
+	</label>
+<?php endif; ?>

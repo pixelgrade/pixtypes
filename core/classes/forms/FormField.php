@@ -46,8 +46,8 @@ class PixtypesFormFieldImpl extends PixtypesHTMLElementImpl implements PixtypesF
 	// ------------------------------------------------------------------------
 
 	/**
-	 * Emulates wordpress template behaviour. First searches for name, then
-	 * searches field type and so on.
+	 * Render field emulates wordpress template behaviour. First searches for
+	 * name, then searches field type and so on.
 	 *
 	 * @return string
 	 */
@@ -79,7 +79,7 @@ class PixtypesFormFieldImpl extends PixtypesHTMLElementImpl implements PixtypesF
 			}
 		}
 
-		throw new Exception('Failed to match any pattern for field ['.$this->getmeta('name').'] of type '.$this->getmeta('type'));
+		throw new Exception('Failed to match any pattern for field ['.$this->getmeta('name').'] of type '.$this->getmeta('type', '[unknown]'));
 	}
 
 	/**
@@ -94,6 +94,7 @@ class PixtypesFormFieldImpl extends PixtypesHTMLElementImpl implements PixtypesF
 		$label = $this->getmeta('label', null);
 		$default = $this->getmeta('default', null);
 		$desc = $this->getmeta('desc', '');
+		$rendering = $this->getmeta('rendering', 'standard');
 
 		// cleaned name (names may be "something[]")
 		$idname = preg_replace('/[^a-zA-Z0-9_-]/', '', $name);

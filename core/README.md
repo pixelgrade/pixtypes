@@ -13,6 +13,7 @@ The following are system reserved field metadata keys:
  - form (internal)
  - cleanup (optional)
  - checks (optional)
+ - rendering (optional)
 
 Field detection
 ---------------

@@ -16,37 +16,8 @@ return array
 
 		'fields' => array
 			(
-				'article_settings_sample' => array
-					(
-						'type' => 'tabular-group',
-						'label' => 'Portfolio',
-
-						// Custom field settings
-						// ---------------------
-
-						'options' => array
-							(
-								'enable_portfolio' => array
-									(
-										'label' => 'Enable Portfolio',
-										'default' => true,
-										'type' => 'switch',
-									),
-								'portfolio_single_item_label' => array
-									(
-										'label' => 'Single Item Label',
-										'description' => '',
-										'default' => true,
-										'type' => 'text',
-									),
-								'portfolio_multiple_items_label' => array
-									(
-										'label' => 'Multiple Items Label (plural)',
-										'default' => true,
-										'type' => 'text',
-									),
-							)
-					),
+				'technical_stuff'
+					=> include 'settings/technical_stuff'.EXT,
 			),
 
 		'cleanup' => array

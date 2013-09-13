@@ -1,48 +1,33 @@
 <?php
-/**
- * Represents the view for the administration dashboard.
- *
- * This includes the header, options, and other information that should provide
- * The User Interface to the end user.
- *
- * @package   PixTypes
- * @author    Pixelgrade <contact@pixelgrade.com>
- * @license   GPL-2.0+
- * @link      http://pixelgrade.com
- * @copyright 2013 Pixelgrade Media
- */
+	/**
+	 * Represents the view for the administration dashboard.
+	 *
+	 * This includes the header, options, and other information that should
+	 * provide the user interface to the end user.
+	 *
+	 * @package   PixTypes
+	 * @author    Pixelgrade <contact@pixelgrade.com>
+	 * @license   GPL-2.0+
+	 * @link      http://pixelgrade.com
+	 * @copyright 2013 Pixel Grade Media
+	 */
 
-$config = include pixtypes::pluginpath().'plugin-config'.EXT;
+	$config = include pixtypes::pluginpath().'plugin-config'.EXT;
 
-// invoke processor
-$processor = pixtypes::processor($config);
-$status = $processor->status();
-$errors = $processor->errors();
+	// invoke processor
+	$processor = pixtypes::processor($config);
+	$status = $processor->status();
+	$errors = $processor->errors();
 ?>
 
-<style>
-
-		/*
-			THIS IS JUST FOR THE EXAMPLE
-			Please do not place styles like this.
-		*/
-
-	.field-error {
-		color: red  !important;
-	}
-	input[type="number"].field-error {
-		border-color: lightcoral !important;
-	}
-
-</style>
 
 <div class="wrap">
 
 	<div id="icon-options-general" class="icon32"><br></div>
 
-	<h2>Mock WP Plugin</h2>
+	<h2>Pixtypes</h2>
 
-	<?php if ($status['state'] == 'nominal'): ?>
+	<?php if ($processor->ok()): ?>
 
 		<?php if ( ! empty($errors)): ?>
 			<br/>
@@ -52,32 +37,22 @@ $errors = $processor->errors();
 			</p>
 		<?php endif; ?>
 
+		<?php if ($processor->performed_update()): ?>
+			<br/>
+			<p class="update-nag">
+				Settings have been updated.
+			</p>
+		<?php endif; ?>
+
 		<?php echo $f = pixtypes::form($config, $processor) ?>
 
-		<h3 style="display: none">General Settings</h3>
+			<h3>Portfolio Options</h3>
 
-		<table class="form-table">
+			<?php echo $f->field('technical_stuff')->render() ?>
 
-			<?php echo $f->field('article_settings_sample')
-				->setmeta('note', 'These settings may be overridden for individual articles.')
-				->render() ?>
-
-		</table>
-
-		<?php /* # sample block ?>
-
-				<?php # HowTo: show all entries defined in the configuration ?>
-				<?php echo $f->fieldtemplate
-					(
-						$coretemplatepath.'linear'.EXT,
-						array('fields' => array_keys($config['fields']))
-					) ?>
-
-			<?php //*/# end sample block ?>
-
-		<button type="submit" class="button button-primary">
-			Save Changes
-		</button>
+			<button type="submit" class="button button-primary">
+				Save Changes
+			</button>
 
 		<?php echo $f->endform() ?>
 

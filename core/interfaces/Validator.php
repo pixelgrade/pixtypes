@@ -17,4 +17,10 @@ interface PixtypesValidator {
 	 */
 	function validate($input);
 
+	/**
+	 * @param string rule
+	 * @return string error message
+	 */
+	function error_message($rule);
+
 } # interface

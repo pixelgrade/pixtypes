@@ -53,6 +53,20 @@ class PixtypesMetaImpl implements PixtypesMeta {
 	}
 
 	/**
+	 * Set the key if it's not already set.
+	 *
+	 * @param string key
+	 * @param string value
+	 */
+	function ensure($key, $value) {
+		if ( ! $this->has($key)) {
+			$this->set($key, $value);
+		}
+		
+		return $this;
+	}
+
+	/**
 	 * If the key is currently a non-array value it will be converted to an
 	 * array maintaning the previous value (along with the new one).
 	 *

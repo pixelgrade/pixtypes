@@ -22,4 +22,28 @@ interface PixtypesProcessor {
 	 */
 	function status();
 
+	/**
+	 * @return PixtypesMeta current data (influenced by user submitted data)
+	 */
+	function data();
+
+	/**
+	 * Shorthand.
+	 *
+	 * @return array
+	 */
+	function errors();
+
+	/**
+	 * Shorthand.
+	 *
+	 * @return boolean
+	 */
+	function performed_update();
+
+	/**
+	 * @return boolean true if state is nominal
+	 */
+	function ok();
+
 } # interface

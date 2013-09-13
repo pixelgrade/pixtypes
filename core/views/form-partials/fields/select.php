@@ -6,6 +6,7 @@
 	/* @var string $idname */
 	/* @var string $label */
 	/* @var string $desc */
+	/* @var string $rendering */
 
 	// [!!] the counter field needs to be able to work inside other fields; if
 	// the field is in another field it will have a null label
@@ -14,8 +15,8 @@
 
 	$attrs = array
 		(
-			'id' => $idname,
 			'name' => $name,
+			'id' => $idname,
 		);
 ?>
 

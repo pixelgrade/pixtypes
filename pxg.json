@@ -3,7 +3,7 @@
 		{
 			"repo": "https://github.com/pixelgrade/pixcore.git",
 			"path": "core",
-			"version": "1.0.2",
+			"version": "1.1.0",
 			"namespace": {
 				"src": "pixcore",
 				"target": "pixtypes"
