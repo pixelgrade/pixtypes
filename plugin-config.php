@@ -66,12 +66,7 @@ return array
 
 		'callbacks' => array
 			(
-				// cleanup callbacks
-				'switch_not_available' => 'pixtypes_cleanup_switch_not_available',
-
-				// validation callbacks
-				'is_numeric' => 'pixtypes_validate_is_numeric',
-				'not_empty' => 'pixtypes_validate_not_empty'
+				// empty
 			),
 
 		// shows exception traces on error
