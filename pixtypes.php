@@ -45,7 +45,7 @@ pixtypes::settextdomain($config['textdomain']);
 $defaults = include 'plugin-defaults'.EXT;
 
 $current_data = get_option($config['plugin-name']);
-//var_dump($current_data);
+
 if ($current_data === false) {
 	add_option($config['plugin-name'], $defaults);
 }
