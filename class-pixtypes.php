@@ -15,7 +15,7 @@
  * @package PixTypes
  * @author    Pixelgrade <contact@pixelgrade.com>
  */
-class PixTypes {
+class PixTypesPlugin {
 
 	/**
 	 * Plugin version, used for cache-busting of style and script file references.

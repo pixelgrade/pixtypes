@@ -1,24 +1,22 @@
-<?php
-function load_all_files($directory)
-{
-    foreach (scandir($directory) as $file) {
-        if ($file == '.' || $file == '..') {
-            continue;
-        }
-        if (is_dir($directory . DIRECTORY_SEPARATOR . $file)) {
-            load_all_files($directory . DIRECTORY_SEPARATOR . $file);
-        } else {
+<?php defined('ABSPATH') or die;
 
-            echo $directory . DIRECTORY_SEPARATOR . $file;
-            require_once $directory . DIRECTORY_SEPARATOR . $file;
-        }
-    }
-}
+	// ensure EXT is defined
+	if ( ! defined('EXT')) {
+		define('EXT', '.php');
+	}
 
-include_once __DIR__ . DIRECTORY_SEPARATOR . 'PixTypesPixTypesFormField.php';
-include_once __DIR__.DIRECTORY_SEPARATOR.'Interfaces/PixTypesFormManagerInterface.php';
-include_once __DIR__.DIRECTORY_SEPARATOR.'Interfaces/PixTypesFormRendererInterface.php';
-include_once __DIR__ . DIRECTORY_SEPARATOR . 'PixTypesFormBuilder.php';
-include_once __DIR__ . DIRECTORY_SEPARATOR . 'PixTypesFormOptionsManager.php';
-include_once __DIR__ . DIRECTORY_SEPARATOR . 'AdminPixTypesFormRenderer.php';
+	$basepath = dirname(__FILE__).DIRECTORY_SEPARATOR;
+	require $basepath.'core'.EXT;
 
+	// load classes
+
+	$interfacepath = $basepath.'interfaces'.DIRECTORY_SEPARATOR;
+	pixtypes::require_all($interfacepath);
+
+	$classpath = $basepath.'classes'.DIRECTORY_SEPARATOR;
+	pixtypes::require_all($classpath);
+
+	// load callbacks
+
+	$callbackpath = $basepath.'callbacks'.DIRECTORY_SEPARATOR;
+	pixtypes::require_all($callbackpath);

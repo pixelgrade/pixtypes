@@ -25,11 +25,41 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+
+// ensure EXT is defined
+if ( ! defined('EXT')) {
+	define('EXT', '.php');
+}
+
+require 'core/bootstrap'.EXT;
+
+$config = include 'plugin-config'.EXT;
+
+// set textdomain
+pixtypes::settextdomain($config['textdomain']);
+
+
+// Ensure Test Data
+// ----------------
+
+$defaults = include 'plugin-defaults'.EXT;
+
+$current_data = get_option($config['plugin-name']);
+//var_dump($current_data);
+if ($current_data === false) {
+	add_option($config['plugin-name'], $defaults);
+}
+else if (count(array_diff_key($defaults, $current_data)) != 0) {
+	$plugindata = array_merge($defaults, $current_data);
+	update_option($config['plugin-name'], $plugindata);
+}
+# else: data is available; do nothing
+
 require_once( plugin_dir_path( __FILE__ ) . 'class-pixtypes.php' );
 
 // Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
 register_activation_hook( __FILE__, array( 'PixTypes', 'activate' ) );
 //register_deactivation_hook( __FILE__, array( 'PixTypes', 'deactivate' ) );
 
-global $pixtypes;
-$pixtypes = PixTypes::get_instance();
+global $pixtypes_plugin;
+$pixtypes_plugin = PixTypesPlugin::get_instance();
