@@ -34,7 +34,7 @@ if ( ! defined('EXT')) {
 require 'core/bootstrap'.EXT;
 
 $config = include 'plugin-config'.EXT;
-
+$config = include 'features/class-pix-query'.EXT;
 // set textdomain
 pixtypes::settextdomain($config['textdomain']);
 
