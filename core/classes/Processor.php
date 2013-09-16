@@ -108,7 +108,10 @@ class PixtypesProcessorImpl implements PixtypesProcessor {
 
 				if (empty($errors)) {
 					$this->status['dataupdate'] = true;
-					update_option($option_key, $input);
+
+					$current_values = get_option($option_key);
+					$new_option = array_merge($current_values, $input);
+					update_option($option_key, $new_option);
 					$this->data = pixtypes::instance('PixtypesMeta', $input);
 				}
 				else { // got errors

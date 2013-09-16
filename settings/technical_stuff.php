@@ -11,7 +11,6 @@
 				'enable_portfolio' => array
 				(
 					'label' => 'Enable Portfolio',
-//					'desc' => 'Here you can change the singular label.The default is "Project"',
 					'default' => true,
 					'type' => 'switch',
 				),
@@ -73,5 +72,4 @@
 						'type' => 'switch',
 					),
 			)
-
 	); # config

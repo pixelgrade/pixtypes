@@ -287,7 +287,7 @@ class PixTypesPlugin {
 	}
 
 	function register_entities(){
-		require_once( $this->plugin_basepath . 'features/custom-entities/custom-post-types.php' );
+		require_once( $this->plugin_basepath . 'features/custom-entities.php' );
 		require_once( $this->plugin_basepath . 'features/metaboxes/metaboxes.php' );
 	}
 

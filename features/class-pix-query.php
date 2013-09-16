@@ -3,7 +3,8 @@
 class Pix_Query extends Wp_Query {
 
 	function get_post_metabox( $key = '', $args = array() ) {
-
+		global $post;
+		$ids = get_post_meta( $post->ID, $key, true );
 	}
 
 	/**
@@ -14,7 +15,7 @@ class Pix_Query extends Wp_Query {
 
 	function get_gallery_ids(){
 		global $post;
-		var_dump( get_post_meta( $post->ID, '_lens_portfolio_gallery', true ) );
+		$ids = get_post_meta( $post->ID, '_lens_portfolio_gallery', true );
+		return $ids;
 	}
-
 }
