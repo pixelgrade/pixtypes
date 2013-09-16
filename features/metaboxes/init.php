@@ -428,27 +428,27 @@ class cmb_Meta_Box {
                     break;
                 case 'portfolio-gallery':
 
-                    $file_path = WPGRADE_LIB_PATH.'inc/metaboxes/fields/portfolio-gallery.php';
+                    $file_path = plugin_basename(__FILE__ ) . 'fields/portfolio-gallery.php';
                     if ( file_exists($file_path) ) {
                         ob_start();
                         include( $file_path );
                         echo ob_get_clean();
                     } else {
                         echo '<p>Wrong path </p>';
-                        util::var_dump( $file_path );
+//                        util::var_dump( $file_path );
                     }
 
                 break;
 				case 'gallery':
 
-					$file_path = WPGRADE_LIB_PATH.'inc/metaboxes/fields/gallery.php';
+					$file_path = plugin_dir_path(__FILE__ ) . 'fields/gallery.php';
 					if ( file_exists($file_path) ) {
 						ob_start();
 						include( $file_path );
 						echo ob_get_clean();
 					} else {
 						echo '<p>Wrong path </p>';
-						util::var_dump( $file_path );
+//						util::var_dump( $file_path );
 					}
 
 					break;
@@ -609,8 +609,7 @@ function cmb_scripts( $hook ) {
 			$cmb_script_array[] = 'farbtastic';
 			$cmb_style_array[] = 'farbtastic';
 		}
-		wp_register_style( 'meta-font-awesome', WPGRADE_CSS_URL . 'vendor/font-awesome/font-awesome.css' );
-		$cmb_style_array[] = 'meta-font-awesome';
+
 		wp_register_script( 'cmb-timepicker', CMB_META_BOX_URL . 'js/jquery.timePicker.min.js' );
 		wp_register_script( 'pixgallery', CMB_META_BOX_URL . 'js/pixgallery.js' );
 		wp_register_script( 'cmb-scripts', CMB_META_BOX_URL . 'js/cmb.js', $cmb_script_array, '0.9.1' );
@@ -748,7 +747,10 @@ function ajax_pixgallery_preview(){
 
 	$result = array('success' => false, 'output' => '');
 	$ids = $_REQUEST['attachments_ids'];
-	if ( empty($ids) ) exit;
+	if ( empty($ids) ) {
+		echo json_encode( $result );
+		exit;
+	}
 
 	$ids = explode( ',', $ids );
 

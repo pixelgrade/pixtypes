@@ -1,14 +1,14 @@
 <?php
 
 // register post types
-$portfolio_enabled = true;
-
-if ( $portfolio_enabled ) {
+$options = get_option('pixtypes_settings');
+//var_dump($options);
+if ( isset($options["enable_portfolio"]) && $options["enable_portfolio"] ) {
 
 	// go through each theme and activate portfolio post types
-	$theme_types = get_option('pixtypes_settings');
-	if ( empty($theme_types) || !array($theme_types)) return;
 
+	if ( empty($options["themes"]) || !array($options["themes"])) return;
+	$theme_types = $options["themes"];
 	foreach ( $theme_types as $key => $theme ) {
 
 		// post types

@@ -1,4 +1,6 @@
-/** 
+@import "font-awesome/font-awesome";
+
+/**
  * CMB Styling
  */
 table.cmb_metabox td, table.cmb_metabox th { border-bottom: 1px solid #E9E9E9; }
@@ -15,7 +17,7 @@ table.cmb_metabox input.cmb_text_money { width: 90px; margin-right: 15px;}
 table.cmb_metabox input.cmb_text_medium { width: 230px; margin-right: 15px;}
 table.cmb_metabox input.cmb_upload_file { width: 65%; }
 table.cmb_metabox li { font-size:12px; margin: 1px 0 5px 0; line-height: 16px; }
-table.cmb_metabox ul { padding-top:5px; margin: 0; } 
+table.cmb_metabox ul { padding-top:5px; margin: 0; }
 table.cmb_metabox select { font-size:12px; margin-top: 3px;}
 table.cmb_metabox input:focus, table.cmb_metabox textarea:focus { background: #fffff8;}
 .cmb_metabox_title { margin: 0 0 5px 0; padding: 5px 0 0 0; font: italic 24px/35px Georgia,"Times New Roman","Bitstream Charter",Times,serif;}
@@ -324,15 +326,15 @@ div.time-picker li.selected { background: #0063CE; color: #fff; }
 .cmb_element .ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header { border-right-width:0; border-left-width:1px; }
 .cmb_element .ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header { border-right-width:0; border-left-width:1px; }
 .cmb_element .ui-datepicker-cover {
-  display: none; /*sorry for IE5*/
-  display/**/: block; /*sorry for IE5*/
-  position: absolute; /*must have*/
-  z-index: -1; /*must have*/
-  filter: mask(); /*must have*/
-  top: -4px; /*must have*/
-  left: -4px; /*must have*/
-  width: 200px; /*must have*/
-  height: 200px; /*must have*/
+	display: none; /*sorry for IE5*/
+	display/**/: block; /*sorry for IE5*/
+	position: absolute; /*must have*/
+	z-index: -1; /*must have*/
+	filter: mask(); /*must have*/
+	top: -4px; /*must have*/
+	left: -4px; /*must have*/
+	width: 200px; /*must have*/
+	height: 200px; /*must have*/
 }
 
 /* Image gallery */

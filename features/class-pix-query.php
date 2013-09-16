@@ -12,9 +12,9 @@ class Pix_Query extends Wp_Query {
 	 * @return array $ids
 	 */
 
-	function get_gallery_ids() {
+	function get_gallery_ids(){
 		global $post;
-		var_dump(get_post_meta($post->ID));
+		var_dump( get_post_meta( $post->ID, '_lens_portfolio_gallery', true ) );
 	}
 
 }

@@ -34,7 +34,7 @@ if ( ! defined('EXT')) {
 require 'core/bootstrap'.EXT;
 
 $config = include 'plugin-config'.EXT;
-$config = include 'features/class-pix-query'.EXT;
+include 'features/class-pix-query'.EXT;
 // set textdomain
 pixtypes::settextdomain($config['textdomain']);
 
@@ -46,7 +46,7 @@ $defaults = include 'plugin-defaults'.EXT;
 $current_data = get_option($config['settings-key']);
 
 if ($current_data === false) {
-	add_option($config['plugin-name'], $defaults);
+	add_option($config['settings-key'], $defaults);
 }
 else if (count(array_diff_key($defaults, $current_data)) != 0) {
 	$plugindata = array_merge($defaults, $current_data);
@@ -57,8 +57,8 @@ else if (count(array_diff_key($defaults, $current_data)) != 0) {
 require_once( plugin_dir_path( __FILE__ ) . 'class-pixtypes.php' );
 
 // Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
-register_activation_hook( __FILE__, array( 'PixTypes', 'activate' ) );
-//register_deactivation_hook( __FILE__, array( 'PixTypes', 'deactivate' ) );
+register_activation_hook( __FILE__, array( 'PixTypesPlugin', 'activate' ) );
+//register_deactivation_hook( __FILE__, array( 'PixTypesPlugin', 'deactivate' ) );
 
 global $pixtypes_plugin;
 $pixtypes_plugin = PixTypesPlugin::get_instance();

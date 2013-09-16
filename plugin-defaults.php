@@ -16,9 +16,6 @@
 		'portfolio_change_archive_slug' => false,
 		'portfolio_new_archive_slug' => '',
 
-		'portfolio_change_category_slug' => true,
-		'portfolio_new_category_slug' => 'portfolio-category',
-
 		'portfolio_use_tags' => true
 
 	); # config

@@ -73,7 +73,7 @@ class PixTypesPlugin {
 		$this->plugin_basepath = plugin_dir_path( __FILE__ );
 
 		// Load plugin text domain
-		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
+//		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
 		// Add the options page and menu item.
 		 add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
@@ -118,63 +118,63 @@ class PixTypesPlugin {
 	 * @param    boolean    $network_wide    True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog.
 	 */
 	public static function activate( $network_wide ) {
-//		ob_start();
-//		/** get options defined by themes */
-//		$theme_types = get_option('pixtypes_theme_settings');
-//		$types_settings = get_option($config['settings-key']);
-//		$current_theme = '_pixtypes_theme';
-//
-//		// init settings
-//		if ( empty($theme_types) ) {
-//			$theme_types = array();
-//		}
-//
-//		if ( empty($types_settings) ) {
-//			$types_settings = array('themes' => array());
-//		}
-//
-//		/** A pixelgrade theme will always have this constant so we know we can import new settings **/
-////		if ( defined('WPGRADE_SHORTNAME') ) $current_theme = WPGRADE_SHORTNAME . $current_theme;
-//
-//		if (class_exists('wpgrade') ) $current_theme = wpgrade::shortname() . $current_theme;
-//
-//		if ( !empty($theme_types) ) {
-//			foreach ( $theme_types as $theme_key => $theme) {
-//				$theme_name = str_replace('_pixtypes_theme', '', $theme_key);
-//				/** for our current theme we try to prioritize slugs */
-//				if ( $theme_key == $current_theme ) {
-//
-//					/** POST TYPES slugs **/
-//					if (!empty( $theme_types[$current_theme]['post_types']) ){
-//						foreach ( $theme_types[$current_theme]['post_types'] as $key => $post_type ) {
-//							$testable_slug = $is_slug_unique = '';
-//							$testable_slug = str_replace ( $theme_name.'-', '', $post_type["rewrite"]["slug"]);
-//							if ( isset( $post_type["rewrite"] ) && self::is_custom_post_type_slug_unique($testable_slug) ) {
-//								/** this slug is unique we can quit the theme suffix */
-//								$theme_types[$current_theme]['post_types'][$key]["rewrite"]["slug"] = $testable_slug;
-//							}
-//						}
-//					}
-//
-//					/** TAXONOMIES slugs **/
-//					if (!empty( $theme_types[$current_theme]['taxonomies'] ) ) {
-//						foreach ( $theme_types[$current_theme]['taxonomies'] as $key => $tax ) {
-//							$testable_slug = $is_slug_unique = '';
-//							$testable_slug = str_replace ( $theme_name.'-', '', $tax["rewrite"]["slug"]);
-//							if ( isset( $tax["rewrite"] ) && self::is_tax_slug_unique($testable_slug) ) {
-//								/** this slug is unique we can quit the theme suffix */
-//								$theme_types[$current_theme]['taxonomies'][$key]["rewrite"]["slug"] = $testable_slug;
-//							}
-//						}
-//					}
-//				}
-//				$types_settings['themes'][$theme_name] = $theme_types[$theme_key];
-//			}
-//		}
-//
-//		update_option($config['settings-key'], $types_settings);
-//
-//		$debug = ob_get_clean();
+		$config = include 'plugin-config.php';
+
+		ob_start();
+		/** get options defined by themes */
+		$theme_types = get_option('pixtypes_themes_settings');
+		$types_settings = get_option($config['settings-key']);
+		$current_theme = '_pixtypes_theme';
+
+		// init settings
+		if ( empty($theme_types) ) {
+			$theme_types = array();
+		}
+
+		if ( empty($types_settings) ) {
+			$types_settings = array('themes' => array());
+		}
+
+		/** A pixelgrade theme will always have this class so we know we can import new settings **/
+		if (class_exists('wpgrade') ) $current_theme = wpgrade::shortname() . $current_theme;
+
+		if ( !empty($theme_types) ) {
+			foreach ( $theme_types as $theme_key => $theme) {
+				$theme_name = str_replace('_pixtypes_theme', '', $theme_key);
+				/** for our current theme we try to prioritize slugs */
+				if ( $theme_key == $current_theme ) {
+
+					/** POST TYPES slugs **/
+					if (!empty( $theme_types[$current_theme]['post_types']) ){
+						foreach ( $theme_types[$current_theme]['post_types'] as $key => $post_type ) {
+							$testable_slug = $is_slug_unique = '';
+							$testable_slug = str_replace ( $theme_name.'-', '', $post_type["rewrite"]["slug"]);
+							if ( isset( $post_type["rewrite"] ) && self::is_custom_post_type_slug_unique($testable_slug) ) {
+								/** this slug is unique we can quit the theme suffix */
+								$theme_types[$current_theme]['post_types'][$key]["rewrite"]["slug"] = $testable_slug;
+							}
+						}
+					}
+
+					/** TAXONOMIES slugs **/
+					if (!empty( $theme_types[$current_theme]['taxonomies'] ) ) {
+						foreach ( $theme_types[$current_theme]['taxonomies'] as $key => $tax ) {
+							$testable_slug = $is_slug_unique = '';
+							$testable_slug = str_replace ( $theme_name.'-', '', $tax["rewrite"]["slug"]);
+							if ( isset( $tax["rewrite"] ) && self::is_tax_slug_unique($testable_slug) ) {
+								/** this slug is unique we can quit the theme suffix */
+								$theme_types[$current_theme]['taxonomies'][$key]["rewrite"]["slug"] = $testable_slug;
+							}
+						}
+					}
+				}
+				$types_settings['themes'][$theme_name] = $theme_types[$theme_key];
+			}
+		}
+
+		update_option($config['settings-key'], $types_settings);
+
+		$debug = ob_get_clean();
 	}
 
 	/**
@@ -288,6 +288,7 @@ class PixTypesPlugin {
 
 	function register_entities(){
 		require_once( $this->plugin_basepath . 'features/custom-entities/custom-post-types.php' );
+		require_once( $this->plugin_basepath . 'features/metaboxes/metaboxes.php' );
 	}
 
 	/**

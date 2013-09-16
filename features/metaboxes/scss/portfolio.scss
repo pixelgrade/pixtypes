@@ -49,7 +49,7 @@
 				left: 45%;
 				color: #999;
 				z-index: 5;
-				@include single-transition(color, 1s, ease); 
+				@include single-transition(color, 1s, ease);
 			}
 
 			&:hover:after{

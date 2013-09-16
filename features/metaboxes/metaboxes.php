@@ -10,23 +10,21 @@
 
 
 function load_metaboxes_fromdb( array $meta_boxes ){
+	$options = get_option('pixtypes_settings');
+	$theme_types = $options["themes"];
+	if ( empty($theme_types) || !array($theme_types)) return;
+	foreach ( $theme_types as $key => $theme ) {
+		if ( isset( $theme['metaboxes']) && is_array( $theme['metaboxes'] )) {
+			foreach ( $theme['metaboxes'] as $metabox){
+				$meta_boxes[] = $metabox;
+			}
+		}
+	}
 
-	$options = get_option( 'PixTypes_settings' );
-//	echo '<pre>';
-//	var_dump($options);
-//	echo '</pre>';
-
-
-
-	$meta_boxes = get_option( '_wpgrade_theme_metadata'.wpgrade::prefix() );
-	$meta_boxes2 = get_option( '_wpgrade_theme_metadata_citylife_' );
-    if ( is_array($meta_boxes) && is_array($meta_boxes2 ) ) {
-        $meta_boxes = array_merge($meta_boxes, $meta_boxes2);
-    }
 	return $meta_boxes;
 }
 
-add_filter( 'cmb_meta_boxes', 'load_metaboxes_fromdb',1 );
+add_filter( 'cmb_meta_boxes', 'load_metaboxes_fromdb', 1 );
 /**
  * Define the metabox and field configurations.
  *

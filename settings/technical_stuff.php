@@ -8,6 +8,13 @@
 
 		'options' => array
 			(
+				'enable_portfolio' => array
+				(
+					'label' => 'Enable Portfolio',
+//					'desc' => 'Here you can change the singular label.The default is "Project"',
+					'default' => true,
+					'type' => 'switch',
+				),
 				'portfolio_single_item_label' => array
 					(
 						'label' => 'Single Item Label',
@@ -51,29 +58,11 @@
 					(
 						'label' => 'New Category Slug',
 						'desc' => 'Change the portfolio category slug as you need it.',
-						'default' => true,
-						'type' => 'switch',
+						'default' => 'portfolio',
+						'type' => 'text',
 
 						// extra pixtype-group options
 						'pixtype-group-example' => 'from your.domain.com/portfolio in your.domain.com/new-slug',
-						'pixtype-group-note' => 'After you change this you need to go and save the permalinks to flush them.'
-					),
-				'portfolio_change_category_slug' => array
-					(
-						'label' => 'Change Category Slug',
-						'desc' => 'Do you want to rewrite the portfolio category slug?',
-						'default' => true,
-						'type' => 'switch',
-					),
-				'portfolio_new_category_slug' => array
-					(
-						'label' => 'New Category Slug',
-						'desc' => 'Change the portfolio category slug as you need it.',
-						'default' => true,
-						'type' => 'switch',
-
-						// extra pixtype-group options
-						'pixtype-group-example' => 'from your.domain.com/portfolio-category/category in your.domain.com/new-slug/category',
 						'pixtype-group-note' => 'After you change this you need to go and save the permalinks to flush them.'
 					),
 				'portfolio_use_tags' => array

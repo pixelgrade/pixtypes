@@ -96,7 +96,7 @@ class PixtypesProcessorImpl implements PixtypesProcessor {
 			);
 
 		try {
-			$option_key = $this->meta->get('plugin-name', null);
+			$option_key = $this->meta->get('settings-key', null);
 
 			if ($option_key === null) {
 				throw new Exception('Missing option_key in plugin configuration.');

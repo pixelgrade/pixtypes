@@ -91,7 +91,9 @@
 
 	var pixgallery_ajax_preview = function(){
 
-		var ids = $('#pixgalleries').val();
+		var ids = '';
+		ids = $('#pixgalleries').val();
+
 		$.ajax({
 			type: "post",url: locals.ajax_url,data: { action: 'ajax_pixgallery_preview', attachments_ids: ids },
 			beforeSend: function() {
