@@ -6,6 +6,8 @@ return array
 	(
 		'plugin-name' => 'pixtypes',
 
+		'settings-key' => 'pixtypes_settings',
+
 		'textdomain' => 'pixtypes_txtd',
 
 		'template-paths' => array

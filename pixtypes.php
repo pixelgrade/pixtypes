@@ -38,20 +38,19 @@ $config = include 'plugin-config'.EXT;
 // set textdomain
 pixtypes::settextdomain($config['textdomain']);
 
-
 // Ensure Test Data
 // ----------------
 
 $defaults = include 'plugin-defaults'.EXT;
 
-$current_data = get_option($config['plugin-name']);
+$current_data = get_option($config['settings-key']);
 
 if ($current_data === false) {
 	add_option($config['plugin-name'], $defaults);
 }
 else if (count(array_diff_key($defaults, $current_data)) != 0) {
 	$plugindata = array_merge($defaults, $current_data);
-	update_option($config['plugin-name'], $plugindata);
+	update_option($config['settings-key'], $plugindata);
 }
 # else: data is available; do nothing
 
