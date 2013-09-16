@@ -18,7 +18,7 @@ function load_metaboxes_fromdb( array $meta_boxes ){
 
 
 
-	$meta_boxes = get_option( '_wpgrade_theme_metadata'.WPGRADE_PREFIX );
+	$meta_boxes = get_option( '_wpgrade_theme_metadata'.wpgrade::prefix() );
 	$meta_boxes2 = get_option( '_wpgrade_theme_metadata_citylife_' );
     if ( is_array($meta_boxes) && is_array($meta_boxes2 ) ) {
         $meta_boxes = array_merge($meta_boxes, $meta_boxes2);
@@ -46,24 +46,24 @@ function cmb_wpgrade_metaboxes( array $meta_boxes ) {
             array(
                 'name' => 'Image',
                 'desc' => __('Upload an image or enter an URL.', wpGrade_txtd),
-                'id'   => WPGRADE_PREFIX . 'homepage_slide_image',
+                'id'   => wpgrade::prefix() . 'homepage_slide_image',
                 'type' => 'attachment',
             ),
             array(
                 'name'    => 'Caption',
                 'desc'    => __('The caption of the slider', wpGrade_txtd),
-                'id'      => WPGRADE_PREFIX . 'homepage_slide_caption',
+                'id'      => wpgrade::prefix() . 'homepage_slide_caption',
                 'type'    => 'wysiwyg',
                 'options' => array(	'textarea_rows' => 5, ),
             ),
             array(
                 'name' => 'Button Label',
-                'id'   => WPGRADE_PREFIX . 'homepage_slide_label',
+                'id'   => wpgrade::prefix() . 'homepage_slide_label',
                 'type' => 'text_medium',
             ),
             array(
                 'name' => 'Link',
-                'id'   => WPGRADE_PREFIX . 'homepage_slide_link',
+                'id'   => wpgrade::prefix() . 'homepage_slide_link',
                 'type' => 'text',
             ),
 		),
@@ -83,56 +83,56 @@ function cmb_wpgrade_metaboxes( array $meta_boxes ) {
             array(
                 'name' => __('Youtube Link', wpGrade_txtd),
                 'desc' => __('Enter here an Youtube video link. Any videos bellow will be ignored.', wpGrade_txtd),
-                'id' => WPGRADE_PREFIX . 'youtube_id',
+                'id' => wpgrade::prefix() . 'youtube_id',
                 'type' => 'text',
                 'std' => '',
             ),
             array(
                 'name' => __('Vimeo Link', wpGrade_txtd),
                 'desc' => __('Enter here a Vimeo video link. Any videos bellow will be ignored.', wpGrade_txtd),
-                'id' => WPGRADE_PREFIX . 'vimeo_link',
+                'id' => wpgrade::prefix() . 'vimeo_link',
                 'type' => 'text',
                 'std' => '',
             ),
 			array(
                 'name' => __('Vimeo Video Width', wpGrade_txtd),
                 'desc' => __('Enter here the video width (we are only interested in the aspect ratio, width/height, so you could use 16 and 9; we use this to try and get rid of the black bars)', wpGrade_txtd),
-                'id' => WPGRADE_PREFIX . 'video_width',
+                'id' => wpgrade::prefix() . 'video_width',
                 'type' => 'text_small',
                 'std' => '500',
             ),
 			array(
                 'name' => __('Vimeo Video Height', wpGrade_txtd),
                 'desc' => __('Enter here the video height', wpGrade_txtd),
-                'id' => WPGRADE_PREFIX . 'video_height',
+                'id' => wpgrade::prefix() . 'video_height',
                 'type' => 'text_small',
                 'std' => '281',
             ),
             array(
                 'name' => __('MP4 File URL', wpGrade_txtd),
                 'desc' => __('Please enter in the URL to your .m4v video file (h.264 codec). This format is need to provide support for Safari, IE9, iPhone, iPad, Android, and Windows Phone 7', wpGrade_txtd),
-                'id' => WPGRADE_PREFIX . 'video_m4v',
+                'id' => wpgrade::prefix() . 'video_m4v',
                 'type' => 'file',
                 'std' => ''
             ),
             array(
                 'name' => __('WebM/VP8 File URL', wpGrade_txtd),
                 'desc' => __('Please enter in the URL to your .webm video file. This format is need to provide support for Firefox4, Opera, and Chrome', wpGrade_txtd),
-                'id' => WPGRADE_PREFIX . 'video_webm',
+                'id' => wpgrade::prefix() . 'video_webm',
                 'type' => 'file',
                 'std' => ''
             ),
             array(
                 'name' => __('Ogg/Vorbis File URL', wpGrade_txtd),
                 'desc' => __('Please enter in the URL to your .ogv video file. This format is need to provide support for older Firefox and Opera versions', wpGrade_txtd),
-                'id' => WPGRADE_PREFIX . 'video_ogv',
+                'id' => wpgrade::prefix() . 'video_ogv',
                 'type' => 'file',
                 'std' => ''
             ),
             array(
                 'name' => __('Preview Image', wpGrade_txtd),
                 'desc' => __('This will be the image displayed when the video has not been played yet. The image should be at least 640px wide. Click the "Upload" button to open the Media Manager, and click "Use as Preview Image" once you have uploaded or chosen an image from the media library.', wpGrade_txtd),
-                'id' => WPGRADE_PREFIX . 'video_poster',
+                'id' => wpgrade::prefix() . 'video_poster',
                 'type' => 'file',
                 'std' => ''
             ),
@@ -151,13 +151,13 @@ function cmb_wpgrade_metaboxes( array $meta_boxes ) {
             array(
                 'name' => __('Hide Title', wpGrade_txtd),
                 'desc' => __('Hide the page title?', wpGrade_txtd),
-                'id'   => WPGRADE_PREFIX . 'page_display_title',
+                'id'   => wpgrade::prefix() . 'page_display_title',
                 'type' => 'checkbox',
             ),
             array(
                 'name' => __('Header HTML Content', wpGrade_txtd),
                 'desc' => __('Create your own title and header content with the featured image as background.', wpGrade_txtd),
-                'id'   => WPGRADE_PREFIX . 'page_html_title',
+                'id'   => wpgrade::prefix() . 'page_html_title',
                 'type' => 'wysiwyg',
 				'options' => array (
 					'textarea_rows' => 10,
@@ -166,7 +166,7 @@ function cmb_wpgrade_metaboxes( array $meta_boxes ) {
 			array(
 					'name' =>  __('Background Color', wpGrade_txtd),
 					'desc' => __('If you haven\'t chosen a featured image this color will be used as background.', wpGrade_txtd),
-					'id' => WPGRADE_PREFIX . 'header_background_color',
+					'id' => wpgrade::prefix() . 'header_background_color',
 					'type' => 'colorpicker',
                     'std' => '#333333',
 					'options' => array (),
@@ -187,7 +187,7 @@ function cmb_wpgrade_metaboxes( array $meta_boxes ) {
             array(
                 'name' => __('Images', wpGrade_txtd),
 //                'desc' => __('Row type', wpGrade_txtd),
-                'id'   => WPGRADE_PREFIX . 'portfolio_gallery',
+                'id'   => wpgrade::prefix() . 'portfolio_gallery',
                 'type' => 'gallery',
             )
         )
@@ -204,13 +204,13 @@ function cmb_wpgrade_metaboxes( array $meta_boxes ) {
             array(
                 'name' => __('Featured Project', wpGrade_txtd),
                 'desc' => __('Items checked as featured will be displayed first in the homepage portfolio section (ordered by date descending)', wpGrade_txtd),
-                'id'   => WPGRADE_PREFIX . 'portfolio_featured',
+                'id'   => wpgrade::prefix() . 'portfolio_featured',
                 'type' => 'checkbox',
             ),
 			array(
                 'name' => __('Hide Title', wpGrade_txtd),
                 'desc' => __('Hide the project title?', wpGrade_txtd),
-                'id'   => WPGRADE_PREFIX . 'project_display_title',
+                'id'   => wpgrade::prefix() . 'project_display_title',
                 'type' => 'checkbox',
 				'options' => array (
 					'hidden' => ($wpGrade_Options->get('portfolio_single_show_header_image') ) ? false : true,
@@ -219,7 +219,7 @@ function cmb_wpgrade_metaboxes( array $meta_boxes ) {
 			array(
                 'name' => __('Header HTML Content', wpGrade_txtd),
                 'desc' => __('Create your own title and header content with the featured image as background.', wpGrade_txtd),
-                'id'   => WPGRADE_PREFIX . 'project_html_title',
+                'id'   => wpgrade::prefix() . 'project_html_title',
                 'type' => 'wysiwyg',
 				'options' => array (
 					'textarea_rows' => 10,
@@ -229,7 +229,7 @@ function cmb_wpgrade_metaboxes( array $meta_boxes ) {
 			array(
 					'name' =>  __('Background Color', wpGrade_txtd),
 					'desc' => __('If you haven\'t chosen a featured image this color will be used as background.', wpGrade_txtd),
-					'id' => WPGRADE_PREFIX . 'header_background_color',
+					'id' => wpgrade::prefix() . 'header_background_color',
 					'type' => 'colorpicker',
                     'std' => '#333333',
 					'options' => array (),
@@ -249,7 +249,7 @@ function cmb_wpgrade_metaboxes( array $meta_boxes ) {
             array(
                 'name' => __('Header HTML Content', wpGrade_txtd),
                 'desc' => __('Create your own title and header content with the featured image as background.', wpGrade_txtd),
-                'id'   => WPGRADE_PREFIX . 'post_html_title',
+                'id'   => wpgrade::prefix() . 'post_html_title',
                 'type' => 'wysiwyg',
 				'options' => array (
 					'textarea_rows' => 10,
@@ -258,7 +258,7 @@ function cmb_wpgrade_metaboxes( array $meta_boxes ) {
 			array(
 					'name' =>  __('Background Color', wpGrade_txtd),
 					'desc' => __('If you haven\'t chosen a featured image this color will be used as background.', wpGrade_txtd),
-					'id' => WPGRADE_PREFIX . 'header_background_color',
+					'id' => wpgrade::prefix() . 'header_background_color',
 					'type' => 'colorpicker',
                     'std' => '#333333',
 					'options' => array (),
@@ -280,7 +280,7 @@ function cmb_wpgrade_metaboxes( array $meta_boxes ) {
 			array(
 					'name' =>  __('Quote Content', wpGrade_txtd),
 					'desc' => __('Please type the text of your quote here.', wpGrade_txtd),
-					'id' => WPGRADE_PREFIX . 'quote',
+					'id' => wpgrade::prefix() . 'quote',
 					'type' => 'wysiwyg',
                     'std' => '',
 					'options' => array (
@@ -290,14 +290,14 @@ function cmb_wpgrade_metaboxes( array $meta_boxes ) {
 			array(
 					'name' => __('Author Name', wpGrade_txtd),
 					'desc' => '',
-					'id' => WPGRADE_PREFIX . 'quote_author',
+					'id' => wpgrade::prefix() . 'quote_author',
 					'type' => 'text',
 					'std' => '',
 				),
 			array(
 					'name' => __('Author Link', wpGrade_txtd),
 					'desc' => __('Insert here an url if you want the author name to be linked to that address.', wpGrade_txtd),
-					'id' => WPGRADE_PREFIX . 'quote_author_link',
+					'id' => wpgrade::prefix() . 'quote_author_link',
 					'type' => 'text',
 					'std' => '',
 				),
@@ -318,35 +318,35 @@ function cmb_wpgrade_metaboxes( array $meta_boxes ) {
 			array(
 					'name' => __('Embed Code', wpGrade_txtd),
 					'desc' => __('Enter here a Youtube, Vimeo (or other online video services) embed code here. The width should be a minimum of 640px. We will use this if filled, not the selfhosted options bellow!', wpGrade_txtd),
-					'id' => WPGRADE_PREFIX . 'video_embed',
+					'id' => wpgrade::prefix() . 'video_embed',
 					'type' => 'textarea_small',
 					'std' => '',
 				),
 			array( 
 					'name' => __('MP4 File URL', wpGrade_txtd),
 					'desc' => __('Please enter in the URL to your .m4v video file (h.264 codec). This format is need to provide support for Safari, IE9, iPhone, iPad, Android, and Windows Phone 7', wpGrade_txtd),
-					'id' => WPGRADE_PREFIX . 'video_m4v',
+					'id' => wpgrade::prefix() . 'video_m4v',
 					'type' => 'file',
 					'std' => ''
 				),
 			array( 
 					'name' => __('WebM/VP8 File URL', wpGrade_txtd),
 					'desc' => __('Please enter in the URL to your .webm video file. This format is need to provide support for Firefox4, Opera, and Chrome', wpGrade_txtd),
-					'id' => WPGRADE_PREFIX . 'video_webm',
+					'id' => wpgrade::prefix() . 'video_webm',
 					'type' => 'file',
 					'std' => ''
 				),
 			array( 
 					'name' => __('Ogg/Vorbis File URL', wpGrade_txtd),
 					'desc' => __('Please enter in the URL to your .ogv video file. This format is need to provide support for older Firefox and Opera versions', wpGrade_txtd),
-					'id' => WPGRADE_PREFIX . 'video_ogv',
+					'id' => wpgrade::prefix() . 'video_ogv',
 					'type' => 'file',
 					'std' => ''
 				),
 			array( 
 					'name' => __('Preview Image', wpGrade_txtd),
 					'desc' => __('This will be the image displayed when the video has not been played yet. The image should be at least 640px wide. Click the "Upload" button to open the Media Manager, and click "Use as Preview Image" once you have uploaded or chosen an image from the media library.', wpGrade_txtd),
-					'id' => WPGRADE_PREFIX . 'video_poster',
+					'id' => wpgrade::prefix() . 'video_poster',
 					'type' => 'file',
 					'std' => ''
 				),
@@ -367,35 +367,35 @@ function cmb_wpgrade_metaboxes( array $meta_boxes ) {
 			array(
 					'name' => __('Embed Code', wpGrade_txtd),
 					'desc' => __('Enter here a embed code here. The width should be a minimum of 640px. We will use this if filled, not the selfhosted options bellow!', wpGrade_txtd),
-					'id' => WPGRADE_PREFIX . 'audio_embed',
+					'id' => wpgrade::prefix() . 'audio_embed',
 					'type' => 'textarea_small',
 					'std' => '',
 				),
 			array( 
 					'name' => __('MP3 File URL', wpGrade_txtd),
 					'desc' => __('Please enter in the URL to the .mp3 file', wpGrade_txtd),
-					'id' => WPGRADE_PREFIX . 'audio_mp3',
+					'id' => wpgrade::prefix() . 'audio_mp3',
 					'type' => 'file',
 					'std' => ''
 				),
 			array( 
 					'name' => __('M4A File URL', wpGrade_txtd),
 					'desc' => __('Please enter in the URL to the .m4a file', wpGrade_txtd),
-					'id' => WPGRADE_PREFIX . 'audio_m4a',
+					'id' => wpgrade::prefix() . 'audio_m4a',
 					'type' => 'file',
 					'std' => ''
 				),
 			array( 
 					'name' => __('OGA File URL', wpGrade_txtd),
 					'desc' => __('Please enter in the URL to the .ogg or .oga file', wpGrade_txtd),
-					'id' => WPGRADE_PREFIX . 'audio_ogg',
+					'id' => wpgrade::prefix() . 'audio_ogg',
 					'type' => 'file',
 					'std' => ''
 				),
 			array( 
 					'name' => __('Poster Image', wpGrade_txtd),
 					'desc' => __('This will be the image displayed above the audio controls. The image should be at least 640px wide. Click the "Upload" button to open the Media Manager, and click "Use as Poster Image" once you have uploaded or chosen an image from the media library.', wpGrade_txtd),
-					'id' => WPGRADE_PREFIX . 'audio_poster',
+					'id' => wpgrade::prefix() . 'audio_poster',
 					'type' => 'file',
 					'std' => ''
 				),
@@ -416,7 +416,7 @@ function cmb_wpgrade_metaboxes( array $meta_boxes ) {
 //			array(
 //					'name' =>  __('Link URL', wpGrade_txtd),
 //					'desc' => __('Please input the URL of your link(i.e. http://www.pixelgrade.com)', wpGrade_txtd),
-//					'id' => WPGRADE_PREFIX .'link',
+//					'id' => wpgrade::prefix() .'link',
 //					'type' => 'text',
 //					'std' => ''
 //				)
@@ -438,19 +438,19 @@ function cmb_wpgrade_metaboxes( array $meta_boxes ) {
             array(
                 'name' => __( 'Author Name', wpGrade_txtd ),
                 'desc' => __( 'The author of this confession', wpGrade_txtd ),
-                'id'   => WPGRADE_PREFIX . 'author_name',
+                'id'   => wpgrade::prefix() . 'author_name',
                 'type' => 'text_medium',
             ),
             array(
                 'name' => __( 'Author Function', wpGrade_txtd ),
                 'desc' => __( 'The title of the author (eg. Client)', wpGrade_txtd ),
-                'id'   => WPGRADE_PREFIX . 'author_function',
+                'id'   => wpgrade::prefix() . 'author_function',
                 'type' => 'text_medium',
             ),
             array(
                 'name' => __( 'Author Link', wpGrade_txtd ),
                 'desc' => __( 'A link to the author website (optional)', wpGrade_txtd ),
-                'id'   => WPGRADE_PREFIX . 'author_link',
+                'id'   => wpgrade::prefix() . 'author_link',
                 'type' => 'text_medium',
             ),
         ),
