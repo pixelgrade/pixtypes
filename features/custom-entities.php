@@ -13,8 +13,10 @@ foreach ( $theme_types as $key => $theme ) {
 	if ( isset( $theme['post_types'] ) && is_array( $theme['post_types'] ) ) {
 		foreach ( $theme['post_types'] as $post_type => $post_type_args ) {
 
-			$post_type_key = explode( '_', $post_type);
-			$post_type_key = $post_type_key[1];
+			// eliminate the theme prefix
+			$post_type_key = strstr( $post_type, '_');
+			var_dump($post_type);
+			$post_type_key = substr($post_type_key, 1);
 			if ( isset($options["enable_" . $post_type_key ]) && $options["enable_" . $post_type_key] ) {
 				register_post_type( $post_type, $post_type_args );
 			}
@@ -28,7 +30,11 @@ foreach ( $theme_types as $key => $theme ) {
 			// remove "post_types", isn't a register_taxonomy argument we are just using it for post type linking
 			unset( $tax_args['post_types'] );
 
-			if ( isset($options["enable_" . $tax ]) && $options["enable_" . $tax] ) {
+			// eliminate the theme prefix
+			$tax_key = strstr( $tax, '_');
+			$tax_key = substr($tax_key, 1);
+
+			if ( isset($options["enable_" . $tax_key ]) && $options["enable_" . $tax_key] ) {
 				register_taxonomy( $tax, $tax_post_types, $tax_args );
 			}
 		}
