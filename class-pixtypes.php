@@ -377,7 +377,6 @@ class PixTypesPlugin {
 				'supports' => array ( 'title', 'editor', 'thumbnail', 'page-attributes', 'excerpt'),
 				'yarpp_support' => true,
 			),
-
 			'pix_gallery' => array(
 				'labels' => array (
 					'name' => 'Gallery',
@@ -474,7 +473,7 @@ class PixTypesPlugin {
 					)
 				)
 			),
-			'pix_portfolio' => array(
+			'pix_gallery' => array(
 				'id'         => 'pix_gallery',
 				'title'      => 'Gallery',
 				'pages'      => array( 'pix_gallery' ), // Post type

@@ -15,7 +15,17 @@ class Pix_Query extends Wp_Query {
 
 	function get_gallery_ids(){
 		global $post;
-		$ids = get_post_meta( $post->ID, '_lens_portfolio_gallery', true );
+		$prefix = '';
+
+		if ( class_exists('wpgrade') ) {
+			$prefix = wpgrade::prefix();
+		}
+
+		$ids = get_post_meta( $post->ID, $prefix . 'portfolio_gallery', true );
+
+		if (!empty($ids)) {
+			$ids = explode(',',$ids);
+		}
 		return $ids;
 	}
 }

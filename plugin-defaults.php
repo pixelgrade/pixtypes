@@ -4,7 +4,7 @@
 		'enable_portfolio' => true,
 
 	#
-	# "Technical Stuff" fields
+	# "Post Types" fields
 	#
 
 		'portfolio_single_item_label' => 'Proiect',
