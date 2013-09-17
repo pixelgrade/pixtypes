@@ -15,7 +15,6 @@ foreach ( $theme_types as $key => $theme ) {
 
 			// eliminate the theme prefix
 			$post_type_key = strstr( $post_type, '_');
-			var_dump($post_type);
 			$post_type_key = substr($post_type_key, 1);
 			if ( isset($options["enable_" . $post_type_key ]) && $options["enable_" . $post_type_key] ) {
 				register_post_type( $post_type, $post_type_args );
