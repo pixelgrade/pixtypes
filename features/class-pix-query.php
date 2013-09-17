@@ -13,7 +13,7 @@ class Pix_Query extends Wp_Query {
 	 * @return array $ids
 	 */
 
-	function get_gallery_ids(){
+	function get_gallery_ids( $key = '' ){
 		global $post;
 		$prefix = '';
 
@@ -21,7 +21,7 @@ class Pix_Query extends Wp_Query {
 			$prefix = wpgrade::prefix();
 		}
 
-		$ids = get_post_meta( $post->ID, $prefix . 'portfolio_gallery', true );
+		$ids = get_post_meta( $post->ID, $prefix . $key, true );
 
 		if (!empty($ids)) {
 			$ids = explode(',',$ids);
