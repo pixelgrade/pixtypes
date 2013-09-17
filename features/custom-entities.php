@@ -24,12 +24,13 @@ foreach ( $theme_types as $key => $theme ) {
 	// taxonomies
 	if ( isset( $theme['taxonomies'] ) && is_array( $theme['taxonomies'] ) ) {
 		foreach ( $theme['taxonomies'] as $tax => $tax_args) {
-
 			$tax_post_types = $tax_args['post_types'];
-
 			// remove "post_types", isn't a register_taxonomy argument we are just using it for post type linking
 			unset( $tax_args['post_types'] );
-			$console_this = register_taxonomy( 'cityhub_portfolio_cat', 'post', $tax_args );
+
+			if ( isset($options["enable_" . $tax ]) && $options["enable_" . $tax] ) {
+				register_taxonomy( $tax, $tax_post_types, $tax_args );
+			}
 		}
 	}
 

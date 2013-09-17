@@ -46,9 +46,13 @@
 
 		<?php echo $f = pixtypes::form($config, $processor) ?>
 
-			<h3>Portfolio Options</h3>
+			<h3>Post Types</h3>
 
-			<?php echo $f->field('technical_stuff')->render() ?>
+			<?php echo $f->field('post_types')->render() ?>
+
+			<h3>Taxonomies</h3>
+
+			<?php echo $f->field('taxonomies')->render() ?>
 
 			<button type="submit" class="button button-primary">
 				Save Changes

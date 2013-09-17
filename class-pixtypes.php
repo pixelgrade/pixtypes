@@ -136,7 +136,11 @@ class PixTypesPlugin {
 		}
 
 		/** A pixelgrade theme will always have this class so we know we can import new settings **/
-		if (class_exists('wpgrade') ) $current_theme = wpgrade::shortname() . $current_theme;
+		if (class_exists('wpgrade') ) {
+			$current_theme = wpgrade::shortname() . $current_theme;
+		} else {
+			$theme_types = self::get_defaults( $current_theme );
+		}
 
 		if ( !empty($theme_types) ) {
 			foreach ( $theme_types as $theme_key => $theme) {
@@ -335,5 +339,157 @@ class PixTypesPlugin {
 		}
 
 		return $is_unique;
+	}
+
+	static function get_defaults( $theme_key ) {
+
+		$types_options = array();
+		$types_options[$theme_key] = array();
+		$types_options[$theme_key]['post_types'] = array(
+			'pix_portfolio' => array(
+				'labels' => array (
+					'name' => 'Project',
+					'singular_name' => 'Project',
+					'add_new' => 'Add New',
+					'add_new_item' => 'Add New Project',
+					'edit_item' => 'Edit Project',
+					'new_item' => 'New Project',
+					'all_items' => 'All Projects',
+					'view_item' => 'View Project',
+					'search_items' => 'Search Projects',
+					'not_found' => 'No Project found',
+					'not_found_in_trash' => 'No Project found in Trash',
+					'parent_item_colon' => '',
+					'menu_name' => 'Projects',
+				),
+				'public' => true,
+				'publicly_queryable' => true,
+				'show_ui' => true,
+				'show_in_menu' => true,
+				'query_var' => true,
+				'rewrite' => array (
+					'slug' => 'portfolio',
+					'with_front' => false,
+				),
+				'capability_type' => 'post',
+				'has_archive' => 'portfolio-archive',
+				'menu_position' => NULL,
+				'supports' => array ( 'title', 'editor', 'thumbnail', 'page-attributes', 'excerpt'),
+				'yarpp_support' => true,
+			),
+
+			'pix_gallery' => array(
+				'labels' => array (
+					'name' => 'Gallery',
+					'singular_name' => 'Gallery',
+					'add_new' => 'Add New',
+					'add_new_item' => 'Add New Gallery',
+					'edit_item' => 'Edit Gallery',
+					'new_item' => 'New Gallery',
+					'all_items' => 'All Galleries',
+					'view_item' => 'View Gallery',
+					'search_items' => 'Search Galleries',
+					'not_found' => 'No Gallery found',
+					'not_found_in_trash' => 'No Gallery found in Trash',
+					'parent_item_colon' => '',
+					'menu_name' => 'Galleries',
+				),
+				'public' => true,
+				'publicly_queryable' => true,
+				'show_ui' => true,
+				'show_in_menu' => true,
+				'query_var' => true,
+				'rewrite' => array (
+					'slug' => 'galleries',
+					'with_front' => false,
+				),
+				'capability_type' => 'post',
+				'has_archive' => 'galleries-archive',
+				'menu_position' => NULL,
+				'supports' => array ( 'title', 'thumbnail', 'page-attributes', 'excerpt'),
+				'yarpp_support' => true,
+			),
+		);
+
+		/** TAXONOMIES **/
+		$types_options[$theme_key]['taxonomies'] = array(
+			'pix_portfolio_categories' => array(
+				'hierarchical' => true,
+				'labels' => array (
+					'name' => 'Portfolio Categories',
+					'singular_name' => 'Portfolio Category',
+					'search_items' => 'Search Portfolio Category',
+					'all_items' => 'All Portfolio Categories',
+					'parent_item' => 'Parent Portfolio Category',
+					'parent_item_colon' => 'Parent Portfolio Category: ',
+					'edit_item' => 'Edit Portfolio Category',
+					'update_item' => 'Update Portfolio Category',
+					'add_new_item' => 'Add New Portfolio Category',
+					'new_item_name' => 'New Portfolio Category Name',
+					'menu_name' => 'Portfolio Categories',
+				),
+				'show_ui' => true,
+				'show_admin_column' => true,
+				'query_var' => true,
+				'rewrite' => array ( 'slug' => 'portfolio-category', 'with_front' => false ),
+				'post_types' => array('pix_portfolio')
+			),
+			'pix_gallery_categories' => array(
+				'hierarchical' => true,
+				'labels' => array (
+					'name' => 'Gallery Categories',
+					'singular_name' => 'Gallery Category',
+					'search_items' => 'Search Gallery Category',
+					'all_items' => 'All Gallery Categories',
+					'parent_item' => 'Parent Gallery Category',
+					'parent_item_colon' => 'Parent Gallery Category: ',
+					'edit_item' => 'Edit Gallery Category',
+					'update_item' => 'Update Gallery Category',
+					'add_new_item' => 'Add New Gallery Category',
+					'new_item_name' => 'New Gallery Category Name',
+					'menu_name' => 'Gallery Categories',
+				),
+				'show_ui' => true,
+				'show_admin_column' => true,
+				'query_var' => true,
+				'rewrite' => array ( 'slug' => 'gallery-category', 'with_front' => false ),
+				'post_types' => array('pix_gallery')
+			),
+		);
+
+		/** METABOXES **/
+		$types_options[$theme_key]['metaboxes'] = array(
+			'pix_portfolio' => array(
+				'id'         => 'portfolio_gallery',
+				'title'      => 'Gallery',
+				'pages'      => array( 'pix_portfolio' ), // Post type
+				'context'    => 'normal',
+				'priority'   => 'high',
+				'show_names' => true, // Show field names on the left
+				'fields' => array(
+					array(
+						'name' => 'Images',
+						'id'   => 'pix_portfolio_gallery',
+						'type' => 'gallery',
+					)
+				)
+			),
+			'pix_portfolio' => array(
+				'id'         => 'pix_gallery',
+				'title'      => 'Gallery',
+				'pages'      => array( 'pix_gallery' ), // Post type
+				'context'    => 'normal',
+				'priority'   => 'high',
+				'show_names' => true, // Show field names on the left
+				'fields' => array(
+					array(
+						'name' => 'Images',
+						'id'   => 'pix_main_gallery',
+						'type' => 'gallery',
+					)
+				)
+			)
+		);
+		return $types_options;
 	}
 }

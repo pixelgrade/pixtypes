@@ -18,8 +18,10 @@ return array
 
 		'fields' => array
 			(
-				'technical_stuff'
-					=> include 'settings/technical_stuff'.EXT,
+				'post_types'
+					=> include 'settings/post_types'.EXT,
+				'taxonomies'
+					=> include 'settings/taxonomies'.EXT,
 			),
 
 		'cleanup' => array
