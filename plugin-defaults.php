@@ -1,11 +1,8 @@
 <?php return array
 	(
-		// Default article settings
-		'enable_portfolio' => true,
 
-	#
 	# "Post Types" fields
-	#
+	'enable_portfolio' => true,
 
 		'portfolio_single_item_label' => 'Proiect',
 		'portfolio_multiple_items_label' => 'Proiects',
@@ -18,6 +15,10 @@
 
 		'portfolio_use_tags' => true,
 
+	'enable_gallery' => true,
+
+	# "Taxonomies" fields
 		'enable_portfolio_categories' => true,
 		'enable_gallery_categories' => true
+
 	); # config

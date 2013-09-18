@@ -157,6 +157,11 @@ class PixTypesPlugin {
 								/** this slug is unique we can quit the theme suffix */
 								$theme_types[$current_theme]['post_types'][$key]["rewrite"]["slug"] = $testable_slug;
 							}
+
+							// process menu icon if it exists
+							if ( isset($post_type['menu_icon']) ) {
+								$theme_types[$current_theme]['post_types'][$key]['menu_icon'] =  plugins_url( 'assets/' . $post_type['menu_icon'] , __FILE__ ) ;
+							}
 						}
 					}
 
@@ -374,6 +379,7 @@ class PixTypesPlugin {
 				'capability_type' => 'post',
 				'has_archive' => 'portfolio-archive',
 				'menu_position' => NULL,
+				'menu_icon' => plugins_url( 'assets/report.png' , __FILE__ ),
 				'supports' => array ( 'title', 'editor', 'thumbnail', 'page-attributes', 'excerpt'),
 				'yarpp_support' => true,
 			),
