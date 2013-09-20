@@ -19,6 +19,8 @@
 
 	# "Taxonomies" fields
 		'enable_portfolio_categories' => true,
+			'portfolio_categories_change_archive_slug' => false,
+			'portfolio_categories_new_archive_slug' => '',
 		'enable_gallery_categories' => true
 
 	); # config

@@ -139,13 +139,13 @@ class PixTypesPlugin {
 		if (class_exists('wpgrade') ) {
 			$current_theme = wpgrade::shortname() . $current_theme;
 		} else {
-			$theme_types = self::get_defaults( $current_theme );
+			$theme_types = self::get_defaults( 'pixtypes' . $current_theme );
 		}
 
 		if ( !empty($theme_types) ) {
 			foreach ( $theme_types as $theme_key => $theme) {
 				$theme_name = str_replace('_pixtypes_theme', '', $theme_key);
-				/** for our current theme we try to prioritize slugs */
+				/** Process each post type's arguments **/
 				if ( $theme_key == $current_theme ) {
 
 					/** POST TYPES slugs **/
@@ -153,6 +153,8 @@ class PixTypesPlugin {
 						foreach ( $theme_types[$current_theme]['post_types'] as $key => $post_type ) {
 							$testable_slug = $is_slug_unique = '';
 							$testable_slug = str_replace ( $theme_name.'-', '', $post_type["rewrite"]["slug"]);
+
+							/** for our current theme we try to prioritize slugs */
 							if ( isset( $post_type["rewrite"] ) && self::is_custom_post_type_slug_unique($testable_slug) ) {
 								/** this slug is unique we can quit the theme suffix */
 								$theme_types[$current_theme]['post_types'][$key]["rewrite"]["slug"] = $testable_slug;
@@ -496,5 +498,33 @@ class PixTypesPlugin {
 			)
 		);
 		return $types_options;
+	}
+
+	/**
+	 * Insert plugin settings into
+	 * @param $slug string
+	 * @return boolean
+	 */
+	function process_post_type_arguments( $post_type, $args ){
+		$options = get_option('pixtypes_settings');
+
+		$a = array (
+			'name' => 'Project',
+			'singular_name' => 'Project',
+			'add_new' => 'Add New',
+			'add_new_item' => 'Add New Project',
+			'edit_item' => 'Edit Project',
+			'new_item' => 'New Project',
+			'all_items' => 'All Projects',
+			'view_item' => 'View Project',
+			'search_items' => 'Search Projects',
+			'not_found' => 'No Project found',
+			'not_found_in_trash' => 'No Project found in Trash',
+			'parent_item_colon' => '',
+			'menu_name' => 'Projects',
+		);
+
+		return $args;
+
 	}
 }

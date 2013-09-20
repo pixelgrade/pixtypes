@@ -21,7 +21,7 @@
 ?>
 
 
-<div class="wrap">
+<div class="wrap" id="pixtypes_form">
 
 	<div id="icon-options-general" class="icon32"><br></div>
 
@@ -68,4 +68,31 @@
 
 	<?php endif; ?>
 
+	<?php  $options = get_option('pixtypes_settings');
+	if ( isset( $options['themes'] ) && count($options['themes']) > 1 ) { ?>
+
+		<div class="uninstall_area">
+			<h3> Danger Zone </h3>
+
+			<form method="post" id="unset_pixypes" action="<?php echo admin_url('options-general.php?page=pixtypes') ?>" >
+				<input type="hidden" name="unset_nonce" value="<?php echo wp_create_nonce('unset_pixtype') ?>" />
+				<ul>
+					<?php
+					if ( isset( $_POST['unset_pixtype'] ) && isset( $_POST['unset_nonce'] ) && wp_verify_nonce( $_POST['unset_nonce'], 'unset_pixtype' ) ) {
+						$key = $_POST['unset_pixtype'];
+						if ( isset( $options['themes'][$key] )) {
+							unset($options['themes'][$key]);
+							update_option('pixtypes_settings', $options);
+						}
+					}
+
+					if ( isset( $options['themes'] ) && count( $options['themes'] ) > 1 ) {
+						foreach( $options['themes'] as $key => $theme ){
+							echo '<li><button class="button delete-action" type="submit" name="unset_pixtype" value="'. $key .'">Unset '.$key.'</button></li>';
+						}
+					} ?>
+				</ul>
+			</form>
+		</div>
+	<?php } ?>
 </div>

@@ -7,16 +7,21 @@
 		 *  Any checkbox should switch between value 1 and 0
 		 *  Also test if the checkbox needs to hide or show something under it.
 		 */
-		$('#PixTypes_form input:checkbox').each(function(i,e){
-			check_checkbox_checked(e);
-			$(e).check_for_extended_options();
-		});
-		$('#PixTypes_form').on('click', 'input:checkbox', function(){
-			check_checkbox_checked(this);
-			$(this).check_for_extended_options();
-		});
+//		$('#pixtypes_form input:checkbox').each(function(i,e){
+//			check_checkbox_checked(e);
+//			$(e).check_for_extended_options();
+//		});
+//		$('#pixtypes_form').on('click', 'input:checkbox', function(){
+//			check_checkbox_checked(this);
+//			$(this).check_for_extended_options();
+//		});
 		/** End Checkbox value switcher **/
 
+		$('#unset_pixypes').on('submit', function(e){
+			var response = confirm('Be sure that you don\'t need this post type anymore');
+
+			if ( response == false ) e.preventDefault();
+		});
 	});
 
 	/*
