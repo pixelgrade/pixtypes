@@ -107,12 +107,13 @@ class PixtypesProcessorImpl implements PixtypesProcessor {
 				$errors = $this->validate_input($input);
 
 				if (empty($errors)) {
+					$this->preupdate($input);
 					$this->status['dataupdate'] = true;
-
 					$current_values = get_option($option_key);
 					$new_option = array_merge($current_values, $input);
 					update_option($option_key, $new_option);
 					$this->data = pixtypes::instance('PixtypesMeta', $input);
+					$this->postupdate($input);
 				}
 				else { // got errors
 					$this->status['errors'] = $errors;
@@ -172,7 +173,7 @@ class PixtypesProcessorImpl implements PixtypesProcessor {
 			if (isset($defaults['cleanup'][$field['type']])) {
 				$cleanup = $defaults['cleanup'][$field['type']];
 			}
-			// check theme defaults
+			// check plugin defaults
 			if (isset($plugin_cleanup[$field['type']])) {
 				$cleanup = array_merge($cleanup, $plugin_cleanup[$field['type']]);
 			}
@@ -266,6 +267,69 @@ class PixtypesProcessorImpl implements PixtypesProcessor {
 		}
 
 		return $this->status['state'] == 'nominal';
+	}
+
+	// ------------------------------------------------------------------------
+	// Hooks
+
+	/**
+	 * Execute preupdate hooks on input.
+	 */
+	protected function preupdate($input)
+	{
+		$defaults = pixtypes::defaults();
+		$plugin_hooks = $this->meta->get('processor', array('preupdate' => array(), 'postupdate' => array()));
+
+		// Calculate hooks
+		// ---------------
+
+		$hooks = array();
+		// check pixtypes defaults
+		if (isset($defaults['processor']['preupdate'])) {
+			$hooks = $defaults['processor']['preupdate'];
+		}
+		// check plugin defaults
+		if (isset($plugin_hooks['preupdate'])) {
+			$hooks = array_merge($hooks, $plugin_hooks['preupdate']);
+		}
+
+		// Execute hooks
+		// -------------
+
+		foreach ($hooks as $rule) {
+			$callback = pixtypes::callback($rule, $this->meta);
+			call_user_func($callback, $input, $this);
+		}
+	}
+
+	/**
+	 * Execute postupdate hooks on input.
+	 */
+	protected function postupdate($input)
+	{
+		$defaults = pixtypes::defaults();
+		$plugin_hooks = $this->meta->get('processor', array('preupdate' => array(), 'postupdate' => array()));
+
+		// Calculate hooks
+		// ---------------
+
+		$hooks = array();
+		// check pixtypes defaults
+		if (isset($defaults['processor']['postupdate'])) {
+			$hooks = $defaults['processor']['postupdate'];
+		}
+		// check plugin defaults
+		if (isset($plugin_hooks['postupdate'])) {
+			$hooks = array_merge($hooks, $plugin_hooks['postupdate']);
+		}
+
+		// Execute hooks
+		// -------------
+
+		foreach ($hooks as $rule) {
+			$callback = pixtypes::callback($rule, $this->meta);
+			call_user_func($callback, $input, $this);
+		}
 	}
 
 } # class

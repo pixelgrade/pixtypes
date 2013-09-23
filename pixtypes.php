@@ -54,6 +54,13 @@ else if (count(array_diff_key($defaults, $current_data)) != 0) {
 }
 # else: data is available; do nothing
 
+// Load Callbacks
+// --------------
+
+$basepath = dirname(__FILE__).DIRECTORY_SEPARATOR;
+$callbackpath = $basepath.'callbacks'.DIRECTORY_SEPARATOR;
+pixtypes::require_all($callbackpath);
+
 require_once( plugin_dir_path( __FILE__ ) . 'class-pixtypes.php' );
 
 // Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.

@@ -44,8 +44,8 @@
 			</p>
 		<?php endif; ?>
 
-		<?php echo $f = pixtypes::form($config, $processor) ?>
-
+		<?php echo $f = pixtypes::form($config, $processor);
+		echo $f->field('hiddens')->render(); ?>
 			<h3>Post Types</h3>
 
 			<?php echo $f->field('post_types')->render() ?>

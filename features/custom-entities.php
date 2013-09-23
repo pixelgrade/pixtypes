@@ -4,7 +4,6 @@
 $options = get_option('pixtypes_settings');
 
 // go through each theme and activate portfolio post types
-
 if ( empty($options["themes"]) || !array($options["themes"])) return;
 $theme_types = $options["themes"];
 foreach ( $theme_types as $key => $theme ) {

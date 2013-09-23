@@ -18,10 +18,27 @@ return array
 
 		'fields' => array
 			(
+				'hiddens'
+					=> include 'settings/hiddens'.EXT,
 				'post_types'
 					=> include 'settings/post_types'.EXT,
 				'taxonomies'
 					=> include 'settings/taxonomies'.EXT,
+			),
+
+		'processor' => array
+			(
+				// callback signature: (array $input, PixtypesProcessor $processor)
+
+				'preupdate' => array
+				(
+					// callbacks to run before update process
+					// cleanup and validation has been performed on data
+				),
+				'postupdate' => array
+				(
+					'save_settings'
+				),
 			),
 
 		'cleanup' => array
@@ -41,10 +58,10 @@ return array
 
 		'callbacks' => array
 			(
-				// empty
+				'save_settings' => 'save_pixtypes_settings'
 			),
 
 		// shows exception traces on error
-		'debug' => false,
+		'debug' => true,
 
 	); # config

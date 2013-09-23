@@ -1,6 +1,10 @@
 <?php return array
 	(
 
+	# Hidden fields
+
+		'settings_saved_once' => '0',
+
 	# "Post Types" fields
 	'enable_portfolio' => true,
 
@@ -13,7 +17,7 @@
 		'portfolio_change_archive_slug' => false,
 		'portfolio_new_archive_slug' => '',
 
-		'portfolio_use_tags' => true,
+//		'portfolio_use_tags' => false,
 
 	'enable_gallery' => true,
 

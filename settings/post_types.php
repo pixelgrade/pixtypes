@@ -18,6 +18,7 @@
 				'enable_portfolio_group' => array
 					(
 						'type' => 'pixtype-group',
+						'show_on' => 'enable_portfolio',
 						'options' => array
 							(
 								'portfolio_single_item_label' => array
@@ -44,6 +45,7 @@
 								'portfolio_change_single_item_slug_group' => array
 									(
 										'type' => 'pixtype-group',
+										'show_on' => 'portfolio_change_single_item_slug',
 										'options' => array
 											(
 												'portfolio_new_single_item_slug' => array
@@ -69,6 +71,7 @@
 								'portfolio_change_archive_slug_group' => array
 									(
 										'type' => 'pixtype-group',
+										'show_on' => 'portfolio_change_archive_slug',
 										'options' => array
 										(
 											'portfolio_new_archive_slug' => array
@@ -84,13 +87,13 @@
 												),
 										),
 									),
-								'portfolio_use_tags' => array
-									(
-										'label' => 'Use Tags',
-										'desc' => 'Do you want to assign tags to portfolio items?',
-										'default' => true,
-										'type' => 'switch',
-									),
+//								'portfolio_use_tags' => array
+//									(
+//										'label' => 'Use Tags',
+//										'desc' => 'Do you want to assign tags to portfolio items?',
+//										'default' => true,
+//										'type' => 'switch',
+//									),
 						),
 				),
 				'enable_gallery' => array

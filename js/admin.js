@@ -29,9 +29,6 @@
 				e.preventDefault();
 
 				var ajax_nounce = $(this).parents('ul').siblings('.unset_nonce').val();
-
-
-
 				// reload likes number
 				jQuery.ajax({
 					type: "post",url: locals.ajax_url,data: { action: 'unset_pixtypes', _ajax_nonce: ajax_nounce, post_type: $(this).val() },
