@@ -17,11 +17,42 @@
 //		});
 		/** End Checkbox value switcher **/
 
-		$('#unset_pixypes').on('submit', function(e){
+
+
+		/** ajax callbacks */
+		$('#unset_pixypes').on('click', 'button', function(e){
 			var response = confirm('Be sure that you don\'t need this post type anymore');
 
-			if ( response == false ) e.preventDefault();
+			if ( response == false ) {
+				e.preventDefault();
+			} else {
+				e.preventDefault();
+
+				var ajax_nounce = $(this).parents('ul').siblings('.unset_nonce').val();
+
+
+
+				// reload likes number
+				jQuery.ajax({
+					type: "post",url: locals.ajax_url,data: { action: 'unset_pixtypes', _ajax_nonce: ajax_nounce, post_type: $(this).val() },
+					//beforeSend: function() {jQuery("#loading").show("slow");}, //show loading just when link is clicked
+					//complete: function() { jQuery("#loading").hide("fast");}, //stop showing loading when the process is complete
+					success: function( response ){
+						var result = JSON.parse(response);
+
+						if ( typeof result !== 'undefined' && result.success ) {
+							alert( result.msg );
+							location.reload();
+						}
+					}
+				});
+
+			}
+
+
 		});
+
+
 	});
 
 	/*

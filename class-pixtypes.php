@@ -91,6 +91,12 @@ class PixTypesPlugin {
 //		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 		add_action( 'init', array( $this, 'register_entities'), 99999);
+
+		/**
+		 * Ajax Callbacks
+		 */
+		add_action('wp_ajax_unset_pixtypes', array(&$this, 'ajax_unset_pixtypes'));
+		add_action('wp_ajax_nopriv_unset_pixtypes', array(&$this, 'ajax_unset_pixtypes'));
 	}
 
 	/**
@@ -247,6 +253,11 @@ class PixTypesPlugin {
 		$screen = get_current_screen();
 		if ( $screen->id == $this->plugin_screen_hook_suffix ) {
 			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'js/admin.js', __FILE__ ), array( 'jquery' ), $this->version );
+			wp_localize_script( $this->plugin_slug . '-admin-script', 'locals',
+				array(
+					'ajax_url' => admin_url( 'admin-ajax.php' )
+				)
+			);
 		}
 	}
 
@@ -505,9 +516,9 @@ class PixTypesPlugin {
 	 * @param $slug string
 	 * @return boolean
 	 */
+
 	function process_post_type_arguments( $post_type, $args ){
 		$options = get_option('pixtypes_settings');
-
 		$a = array (
 			'name' => 'Project',
 			'singular_name' => 'Project',
@@ -523,8 +534,29 @@ class PixTypesPlugin {
 			'parent_item_colon' => '',
 			'menu_name' => 'Projects',
 		);
-
 		return $args;
+	}
 
+
+	function ajax_unset_pixtypes(){
+		$result = array('success' => false, 'msg' => 'Incorect nonce');
+		if ( !wp_verify_nonce($_POST['_ajax_nonce'], 'unset_pixtype') ) {
+			echo json_encode($result);
+			die();
+		}
+
+		if ( isset($_POST['post_type']) ) {
+			$key = $_POST['post_type'];
+			$options = get_option('pixtypes_settings');
+			if ( isset( $options['themes'][$key] ) ) {
+				unset($options['themes'][$key]);
+				update_option('pixtypes_settings', $options);
+				$result['msg'] = 'Post type ' . $key . ' is gone.';
+				$result['success'] = true;
+			}
+		}
+
+		echo json_encode( $result );
+		exit;
 	}
 }
