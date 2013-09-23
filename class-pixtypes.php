@@ -366,18 +366,18 @@ class PixTypesPlugin {
 		$types_options[$theme_key]['post_types'] = array(
 			'pix_portfolio' => array(
 				'labels' => array (
-					'name' => 'Project',
-					'singular_name' => 'Project',
-//					'add_new' => 'Add New',
-					'add_new_item' => 'Add New Project',
-					'edit_item' => 'Edit Project',
-					'new_item' => 'New Project',
-					'all_items' => 'All Projects',
-					'view_item' => 'View Project',
-					'search_items' => 'Search Projects',
-					'not_found' => 'No Project found',
-					'not_found_in_trash' => 'No Project found in Trash',
-					'menu_name' => 'Projects',
+					'name' => __('Project', 'pixtypes_txtd'),
+					'singular_name' => __('Project', 'pixtypes_txtd'),
+//					'add_new' => __('Add New', 'pixtypes_txtd'),
+					'add_new_item' => __('Add New Project', 'pixtypes_txtd'),
+					'edit_item' => __('Edit Project', 'pixtypes_txtd'),
+					'new_item' => __('New Project', 'pixtypes_txtd'),
+					'all_items' => __('All Projects', 'pixtypes_txtd'),
+					'view_item' => __('View Project', 'pixtypes_txtd'),
+					'search_items' => __('Search Projects', 'pixtypes_txtd'),
+					'not_found' => __('No Project found', 'pixtypes_txtd'),
+					'not_found_in_trash' => __('No Project found in Trash', 'pixtypes_txtd'),
+					'menu_name' => __('Projects', 'pixtypes_txtd'),
 				),
 				'public' => true,
 				'rewrite' => array (
@@ -391,18 +391,18 @@ class PixTypesPlugin {
 			),
 			'pix_gallery' => array(
 				'labels' => array (
-					'name' => 'Gallery',
-					'singular_name' => 'Gallery',
-					'add_new' => 'Add New',
-					'add_new_item' => 'Add New Gallery',
-					'edit_item' => 'Edit Gallery',
-					'new_item' => 'New Gallery',
-					'all_items' => 'All Galleries',
-					'view_item' => 'View Gallery',
-					'search_items' => 'Search Galleries',
-					'not_found' => 'No Gallery found',
-					'not_found_in_trash' => 'No Gallery found in Trash',
-					'menu_name' => 'Galleries',
+					'name' => __('Gallery', 'pixtypes_txtd'),
+					'singular_name' => __('Gallery', 'pixtypes_txtd'),
+					'add_new' => __('Add New', 'pixtypes_txtd'),
+					'add_new_item' => __('Add New Gallery', 'pixtypes_txtd'),
+					'edit_item' => __('Edit Gallery', 'pixtypes_txtd'),
+					'new_item' => __('New Gallery', 'pixtypes_txtd'),
+					'all_items' => __('All Galleries', 'pixtypes_txtd'),
+					'view_item' => __('View Gallery', 'pixtypes_txtd'),
+					'search_items' => __('Search Galleries', 'pixtypes_txtd'),
+					'not_found' => __('No Gallery found', 'pixtypes_txtd'),
+					'not_found_in_trash' => __('No Gallery found in Trash', 'pixtypes_txtd'),
+					'menu_name' => __('Galleries', 'pixtypes_txtd'),
 				),
 				'public' => true,
 				'rewrite' => array (
@@ -421,17 +421,17 @@ class PixTypesPlugin {
 			'pix_portfolio_categories' => array(
 				'hierarchical' => true,
 				'labels' => array (
-					'name' => 'Portfolio Categories',
-					'singular_name' => 'Portfolio Category',
-					'search_items' => 'Search Portfolio Category',
-					'all_items' => 'All Portfolio Categories',
-					'parent_item' => 'Parent Portfolio Category',
-					'parent_item_colon' => 'Parent Portfolio Category: ',
-					'edit_item' => 'Edit Portfolio Category',
-					'update_item' => 'Update Portfolio Category',
-					'add_new_item' => 'Add New Portfolio Category',
-					'new_item_name' => 'New Portfolio Category Name',
-					'menu_name' => 'Portfolio Categories',
+					'name' => __('Portfolio Categories', 'pixtypes_txtd'),
+					'singular_name' => __('Portfolio Category', 'pixtypes_txtd'),
+					'search_items' => __('Search Portfolio Category', 'pixtypes_txtd'),
+					'all_items' => __('All Portfolio Categories', 'pixtypes_txtd'),
+					'parent_item' => __('Parent Portfolio Category', 'pixtypes_txtd'),
+					'parent_item_colon' => __('Parent Portfolio Category: ', 'pixtypes_txtd'),
+					'edit_item' => __('Edit Portfolio Category', 'pixtypes_txtd'),
+					'update_item' => __('Update Portfolio Category', 'pixtypes_txtd'),
+					'add_new_item' => __('Add New Portfolio Category', 'pixtypes_txtd'),
+					'new_item_name' => __('New Portfolio Category Name', 'pixtypes_txtd'),
+					'menu_name' => __('Portfolio Categories', 'pixtypes_txtd'),
 				),
 				'show_admin_column' => true,
 				'rewrite' => array ( 'slug' => 'portfolio-category', 'with_front' => false ),
@@ -441,17 +441,17 @@ class PixTypesPlugin {
 			'pix_gallery_categories' => array(
 				'hierarchical' => true,
 				'labels' => array (
-					'name' => 'Gallery Categories',
-					'singular_name' => 'Gallery Category',
-					'search_items' => 'Search Gallery Category',
-					'all_items' => 'All Gallery Categories',
-					'parent_item' => 'Parent Gallery Category',
-					'parent_item_colon' => 'Parent Gallery Category: ',
-					'edit_item' => 'Edit Gallery Category',
-					'update_item' => 'Update Gallery Category',
-					'add_new_item' => 'Add New Gallery Category',
-					'new_item_name' => 'New Gallery Category Name',
-					'menu_name' => 'Gallery Categories',
+					'name' => __('Gallery Categories', 'pixtypes_txtd'),
+					'singular_name' => __('Gallery Category', 'pixtypes_txtd'),
+					'search_items' => __('Search Gallery Category', 'pixtypes_txtd'),
+					'all_items' => __('All Gallery Categories', 'pixtypes_txtd'),
+					'parent_item' => __('Parent Gallery Category', 'pixtypes_txtd'),
+					'parent_item_colon' => __('Parent Gallery Category: ', 'pixtypes_txtd'),
+					'edit_item' => __('Edit Gallery Category', 'pixtypes_txtd'),
+					'update_item' => __('Update Gallery Category', 'pixtypes_txtd'),
+					'add_new_item' => __('Add New Gallery Category', 'pixtypes_txtd'),
+					'new_item_name' => __('New Gallery Category Name', 'pixtypes_txtd'),
+					'menu_name' => __('Gallery Categories', 'pixtypes_txtd'),
 				),
 				'show_admin_column' => true,
 				'rewrite' => array ( 'slug' => 'gallery-category', 'with_front' => false ),
@@ -464,14 +464,14 @@ class PixTypesPlugin {
 		$types_options[$theme_key]['metaboxes'] = array(
 			'pix_portfolio' => array(
 				'id'         => 'portfolio_gallery',
-				'title'      => 'Gallery',
+				'title'      => __('Gallery', 'pixtypes_txtd'),
 				'pages'      => array( 'pix_portfolio' ), // Post type
 				'context'    => 'normal',
 				'priority'   => 'high',
 				'show_names' => true, // Show field names on the left
 				'fields' => array(
 					array(
-						'name' => 'Images',
+						'name' => __('Images', 'pixtypes_txtd'),
 						'id'   => 'pix_portfolio_gallery',
 						'type' => 'gallery',
 					)
@@ -479,14 +479,14 @@ class PixTypesPlugin {
 			),
 			'pix_gallery' => array(
 				'id'         => 'pix_gallery',
-				'title'      => 'Gallery',
+				'title'      => __('Gallery', 'pixtypes_txtd'),
 				'pages'      => array( 'pix_gallery' ), // Post type
 				'context'    => 'normal',
 				'priority'   => 'high',
 				'show_names' => true, // Show field names on the left
 				'fields' => array(
 					array(
-						'name' => 'Images',
+						'name' => __('Images', 'pixtypes_txtd'),
 						'id'   => 'pix_main_gallery',
 						'type' => 'gallery',
 					)
@@ -494,32 +494,6 @@ class PixTypesPlugin {
 			)
 		);
 		return $types_options;
-	}
-
-	/**
-	 * Insert plugin settings into
-	 * @param $slug string
-	 * @return boolean
-	 */
-
-	function process_post_type_arguments( $post_type, $args ){
-		$options = get_option('pixtypes_settings');
-		$a = array (
-			'name' => 'Project',
-			'singular_name' => 'Project',
-			'add_new' => 'Add New',
-			'add_new_item' => 'Add New Project',
-			'edit_item' => 'Edit Project',
-			'new_item' => 'New Project',
-			'all_items' => 'All Projects',
-			'view_item' => 'View Project',
-			'search_items' => 'Search Projects',
-			'not_found' => 'No Project found',
-			'not_found_in_trash' => 'No Project found in Trash',
-			'parent_item_colon' => '',
-			'menu_name' => 'Projects',
-		);
-		return $args;
 	}
 
 
