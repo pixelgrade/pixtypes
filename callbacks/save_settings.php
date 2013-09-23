@@ -45,23 +45,32 @@ function save_pixtypes_settings( $values ){
 					// modify these settings only if the post type is enabled
 					if ( isset($options["enable_" . $post_type_key ]) && $options["enable_" . $post_type_key] ) {
 
-						/** @TODO Labels */
-
-						/** @TODO Singular labels */
+						/** Singular labels */
 						if ( isset($values[$post_type_key . '_single_item_label']) && $values[$post_type_key . '_single_item_label'] != $post_type['labels']['name'] ) {
 
+							$single_label = $values[$post_type_key . '_single_item_label'];
 
-//							$post_type['labels']['name'] = ;
-//							$post_type['labels']['singular_name'] = ;
-//							$post_type['labels']['name'] = ;
-
+							$post_type['labels']['name'] = $single_label;
+							$post_type['labels']['singular_name'] = $single_label;
+							$post_type['labels']['add_new_item'] = 'Add New ' . $single_label;
+							$post_type['labels']['edit_item'] = 'Edit ' . $single_label;
+							$post_type['labels']['new_item'] = 'New ' . $single_label;
+							$post_type['labels']['view_item'] = 'View ' . $single_label;
+							$post_type['labels']['not_found'] = 'No '. $single_label .' found' ;
+							$post_type['labels']['not_found_in_trash'] = 'No '. $single_label .' found in Trash';
 						}
 
-						/** @TODO Plural labels */
+						/** Plural labels */
 						if ( isset($values[$post_type_key . '_multiple_items_label']) && $values[$post_type_key . '_multiple_items_label'] != $post_type['labels']['menu_name'] ) {
 
+							$plural_label = $values[$post_type_key . '_multiple_items_label'];
+
+							$post_type['labels']['menu_name'] = $plural_label;
+							$post_type['labels']['all_items'] = 'All '. $plural_label;
+							$post_type['labels']['search_items'] = 'Search'. $plural_label;
 						}
 
+						/** Slugs */
 						if ( isset($values[$post_type_key . '_change_single_item_slug']) && $values[$post_type_key . '_change_single_item_slug'] && !empty($values[$post_type_key . '_new_single_item_slug']) ) {
 							$post_type['rewrite']['slug'] = $slug_prefix . $values[$post_type_key . '_new_single_item_slug'];
 						}
@@ -81,18 +90,14 @@ function save_pixtypes_settings( $values ){
 			/** Apply settings for taxonomies */
 			if ( $theme['taxonomies'] ) {
 				foreach( $theme['taxonomies'] as $name => &$taxonomy ) {
-
 					// eliminate the theme prefix
 					$tax_key = strstr( $name, '_');
 					$tax_key = substr($tax_key, 1);
-
 					// modify these settings only if the post type is enabled
 					if ( isset($options["enable_" . $tax_key ]) && $options["enable_" . $tax_key] ) {
-
 						if ( isset( $values[$tax_key . '_change_archive_slug'] ) && $values[$tax_key . '_change_archive_slug'] && !empty( $values[$tax_key . '_change_archive_slug'] ) ) {
 							$taxonomy['has_archive'] = $slug_prefix . $values[$tax_key . '_new_archive_slug'];
 						}
-
 					}
 				}
 			}
@@ -100,9 +105,7 @@ function save_pixtypes_settings( $values ){
 	}
 
 	// save this settings back
-
-	var_dump( update_option('pixtypes_settings', $options) );
-	var_dump($options);
+	update_option('pixtypes_settings', $options);
 
 	/** Usually these settings will change slug settings se we need to flush the permalinks */
 	flush_rewrite_rules();
