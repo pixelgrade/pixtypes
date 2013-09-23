@@ -11,7 +11,6 @@ foreach ( $theme_types as $key => $theme ) {
 	// post types
 	if ( isset( $theme['post_types'] ) && is_array( $theme['post_types'] ) ) {
 		foreach ( $theme['post_types'] as $post_type => $post_type_args ) {
-
 			// eliminate the theme prefix
 			$post_type_key = strstr( $post_type, '_');
 			$post_type_key = substr($post_type_key, 1);

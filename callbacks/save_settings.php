@@ -2,10 +2,18 @@
 /**
  * On save action we process all settings for each theme settings we have in db
  *
+ * Think about inserting this function in after_theme_switch hook so the settings should be updated on theme switch
+ *
  * @param $values
  */
 
 function save_pixtypes_settings( $values ){
+
+	if ( class_exists('wpgrade') ) {
+		$current_theme = wpgrade::shortname();
+	} else {
+		$current_theme = 'pixtypes';
+	}
 
 	$options = get_option('pixtypes_settings');
 
@@ -14,24 +22,52 @@ function save_pixtypes_settings( $values ){
 		/** Save these settings for each theme we have */
 		foreach ( $options['themes'] as $key => &$theme ) {
 
+			/**
+			 * @TODO Care about uniqueness ?
+			 * Well create a slug prefix which is empty for the current theme
+			 * We do that because we need the all slugs unique
+			 */
+
+			if ( $current_theme == $key) {
+				$slug_prefix = '';
+			} else {
+				$slug_prefix = $key . '_';
+			}
 
 			/** Apply settings for post types */
 			if ( $theme['post_types'] ) {
 				foreach( $theme['post_types'] as $name => &$post_type ) {
-					// eliminate the theme prefix
+
+					// get post type key without prefix
 					$post_type_key = strstr( $name, '_');
 					$post_type_key = substr($post_type_key, 1);
 
 					// modify these settings only if the post type is enabled
 					if ( isset($options["enable_" . $post_type_key ]) && $options["enable_" . $post_type_key] ) {
 
-						/** @TODO Care about uniqueness */
+						/** @TODO Labels */
+
+						/** @TODO Singular labels */
+						if ( isset($values[$post_type_key . '_single_item_label']) && $values[$post_type_key . '_single_item_label'] != $post_type['labels']['name'] ) {
+
+
+//							$post_type['labels']['name'] = ;
+//							$post_type['labels']['singular_name'] = ;
+//							$post_type['labels']['name'] = ;
+
+						}
+
+						/** @TODO Plural labels */
+						if ( isset($values[$post_type_key . '_multiple_items_label']) && $values[$post_type_key . '_multiple_items_label'] != $post_type['labels']['menu_name'] ) {
+
+						}
+
 						if ( isset($values[$post_type_key . '_change_single_item_slug']) && $values[$post_type_key . '_change_single_item_slug'] && !empty($values[$post_type_key . '_new_single_item_slug']) ) {
-							$post_type['rewrite']['slug'] = $values[$post_type_key . '_new_single_item_slug'];
+							$post_type['rewrite']['slug'] = $slug_prefix . $values[$post_type_key . '_new_single_item_slug'];
 						}
 
 						if ( isset($values[$post_type_key . '_change_archive_slug']) && $values[$post_type_key . '_change_archive_slug'] && !empty( $values[$post_type_key . '_new_archive_slug'] ) ) {
-							$post_type['has_archive'] = $values[$post_type_key . '_new_archive_slug'];
+							$post_type['has_archive'] = $slug_prefix . $values[$post_type_key . '_new_archive_slug'];
 						}
 
 						// assign tags @TODO later
@@ -53,20 +89,20 @@ function save_pixtypes_settings( $values ){
 					// modify these settings only if the post type is enabled
 					if ( isset($options["enable_" . $tax_key ]) && $options["enable_" . $tax_key] ) {
 
-						/** @TODO Care about uniqueness */
 						if ( isset( $values[$tax_key . '_change_archive_slug'] ) && $values[$tax_key . '_change_archive_slug'] && !empty( $values[$tax_key . '_change_archive_slug'] ) ) {
-							$taxonomy['has_archive'] = $values[$tax_key . '_new_archive_slug'];
+							$taxonomy['has_archive'] = $slug_prefix . $values[$tax_key . '_new_archive_slug'];
 						}
+
 					}
 				}
 			}
 		}
 	}
 
-	var_dump($options);
-
 	// save this settings back
-	update_option('pixtype_settings', $options);
+
+	var_dump( update_option('pixtypes_settings', $options) );
+	var_dump($options);
 
 	/** Usually these settings will change slug settings se we need to flush the permalinks */
 	flush_rewrite_rules();
