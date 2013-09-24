@@ -35,7 +35,7 @@ function save_pixtypes_settings( $values ){
 			}
 
 			/** Apply settings for post types */
-			if ( $theme['post_types'] ) {
+			if ( isset($theme['post_types']) ) {
 				foreach( $theme['post_types'] as $name => &$post_type ) {
 
 					// get post type key without prefix
@@ -88,7 +88,7 @@ function save_pixtypes_settings( $values ){
 			}
 
 			/** Apply settings for taxonomies */
-			if ( $theme['taxonomies'] ) {
+			if ( isset($theme['taxonomies']) ) {
 				foreach( $theme['taxonomies'] as $name => &$taxonomy ) {
 					// eliminate the theme prefix
 					$tax_key = strstr( $name, '_');
@@ -109,5 +109,4 @@ function save_pixtypes_settings( $values ){
 
 	/** Usually these settings will change slug settings se we need to flush the permalinks */
 	flush_rewrite_rules();
-
 }

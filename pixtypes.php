@@ -25,7 +25,6 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-
 // ensure EXT is defined
 if ( ! defined('EXT')) {
 	define('EXT', '.php');

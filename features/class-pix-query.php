@@ -2,6 +2,20 @@
 
 class Pix_Query extends Wp_Query {
 
+	function get_meta_value( $key = '' ) {
+
+		if ( class_exists('wpgrade') ) {
+			$key = wpgrade::prefix() . $key;
+		}
+
+		$value = get_post_meta( get_the_ID(), $key, true );
+
+		if ( !empty($value) ) {
+			return $value;
+		}
+		return false;
+	}
+
 	function get_post_metabox( $key = '', $args = array() ) {
 		global $post;
 		$ids = get_post_meta( $post->ID, $key, true );

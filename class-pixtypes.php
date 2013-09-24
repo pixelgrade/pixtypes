@@ -91,12 +91,15 @@ class PixTypesPlugin {
 //		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 		add_action( 'init', array( $this, 'register_entities'), 99999);
+		add_action( 'init', array( $this, 'theme_version_check'));
 
 		/**
 		 * Ajax Callbacks
 		 */
 		add_action('wp_ajax_unset_pixtypes', array(&$this, 'ajax_unset_pixtypes'));
 		add_action('wp_ajax_nopriv_unset_pixtypes', array(&$this, 'ajax_unset_pixtypes'));
+
+
 	}
 
 	/**
@@ -126,7 +129,6 @@ class PixTypesPlugin {
 	public static function activate( $network_wide ) {
 		$config = include 'plugin-config.php';
 
-		ob_start();
 		/** get options defined by themes */
 		$theme_types = get_option('pixtypes_themes_settings');
 		$types_settings = get_option($config['settings-key']);
@@ -143,7 +145,11 @@ class PixTypesPlugin {
 
 		/** A pixelgrade theme will always have this class so we know we can import new settings **/
 		if (class_exists('wpgrade') ) {
+
 			$current_theme = wpgrade::shortname() . $current_theme;
+			// also inform the plugin about theme version
+			$types_settings['wpgrade_theme_version'] = wpgrade::themeversion();
+
 		} else {
 			$theme_types = self::get_defaults( 'pixtypes' . $current_theme );
 		}
@@ -190,8 +196,6 @@ class PixTypesPlugin {
 		}
 
 		update_option($config['settings-key'], $types_settings);
-
-		$debug = ob_get_clean();
 	}
 
 	/**
@@ -496,7 +500,6 @@ class PixTypesPlugin {
 		return $types_options;
 	}
 
-
 	function ajax_unset_pixtypes(){
 		$result = array('success' => false, 'msg' => 'Incorect nonce');
 		if ( !wp_verify_nonce($_POST['_ajax_nonce'], 'unset_pixtype') ) {
@@ -518,4 +521,18 @@ class PixTypesPlugin {
 		echo json_encode( $result );
 		exit;
 	}
+
+	function theme_version_check(){
+
+		$options = get_option('pixtypes_settings');
+
+		if ( class_exists( 'wpgrade' ) && isset($options['wpgrade_theme_version']) ) {
+			if ( wpgrade::themeversion() > $options['wpgrade_theme_version'] ) {
+				wpgrade_callback_geting_active();
+				self::activate(false);
+				save_pixtypes_settings($options);
+			}
+		}
+	}
+
 }
