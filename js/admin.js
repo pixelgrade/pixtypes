@@ -17,7 +17,29 @@
 //		});
 		/** End Checkbox value switcher **/
 
+		/* Ensure groups visibility */
+		$('.switch input[type=checkbox]').each(function(){
 
+			if ( $(this).data('show_group') ) {
+
+				var show = false;
+				if ( $(this).attr('checked') ) {
+					show = true
+				}
+
+				toggleGroup( $(this).data('show_group'), show);
+			}
+		});
+
+		$('.switch ').on('change', 'input[type=checkbox]', function(){
+			if ( $(this).data('show_group') ) {
+				var show = false;
+				if ( $(this).attr('checked') ) {
+					show = true
+				}
+				toggleGroup( $(this).data('show_group'), show);
+			}
+		});
 
 		/** ajax callbacks */
 		$('#unset_pixypes').on('click', 'button', function(e){
@@ -45,12 +67,19 @@
 				});
 
 			}
-
-
 		});
-
-
 	});
+
+
+	var toggleGroup = function( name, show ){
+		var $group = $( '#' + name );
+
+		if ( show ) {
+			$group.show();
+		} else {
+			$group.hide();
+		}
+	};
 
 	/*
 	 * Usefull functions

@@ -196,6 +196,17 @@ class PixTypesPlugin {
 		}
 
 		update_option($config['settings-key'], $types_settings);
+
+//		flush_rewrite_rules();
+//		global $wp_rewrite;
+//		$wp_rewrite->generate_rewrite_rules();
+//		flush_rewrite_rules();
+
+		/**
+		 * http://wordpress.stackexchange.com/questions/36152/flush-rewrite-rules-not-working-on-plugin-deactivation-invalid-urls-not-showing
+		 * nothing from above works in plugin so ...
+		 */
+		delete_option('rewrite_rules');
 	}
 
 	/**
@@ -500,6 +511,9 @@ class PixTypesPlugin {
 		return $types_options;
 	}
 
+	/**
+	 * Ajax callback for unseting unneeded post types
+	 */
 	function ajax_unset_pixtypes(){
 		$result = array('success' => false, 'msg' => 'Incorect nonce');
 		if ( !wp_verify_nonce($_POST['_ajax_nonce'], 'unset_pixtype') ) {
@@ -522,17 +536,22 @@ class PixTypesPlugin {
 		exit;
 	}
 
+	/**
+	 * On every wpgrade themes update we need to reconvert theme options into plugin options
+	 */
 	function theme_version_check(){
 
 		$options = get_option('pixtypes_settings');
 
 		if ( class_exists( 'wpgrade' ) && isset($options['wpgrade_theme_version']) ) {
 			if ( wpgrade::themeversion() > $options['wpgrade_theme_version'] ) {
+				// here the theme is updating it's options
 				wpgrade_callback_geting_active();
+				// the plugin will copy these options into it's own field
 				self::activate(false);
+				// end finally merge user's settings with the theme ones
 				save_pixtypes_settings($options);
 			}
 		}
 	}
-
 }

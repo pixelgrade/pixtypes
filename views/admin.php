@@ -46,13 +46,10 @@
 
 		<?php echo $f = pixtypes::form($config, $processor);
 		echo $f->field('hiddens')->render(); ?>
-			<h3>Post Types</h3>
 
-			<?php echo $f->field('post_types')->render() ?>
+			<?php echo $f->field('post_types')->render(); ?>
 
-			<h3>Taxonomies</h3>
-
-			<?php echo $f->field('taxonomies')->render() ?>
+			<?php echo $f->field('taxonomies')->render(); ?>
 
 			<button type="submit" class="button button-primary">
 				Save Changes
@@ -71,21 +68,26 @@
 	<?php $options = get_option('pixtypes_settings');
 	if ( isset( $options['themes'] ) && count($options['themes']) > 1 ) { ?>
 
-		<div class="uninstall_area">
-			<h3> Danger Zone </h3>
+		<div class="uninstall_area postbox">
 
-			<p>If you are done with copying your content from old post types to the new ones, you can also get rid of the old post types</p>
-			<form method="post" id="unset_pixypes" action="<?php echo admin_url('options-general.php?page=pixtypes') ?>" >
-				<input type="hidden" class="unset_nonce" name="unset_nonce" value="<?php echo wp_create_nonce('unset_pixtype') ?>" />
-				<ul>
-					<?php
-					if ( isset( $options['themes'] ) && count( $options['themes'] ) > 1 ) {
-						foreach( $options['themes'] as $key => $theme ){
-							echo '<li><button class="button delete-action" type="submit" name="unset_pixtype" value="'. $key .'">Unset '.$key.'</button></li>';
-						}
-					} ?>
-				</ul>
-			</form>
+			<div class="handlediv" title="Click to toggle"><br></div>
+			<h3 class="hndle"><span>Danger Zone</span></h3>
+
+			<div class="inside">
+
+				<p>If you are done with copying your content from old post types to the new ones, you can also get rid of the old post types</p>
+				<form method="post" id="unset_pixypes" action="<?php echo admin_url('options-general.php?page=pixtypes') ?>" >
+					<input type="hidden" class="unset_nonce" name="unset_nonce" value="<?php echo wp_create_nonce('unset_pixtype') ?>" />
+					<ul>
+						<?php
+						if ( isset( $options['themes'] ) && count( $options['themes'] ) > 1 ) {
+							foreach( $options['themes'] as $key => $theme ){
+								echo '<li><button class="button delete-action" type="submit" name="unset_pixtype" value="'. $key .'">Unset '.$key.'</button></li>';
+							}
+						} ?>
+					</ul>
+				</form>
+			</div>
 		</div>
 	<?php } ?>
 </div>

@@ -1,6 +1,6 @@
 <?php return array
 	(
-		'type' => 'pixtype-group',
+		'type' => 'group',
 		'options' => array
 			(
 				'settings_saved_once' => array

@@ -62,6 +62,6 @@ return array
 			),
 
 		// shows exception traces on error
-		'debug' => true,
+		'debug' => false,
 
 	); # config

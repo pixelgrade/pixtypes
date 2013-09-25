@@ -1,7 +1,7 @@
 <?php return array
 	(
-		'type' => 'pixtype-group',
-//		'label' => 'Post Types',
+		'type' => 'postbox',
+		'label' => 'Post Types',
 
 		// Custom field settings
 		// ---------------------
@@ -13,12 +13,12 @@
 						'label' => 'Enable Portfolio',
 						'default' => true,
 						'type' => 'switch',
+						'show_group' => 'enable_portfolio_group',
 					), /* ALL THESE PREFIXED WITH PORTFOLIO SHOULD BE KIDS!! **/
 
 				'enable_portfolio_group' => array
 					(
-						'type' => 'pixtype-group',
-						'show_on' => 'enable_portfolio',
+						'type' => 'group',
 						'options' => array
 							(
 								'portfolio_single_item_label' => array
@@ -41,11 +41,11 @@
 										'desc' => 'Do you want to rewrite the single portfolio item slug?',
 										'default' => true,
 										'type' => 'switch',
+										'show_group' => 'portfolio_change_single_item_slug_group',
 									),
 								'portfolio_change_single_item_slug_group' => array
 									(
-										'type' => 'pixtype-group',
-										'show_on' => 'portfolio_change_single_item_slug',
+										'type' => 'group',
 										'options' => array
 											(
 												'portfolio_new_single_item_slug' => array
@@ -55,9 +55,9 @@
 														'default' => 'project',
 														'type' => 'text',
 
-														// extra pixtype-group options
-														'pixtype-group-example' => 'from your.domain.com/portfolio/item1 in your.domain.com/new-slug/item1',
-														'pixtype-group-note' => 'After you change this you need to go and save the permalinks to flush them.'
+														// extra group options
+//														'group-example' => 'from your.domain.com/portfolio/item1 in your.domain.com/new-slug/item1',
+//														'group-note' => 'After you change this you need to go and save the permalinks to flush them.'
 													),
 											),
 									),
@@ -67,11 +67,11 @@
 										'desc' => 'Do you want to rewrite the portfolio archive slug? This will only be used if you don\'t have a page with the Portfolio template.',
 										'default' => false,
 										'type' => 'switch',
+										'show_group' => 'portfolio_change_archive_slug_group',
 									),
 								'portfolio_change_archive_slug_group' => array
 									(
-										'type' => 'pixtype-group',
-										'show_on' => 'portfolio_change_archive_slug',
+										'type' => 'group',
 										'options' => array
 										(
 											'portfolio_new_archive_slug' => array
@@ -81,9 +81,9 @@
 													'default' => 'portfolio',
 													'type' => 'text',
 
-													// extra pixtype-group options
-													'pixtype-group-example' => 'from your.domain.com/portfolio in your.domain.com/new-slug',
-													'pixtype-group-note' => 'After you change this you need to go and save the permalinks to flush them.'
+													// extra group options
+//													'group-example' => 'from your.domain.com/portfolio in your.domain.com/new-slug',
+//													'group-note' => 'After you change this you need to go and save the permalinks to flush them.'
 												),
 										),
 									),

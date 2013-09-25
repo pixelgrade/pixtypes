@@ -1,7 +1,7 @@
 <?php return array
 	(
-		'type' => 'pixtype-group',
-//		'label' => 'Taxonomies',
+		'type' => 'postbox',
+		'label' => 'Taxonomies',
 
 		// Custom field settings
 		// ---------------------
@@ -13,10 +13,11 @@
 						'label' => 'Enable Portfolio Categories',
 						'default' => true,
 						'type' => 'switch',
+						'show_group' => 'enable_portfolio_categories_group'
 					),
 				'enable_portfolio_categories_group' => array
 					(
-						'type' => 'pixtype-group',
+						'type' => 'group',
 						'options' => array
 							(
 								'portfolio_categories_change_archive_slug' => array
@@ -25,10 +26,11 @@
 										'desc' => 'Do you want to rewrite the portfolio category slug?',
 										'default' => false,
 										'type' => 'switch',
+										'show_group' => 'portfolio_categories_change_archive_slug_group'
 									),
 								'portfolio_categories_change_archive_slug_group' => array
 									(
-										'type' => 'pixtype-group',
+										'type' => 'group',
 										'options' => array
 										(
 											'portfolio_categories_new_archive_slug' => array

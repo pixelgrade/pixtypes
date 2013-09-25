@@ -108,5 +108,14 @@ function save_pixtypes_settings( $values ){
 	update_option('pixtypes_settings', $options);
 
 	/** Usually these settings will change slug settings se we need to flush the permalinks */
-	flush_rewrite_rules();
+//	global $wp_rewrite;
+//	//Call flush_rules() as a method of the $wp_rewrite object
+//	$wp_rewrite->flush_rules();
+
+	/**
+	 * http://wordpress.stackexchange.com/questions/36152/flush-rewrite-rules-not-working-on-plugin-deactivation-invalid-urls-not-showing
+	 * nothing from above works in plugin so ...
+	 */
+	delete_option('rewrite_rules');
+	
 }
