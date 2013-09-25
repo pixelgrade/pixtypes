@@ -262,6 +262,32 @@ class cmb_Meta_Box {
 					echo '</select>';
 					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
 					break;
+				case 'select_cpt_post':
+					echo '<select name="', $field['id'], '" id="', $field['id'], '">';
+					$args = array(
+						'posts_per_page' => -1,
+					);
+					$args = array_merge($args,$field['options']);
+					$cpt_posts = get_posts($args);
+					if (!empty($cpt_posts)) {
+					    foreach ($cpt_posts as $post) {
+						echo '<option value="', $post->ID, '"', $meta == $post->ID ? ' selected="selected"' : '', '>', $post->post_title, '</option>';
+					    }
+					}
+					echo '</select>';
+					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
+					break;
+				case 'select_cpt_term':
+					echo '<select name="', $field['id'], '" id="', $field['id'], '">';
+					$cpt_terms = get_terms( $field['taxonomy'], 'orderby=count&hide_empty=0' );
+					if (!empty($cpt_terms)) {
+					    foreach ($cpt_terms as $term) {
+						echo '<option value="', $term->slug, '"', $meta == $term->slug ? ' selected="selected"' : '', '>', $term->name, '</option>';
+					    }
+					}
+					echo '</select>';
+					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
+					break;
 				case 'radio_inline':
 					if( empty( $meta ) && !empty( $field['std'] ) ) $meta = $field['std'];
 					echo '<div class="cmb_radio_inline">';
@@ -398,47 +424,47 @@ class cmb_Meta_Box {
 						}
 					echo '</div>';
 				break;
-                case 'attachment':
-                    $input_type_url = "hidden";
+				case 'attachment':
+					$input_type_url = "hidden";
 
-                    if ( isset( $field['allow'] ) && ( 'url' == $field['allow'] || ( is_array( $field['allow'] ) && in_array( 'url', $field['allow'] ) ) ) )
-                        $input_type_url="text";
-                    echo '<input class="cmb_upload_file attachment" type="' . $input_type_url . '" size="45" id="', $field['id'], '" name="', $field['id'], '" value=\'', $meta, '\' />';
-                    echo '<input class="cmb_upload_button button" type="button" value="Upload File" />';
-                    echo '<input class="cmb_upload_file_id" type="hidden" id="', $field['id'], '_id" name="', $field['id'], '_id" value="', get_post_meta( $post->ID, $field['id'] . "_id",true), '" />';
-                    echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
-                    echo '<div id="', $field['id'], '_status" class="cmb_media_status">';
-                    if ( $meta != '' ) {
-                        $check_image = preg_match( '/(^.*\.jpg|jpeg|png|gif|ico*)/i', $meta );
-                        if ( $check_image ) {
-                            echo '<div class="img_status">';
-                            $meta_img = (array)json_decode($meta);
-                            echo '<img src="'. $meta_img["link"]. '" alt="" />';
-                            echo '<a href="#" class="cmb_remove_file_button" rel="', $field['id'], '">Remove Image</a>';
-                            echo '</div>';
-                        } else {
-                            $parts = explode( '/', $meta );
-                            for( $i = 0; $i < count( $parts ); ++$i ) {
-                                $title = $parts[$i];
-                            }
-                            echo 'File: <strong>', $title, '</strong>&nbsp;&nbsp;&nbsp; (<a href="', $meta, '" target="_blank" rel="external">Download</a> / <a href="#" class="cmb_remove_file_button" rel="', $field['id'], '">Remove</a>)';
-                        }
-                    }
-                    echo '</div>';
-                    break;
-                case 'portfolio-gallery':
+					if ( isset( $field['allow'] ) && ( 'url' == $field['allow'] || ( is_array( $field['allow'] ) && in_array( 'url', $field['allow'] ) ) ) )
+						$input_type_url="text";
+					echo '<input class="cmb_upload_file attachment" type="' . $input_type_url . '" size="45" id="', $field['id'], '" name="', $field['id'], '" value=\'', $meta, '\' />';
+					echo '<input class="cmb_upload_button button" type="button" value="Upload File" />';
+					echo '<input class="cmb_upload_file_id" type="hidden" id="', $field['id'], '_id" name="', $field['id'], '_id" value="', get_post_meta( $post->ID, $field['id'] . "_id",true), '" />';
+					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
+					echo '<div id="', $field['id'], '_status" class="cmb_media_status">';
+					if ( $meta != '' ) {
+						$check_image = preg_match( '/(^.*\.jpg|jpeg|png|gif|ico*)/i', $meta );
+						if ( $check_image ) {
+							echo '<div class="img_status">';
+							$meta_img = (array)json_decode($meta);
+							echo '<img src="'. $meta_img["link"]. '" alt="" />';
+							echo '<a href="#" class="cmb_remove_file_button" rel="', $field['id'], '">Remove Image</a>';
+							echo '</div>';
+						} else {
+							$parts = explode( '/', $meta );
+							for( $i = 0; $i < count( $parts ); ++$i ) {
+								$title = $parts[$i];
+							}
+							echo 'File: <strong>', $title, '</strong>&nbsp;&nbsp;&nbsp; (<a href="', $meta, '" target="_blank" rel="external">Download</a> / <a href="#" class="cmb_remove_file_button" rel="', $field['id'], '">Remove</a>)';
+						}
+					}
+					echo '</div>';
+					break;
+				case 'portfolio-gallery':
 
-                    $file_path = plugin_basename(__FILE__ ) . 'fields/portfolio-gallery.php';
-                    if ( file_exists($file_path) ) {
-                        ob_start();
-                        include( $file_path );
-                        echo ob_get_clean();
-                    } else {
-                        echo '<p>Wrong path </p>';
+					$file_path = plugin_basename(__FILE__ ) . 'fields/portfolio-gallery.php';
+					if ( file_exists($file_path) ) {
+						ob_start();
+						include( $file_path );
+						echo ob_get_clean();
+					} else {
+						echo '<p>Wrong path </p>';
 //                        util::var_dump( $file_path );
-                    }
+					}
 
-                break;
+				break;
 				case 'gallery':
 
 					$file_path = plugin_dir_path(__FILE__ ) . 'fields/gallery.php';
