@@ -21,6 +21,12 @@
 
 <?php if ($rendering == 'inline'): ?>
 	<input <?php echo $field->htmlattributes($attrs) ?>/>
+<?php elseif ($rendering == 'blocks'):  ?>
+<div class="text">
+	<label id="<?php echo $name ?>"><?php echo $label ?></label>
+	<input <?php echo $field->htmlattributes($attrs) ?> />
+	<span><?php echo $desc ?></span>
+</div>
 <?php else: # ?>
 	<div>
 		<p><?php echo $desc ?></p>

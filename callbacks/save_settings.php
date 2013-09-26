@@ -117,5 +117,5 @@ function save_pixtypes_settings( $values ){
 	 * nothing from above works in plugin so ...
 	 */
 	delete_option('rewrite_rules');
-	
+
 }

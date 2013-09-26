@@ -39,10 +39,23 @@
 	}
 	else { // no fillins available
 		$processed_label = $label;
-	} ?>
+	}
+
+	// group show
+
+	if ($field->hasmeta('show_group')) {
+		$attrs['data-show_group'] =  $field->getmeta('show_group');
+	}
+?>
 
 <?php if ($rendering == 'inline'): ?>
 	<input <?php echo $field->htmlattributes($attrs) ?> />
+
+<?php elseif ($rendering == 'blocks'):  ?>
+	<div class="switch">
+		<input <?php echo $field->htmlattributes($attrs) ?> />
+		<label for="<?php echo $idname ?>"><?php echo $processed_label ?></label>
+	</div>
 <?php else: # rendering != 'inline' ?>
 	<label for="<?php echo $idname ?>">
 		<input <?php echo $field->htmlattributes($attrs) ?> />
