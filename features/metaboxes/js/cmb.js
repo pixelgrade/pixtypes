@@ -255,12 +255,12 @@ jQuery(document).ready(function ($) {
 	});
 	
 	//show the gallery posts selects when radio is on
-	if ($('input:radio[name="_lens_custom_homepage"]:checked').val() == 'gallery') {
+	if ($('input:radio[name="_lens_custom_homepage"]:checked').val() == 'lens_gallery') {
 		$('#_lens_homepage_gallery').closest('tr').show();
 	}
 	//monitor the change of the radio group
 	$("input[name='_lens_custom_homepage']").change(function(e){
-		if($(this).val() == 'gallery') {
+		if($(this).val() == 'lens_gallery') {
 			$('#_lens_homepage_gallery').closest('tr').show();
 		} else {
 			$('#_lens_homepage_gallery').closest('tr').hide();
