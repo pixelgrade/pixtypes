@@ -2597,3 +2597,8 @@ div.time-picker li.selected {
   right: 0; }
 #pixgallery-frame .media-sidebar {
   display: none; }
+
+/* theme specific */
+#lens_homepage_chooser {
+	display: none;
+}

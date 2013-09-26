@@ -267,7 +267,7 @@ class cmb_Meta_Box {
 					$args = array(
 						'posts_per_page' => -1,
 					);
-					$args = array_merge($args,$field['options']);
+					$args = array_merge($args,$field['options']['args']);
 					$cpt_posts = get_posts($args);
 					if (!empty($cpt_posts)) {
 					    foreach ($cpt_posts as $post) {
