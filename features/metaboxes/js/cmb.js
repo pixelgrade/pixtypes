@@ -241,6 +241,8 @@ jQuery(document).ready(function ($) {
 	
 	// theme specific
 	
+	//LENS - Ahaaaaaa!!! This is so evil and shameful, but I like it
+	
 	//logic for the LENS homepage chooser metabox
 	if ($('#page_template').val() == 'template-homepage.php') {
 		$('#lens_homepage_chooser').show();
@@ -265,8 +267,21 @@ jQuery(document).ready(function ($) {
 		} else {
 			$('#_lens_homepage_gallery').closest('tr').hide();
 		}
-
 	});
 	
+	//hide and show the gallery metabox on the project editor depending on the template used
+	if ($('#_lens_project_template').val() == 'classic') {
+		$('#portfolio_gallery').show();
+	} else {
+		$('#portfolio_gallery').hide();
+	}
+	
+	$('#_lens_project_template').on('change', function() {
+		if ($('#_lens_project_template').val() == 'classic') {
+			$('#portfolio_gallery').show();
+		} else {
+			$('#portfolio_gallery').hide();
+		}
+	});
 
 });
