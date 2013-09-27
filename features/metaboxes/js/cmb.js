@@ -238,5 +238,50 @@ jQuery(document).ready(function ($) {
 			}, 500);
 		}
 	}
+	
+	// theme specific
+	
+	//LENS - Ahaaaaaa!!! This is so evil and shameful, but I like it
+	
+	//logic for the LENS homepage chooser metabox
+	if ($('#page_template').val() == 'template-homepage.php') {
+		$('#lens_homepage_chooser').show();
+	}
+	
+	$('#page_template').on('change', function() {
+		if ($('#page_template').val() == 'template-homepage.php') {
+			$('#lens_homepage_chooser').show();
+		} else {
+			$('#lens_homepage_chooser').hide();
+		}
+	});
+	
+	//show the gallery posts selects when radio is on
+	if ($('input:radio[name="_lens_custom_homepage"]:checked').val() == 'lens_gallery') {
+		$('#_lens_homepage_gallery').closest('tr').show();
+	}
+	//monitor the change of the radio group
+	$("input[name='_lens_custom_homepage']").change(function(e){
+		if($(this).val() == 'lens_gallery') {
+			$('#_lens_homepage_gallery').closest('tr').show();
+		} else {
+			$('#_lens_homepage_gallery').closest('tr').hide();
+		}
+	});
+	
+	//hide and show the gallery metabox on the project editor depending on the template used
+	if ($('#_lens_project_template').val() == 'classic') {
+		$('#portfolio_gallery').show();
+	} else {
+		$('#portfolio_gallery').hide();
+	}
+	
+	$('#_lens_project_template').on('change', function() {
+		if ($('#_lens_project_template').val() == 'classic') {
+			$('#portfolio_gallery').show();
+		} else {
+			$('#portfolio_gallery').hide();
+		}
+	});
 
 });
