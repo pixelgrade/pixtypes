@@ -11,6 +11,8 @@
 
 function load_metaboxes_fromdb( array $meta_boxes ){
 	$options = get_option('pixtypes_settings');
+
+	if ( !isset($options["themes"])) return;
 	$theme_types = $options["themes"];
 	if ( empty($theme_types) || !array($theme_types)) return;
 	foreach ( $theme_types as $key => $theme ) {

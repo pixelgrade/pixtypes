@@ -128,7 +128,7 @@ class pixtypes {
 		$args = func_get_args();
 
 		foreach ($args as $arg) {
-			static::array_merge($base, $arg);
+			self::array_merge($base, $arg);
 		}
 
 		return $base;
