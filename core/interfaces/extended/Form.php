@@ -18,7 +18,7 @@ interface PixtypesForm extends PixtypesHTMLElement {
 	function addtemplatepath($path);
 
 	/**
-	 * @return string
+	 * @return PixtypesFormField
 	 */
 	function field($fieldname);
 
