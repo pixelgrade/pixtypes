@@ -271,16 +271,16 @@ jQuery(document).ready(function ($) {
 	
 	//hide and show the gallery metabox on the project editor depending on the template used
 	if ($('#_lens_project_template').val() == 'classic') {
-		$('#portfolio_gallery').show();
-	} else {
 		$('#portfolio_gallery').hide();
+	} else {
+		$('#portfolio_gallery').show();
 	}
 	
 	$('#_lens_project_template').on('change', function() {
 		if ($('#_lens_project_template').val() == 'classic') {
-			$('#portfolio_gallery').show();
-		} else {
 			$('#portfolio_gallery').hide();
+		} else {
+			$('#portfolio_gallery').show();
 		}
 	});
 
