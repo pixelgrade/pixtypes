@@ -1,6 +1,6 @@
 === PixTypes ===
 
-WordPress custom post types plugin.
+WordPress plugin for managing custom post types and custom meta boxes.
 
 === # ===
 
@@ -8,7 +8,7 @@ WordPress custom post types plugin.
 
 === # ===
 
-Tags: wordpress, shortcodes, plugin
+Tags: wordpress, cpt, metaboxes, custom post types, plugin
 Requires at least: 3.5.1
 Tested up to: 3.6.1
 Stable tag: 1.0.1

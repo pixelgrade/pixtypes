@@ -8,8 +8,8 @@
 	# "Post Types" fields
 	'enable_portfolio' => true,
 
-		'portfolio_single_item_label' => 'Proiect',
-		'portfolio_multiple_items_label' => 'Proiects',
+		'portfolio_single_item_label' => 'Project',
+		'portfolio_multiple_items_label' => 'Projects',
 
 		'portfolio_change_single_item_slug' => true,
 		'portfolio_new_single_item_slug' => 'portfolio',
