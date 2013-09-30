@@ -1,24 +1,24 @@
 <?php
 /*
- * @package   PixTypes
- * @author    Pixelgrade <contact@pixelgrade.com>
- * @license   GPL-2.0+
- * @link      http://pixelgrade.com
- * @copyright 2013 Pixelgrade Media
- *
- * @wordpress-plugin
- * Plugin Name: PixTypes
- * Plugin URI:  http://pixelgrade.com
- * Description: Custom entities needed by your theme
+* @package   PixTypes
+* @author    Pixelgrade <contact@pixelgrade.com>
+* @license   GPL-2.0+
+* @link      http://pixelgrade.com
+* @copyright 2013 Pixelgrade Media
+*
+* @wordpress-plugin
+Plugin Name: PixTypes
+Plugin URI:  http://pixelgrade.com
+Description: Custom post types and metaboxes needed by your theme
 Version: 1.0.1
- * Author: Pixelgrade Media
- * Author URI: http://pixelgrade.com
- * Author Email: contact@pixelgrade.com
- * Text Domain: pixtypes
- * License:     GPL-2.0+
- * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Domain Path: /lang
- */
+Author: Pixelgrade Media
+Author URI: http://pixelgrade.com
+Author Email: contact@pixelgrade.com
+Text Domain: pixtypes
+License:     GPL-2.0+
+License URI: http://www.gnu.org/licenses/gpl-2.0.txt
+Domain Path: /lang
+*/
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
