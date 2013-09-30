@@ -233,6 +233,30 @@ class PixTypesPlugin {
 	}
 
 	/**
+	 * Ensure github updates
+	 * Define an update branch and config it here
+	 */
+	public function github_plugin_updater_init() {
+		include_once 'updater.php';
+//        define( 'WP_GITHUB_FORCE_UPDATE', true ); // this is only for testing
+		if ( is_admin() ) { // note the use of is_admin() to double check that this is happening in the admin
+			$config = array(
+				'slug' => plugin_basename( __FILE__ ),
+				'api_url' => 'https://api.github.com/repos/pixelgrade/pixtypes',
+				'raw_url' => 'https://raw.github.com/pixelgrade/pixtypes/update',
+				'github_url' => 'https://github.com/pixelgrade/pixtypes/tree/update',
+				'zip_url' => 'https://github.com/pixelgrade/pixtypes/archive/update.zip',
+				'sslverify' => false,
+				'requires' => '3.0',
+				'tested' => '3.3',
+				'readme' => 'README.md',
+//			'access_token' => '',
+			);
+			new WP_Pixtypes_GitHub_Updater( $config );
+		}
+	}
+
+	/**
 	 * Register and enqueue admin-specific style sheet.
 	 *
 	 * @since     1.0.0

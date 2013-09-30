@@ -11,7 +11,7 @@
  * Plugin Name: PixTypes
  * Plugin URI:  http://pixelgrade.com
  * Description: Custom entities needed by your theme
- * Version:     1.0.0
+ * Version:     1.0.1
  * Author:      pixelgrade
  * Author URI:  http://pixelgrade.com
  * Text Domain: pixtypes
