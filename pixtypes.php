@@ -1,6 +1,5 @@
 <?php
-/**
- *
+/*
  * @package   PixTypes
  * @author    Pixelgrade <contact@pixelgrade.com>
  * @license   GPL-2.0+
@@ -11,7 +10,7 @@
  * Plugin Name: PixTypes
  * Plugin URI:  http://pixelgrade.com
  * Description: Custom entities needed by your theme
- * Version: 1.0.1
+Version: 1.0.1
  * Author: Pixelgrade Media
  * Author URI: http://pixelgrade.com
  * Author Email: contact@pixelgrade.com
