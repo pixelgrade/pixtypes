@@ -2590,15 +2590,3 @@ div.time-picker li.selected {
       color: #d9d9d9; }
     #pixgallery .open_pixgallery:hover i.icon {
       color: #111; }
-
-#pixgallery-frame .attachments-browser .media-toolbar {
-  right: 0; }
-#pixgallery-frame .attachments.ui-sortable {
-  right: 0; }
-#pixgallery-frame .media-sidebar {
-  display: none; }
-
-/* theme specific */
-#lens_homepage_chooser {
-	display: none;
-}
