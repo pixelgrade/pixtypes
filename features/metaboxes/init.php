@@ -97,6 +97,7 @@ class cmb_Meta_Box {
 
 		add_filter( 'cmb_show_on', array( &$this, 'add_for_id' ), 10, 2 );
 		add_filter( 'cmb_show_on', array( &$this, 'add_for_page_template' ), 10, 2 );
+//		add_filter( 'cmb_show_on', array( &$this, 'add_for_specific_select_value' ), 10, 2 ); // untested yet
 	}
 
 	function add_post_enctype() {
@@ -170,6 +171,42 @@ class cmb_Meta_Box {
 			return true;
 		else
 			return false;
+	}
+
+	function add_for_specific_select_value($display, $meta_box){
+
+		// ok
+		$debug = 1;
+
+		if( isset( $_GET['post'] ) ) $post_id = $_GET['post'];
+		elseif( isset( $_POST['post_ID'] ) ) $post_id = $_POST['post_ID'];
+		if( !( isset( $post_id ) ) ) return false;
+
+		if ( class_exists( 'wpgrade' ) ) {
+			$prefix = wpgrade::prefix();
+		} else {
+			$prefix = 'pixtypes_';
+		}
+
+		if ( isset( $meta_box['show_on']['key'] ) && $meta_box['show_on']['key'] == 'select_value' && isset( $meta_box['show_on']['value'] ) ) {
+			$selects = $meta_box['show_on']['value'];
+
+			foreach ( $selects as $id => $value ) {
+
+				$post_meta = get_post_meta($post_id, $prefix.$id, true);
+
+				if ( $post_meta == $value ) {
+					return true;
+					break;
+				} else {
+					continue;
+				}
+
+			}
+
+			return false;
+		}
+		return $display;
 	}
 
 	// Show fields

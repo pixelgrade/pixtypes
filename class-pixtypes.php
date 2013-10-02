@@ -574,6 +574,7 @@ class PixTypesPlugin {
 		$options = get_option('pixtypes_settings');
 
 		if ( class_exists( 'wpgrade' ) && isset($options['wpgrade_theme_version']) ) {
+
 			if ( wpgrade::themeversion() != $options['wpgrade_theme_version'] ) {
 				// here the theme is updating it's options
 				wpgrade_callback_geting_active();
@@ -581,6 +582,7 @@ class PixTypesPlugin {
 				self::activate(false);
 				// end finally merge user's settings with the theme ones
 				save_pixtypes_settings($options);
+
 			}
 		}
 	}
