@@ -246,6 +246,8 @@ jQuery(document).ready(function ($) {
 	//logic for the LENS homepage chooser metabox
 	if ($('#page_template').val() == 'template-homepage.php') {
 		$('#lens_homepage_chooser').show();
+	} else {
+		$('#lens_homepage_chooser').hide();
 	}
 	
 	$('#page_template').on('change', function() {
