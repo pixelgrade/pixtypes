@@ -73,7 +73,7 @@ class PixTypesPlugin {
 		$this->plugin_basepath = plugin_dir_path( __FILE__ );
 
 		// Load plugin text domain
-//		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
+		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'admin_init', array( $this, 'wpgrade_init_plugin' ) );
 		// Add the options page and menu item.
 		 add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
@@ -256,6 +256,7 @@ class PixTypesPlugin {
 				'requires' => '3.0',
 				'tested' => '3.3',
 				'readme' => 'README.md',
+				'textdomain' => $this->plugin_slug
 //			'access_token' => '',
 			);
 			new WP_Pixtypes_GitHub_Updater( $config );

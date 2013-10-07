@@ -1,7 +1,7 @@
 <?php return array
 	(
 		'type' => 'postbox',
-		'label' => 'Post Types',
+		'label' => __('Post Types', 'pixtypes_txtd'),
 
 		// Custom field settings
 		// ---------------------
@@ -10,7 +10,7 @@
 			(
 				'enable_portfolio' => array
 					(
-						'label' => 'Enable Portfolio',
+						'label' => __('Enable Portfolio', 'pixtypes_txtd'),
 						'default' => true,
 						'type' => 'switch',
 						'show_group' => 'enable_portfolio_group',
@@ -23,22 +23,22 @@
 							(
 								'portfolio_single_item_label' => array
 									(
-										'label' => 'Single Item Label',
-										'desc' => 'Here you can change the singular label.The default is "Project"',
-										'default' => 'Project',
+										'label' => __('Single Item Label', 'pixtypes_txtd'),
+										'desc' => __('Here you can change the singular label.The default is "Project"', 'pixtypes_txtd'),
+										'default' => __('Project', 'pixtypes_txtd'),
 										'type' => 'text',
 									),
 								'portfolio_multiple_items_label' => array
 									(
-										'label' => 'Multiple Items Label (plural)',
-										'desc' => 'Here you can change the plural label.The default is "Projects"',
-										'default' => 'Projects',
+										'label' => __('Multiple Items Label (plural)', 'pixtypes_txtd'),
+										'desc' => __('Here you can change the plural label.The default is "Projects"', 'pixtypes_txtd'),
+										'default' => __('Projects', 'pixtypes_txtd'),
 										'type' => 'text',
 									),
 								'portfolio_change_single_item_slug' => array
 									(
-										'label' => 'Change Single Item Slug',
-										'desc' => 'Do you want to rewrite the single portfolio item slug?',
+										'label' => __('Change Single Item Slug', 'pixtypes_txtd'),
+										'desc' => __('Do you want to rewrite the single portfolio item slug?', 'pixtypes_txtd'),
 										'default' => true,
 										'type' => 'switch',
 										'show_group' => 'portfolio_change_single_item_slug_group',
@@ -50,21 +50,17 @@
 											(
 												'portfolio_new_single_item_slug' => array
 													(
-														'label' => 'New Single Item Slug',
-														'desc' => 'Change the single portfolio item slug as you need it.',
+														'label' => __('New Single Item Slug', 'pixtypes_txtd'),
+														'desc' => __('Change the single portfolio item slug as you need it.', 'pixtypes_txtd'),
 														'default' => 'project',
 														'type' => 'text',
-
-														// extra group options
-														//'group-example' => 'from your.domain.com/portfolio/item1 in your.domain.com/new-slug/item1',
-														//'group-note' => 'After you change this you need to go and save the permalinks to flush them.'
 													),
 											),
 									),
 								'portfolio_change_archive_slug' => array
 									(
-										'label' => 'Change Archive Slug',
-										'desc' => 'Do you want to rewrite the portfolio archive slug? This will only be used if you don\'t have a page with the Portfolio template.',
+										'label' => __('Change Archive Slug', 'pixtypes_txtd'),
+										'desc' => __('Do you want to rewrite the portfolio archive slug? This will only be used if you don\'t have a page with the Portfolio template.', 'pixtypes_txtd'),
 										'default' => false,
 										'type' => 'switch',
 										'show_group' => 'portfolio_change_archive_slug_group',
@@ -76,8 +72,8 @@
 										(
 											'portfolio_new_archive_slug' => array
 												(
-													'label' => 'New Category Slug',
-													'desc' => 'Change the portfolio category slug as you need it.',
+													'label' => __('New Category Slug', 'pixtypes_txtd'),
+													'desc' => __('Change the portfolio category slug as you need it.', 'pixtypes_txtd'),
 													'default' => 'portfolio',
 													'type' => 'text',
 												),
@@ -87,7 +83,7 @@
 				),
 				'enable_gallery' => array
 					(
-						'label' => 'Enable Gallery',
+						'label' => __('Enable Gallery', 'pixtypes_txtd'),
 						'default' => true,
 						'type' => 'switch',
 						'show_group' => 'enable_gallery_group',
@@ -97,8 +93,8 @@
 					'options' => array(
 						'gallery_change_single_item_slug' => array
 						(
-							'label' => 'Change Single Item Slug',
-							'desc' => 'Do you want to rewrite the single gallery item slug?',
+							'label' => __('Change Single Item Slug', 'pixtypes_txtd'),
+							'desc' => __('Do you want to rewrite the single gallery item slug?', 'pixtypes_txtd'),
 							'default' => true,
 							'type' => 'switch',
 							'show_group' => 'gallery_change_single_item_slug_group',
@@ -110,8 +106,8 @@
 							(
 								'gallery_new_single_item_slug' => array
 								(
-									'label' => 'New Single Item Slug',
-									'desc' => 'Change the single gallery item slug as you need it.',
+									'label' => __('New Single Item Slug', 'pixtypes_txtd'),
+									'desc' => __('Change the single gallery item slug as you need it.', 'pixtypes_txtd'),
 									'default' => 'project',
 									'type' => 'text',
 								),
@@ -119,8 +115,8 @@
 						),
 						'gallery_change_archive_slug' => array
 						(
-							'label' => 'Change Archive Slug',
-							'desc' => 'Do you want to rewrite the gallery archive slug? This will only be used if you don\'t have a page with the gallery template.',
+							'label' => __('Change Archive Slug', 'pixtypes_txtd'),
+							'desc' => __('Do you want to rewrite the gallery archive slug? This will only be used if you don\'t have a page with the gallery template.', 'pixtypes_txtd'),
 							'default' => false,
 							'type' => 'switch',
 							'show_group' => 'gallery_change_archive_slug_group',
@@ -132,8 +128,8 @@
 							(
 								'gallery_new_archive_slug' => array
 								(
-									'label' => 'New Category Slug',
-									'desc' => 'Change the gallery category slug as you need it.',
+									'label' => __('New Category Slug', 'pixtypes_txtd'),
+									'desc' => __('Change the gallery category slug as you need it.', 'pixtypes_txtd'),
 									'default' => 'gallery',
 									'type' => 'text',
 								),

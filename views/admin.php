@@ -17,30 +17,28 @@
 	// invoke processor
 	$processor = pixtypes::processor($config);
 	$status = $processor->status();
-	$errors = $processor->errors();
-?>
-
+	$errors = $processor->errors(); ?>
 
 <div class="wrap" id="pixtypes_form">
 
 	<div id="icon-options-general" class="icon32"><br></div>
 
-	<h2>Pixtypes</h2>
+	<h2><?php _e('Pixtypes', 'pixtypes_txtd'); ?></h2>
 
 	<?php if ($processor->ok()): ?>
 
 		<?php if ( ! empty($errors)): ?>
 			<br/>
 			<p class="update-nag">
-				<strong>Unable to save settings.</strong>
-				Please check the fields for errors and typos.
+				<strong><?php _e('Unable to save settings.', 'pixtypes_txtd'); ?></strong>
+				<?php _e('Please check the fields for errors and typos.', 'pixtypes_txtd'); ?>
 			</p>
 		<?php endif; ?>
 
 		<?php if ($processor->performed_update()): ?>
 			<br/>
 			<p class="update-nag">
-				Settings have been updated.
+				<?php _e('Settings have been updated.', 'pixtypes_txtd');?>
 			</p>
 		<?php endif; ?>
 
@@ -52,8 +50,8 @@
 			<?php echo $f->field('taxonomies')->render(); ?>
 
 			<button type="submit" class="button button-primary">
-				Save Changes
-			</button>
+				<?php _e('Save Changes', 'pixtypes_txtd'); ?>
+				</button>
 
 		<?php echo $f->endform() ?>
 
@@ -75,14 +73,14 @@
 
 			<div class="inside">
 
-				<p>If you are done with copying your content from old post types to the new ones, you can also get rid of the old post types</p>
+				<p><?php _e('If you are done with copying your content from old post types to the new ones, you can also get rid of the old post types', 'pixtypes_txtd'); ?></p>
 				<form method="post" id="unset_pixypes" action="<?php echo admin_url('options-general.php?page=pixtypes') ?>" >
 					<input type="hidden" class="unset_nonce" name="unset_nonce" value="<?php echo wp_create_nonce('unset_pixtype') ?>" />
 					<ul>
 						<?php
 						if ( isset( $options['themes'] ) && count( $options['themes'] ) > 1 ) {
 							foreach( $options['themes'] as $key => $theme ){
-								echo '<li><button class="button delete-action" type="submit" name="unset_pixtype" value="'. $key .'">Unset '.$key.'</button></li>';
+								echo '<li><button class="button delete-action" type="submit" name="unset_pixtype" value="'. $key .'">'.__('Unset', 'pixtypes_txtd').' '.$key.'</button></li>';
 							}
 						} ?>
 					</ul>
