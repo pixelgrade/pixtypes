@@ -20,11 +20,16 @@
 //		'portfolio_use_tags' => false,
 
 	'enable_gallery' => true,
+		'gallery_change_single_item_slug' => true,
+		'gallery_new_single_item_slug' => 'gallery',
 
+		'gallery_change_archive_slug' => true,
+		'gallery_new_archive_slug' => 'galleries',
 	# "Taxonomies" fields
 		'enable_portfolio_categories' => true,
-			'portfolio_categories_change_archive_slug' => false,
-			'portfolio_categories_new_archive_slug' => '',
-		'enable_gallery_categories' => true
-
+			'portfolio_categories_change_archive_slug' => true,
+			'portfolio_categories_new_archive_slug' => 'portfolio_category',
+		'enable_gallery_categories' => true,
+			'gallery_categories_change_archive_slug' => true,
+			'gallery_categories_new_archive_slug' => 'gallery_category',
 	); # config
