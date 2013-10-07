@@ -96,7 +96,7 @@ function save_pixtypes_settings( $values ){
 					// modify these settings only if the post type is enabled
 					if ( isset($options["enable_" . $tax_key ]) && $options["enable_" . $tax_key] ) {
 						if ( isset( $values[$tax_key . '_change_archive_slug'] ) && $values[$tax_key . '_change_archive_slug'] && !empty( $values[$tax_key . '_change_archive_slug'] ) ) {
-							$taxonomy['has_archive'] = $slug_prefix . $values[$tax_key . '_new_archive_slug'];
+							$taxonomy['rewrite']['slug'] = $slug_prefix . $values[$tax_key . '_new_archive_slug'];
 						}
 					}
 				}

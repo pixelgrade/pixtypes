@@ -49,6 +49,36 @@
 						'label' => 'Enable Gallery Categories',
 						'default' => true,
 						'type' => 'switch',
+						'show_group' => 'enable_gallery_categories_group'
+					),
+				'enable_gallery_categories_group' => array
+					(
+						'type' => 'group',
+						'options' => array
+						(
+							'gallery_categories_change_archive_slug' => array
+							(
+								'label' => 'Change Category Slug',
+								'desc' => 'Do you want to rewrite the gallery category slug?',
+								'default' => false,
+								'type' => 'switch',
+								'show_group' => 'gallery_categories_change_archive_slug_group'
+							),
+							'gallery_categories_change_archive_slug_group' => array
+							(
+								'type' => 'group',
+								'options' => array
+								(
+									'gallery_categories_new_archive_slug' => array
+									(
+										'label' => 'New Category Slug',
+										'desc' => 'Change the gallery category slug as you need it.',
+										'default' => 'gallery_categories',
+										'type' => 'text',
+									),
+								),
+							),
+						),
 					),
 			)
 	); # config
