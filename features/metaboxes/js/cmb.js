@@ -247,7 +247,7 @@ jQuery(document).ready(function ($) {
 	if ($('#page_template').val() == 'template-homepage.php') {
 		$('#lens_homepage_chooser').show();
 	} else {
-		$('#lens_homepage_chooser').hide();
+		$('#lens_homepage_chooser').hide();		
 	}
 	
 	$('#page_template').on('change', function() {
@@ -308,15 +308,19 @@ jQuery(document).ready(function ($) {
 	if ( $('#_lens_gallery_template').val() == 'masonry' ) {
 		$('#_lens_thumb_orientation').parents('tr').show();
 		$('#_lens_show_gallery_title').parents('tr').show();
+		$('#_lens_slider_transition').parents('tr').hide();
 	} else {
 		$('#_lens_thumb_orientation').parents('tr').hide();
 		$('#_lens_show_gallery_title').parents('tr').hide();
+		$('#_lens_slider_transition').parents('tr').show();
 	}
 
 	if ( $('#_lens_gallery_template').val() == 'fullwidth' || $('#_lens_gallery_template').val() == 'fullscreen' ) {
-		$('#_lens_image_scaling_mode').parents('tr').show();
+		$('#_lens_gallery_image_scale_mode').parents('tr').show();
+		$('#_lens_slider_transition').parents('tr').show();
 	} else {
-		$('#_lens_image_scaling_mode').parents('tr').hide();
+		$('#_lens_gallery_image_scale_mode').parents('tr').hide();
+		$('#_lens_slider_transition').parents('tr').hide();
 	}
 
 	$('#_lens_gallery_template').on('change', function() {
@@ -325,15 +329,20 @@ jQuery(document).ready(function ($) {
 		if ( $(this).val() == 'masonry' ) {
 			$('#_lens_thumb_orientation').parents('tr').show();
 			$('#_lens_show_gallery_title').parents('tr').show();
+			$('#_lens_slider_transition').parents('tr').hide();
+
 		} else {
 			$('#_lens_thumb_orientation').parents('tr').hide();
 			$('#_lens_show_gallery_title').parents('tr').hide();
+			$('#_lens_slider_transition').parents('tr').show();
 		}
 
 		if ( $(this).val() == 'fullwidth' || $(this).val() == 'fullscreen' ) {
-			$('#_lens_image_scaling_mode').parents('tr').show();
+			$('#_lens_gallery_image_scale_mode').parents('tr').show();
+			$('#_lens_slider_transition').parents('tr').show();
 		} else {
-			$('#_lens_image_scaling_mode').parents('tr').hide();
+			$('#_lens_gallery_image_scale_mode').parents('tr').hide();
+			$('#_lens_slider_transition').parents('tr').hide();
 		}
 
 	});
