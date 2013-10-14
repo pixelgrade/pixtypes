@@ -228,7 +228,6 @@ class cmb_Meta_Box {
 			if ( 'multicheck' == $field['type'] ) $field['multiple'] = true;
 
 			$meta = get_post_meta( $post->ID, $field['id'], 'multicheck' != $field['type'] /* If multicheck this can be multiple values */ );
-			
 			if (isset($field['options']) && isset($field['options']['hidden']) && $field['options']['hidden'] == true) {
 				echo '<tr style="display:none;">';
 			} else {
@@ -304,6 +303,8 @@ class cmb_Meta_Box {
 					$args = array(
 						'posts_per_page' => -1,
 					);
+					global $post;
+					$old_post= $post;
 					$args = array_merge($args,$field['options']['args']);
 					$cpt_posts = get_posts($args);
 					if (!empty($cpt_posts)) {
@@ -311,6 +312,7 @@ class cmb_Meta_Box {
 						echo '<option value="', $post->ID, '"', $meta == $post->ID ? ' selected="selected"' : '', '>', $post->post_title, '</option>';
 					    }
 					}
+					$post = $old_post;
 					echo '</select>';
 					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
 					break;
@@ -649,6 +651,7 @@ class cmb_Meta_Box {
 			}
 
 		}
+
 	}
 }
 
