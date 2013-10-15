@@ -393,4 +393,20 @@ jQuery(document).ready(function ($) {
 
 	});
 
+	if ( $('#_lens_gallery_slider_autoplay').val() == '1' ) {
+		$('#_lens_gallery_slider_delay').parents('tr').show();
+	} else {
+		$('#_lens_gallery_slider_delay').parents('tr').hide();
+	}
+
+	$('#_lens_gallery_slider_autoplay').on('change', function() {
+
+		if ( $('#_lens_gallery_slider_autoplay').val() == '1' ) {
+			$('#_lens_gallery_slider_delay').parents('tr').show();
+		} else {
+			$('#_lens_gallery_slider_delay').parents('tr').hide();
+		}
+
+	});
+
 });
