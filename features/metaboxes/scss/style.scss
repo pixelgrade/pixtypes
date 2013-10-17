@@ -380,6 +380,29 @@ div.time-picker li.selected { background: #0063CE; color: #fff; }
 	}
 }
 
+// m-am jucat eu 5 minute, nu tipati
+#side-sortables { // targeting only sidebar checkboxes
+	.cmb_metabox {
+		& > tbody{
+			 & > tr > th {
+				width: 70% !important;
+			}
+
+			& > td {
+				width: 30%;
+
+				& > input {
+					margin: 0;
+				}
+
+				span.cmb_metabox_description {
+					display: block;
+				}
+			}
+		}
+	}
+}
+
 #pixgallery-frame {
 	//.attachments-browser {
 	//	.media-toolbar {
