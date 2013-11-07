@@ -63,6 +63,8 @@ class PixTypesPlugin {
 	 */
 	protected $plugin_basepath = null;
 
+	public $display_admin_menu = false;
+
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 *
@@ -77,8 +79,8 @@ class PixTypesPlugin {
 		add_action( 'admin_init', array( $this, 'wpgrade_init_plugin' ) );
 
 		// Add the options page and menu item only when is needed.
-		$options = get_option('pixtypes_settings');
-		if ( isset($options["post_types"]) || isset($options["taxonomies"]) ) {
+		$config = include 'plugin-config.php';
+		if ( isset($config['display_settings']) && $config['display_settings'] ) {
 			add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
 		}
 

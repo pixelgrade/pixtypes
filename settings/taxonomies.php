@@ -15,6 +15,7 @@ if ( isset($options["themes"]) ) {
 			foreach ( $theme['taxonomies'] as $post_type => $post_type_args ) {
 				$display_option[$post_type] = true;
 			}
+			$display_settings = true;
 		} else {
 			return array( 'type'=> 'hidden');
 		}

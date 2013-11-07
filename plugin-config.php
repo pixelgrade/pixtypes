@@ -1,7 +1,7 @@
 <?php defined('ABSPATH') or die;
 
 	$basepath = dirname(__FILE__).DIRECTORY_SEPARATOR;
-
+	$display_settings = false;
 return array
 	(
 		'plugin-name' => 'pixtypes',
@@ -60,6 +60,8 @@ return array
 			(
 				'save_settings' => 'save_pixtypes_settings'
 			),
+
+		'display_settings' => $display_settings,
 
 		// shows exception traces on error
 		'debug' => false,
