@@ -75,8 +75,12 @@ class PixTypesPlugin {
 		// Load plugin text domain
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'admin_init', array( $this, 'wpgrade_init_plugin' ) );
-		// Add the options page and menu item.
-		 add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
+
+		// Add the options page and menu item only when is needed.
+		$options = get_option('pixtypes_settings');
+		if ( isset($options["post_types"]) || isset($options["taxonomies"]) ) {
+			add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
+		}
 
 		// Add an action link pointing to the options page.
 		 $plugin_basename = plugin_basename( plugin_dir_path( __FILE__ ) . 'pixtypes.php' );
