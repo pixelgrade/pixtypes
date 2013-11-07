@@ -96,6 +96,7 @@ class PixTypesPlugin {
 //		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 //		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
+		add_action( 'plugins_loaded', array( $this, 'register_metaboxes'), 14 );
 		add_action( 'init', array( $this, 'register_entities'), 99999);
 		add_action( 'init', array( $this, 'theme_version_check'));
 
@@ -362,6 +363,9 @@ class PixTypesPlugin {
 
 	function register_entities(){
 		require_once( $this->plugin_basepath . 'features/custom-entities.php' );
+	}
+	
+	function register_metaboxes(){
 		require_once( $this->plugin_basepath . 'features/metaboxes/metaboxes.php' );
 	}
 
