@@ -2590,3 +2590,14 @@ div.time-picker li.selected {
       color: #d9d9d9; }
     #pixgallery .open_pixgallery:hover i.icon {
       color: #111; }
+
+#side-sortables .cmb_metabox > tbody > tr > th {
+  width: 70% !important; }
+#side-sortables .cmb_metabox > tbody > td {
+  width: 30%; }
+  #side-sortables .cmb_metabox > tbody > td > input {
+    margin: 0; }
+  #side-sortables .cmb_metabox > tbody > td span.cmb_metabox_description {
+    display: block; }
+
+/*@ sourceMappingURL=style.css.map */

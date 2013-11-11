@@ -38,37 +38,3 @@ function cmb_initialize_cmb_meta_boxes() {
 		require_once 'init.php';
 
 }
-
-// add video support for attachments
-
-add_filter("attachment_fields_to_edit", "add_video_url_field_to_attachments", null, 2);
-
-function add_video_url_field_to_attachments($form_fields, $post){
-	// Add a Credit field
-	$form_fields["video_url"] = array(
-		"label" => __("Video URL", 'pixtypes_txtd'),
-		"input" => "text", // this is default if "input" is omitted
-		"value" => esc_url( get_post_meta($post->ID, "_video_url", true) ),
-		"helps" => __("<p>Here you can link a video</p><small>Only youtube or vimeo!</small>", 'pixtypes_txtd'),
-	);
-
-	return $form_fields;
-}
-
-/**
- * Save custom media metadata fields
- *
- * Be sure to validate your data before saving it
- * http://codex.wordpress.org/Data_Validation
- *
- * @param $post The $post data for the attachment
- * @param $attachment The $attachment part of the form $_POST ($_POST[attachments][postID])
- * @return $post
- */
-function add_image_attachment_fields_to_save( $post, $attachment ) {
-	if ( isset( $attachment['video_url'] ) )
-		update_post_meta( $post['ID'], '_video_url', esc_url($attachment['video_url']) );
-
-	return $post;
-}
-add_filter("attachment_fields_to_save", "add_image_attachment_fields_to_save", null , 2);

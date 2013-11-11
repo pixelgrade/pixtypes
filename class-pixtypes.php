@@ -63,6 +63,8 @@ class PixTypesPlugin {
 	 */
 	protected $plugin_basepath = null;
 
+	public $display_admin_menu = false;
+
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 *
@@ -75,8 +77,12 @@ class PixTypesPlugin {
 		// Load plugin text domain
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'admin_init', array( $this, 'wpgrade_init_plugin' ) );
-		// Add the options page and menu item.
-		 add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
+
+		// Add the options page and menu item only when is needed.
+		$config = include 'plugin-config.php';
+		if ( isset($config['display_settings']) && $config['display_settings'] ) {
+			add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
+		}
 
 		// Add an action link pointing to the options page.
 		 $plugin_basename = plugin_basename( plugin_dir_path( __FILE__ ) . 'pixtypes.php' );
@@ -90,6 +96,7 @@ class PixTypesPlugin {
 //		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 //		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
+		add_action( 'plugins_loaded', array( $this, 'register_metaboxes'), 14 );
 		add_action( 'init', array( $this, 'register_entities'), 99999);
 		add_action( 'init', array( $this, 'theme_version_check'));
 
@@ -356,6 +363,9 @@ class PixTypesPlugin {
 
 	function register_entities(){
 		require_once( $this->plugin_basepath . 'features/custom-entities.php' );
+	}
+	
+	function register_metaboxes(){
 		require_once( $this->plugin_basepath . 'features/metaboxes/metaboxes.php' );
 	}
 

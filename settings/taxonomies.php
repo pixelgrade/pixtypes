@@ -1,4 +1,28 @@
-<?php return array
+<?php
+
+// init display options with false
+$display_option = array(
+	'portfolio_categories' => false,
+	'gallery_categories' => false
+);
+
+$options = get_option('pixtypes_settings');
+// go through each theme and activate portfolio post types
+if ( isset($options["themes"]) ) {
+	$theme_types = $options["themes"];
+	foreach ( $theme_types as $key => $theme ) {
+		if ( isset( $theme['taxonomies'] ) && is_array( $theme['taxonomies'] ) ) {
+			foreach ( $theme['taxonomies'] as $post_type => $post_type_args ) {
+				$display_option[$post_type] = true;
+			}
+			$display_settings = true;
+		} else {
+			return array( 'type'=> 'hidden');
+		}
+	}
+}
+
+return array
 	(
 		'type' => 'postbox',
 		'label' => 'Taxonomies',

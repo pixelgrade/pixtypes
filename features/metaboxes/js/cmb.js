@@ -51,6 +51,13 @@ jQuery(document).ready(function ($) {
 		});
 	});
 
+	$('.tooltip').tooltipster({
+		icon: '(?)',
+		iconDesktop: true,
+		iconTouch: true,
+		iconTheme: '.tooltipster-icon'
+	});
+
 	/**
 	 * Initialize jQuery UI datepicker (this will be moved inline in a future release)
 	 */

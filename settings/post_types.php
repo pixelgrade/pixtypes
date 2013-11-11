@@ -1,4 +1,27 @@
-<?php return array
+<?php
+// init display options with false
+$display_option = array(
+	'portfolio' => false,
+	'gallery' => false
+);
+
+$options = get_option('pixtypes_settings');
+// go through each theme and activate portfolio post types
+if ( isset($options["themes"]) ) {
+	$theme_types = $options["themes"];
+	foreach ( $theme_types as $key => $theme ) {
+		if ( isset( $theme['post_types'] ) && is_array( $theme['post_types'] ) ) {
+			foreach ( $theme['post_types'] as $post_type => $post_type_args ) {
+				$display_option[$post_type] = true;
+			}
+			$display_settings = true;
+		} else {
+			return array( 'type'=> 'hidden');
+		}
+	}
+}
+
+return array
 	(
 		'type' => 'postbox',
 		'label' => __('Post Types', 'pixtypes_txtd'),
@@ -14,6 +37,7 @@
 						'default' => true,
 						'type' => 'switch',
 						'show_group' => 'enable_portfolio_group',
+						'display_option' => ''
 					), /* ALL THESE PREFIXED WITH PORTFOLIO SHOULD BE KIDS!! **/
 
 				'enable_portfolio_group' => array
