@@ -112,4 +112,36 @@
 			}
 		});
 	};
+	
+	//init
+	if ($("[id$='_post_slider_visiblenearby']").val() == 1) {
+		//we need to hide the transition because it will not be used
+		$("[id$='_post_slider_transition']").closest('tr').hide();
+	}
+	
+	$("[id$='_post_slider_visiblenearby']").on('change', function() {
+		if ($(this).val() == 1) {
+			//we need to hide the transition because it will not be used
+			$("[id$='_post_slider_transition']").closest('tr').fadeOut();
+		} else {
+			$("[id$='_post_slider_transition']").closest('tr').fadeIn();
+		}
+	});
+	
+	//for the autoplay
+	//init
+	if ($("[id$='_post_slider_autoplay']").val() != 1) {
+		//we need to hide the delay because it will not be used
+		$("[id$='_post_slider_delay']").closest('tr').hide();
+	}
+	
+	$("[id$='_post_slider_autoplay']").on('change', function() {
+		if ($(this).val() == 1) {
+			//we need to hide the delay because it will not be used
+			$("[id$='_post_slider_delay']").closest('tr').fadeIn();
+		} else {
+			$("[id$='_post_slider_delay']").closest('tr').fadeOut();
+		}
+	});
+	
 })(jQuery);
