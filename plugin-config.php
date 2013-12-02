@@ -1,7 +1,13 @@
 <?php defined('ABSPATH') or die;
 
-	$basepath = dirname(__FILE__).DIRECTORY_SEPARATOR;
-	$display_settings = false;
+$basepath = dirname(__FILE__).DIRECTORY_SEPARATOR;
+$options = get_option('pixtypes_settings');
+$display_settings = false;
+
+if ( isset( $options['display_settings'] ) ){
+	$display_settings = $options['display_settings'];
+}
+
 return array
 	(
 		'plugin-name' => 'pixtypes',

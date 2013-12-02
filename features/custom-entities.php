@@ -2,6 +2,7 @@
 
 // register post types
 $options = get_option('pixtypes_settings');
+$options['display_settings'] = false;
 
 // go through each theme and activate portfolio post types
 if ( empty($options["themes"]) || !array($options["themes"]) ) return;
@@ -16,6 +17,7 @@ foreach ( $theme_types as $key => $theme ) {
 			$post_type_key = substr($post_type_key, 1);
 			if ( isset($options["enable_" . $post_type_key ]) && $options["enable_" . $post_type_key] ) {
 				register_post_type( $post_type, $post_type_args );
+				$options['display_settings'] = true;
 			}
 		}
 	}
@@ -29,12 +31,15 @@ foreach ( $theme_types as $key => $theme ) {
 
 			// eliminate the theme prefix
 			$tax_key = strstr( $tax, '_');
-			$tax_key = substr($tax_key, 1);
+			$tax_key = substr( $tax_key, 1);
 
 			if ( isset($options["enable_" . $tax_key ]) && $options["enable_" . $tax_key] ) {
 				register_taxonomy( $tax, $tax_post_types, $tax_args );
+				$options['display_settings'] = true;
 			}
 		}
 	}
 
 }
+
+update_option('pixtypes_settings', $options);
