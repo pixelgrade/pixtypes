@@ -15,9 +15,11 @@ foreach ( $theme_types as $key => $theme ) {
 			// eliminate the theme prefix
 			$post_type_key = strstr( $post_type, '_');
 			$post_type_key = substr($post_type_key, 1);
-			if ( isset($options["enable_" . $post_type_key ]) && $options["enable_" . $post_type_key] ) {
-				register_post_type( $post_type, $post_type_args );
+			if ( isset($options["enable_" . $post_type_key ]) ){
 				$options['display_settings'] = true;
+				if ( $options["enable_" . $post_type_key] ) {
+					register_post_type( $post_type, $post_type_args );
+				}
 			}
 		}
 	}
@@ -33,9 +35,11 @@ foreach ( $theme_types as $key => $theme ) {
 			$tax_key = strstr( $tax, '_');
 			$tax_key = substr( $tax_key, 1);
 
-			if ( isset($options["enable_" . $tax_key ]) && $options["enable_" . $tax_key] ) {
-				register_taxonomy( $tax, $tax_post_types, $tax_args );
+			if ( isset($options["enable_" . $tax_key ]) ){
 				$options['display_settings'] = true;
+				if ( $options["enable_" . $tax_key] ) {
+					register_taxonomy( $tax, $tax_post_types, $tax_args );
+				}
 			}
 		}
 	}
