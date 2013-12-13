@@ -82,11 +82,12 @@ class PixTypesPlugin {
 		$config = include 'plugin-config.php';
 		if ( isset($config['display_settings']) && $config['display_settings'] ) {
 			add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
-		}
 
-		// Add an action link pointing to the options page.
-		 $plugin_basename = plugin_basename( plugin_dir_path( __FILE__ ) . 'pixtypes.php' );
-		 add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
+			// Add an action link pointing to the options page.
+			$plugin_basename = plugin_basename( plugin_dir_path( __FILE__ ) . 'pixtypes.php' );
+			add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
+
+		}
 
 		// Load admin style sheet and JavaScript.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
