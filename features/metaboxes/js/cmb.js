@@ -308,7 +308,7 @@ jQuery(document).ready(function ($) {
 		$('#_lens_portfolio_slider_transition').parents('tr').hide();
 		$('#_lens_portfolio_slider_autoplay').parents('tr').hide();
 		$('#_lens_portfolio_slider_delay').parents('tr').hide();		
-	}
+	}	
 
 	$('#_lens_project_template').on('change', function() {
 
@@ -335,67 +335,51 @@ jQuery(document).ready(function ($) {
 	});
 
 	// hide and show on gallery
-	if ( $('#_lens_gallery_template').val() == 'masonry' ) {
+	if ( $('#_lens_gallery_template').val() == 'grid' ) {
 		$('#_lens_thumb_orientation').parents('tr').show();
 		$('#_lens_show_gallery_title').parents('tr').show();
 		$('#_lens_gallery_slider_transition').parents('tr').hide();
 		$('#_lens_gallery_image_scale_mode').parents('tr').hide();
 		$('#_lens_gallery_slider_autoplay').parents('tr').hide();
-		$('#_lens_gallery_slider_delay').parents('tr').hide();		
-	} else {
+		$('#_lens_gallery_slider_delay').parents('tr').hide();
+		$('#_lens_post_slider_visiblenearby').parents('tr').hide();		
+	} else if ( $('#_lens_gallery_template').val() == 'fullwidth' || $('#_lens_gallery_template').val() == 'fullscreen' ) {
 		$('#_lens_thumb_orientation').parents('tr').hide();
 		$('#_lens_show_gallery_title').parents('tr').hide();
 		$('#_lens_gallery_slider_transition').parents('tr').show();
 		$('#_lens_gallery_image_scale_mode').parents('tr').show();
 		$('#_lens_gallery_slider_autoplay').parents('tr').show();
-		$('#_lens_gallery_slider_delay').parents('tr').show();				
-	}
-
-	if ( $('#_lens_gallery_template').val() == 'fullwidth' || $('#_lens_gallery_template').val() == 'fullscreen' ) {
-		$('#_lens_gallery_slider_transition').parents('tr').show();
-		$('#_lens_gallery_image_scale_mode').parents('tr').show();
-		$('#_lens_gallery_slider_autoplay').parents('tr').show();
-		$('#_lens_gallery_slider_delay').parents('tr').show();		
-	} else {
-		$('#_lens_gallery_slider_transition').parents('tr').hide();
-		$('#_lens_gallery_image_scale_mode').parents('tr').hide();
-		$('#_lens_gallery_slider_autoplay').parents('tr').hide();
-		$('#_lens_gallery_slider_delay').parents('tr').hide();		
+		$('#_lens_gallery_slider_delay').parents('tr').show();
+		$('#_lens_post_slider_visiblenearby').parents('tr').show();		
+	} else if( $('#_lens_gallery_template').val() == 'masonry' ) {
+			$('#_lens_gallery_template').parents('tr').nextAll().hide();
+			$('#_lens_show_gallery_title').parents('tr').show();
 	}
 
 	$('#_lens_gallery_template').on('change', function() {
 
 		// hide and show on gallery
-		if ( $(this).val() == 'masonry' ) {
+		if ( $(this).val() == 'grid' ) {
 			$('#_lens_thumb_orientation').parents('tr').show();
 			$('#_lens_show_gallery_title').parents('tr').show();
 			$('#_lens_gallery_slider_transition').parents('tr').hide();
 			$('#_lens_gallery_image_scale_mode').parents('tr').hide();
 			$('#_lens_gallery_slider_autoplay').parents('tr').hide();
-			$('#_lens_gallery_slider_delay').parents('tr').hide();		
-		} else {
-			$('#_lens_thumb_orientation').parents('tr').hide();
-			$('#_lens_show_gallery_title').parents('tr').hide();
-			$('#_lens_gallery_slider_transition').parents('tr').show();
-			$('#_lens_gallery_image_scale_mode').parents('tr').show();
-			$('#_lens_gallery_slider_autoplay').parents('tr').show();
-			$('#_lens_gallery_slider_delay').parents('tr').show();		
-		}
-
-		if ( $(this).val() == 'fullwidth' || $(this).val() == 'fullscreen' ) {
+			$('#_lens_gallery_slider_delay').parents('tr').hide();
+			$('#_lens_post_slider_visiblenearby').parents('tr').hide();
+		} else if ( $(this).val() == 'fullwidth' || $(this).val() == 'fullscreen' ) {
 			$('#_lens_thumb_orientation').parents('tr').hide();
 			$('#_lens_show_gallery_title').parents('tr').hide();			
 			$('#_lens_gallery_slider_transition').parents('tr').show();
 			$('#_lens_gallery_image_scale_mode').parents('tr').show();
 			$('#_lens_gallery_slider_autoplay').parents('tr').show();
-			$('#_lens_gallery_slider_delay').parents('tr').show();		
-		} else {
-			$('#_lens_thumb_orientation').parents('tr').show();
-			$('#_lens_show_gallery_title').parents('tr').show();			
-			$('#_lens_gallery_slider_transition').parents('tr').hide();
-			$('#_lens_gallery_image_scale_mode').parents('tr').hide();
-			$('#_lens_gallery_slider_autoplay').parents('tr').hide();
-			$('#_lens_gallery_slider_delay').parents('tr').hide();		
+			$('#_lens_gallery_slider_delay').parents('tr').show();
+			$('#_lens_post_slider_visiblenearby').parents('tr').show();		
+		}
+
+		if ( $(this).val() == 'masonry' ) {
+			$(this).parents('tr').nextAll().hide();
+			$('#_lens_show_gallery_title').parents('tr').show();
 		}
 
 	});
