@@ -600,8 +600,15 @@ class cmb_Meta_Box {
 				$new = htmlspecialchars_decode( $new );
 			}
 			
-			if ( ($field['type'] == 'checkbox') && empty($new) ) {
-				$new = 'of';
+			if ( ($field['type'] == 'checkbox')) {
+				if (empty($new) ) {
+					$new = 'of';
+				} else {
+					//the value may also be 1 not on so lets uniformize things
+					if ($new == 1) {
+						$new = 'on';
+					}
+				}
 			}
 
 			if ( $type_comp == true && $field['type'] == 'text_date_timestamp' ) {
