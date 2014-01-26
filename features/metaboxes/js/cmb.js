@@ -248,7 +248,24 @@ jQuery(document).ready(function ($) {
 	
 	// theme specific
 	
-	//LENS - Ahaaaaaa!!! This is so evil and shameful, but I like it
+	//Bucket - Ahaaaaaa!!! This is so evil and shameful, but I like it
+	
+	//logic for the Bucket homepage chooser metabox
+	if ($('#page_template').val() == 'page-builder.php') {
+		$('#_bucket_prevent_duplicate_posts').closest('tr').show();
+	} else {
+		$('#_bucket_prevent_duplicate_posts').closest('tr').hide();		
+	}
+	
+	$('#page_template').on('change', function() {
+		if ($('#page_template').val() == 'page-builder.php') {
+			$('#_bucket_prevent_duplicate_posts').closest('tr').show();
+		} else {
+			$('#_bucket_prevent_duplicate_posts').closest('tr').hide();
+		}
+	});
+	
+	//LENS - Ahaaaaaa!!! This is so evil and shameful, but I still like it
 	
 	//logic for the LENS homepage chooser metabox
 	if ($('#page_template').val() == 'template-homepage.php') {

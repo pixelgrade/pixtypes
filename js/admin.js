@@ -85,7 +85,7 @@
 	 * Usefull functions
 	 */
 
-	function check_checkbox_checked( input ){ // yes the name is an ironic
+	function check_checkbox_checked( input ){ // yes the name is ironic
 		if ( $(input).attr('checked') === 'checked' ) {
 			$(input).siblings('input:hidden').val('on');
 		} else {
