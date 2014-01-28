@@ -282,17 +282,44 @@ jQuery(document).ready(function ($) {
 		}
 	});
 	
-	//show the gallery posts selects when radio is on
-	if ($('input:radio[name="_lens_custom_homepage"]:checked').val() == 'lens_gallery') {
+	//Manage the radios controling the homepage contents
+	var $lens_custom_homepage_checked = $('input:radio[name="_lens_custom_homepage"]:checked');
+	if ($lens_custom_homepage_checked.val() == 'lens_gallery') {
 		$('#_lens_homepage_gallery').closest('tr').show();
 		$('#_lens_homepage_projects_number').closest('tr').hide();
+	} else if ($lens_custom_homepage_checked.val() == 'lens_portfolio_cat') {
+		$('#_lens_homepage_portfolio_category').closest('tr').show();
+		$('#_lens_homepage_projects_number').closest('tr').show();
+	} else if ($lens_custom_homepage_checked.val() == 'lens_galleries_cat') {
+		$('#_lens_homepage_galleries_category').closest('tr').show();
+		$('#_lens_homepage_projects_number').closest('tr').show();
 	}
+	
 	//monitor the change of the radio group
 	$("input[name='_lens_custom_homepage']").change(function(e){
 		if($(this).val() == 'lens_gallery') {
+			$('#_lens_homepage_portfolio_category').closest('tr').hide();
+			$('#_lens_homepage_galleries_category').closest('tr').hide();
 			$('#_lens_homepage_gallery').closest('tr').show();
 			$('#_lens_homepage_projects_number').closest('tr').hide();
-		} else {
+		} else if ($(this).val() == 'lens_portfolio') {
+			$('#_lens_homepage_portfolio_category').closest('tr').hide();
+			$('#_lens_homepage_galleries_category').closest('tr').hide();
+			$('#_lens_homepage_gallery').closest('tr').hide();
+			$('#_lens_homepage_projects_number').closest('tr').show();
+		} else if ($(this).val() == 'lens_portfolio_cat') {
+			$('#_lens_homepage_portfolio_category').closest('tr').show();
+			$('#_lens_homepage_galleries_category').closest('tr').hide();
+			$('#_lens_homepage_gallery').closest('tr').hide();
+			$('#_lens_homepage_projects_number').closest('tr').show();
+		} else if ($(this).val() == 'lens_galleries_archive') {
+			$('#_lens_homepage_portfolio_category').closest('tr').hide();
+			$('#_lens_homepage_galleries_category').closest('tr').hide();
+			$('#_lens_homepage_gallery').closest('tr').hide();
+			$('#_lens_homepage_projects_number').closest('tr').show();
+		} else if ($(this).val() == 'lens_galleries_cat') {
+			$('#_lens_homepage_portfolio_category').closest('tr').hide();
+			$('#_lens_homepage_galleries_category').closest('tr').show();
 			$('#_lens_homepage_gallery').closest('tr').hide();
 			$('#_lens_homepage_projects_number').closest('tr').show();
 		}
