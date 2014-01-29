@@ -247,7 +247,64 @@ jQuery(document).ready(function ($) {
 	}
 	
 	// theme specific
-	
+
+
+    /**
+     * No more tractor!!!
+     */
+
+    var toggle_metafields = function( el ) {
+
+        var $self = $(el),
+            action = $self.data('action'),
+            field = $self.attr('data-when_key'),
+            value = $self.data('has_value'),
+            selector = '#' + field,
+            $selector =  $('#' + field);
+
+            if ( $selector.val() == value) {
+                toggle_meta(el, action);
+
+            }else {
+                toggle_opposite(el, action);
+            }
+
+        $(document).on('change', selector, function(e){
+
+            if ( $(this).val() == value ) {
+                toggle_meta(el, action);
+            } else {
+                toggle_opposite(el, action);
+            }
+
+        });
+
+    }
+
+
+    var toggle_meta = function( selector, action ) {
+
+        if ( action == 'show' ) {
+            $(selector).show();
+        } else {
+            $(selector).hide();
+        }
+
+    }
+
+    var toggle_opposite = function ( selector, action ) {
+        if ( action == 'hide' ) {
+            $(selector).show();
+        } else {
+            $(selector).hide();
+        }
+    }
+
+    // this happens on page load
+    $('.display_on').each(function(){
+        toggle_metafields(this);
+    });
+
 	//LENS - Ahaaaaaa!!! This is so evil and shameful, but I like it
 	
 	//logic for the LENS homepage chooser metabox

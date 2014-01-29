@@ -97,7 +97,7 @@ class cmb_Meta_Box {
 
 		add_filter( 'cmb_show_on', array( &$this, 'add_for_id' ), 10, 2 );
 		add_filter( 'cmb_show_on', array( &$this, 'add_for_page_template' ), 10, 2 );
-//		add_filter( 'cmb_show_on', array( &$this, 'add_for_specific_select_value' ), 10, 2 ); // untested yet
+		add_filter( 'cmb_show_on', array( &$this, 'add_for_specific_select_value' ), 10, 2 ); // untested yet
 	}
 
 	function add_post_enctype() {
@@ -178,6 +178,8 @@ class cmb_Meta_Box {
 		// ok
 		$debug = 1;
 
+
+
 		if( isset( $_GET['post'] ) ) $post_id = $_GET['post'];
 		elseif( isset( $_POST['post_ID'] ) ) $post_id = $_POST['post_ID'];
 		if( !( isset( $post_id ) ) ) return false;
@@ -190,7 +192,7 @@ class cmb_Meta_Box {
 
 		if ( isset( $meta_box['show_on']['key'] ) && $meta_box['show_on']['key'] == 'select_value' && isset( $meta_box['show_on']['value'] ) ) {
 			$selects = $meta_box['show_on']['value'];
-
+            var_dump('apar??');
 			foreach ( $selects as $id => $value ) {
 
 				$post_meta = get_post_meta($post_id, $prefix.$id, true);
@@ -231,7 +233,36 @@ class cmb_Meta_Box {
 			if (isset($field['options']) && isset($field['options']['hidden']) && $field['options']['hidden'] == true) {
 				echo '<tr style="display:none;">';
 			} else {
-				echo '<tr>';
+//var_dump($field['name'] );
+//echo( ' -- ');
+//;var_dump($meta);
+
+                $requires = '';
+                if ( isset( $field['display_on']) ) {
+
+                    $requires = ' class="display_on"';
+
+                    $display_on = $field['display_on'];
+
+                    if ( isset($display_on['display']) ) {
+                        $requires .= ' data-action="show"';
+                    } else {
+                        $requires .= ' data-action="hide" style="display:none;"';
+                    }
+
+                    if ( isset($display_on['on']) && is_array($display_on['on']) ) {
+
+                        $on = $display_on['on'];
+
+                        $requires .= 'data-when_key="'. $on['field'] .'"';
+
+                        $requires .= 'data-has_value="'. $on['value'] .'"';
+
+                    }
+
+                }
+
+				echo '<tr'.$requires.'>';
 			}
 
 			if ( $field['type'] == "title" || $field['type'] == 'portfolio-gallery' || $field['type'] == 'gallery' ) {
