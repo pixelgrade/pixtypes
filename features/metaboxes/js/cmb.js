@@ -284,20 +284,37 @@ jQuery(document).ready(function ($) {
 
     var toggle_meta = function( selector, action ) {
 
-        if ( action == 'show' ) {
-            $(selector).show();
+
+        var when_key = $(selector).data('when_key'),
+            $target = $('#' + when_key),
+            $parent = $target.parent().parent();
+
+
+
+        if ( action == 'show' && !$parent.hasClass('hidden') ) {
+            $(selector).show().removeClass('hidden');
         } else {
-            $(selector).hide();
+            $(selector).hide().addClass('hidden');
         }
+
+        $(selector).find('select').trigger('change');
+//        console.log($parent.hasClass('hidden'));
 
     }
 
     var toggle_opposite = function ( selector, action ) {
-        if ( action == 'hide' ) {
-            $(selector).show();
+        var when_key = $(selector).data('when_key'),
+            $target = $('#' + when_key),
+            $parent = $target.parent().parent();
+
+        if ( action == 'hide' && $parent.hasClass('hidden') ) {
+            $(selector).show().removeClass('hidden');
         } else {
-            $(selector).hide();
+            $(selector).hide().addClass('hidden');
         }
+
+
+        $(selector).find('select').trigger('change');
     }
 
     // this happens on page load

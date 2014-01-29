@@ -192,7 +192,7 @@ class cmb_Meta_Box {
 
 		if ( isset( $meta_box['show_on']['key'] ) && $meta_box['show_on']['key'] == 'select_value' && isset( $meta_box['show_on']['value'] ) ) {
 			$selects = $meta_box['show_on']['value'];
-            var_dump('apar??');
+
 			foreach ( $selects as $id => $value ) {
 
 				$post_meta = get_post_meta($post_id, $prefix.$id, true);
