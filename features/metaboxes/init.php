@@ -95,6 +95,8 @@ class cmb_Meta_Box {
 		add_action( 'admin_menu', array( &$this, 'add' ) );
 		add_action( 'save_post', array( &$this, 'save' ) );
 
+        add_action('admin_head', array(&$this, 'fold_display'));
+
 		add_filter( 'cmb_show_on', array( &$this, 'add_for_id' ), 10, 2 );
 		add_filter( 'cmb_show_on', array( &$this, 'add_for_page_template' ), 10, 2 );
 		add_filter( 'cmb_show_on', array( &$this, 'add_for_specific_select_value' ), 10, 2 ); // untested yet
@@ -175,40 +177,49 @@ class cmb_Meta_Box {
 
 	function add_for_specific_select_value($display, $meta_box){
 
-		// ok
-		$debug = 1;
+        // Get the current ID
+        if( isset( $_GET['post'] ) ) $post_id = $_GET['post'];
+        elseif( isset( $_POST['post_ID'] ) ) $post_id = $_POST['post_ID'];
+        if( !( isset( $post_id ) || is_page() ) ) return false;
 
 
+        if ( isset($meta_box['display_on']) && isset($meta_box['display_on']['display']) ) {
 
-		if( isset( $_GET['post'] ) ) $post_id = $_GET['post'];
-		elseif( isset( $_POST['post_ID'] ) ) $post_id = $_POST['post_ID'];
-		if( !( isset( $post_id ) ) ) return false;
+            if ( $meta_box['display_on']['display'] ) {
+                $show = true;
+            } else {
+                $show = false;
+            }
 
-		if ( class_exists( 'wpgrade' ) ) {
-			$prefix = wpgrade::prefix();
-		} else {
-			$prefix = 'pixtypes_';
-		}
+            $display_on = $meta_box['display_on'];
 
-		if ( isset( $meta_box['show_on']['key'] ) && $meta_box['show_on']['key'] == 'select_value' && isset( $meta_box['show_on']['value'] ) ) {
-			$selects = $meta_box['show_on']['value'];
+            if ( isset( $display_on['on'] )) {
+                if ( isset($display_on['on']['field']) && isset($display_on['on']['value']) ) {
 
-			foreach ( $selects as $id => $value ) {
+                    $metakey = $display_on['on']['field'];
+                    $metavalue = $display_on['on']['value'];
+                    $test = get_post_meta( $post_id, $metakey, true );
 
-				$post_meta = get_post_meta($post_id, $prefix.$id, true);
+                    if ( $metavalue == $test ) {
+                        if ( $show ) {
+                            return $display;
+                        } else {
+                            return false;
+                        }
+                    } else { // oposite
+                        if ( !$show ) {
+                            return $display;
+                        } else {
+                            return false;
+                        }
+                    }
 
-				if ( $post_meta == $value ) {
-					return true;
-					break;
-				} else {
-					continue;
-				}
+                }
+            }
+        } else {
+            return $display;
+        }
 
-			}
-
-			return false;
-		}
-		return $display;
 	}
 
 	// Show fields
@@ -233,9 +244,6 @@ class cmb_Meta_Box {
 			if (isset($field['options']) && isset($field['options']['hidden']) && $field['options']['hidden'] == true) {
 				echo '<tr style="display:none;">';
 			} else {
-//var_dump($field['name'] );
-//echo( ' -- ');
-//;var_dump($meta);
 
                 $requires = '';
                 if ( isset( $field['display_on']) ) {
@@ -574,6 +582,34 @@ class cmb_Meta_Box {
 		}
 		echo '</table>';
 	}
+
+    function fold_display(){
+
+        if ( !isset($this->_meta_box['display_on']) ) return;
+
+        if ( $this->_meta_box['display_on']['display'] ) {
+            $show = true;
+        } else {
+            $show = false;
+        }
+
+        $display_on = $this->_meta_box['display_on'];
+        ob_start(); ?>
+        <script>
+            ;(function($){
+                $(document).ready(function(){
+                    var metabox = $('#<?php echo $this->_meta_box['id'];  ?>');
+                    metabox.addClass('display_on')
+                        .attr('data-action', '<?php echo 'show'; ?>')
+                        .attr('data-when_key', '<?php echo $display_on['on']['field']; ?>')
+                        .attr('data-has_value', '<?php echo $display_on['on']['value']; ?>');
+                });
+            })(jQuery);
+        </script>
+        <?php
+        $script = ob_get_clean();
+        echo($script);
+    }
 
 	// Save data from metabox
 	function save( $post_id)  {

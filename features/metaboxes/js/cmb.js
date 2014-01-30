@@ -251,6 +251,7 @@ jQuery(document).ready(function ($) {
 
     /**
      * No more tractor!!!
+     * Hide and show metafields depending on each other
      */
 
     var toggle_metafields = function( el ) {
@@ -262,9 +263,9 @@ jQuery(document).ready(function ($) {
             selector = '#' + field,
             $selector =  $('#' + field);
 
+
             if ( $selector.val() == value) {
                 toggle_meta(el, action);
-
             }else {
                 toggle_opposite(el, action);
             }
@@ -289,37 +290,52 @@ jQuery(document).ready(function ($) {
             $target = $('#' + when_key),
             $parent = $target.parent().parent();
 
-
-
+        /**
+         * Check if the curent element needs to be showed
+         * Also if it's parent is hidden the child needs to follow
+         */
         if ( action == 'show' && !$parent.hasClass('hidden') ) {
             $(selector).show().removeClass('hidden');
         } else {
             $(selector).hide().addClass('hidden');
         }
 
+        /**
+         * Trigger a change!
+         * This way our kids(elements) will now that something is changed and they should follow
+         */
         $(selector).find('select').trigger('change');
-//        console.log($parent.hasClass('hidden'));
-
     }
 
     var toggle_opposite = function ( selector, action ) {
         var when_key = $(selector).data('when_key'),
             $target = $('#' + when_key),
             $parent = $target.parent().parent();
-
+        /**
+         * Check if the curent element needs to be showed
+         * Also if it's parent is hidden the child needs to follow
+         */
         if ( action == 'hide' && $parent.hasClass('hidden') ) {
             $(selector).show().removeClass('hidden');
         } else {
             $(selector).hide().addClass('hidden');
         }
 
-
+        /**
+         * Trigger a change!
+         * This way our kids(elements) will now that something is changed and they should follow
+         */
         $(selector).find('select').trigger('change');
     }
 
-    // this happens on page load
-    $('.display_on').each(function(){
-        toggle_metafields(this);
+    /**
+     * Fold elements when the entire page is loaded
+     * Some css classes are added dynamically, they can only be used after the load event
+     */
+    $(window).on('load', function(){
+        $('.display_on').each(function(){
+            toggle_metafields(this);
+        });
     });
 
 	//LENS - Ahaaaaaa!!! This is so evil and shameful, but I like it
