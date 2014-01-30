@@ -41,6 +41,31 @@ if ( is_array($meta_boxes) && !empty($meta_boxes) ){
     }
 }
 
+
+function ajax_update_metaboxes(){
+    global $wp_meta_boxes;
+    $meta_boxes = array();
+    $meta_boxes = apply_filters ( 'cmb_meta_boxes' , $meta_boxes );
+    if ( is_array($meta_boxes) && !empty($meta_boxes) ){
+        foreach ( $meta_boxes as $meta_box ) {
+            $my_box = new cmb_Meta_Box( $meta_box, $ajax = true );
+        }
+    }
+
+    if ( isset($_REQUEST['post_ID']) ) {
+        global $post;
+        $post = get_post($_REQUEST['post_ID']);
+        ob_start();
+        do_meta_boxes('page', 'normal', null);
+        $metaboxes = ob_get_clean();
+        wp_send_json(array(
+            'metaboxes' => $metaboxes
+        ));
+    }
+    die();
+}
+add_action('wp_ajax_ajax_update_metaboxes', 'ajax_update_metaboxes');
+
 /**
  * Validate value of meta fields
  * Define ALL validation methods inside this class and use the names of these
@@ -74,7 +99,7 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 class cmb_Meta_Box {
 	protected $_meta_box;
 
-	function __construct( $meta_box ) {
+	function __construct( $meta_box, $ajax_call = false ) {
 		if ( !is_admin() ) return;
 
 		$this->_meta_box = $meta_box;
@@ -92,7 +117,14 @@ class cmb_Meta_Box {
 			add_action( 'admin_head', array( &$this, 'add_post_enctype' ) );
 		}
 
-		add_action( 'admin_menu', array( &$this, 'add' ) );
+        if ( $ajax_call ) {
+            $this->add();
+        } else {
+            add_action( 'admin_menu', array( &$this, 'add' ) );
+        }
+
+
+
 		add_action( 'save_post', array( &$this, 'save' ) );
 
         add_action('admin_head', array(&$this, 'fold_display'));
@@ -162,8 +194,13 @@ class cmb_Meta_Box {
 		elseif( isset( $_POST['post_ID'] ) ) $post_id = $_POST['post_ID'];
 		if( !( isset( $post_id ) || is_page() ) ) return false;
 
-		// Get current template
-		$current_template = get_post_meta( $post_id, '_wp_page_template', true );
+        // if we are on an ajax request get the new template
+        if ( isset($_REQUEST['new_page_template']) && !empty($_REQUEST['new_page_template']) ) {
+            $current_template = $_REQUEST['new_page_template'];
+        } else {
+            // Get current template
+            $current_template = get_post_meta( $post_id, '_wp_page_template', true );
+        }
 
 		// If value isn't an array, turn it into one
 		$meta_box['show_on']['value'] = !is_array( $meta_box['show_on']['value'] ) ? array( $meta_box['show_on']['value'] ) : $meta_box['show_on']['value'];
@@ -198,15 +235,14 @@ class cmb_Meta_Box {
 
                     $metakey = $display_on['on']['field'];
                     $metavalue = $display_on['on']['value'];
-                    $test = get_post_meta( $post_id, $metakey, true );
 
-                    if ( $metavalue == $test ) {
+                    if ( $metavalue == get_post_meta( $post_id, $metakey, true ) ) {
                         if ( $show ) {
                             return $display;
                         } else {
                             return false;
                         }
-                    } else { // oposite
+                    } else { // opposite
                         if ( !$show ) {
                             return $display;
                         } else {
@@ -754,7 +790,7 @@ function cmb_scripts( $hook ) {
 		wp_register_script( 'cmb-timepicker', CMB_META_BOX_URL . 'js/jquery.timePicker.min.js' );
 		wp_register_script( 'pixgallery', CMB_META_BOX_URL . 'js/pixgallery.js' );
 		wp_register_script( 'cmb-scripts', CMB_META_BOX_URL . 'js/cmb.js', $cmb_script_array, '0.9.1' );
-		wp_localize_script( 'cmb-scripts', 'cmb_ajax_data', array( 'ajax_nonce' => wp_create_nonce( 'ajax_nonce' ), 'post_id' => get_the_ID() ) );
+		wp_localize_script( 'cmb-scripts', 'cmb_ajax_data', array( 'ajax_nonce' => wp_create_nonce( 'ajax_nonce' ), 'post_id' => get_the_ID(), 'post_type' => get_post_type() ) );
 		wp_enqueue_script( 'cmb-timepicker' );
 		wp_enqueue_script( 'cmb-scripts' );
 
