@@ -4,7 +4,7 @@ WordPress plugin for managing custom post types and custom meta boxes.
 
 === # ===
 
-~Current Version:1.1.9~
+~Current Version:1.1.11~
 
 === # ===
 
