@@ -217,7 +217,7 @@ class cmb_Meta_Box {
         // Get the current ID
         if( isset( $_GET['post'] ) ) $post_id = $_GET['post'];
         elseif( isset( $_POST['post_ID'] ) ) $post_id = $_POST['post_ID'];
-        if( !( isset( $post_id ) || is_page() ) ) return false;
+        if( !( isset( $post_id ) || is_page() ) ) return true;
 
 
         if ( isset($meta_box['display_on']) && isset($meta_box['display_on']['display']) ) {
