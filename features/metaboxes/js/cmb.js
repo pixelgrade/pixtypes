@@ -260,24 +260,43 @@ jQuery(document).ready(function ($) {
             action = $self.data('action'),
             field = $self.attr('data-when_key'),
             value = $self.data('has_value'),
-            selector = '#' + field,
-            $selector =  $('#' + field);
+            selector = '[name="' + field + '"]',
+            $selector =  $('[name="' + field + '"]'),
+			currentValue = '';
 
+			//we need to treat radio groups differently
+			if ($selector.length > 1) {
+				//we assume that we are in a group
+				//then we need to get the value through other means
+				currentValue = $('[name="' + field + '"]:checked').val();
+			} else {
+				currentValue = $selector.val();
+			}
 
-            if ( $selector.val() == value) {
+			//do the work
+            if ( currentValue == value) {
                 toggle_meta(el, action);
             }else {
                 toggle_opposite(el, action);
             }
 
+		//each time it changes get down to business
         $(document).on('change', selector, function(e){
+			//we need to treat radio groups differently
+			if ($selector.length > 1) {
+				//we assume that we are in a group
+				//then we need to get the value through other means
+				currentValue = $('[name="' + field + '"]:checked').val();
+			} else {
+				currentValue = $selector.val();
+			}
 
-            if ( $(this).val() == value ) {
+            //do the work
+            if ( currentValue == value) {
                 toggle_meta(el, action);
-            } else {
+            }else {
                 toggle_opposite(el, action);
-            }
-
+			}
         });
 
     }
