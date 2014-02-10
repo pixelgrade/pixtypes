@@ -304,7 +304,7 @@ jQuery(document).ready(function ($) {
          * Trigger a change!
          * This way our kids(elements) will now that something is changed and they should follow
          */
-        $(selector).find('select').trigger('change');
+        $(selector).find('select, input:radio').trigger('change');
     }
 
     var toggle_opposite = function ( selector, action ) {
@@ -325,7 +325,7 @@ jQuery(document).ready(function ($) {
          * Trigger a change!
          * This way our kids(elements) will now that something is changed and they should follow
          */
-        $(selector).find('select').trigger('change');
+        $(selector).find('select, input:radio').trigger('change');
     }
 
     /**
@@ -356,7 +356,6 @@ jQuery(document).ready(function ($) {
                 // do a nonce here
             },
             success: function (response) {
-
 
                 if ( response.hasOwnProperty('metaboxes') ) {
                     var okok = true;
