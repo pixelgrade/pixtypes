@@ -131,12 +131,7 @@ class cmb_Meta_Box {
 
 		add_filter( 'cmb_show_on', array( &$this, 'add_for_id' ), 10, 2 );
 		add_filter( 'cmb_show_on', array( &$this, 'add_for_page_template' ), 10, 2 );
-
-        if ( $ajax_call ) {
-
-        } else {
-            add_filter( 'cmb_show_on', array( &$this, 'add_for_specific_select_value' ), 10, 2 );
-        }
+        add_filter( 'cmb_show_on', array( &$this, 'add_for_specific_select_value' ), 10, 2 );
 
 	}
 
@@ -220,13 +215,6 @@ class cmb_Meta_Box {
 
 	function add_for_specific_select_value($display, $meta_box){
 
-        // in case of a hidden metabox display it only on an ajax request
-        if ( isset($meta_box['hidden'] ) && $meta_box['hidden'] === true)  {
-//            if (isset($meta_box['ajax_update_metaboxes'] ) && $meta_box['hidden'] === true) {
-//                return true;
-//            }
-            return false;
-        }
         // Get the current ID
         if( isset( $_GET['post'] ) ) $post_id = $_GET['post'];
         elseif( isset( $_POST['post_ID'] ) ) $post_id = $_POST['post_ID'];
