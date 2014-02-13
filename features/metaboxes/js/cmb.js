@@ -377,13 +377,35 @@ jQuery(document).ready(function ($) {
             success: function (response) {
 
                 if ( response.hasOwnProperty('metaboxes') ) {
-                    var okok = true;
-                    debugger;
+                    $('#postbox-container-2').html(response.metaboxes);
                 }
-                $('#postbox-container-2').html(response.metaboxes);
+
+                $(window).trigger('load');
             }
         });
 
+    });
+    // call once on page load
+    $.ajax({
+        type : 'post',
+        dataType : 'json',
+        url : window.ajaxurl,
+        data : {
+            'action': 'ajax_update_metaboxes',
+            'new_page_template': $(this).val(),
+            'post_ID': window.cmb_ajax_data.post_id,
+            'post_type': window.cmb_ajax_data.post_type,
+            'ajax_nonce' : window.cmb_ajax_data.ajax_nonce
+            // do a nonce here
+        },
+        success: function (response) {
+
+            if ( response.hasOwnProperty('metaboxes') ) {
+                $('#postbox-container-2').html(response.metaboxes);
+            }
+
+            $(window).trigger('load');
+        }
     });
 
 	//LENS - Ahaaaaaa!!! This is so evil and shameful, but I like it
