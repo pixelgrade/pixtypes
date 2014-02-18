@@ -297,6 +297,7 @@ jQuery(document).ready(function ($) {
             }else {
                 toggle_opposite(el, action);
 			}
+
         });
 
     }
@@ -321,7 +322,7 @@ jQuery(document).ready(function ($) {
 
         /**
          * Trigger a change!
-         * This way our kids(elements) will now that something is changed and they should follow
+         * This way our kids(elements) will know that something is changed and they should follow
          */
         $(selector).find('select, input:radio').trigger('change');
     }

@@ -131,7 +131,7 @@ class cmb_Meta_Box {
 
 		add_filter( 'cmb_show_on', array( &$this, 'add_for_id' ), 10, 2 );
 		add_filter( 'cmb_show_on', array( &$this, 'add_for_page_template' ), 10, 2 );
-        add_filter( 'cmb_show_on', array( &$this, 'add_for_specific_select_value' ), 10, 2 );
+        //add_filter( 'cmb_show_on', array( &$this, 'add_for_specific_select_value' ), 10, 2 );
 
 	}
 
@@ -218,9 +218,8 @@ class cmb_Meta_Box {
         // Get the current ID
         if( isset( $_GET['post'] ) ) $post_id = $_GET['post'];
         elseif( isset( $_POST['post_ID'] ) ) $post_id = $_POST['post_ID'];
+
         if( !( isset( $post_id ) || is_page() ) ) return true;
-
-
 
         if ( isset($meta_box['display_on']) && isset($meta_box['display_on']['display']) ) {
 
@@ -238,7 +237,15 @@ class cmb_Meta_Box {
                     $metakey = $display_on['on']['field'];
                     $metavalue = $display_on['on']['value'];
 
-                    if ( $metavalue == get_post_meta( $post_id, $metakey, true ) ) {
+					// if we are on an ajax request get the new metafield current value
+					if ( isset($_REQUEST['new_metafield_value']) && !empty($_REQUEST['new_metafield_value']) ) {
+						$current_value = $_REQUEST['new_metafield_value'];
+					} else {
+						// Get current meta value
+						$current_value = get_post_meta( $post_id, $metakey, true );
+					}
+
+                    if ( $metavalue == $current_value ) {
                         if ( $show ) {
                             return $display;
                         } else {
@@ -921,13 +928,15 @@ function cmb_oembed_ajax_results() {
 
 // End. That's it, folks! //
 
-// not yet ... let's ajaxfy things around
+// not yet ... let's ajaxify things around
 
 // create an ajax call which will return a preview to the current gallery
 function ajax_pixgallery_preview(){
-
 	$result = array('success' => false, 'output' => '');
-	$ids = $_REQUEST['attachments_ids'];
+
+	if (isset($_REQUEST['attachments_ids'])) {
+		$ids = $_REQUEST['attachments_ids'];
+	}
 	if ( empty($ids) ) {
 		echo json_encode( $result );
 		exit;
