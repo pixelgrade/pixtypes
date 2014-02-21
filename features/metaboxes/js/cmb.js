@@ -247,7 +247,146 @@ jQuery(document).ready(function ($) {
 	}
 	
 	// theme specific
-	
+
+
+    /**
+     * No more tractor!!!
+     * Hide and show metafields depending on each other
+     */
+
+    var toggle_metafields = function( el ) {
+
+        var $self = $(el),
+            action = $self.data('action'),
+            field = $self.attr('data-when_key'),
+            value = $self.data('has_value'),
+            selector = '[name="' + field + '"]',
+            $selector =  $('[name="' + field + '"]'),
+			currentValue = '';
+
+			//we need to treat radio groups differently
+			if ($selector.length > 1) {
+				//we assume that we are in a group
+				//then we need to get the value through other means
+				currentValue = $('[name="' + field + '"]:checked').val();
+			} else {
+				currentValue = $selector.val();
+			}
+
+			//do the work
+            if ( currentValue == value) {
+                toggle_meta(el, action);
+            }else {
+                toggle_opposite(el, action);
+            }
+
+		//each time it changes get down to business
+        $(document).on('change', selector, function(e){
+			//we need to treat radio groups differently
+			if ($selector.length > 1) {
+				//we assume that we are in a group
+				//then we need to get the value through other means
+				currentValue = $('[name="' + field + '"]:checked').val();
+			} else {
+				currentValue = $selector.val();
+			}
+
+            //do the work
+            if ( currentValue == value) {
+                toggle_meta(el, action);
+            }else {
+                toggle_opposite(el, action);
+			}
+
+        });
+
+    }
+
+
+    var toggle_meta = function( selector, action ) {
+
+
+        var when_key = $(selector).data('when_key'),
+            $target = $('#' + when_key),
+            $parent = $target.parent().parent();
+
+        /**
+         * Check if the curent element needs to be showed
+         * Also if it's parent is hidden the child needs to follow
+         */
+        if ( action == 'show' && !$parent.hasClass('hidden') ) {
+            $(selector).show().removeClass('hidden');
+        } else {
+            $(selector).hide().addClass('hidden');
+        }
+
+        /**
+         * Trigger a change!
+         * This way our kids(elements) will know that something is changed and they should follow
+         */
+        $(selector).find('select, input:radio').trigger('change');
+    }
+
+    var toggle_opposite = function ( selector, action ) {
+        var when_key = $(selector).data('when_key'),
+            $target = $('#' + when_key),
+            $parent = $target.parent().parent();
+        /**
+         * Check if the curent element needs to be showed
+         * Also if it's parent is hidden the child needs to follow
+         */
+        if ( action == 'hide' && $parent.hasClass('hidden') ) {
+            $(selector).show().removeClass('hidden');
+        } else {
+            $(selector).hide().addClass('hidden');
+        }
+
+        /**
+         * Trigger a change!
+         * This way our kids(elements) will now that something is changed and they should follow
+         */
+        $(selector).find('select, input:radio').trigger('change');
+    }
+
+    /**
+     * Fold elements when the entire page is loaded
+     * Some css classes are added dynamically, they can only be used after the load event
+     */
+    $(window).on('load', function(){
+        $('.display_on').each(function(){
+            toggle_metafields(this);
+        });
+    });
+
+    /**
+     * On page template change ajaxify metaboxes
+     */
+
+    $('#page_template').on('change', function(){
+        $.ajax({
+            type : 'post',
+            dataType : 'json',
+            url : window.ajaxurl,
+            data : {
+                'action': 'ajax_update_metaboxes',
+                'new_page_template': $(this).val(),
+                'post_ID': window.cmb_ajax_data.post_id,
+                'post_type': window.cmb_ajax_data.post_type,
+                'ajax_nonce' : window.cmb_ajax_data.ajax_nonce
+                // do a nonce here
+            },
+            success: function (response) {
+
+                if ( response.hasOwnProperty('metaboxes') ) {
+                    $('#postbox-container-2').html(response.metaboxes);
+                }
+
+                $(window).trigger('load');
+            }
+        });
+
+    });
+
 	//LENS - Ahaaaaaa!!! This is so evil and shameful, but I like it
 	
 	//logic for the LENS homepage chooser metabox

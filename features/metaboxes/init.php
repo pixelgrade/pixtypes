@@ -41,6 +41,31 @@ if ( is_array($meta_boxes) && !empty($meta_boxes) ){
     }
 }
 
+
+function ajax_update_metaboxes(){
+    global $wp_meta_boxes;
+    $meta_boxes = array();
+    $meta_boxes = apply_filters ( 'cmb_meta_boxes' , $meta_boxes );
+    if ( is_array($meta_boxes) && !empty($meta_boxes) ){
+        foreach ( $meta_boxes as $meta_box ) {
+            $my_box = new cmb_Meta_Box( $meta_box, $ajax = true );
+        }
+    }
+
+    if ( isset($_REQUEST['post_ID']) ) {
+        global $post;
+        $post = get_post($_REQUEST['post_ID']);
+        ob_start();
+        do_meta_boxes('page', 'normal', null);
+        $metaboxes = ob_get_clean();
+        wp_send_json(array(
+            'metaboxes' => $metaboxes
+        ));
+    }
+    die();
+}
+add_action('wp_ajax_ajax_update_metaboxes', 'ajax_update_metaboxes');
+
 /**
  * Validate value of meta fields
  * Define ALL validation methods inside this class and use the names of these
@@ -74,7 +99,7 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 class cmb_Meta_Box {
 	protected $_meta_box;
 
-	function __construct( $meta_box ) {
+	function __construct( $meta_box, $ajax_call = false ) {
 		if ( !is_admin() ) return;
 
 		$this->_meta_box = $meta_box;
@@ -92,12 +117,22 @@ class cmb_Meta_Box {
 			add_action( 'admin_head', array( &$this, 'add_post_enctype' ) );
 		}
 
-		add_action( 'admin_menu', array( &$this, 'add' ) );
+        if ( $ajax_call ) {
+            $this->add();
+        } else {
+            add_action( 'admin_menu', array( &$this, 'add' ) );
+        }
+
+
+
 		add_action( 'save_post', array( &$this, 'save' ) );
+
+        add_action('admin_head', array(&$this, 'fold_display'));
 
 		add_filter( 'cmb_show_on', array( &$this, 'add_for_id' ), 10, 2 );
 		add_filter( 'cmb_show_on', array( &$this, 'add_for_page_template' ), 10, 2 );
-//		add_filter( 'cmb_show_on', array( &$this, 'add_for_specific_select_value' ), 10, 2 ); // untested yet
+        //add_filter( 'cmb_show_on', array( &$this, 'add_for_specific_select_value' ), 10, 2 );
+
 	}
 
 	function add_post_enctype() {
@@ -160,8 +195,13 @@ class cmb_Meta_Box {
 		elseif( isset( $_POST['post_ID'] ) ) $post_id = $_POST['post_ID'];
 		if( !( isset( $post_id ) || is_page() ) ) return false;
 
-		// Get current template
-		$current_template = get_post_meta( $post_id, '_wp_page_template', true );
+        // if we are on an ajax request get the new template
+        if ( isset($_REQUEST['new_page_template']) && !empty($_REQUEST['new_page_template']) ) {
+            $current_template = $_REQUEST['new_page_template'];
+        } else {
+            // Get current template
+            $current_template = get_post_meta( $post_id, '_wp_page_template', true );
+        }
 
 		// If value isn't an array, turn it into one
 		$meta_box['show_on']['value'] = !is_array( $meta_box['show_on']['value'] ) ? array( $meta_box['show_on']['value'] ) : $meta_box['show_on']['value'];
@@ -175,38 +215,56 @@ class cmb_Meta_Box {
 
 	function add_for_specific_select_value($display, $meta_box){
 
-		// ok
-		$debug = 1;
+        // Get the current ID
+        if( isset( $_GET['post'] ) ) $post_id = $_GET['post'];
+        elseif( isset( $_POST['post_ID'] ) ) $post_id = $_POST['post_ID'];
 
-		if( isset( $_GET['post'] ) ) $post_id = $_GET['post'];
-		elseif( isset( $_POST['post_ID'] ) ) $post_id = $_POST['post_ID'];
-		if( !( isset( $post_id ) ) ) return false;
+        if( !( isset( $post_id ) || is_page() ) ) return true;
 
-		if ( class_exists( 'wpgrade' ) ) {
-			$prefix = wpgrade::prefix();
-		} else {
-			$prefix = 'pixtypes_';
-		}
+        if ( isset($meta_box['display_on']) && isset($meta_box['display_on']['display']) ) {
 
-		if ( isset( $meta_box['show_on']['key'] ) && $meta_box['show_on']['key'] == 'select_value' && isset( $meta_box['show_on']['value'] ) ) {
-			$selects = $meta_box['show_on']['value'];
+            if ( $meta_box['display_on']['display'] ) {
+                $show = true;
+            } else {
+                $show = false;
+            }
 
-			foreach ( $selects as $id => $value ) {
+            $display_on = $meta_box['display_on'];
 
-				$post_meta = get_post_meta($post_id, $prefix.$id, true);
+            if ( isset( $display_on['on'] )) {
+                if ( isset($display_on['on']['field']) && isset($display_on['on']['value']) ) {
 
-				if ( $post_meta == $value ) {
-					return true;
-					break;
-				} else {
-					continue;
-				}
+                    $metakey = $display_on['on']['field'];
+                    $metavalue = $display_on['on']['value'];
 
-			}
+					// if we are on an ajax request get the new metafield current value
+					if ( isset($_REQUEST['new_metafield_value']) && !empty($_REQUEST['new_metafield_value']) ) {
+						$current_value = $_REQUEST['new_metafield_value'];
+					} else {
+						// Get current meta value
+						$current_value = get_post_meta( $post_id, $metakey, true );
+					}
 
-			return false;
-		}
-		return $display;
+                    if ( $metavalue == $current_value ) {
+                        if ( $show ) {
+                            return $display;
+                        } else {
+                            return false;
+                        }
+                    } else { // opposite
+                        if ( !$show ) {
+                            return $display;
+                        } else {
+                            return false;
+                        }
+                    }
+
+                }
+            }
+        } else {
+            return $display;
+        }
+
 	}
 
 	// Show fields
@@ -231,7 +289,33 @@ class cmb_Meta_Box {
 			if (isset($field['options']) && isset($field['options']['hidden']) && $field['options']['hidden'] == true) {
 				echo '<tr style="display:none;">';
 			} else {
-				echo '<tr>';
+
+                $requires = '';
+                if ( isset( $field['display_on']) ) {
+
+                    $requires = ' class="display_on"';
+
+                    $display_on = $field['display_on'];
+
+                    if ( isset($display_on['display']) ) {
+                        $requires .= ' data-action="show"';
+                    } else {
+                        $requires .= ' data-action="hide" style="display:none;"';
+                    }
+
+                    if ( isset($display_on['on']) && is_array($display_on['on']) ) {
+
+                        $on = $display_on['on'];
+
+                        $requires .= 'data-when_key="'. $on['field'] .'"';
+
+                        $requires .= 'data-has_value="'. $on['value'] .'"';
+
+                    }
+
+                }
+
+				echo '<tr'.$requires.'>';
 			}
 
 			if ( $field['type'] == "title" || $field['type'] == 'portfolio-gallery' || $field['type'] == 'gallery' ) {
@@ -544,6 +628,34 @@ class cmb_Meta_Box {
 		echo '</table>';
 	}
 
+    function fold_display(){
+
+        if ( !isset($this->_meta_box['display_on']) ) return;
+
+        if ( $this->_meta_box['display_on']['display'] ) {
+            $show = true;
+        } else {
+            $show = false;
+        }
+
+        $display_on = $this->_meta_box['display_on'];
+        ob_start(); ?>
+        <script>
+            ;(function($){
+                $(document).ready(function(){
+                    var metabox = $('#<?php echo $this->_meta_box['id'];  ?>');
+                    metabox.addClass('display_on')
+                        .attr('data-action', '<?php echo 'show'; ?>')
+                        .attr('data-when_key', '<?php echo $display_on['on']['field']; ?>')
+                        .attr('data-has_value', '<?php echo $display_on['on']['value']; ?>');
+                });
+            })(jQuery);
+        </script>
+        <?php
+        $script = ob_get_clean();
+        echo($script);
+    }
+
 	// Save data from metabox
 	function save( $post_id)  {
 
@@ -687,7 +799,7 @@ function cmb_scripts( $hook ) {
 		wp_register_script( 'cmb-timepicker', CMB_META_BOX_URL . 'js/jquery.timePicker.min.js' );
 		wp_register_script( 'pixgallery', CMB_META_BOX_URL . 'js/pixgallery.js' );
 		wp_register_script( 'cmb-scripts', CMB_META_BOX_URL . 'js/cmb.js', $cmb_script_array, '0.9.1' );
-		wp_localize_script( 'cmb-scripts', 'cmb_ajax_data', array( 'ajax_nonce' => wp_create_nonce( 'ajax_nonce' ), 'post_id' => get_the_ID() ) );
+		wp_localize_script( 'cmb-scripts', 'cmb_ajax_data', array( 'ajax_nonce' => wp_create_nonce( 'ajax_nonce' ), 'post_id' => get_the_ID(), 'post_type' => get_post_type() ) );
 		wp_enqueue_script( 'cmb-timepicker' );
 		wp_enqueue_script( 'cmb-scripts' );
 
@@ -816,13 +928,15 @@ function cmb_oembed_ajax_results() {
 
 // End. That's it, folks! //
 
-// not yet ... let's ajaxfy things around
+// not yet ... let's ajaxify things around
 
 // create an ajax call which will return a preview to the current gallery
 function ajax_pixgallery_preview(){
-
 	$result = array('success' => false, 'output' => '');
-	$ids = $_REQUEST['attachments_ids'];
+
+	if (isset($_REQUEST['attachments_ids'])) {
+		$ids = $_REQUEST['attachments_ids'];
+	}
 	if ( empty($ids) ) {
 		echo json_encode( $result );
 		exit;

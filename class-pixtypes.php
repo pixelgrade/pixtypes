@@ -589,6 +589,8 @@ class PixTypesPlugin {
 
 			if ( wpgrade::themeversion() != $options['wpgrade_theme_version'] ) {
 				// here the theme is updating it's options
+                $test = function_exists('wpgrade_callback_geting_active');
+
 				wpgrade_callback_geting_active();
 				// the plugin will copy these options into it's own field
 				self::activate(false);
