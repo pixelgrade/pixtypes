@@ -99,7 +99,6 @@ class WP_Pixtypes_GitHub_Updater {
 		add_action('wp_ajax_check_for_pix_plugins_updates', array($this, 'check_for_plugin_update'));
 
 		// Hook into the plugin details screen
-		add_filter( 'plugins_api', array( $this, 'get_plugin_info' ), 10, 3 );
 		add_filter( 'upgrader_post_install', array( $this, 'upgrader_post_install' ), 10, 3 );
 
 		// set timeout
@@ -160,16 +159,6 @@ class WP_Pixtypes_GitHub_Updater {
 
 			$this->config['zip_url'] = $zip_url;
 		}
-
-
-		if ( ! isset( $this->config['new_version'] ) )
-			$this->config['new_version'] = $this->get_new_version();
-
-		if ( ! isset( $this->config['last_updated'] ) )
-			$this->config['last_updated'] = $this->get_date();
-
-		if ( ! isset( $this->config['description'] ) )
-			$this->config['description'] = $this->get_description();
 
 		$plugin_data = $this->get_plugin_data();
 		if ( ! isset( $this->config['plugin_name'] ) )
@@ -242,20 +231,6 @@ class WP_Pixtypes_GitHub_Updater {
 			else
 				$version = $matches[1];
 
-			// back compat for older readme version handling
-//			$raw_response = $this->remote_get( trailingslashit( $this->config['raw_url'] ) . $this->config['readme'] );
-//
-//			if ( is_wp_error( $raw_response ) )
-//				return $version;
-//
-//			preg_match( '#^\s*`*~Current Version\:\s*([^~]*)~#im', $raw_response['body'], $__version );
-//
-//			if ( isset( $__version[1] ) ) {
-//				$version_readme = $__version[1];
-//				if ( -1 == version_compare( $version, $version_readme ) )
-//					$version = $version_readme;
-//			}
-
 			// refresh every 6 hours
 			if ( false !== $version )
 //				set_site_transient( $this->config['slug'].'_new_version', $version, 60*60*6 );
@@ -278,6 +253,7 @@ class WP_Pixtypes_GitHub_Updater {
 	 * @return mixed
 	 */
 	public function remote_get( $query ) {
+
 		if ( ! empty( $this->config['access_token'] ) )
 			$query = add_query_arg( array( 'access_token' => $this->config['access_token'] ), $query );
 
@@ -370,6 +346,9 @@ class WP_Pixtypes_GitHub_Updater {
 
 		$this->result['transient'] = $transient;
 
+		if ( ! isset( $this->config['new_version'] ) )
+			$this->config['new_version'] = $this->get_new_version();
+
 		// Check if the transient contains the 'checked' information
 		// If not, just return its value without hacking it
 		if ( empty( $transient->checked ) )
@@ -407,7 +386,13 @@ class WP_Pixtypes_GitHub_Updater {
 	 * @return object $response the plugin info
 	 */
 	public function get_plugin_info( $false, $action, $response ) {
-		$this->result['plugin_info'] = $response;
+
+		if ( ! isset( $this->config['last_updated'] ) )
+			$this->config['last_updated'] = $this->get_date();
+
+		if ( ! isset( $this->config['description'] ) )
+			$this->config['description'] = $this->get_description();
+
 		// Check if this call API is for the right plugin
 		if ( !isset( $response->slug ) || $response->slug != $this->config['slug'] )
 			return false;
@@ -468,6 +453,8 @@ class WP_Pixtypes_GitHub_Updater {
 
 	function check_for_plugin_update(){
 
+		add_filter( 'plugins_api', array( $this, 'get_plugin_info' ), 10, 3 );
+
 		// get the transient
 		$transient = get_option('_site_transient_update_plugins');
 
@@ -478,7 +465,6 @@ class WP_Pixtypes_GitHub_Updater {
 		$updated = update_option('_site_transient_update_plugins', $new_transient, $transient);
 
 //		echo json_encode($updated);
-//
 //		echo json_encode($new_transient);
 		die();
 	}
