@@ -233,9 +233,9 @@ class WP_Pixtypes_GitHub_Updater {
 
 			// refresh every 6 hours
 			if ( false !== $version )
-//				set_site_transient( $this->config['slug'].'_new_version', $version, 60*60*6 );
+				set_site_transient( $this->config['slug'].'_new_version', $version, 60*60*6 );
 				// to test a quick transient comment the above and uncomment the bellow
-				set_site_transient( $this->config['slug'].'_new_version', $version, 60 );
+//				set_site_transient( $this->config['slug'].'_new_version', $version, 10 );
 		}
 
 		$this->result['github_version'] = $version;
