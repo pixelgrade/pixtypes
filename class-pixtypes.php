@@ -107,8 +107,8 @@ class PixTypesPlugin {
 		add_action('wp_ajax_unset_pixtypes', array(&$this, 'ajax_unset_pixtypes'));
 		add_action('wp_ajax_nopriv_unset_pixtypes', array(&$this, 'ajax_unset_pixtypes'));
 
-		add_action('wp_ajax_pixtypes_check_update', array(&$this, 'github_plugin_updater_init'));
 
+		add_action('wp_ajax_pixtypes_check_update', array(&$this, 'github_plugin_updater_init'));
 
 	}
 
