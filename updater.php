@@ -92,7 +92,11 @@ class WP_Pixtypes_GitHub_Updater {
 
 		$this->set_defaults();
 
-		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'api_check' ) );
+		// updates check
+//		add_action( 'admin_head', array($this, 'ajax_check_update' ));
+
+		add_action( 'admin_enqueue_scripts', array($this, 'load_custom_wp_admin_scripts' ) );
+		add_action('wp_ajax_check_for_pixtypes_update', array($this, 'check_for_plugin_update'));
 
 		// Hook into the plugin details screen
 		add_filter( 'plugins_api', array( $this, 'get_plugin_info' ), 10, 3 );
@@ -256,7 +260,7 @@ class WP_Pixtypes_GitHub_Updater {
 			if ( false !== $version )
 //				set_site_transient( $this->config['slug'].'_new_version', $version, 60*60*6 );
 				// to test a quick transient comment the above and uncomment the bellow
-				set_site_transient( $this->config['slug'].'_new_version', $version, 10 );
+				set_site_transient( $this->config['slug'].'_new_version', $version, 60 );
 		}
 
 		$this->result['github_version'] = $version;
@@ -364,6 +368,8 @@ class WP_Pixtypes_GitHub_Updater {
 	 */
 	public function api_check( $transient ) {
 
+		$this->result['transient'] = $transient;
+
 		// Check if the transient contains the 'checked' information
 		// If not, just return its value without hacking it
 		if ( empty( $transient->checked ) )
@@ -382,9 +388,10 @@ class WP_Pixtypes_GitHub_Updater {
 			// If response is false, don't alter the transient
 			if ( false !== $response )
 				$transient->response[ $this->config['slug'] ] = $response;
+
 		}
 
-		$this->result['transient'] = $transient;
+		$this->result['returned-transient'] = $transient;
 
 		return $transient;
 	}
@@ -400,7 +407,7 @@ class WP_Pixtypes_GitHub_Updater {
 	 * @return object $response the plugin info
 	 */
 	public function get_plugin_info( $false, $action, $response ) {
-
+		$this->result['plugin_info'] = $response;
 		// Check if this call API is for the right plugin
 		if ( !isset( $response->slug ) || $response->slug != $this->config['slug'] )
 			return false;
@@ -417,7 +424,7 @@ class WP_Pixtypes_GitHub_Updater {
 		$response->sections = array( 'description' => $this->config['description'] );
 		$response->download_link = $this->config['zip_url'];
 
-		$this->result['plugin_info'] = $response;
+		$this->result['returned-plugin_info'] = $response;
 
 		return $response;
 	}
@@ -449,5 +456,28 @@ class WP_Pixtypes_GitHub_Updater {
 		echo is_wp_error( $activate ) ? $fail : $success;
 		return $result;
 
+	}
+
+	/**
+	 * This function outputs a javascript which will make a simple ajax request
+	 * Update: enqueue it only once as a file because we may have more plugins but this script is needed once
+	 */
+	public function load_custom_wp_admin_scripts(){
+		wp_enqueue_script( 'pix_plugins_ajax_update_check', plugin_dir_url( __FILE__ ) . 'js/update_check.js', array('jquery') );
+	}
+
+	function check_for_plugin_update(){
+
+		// get the transient
+		$transient = get_option('_site_transient_update_plugins');
+
+		// check if there are updates
+		$new_transient = $this->api_check( $transient );
+
+		//update the transient and wordpress should
+		update_option('_site_transient_update_plugins', $new_transient, $transient);
+
+		echo json_encode($new_transient);
+		die();
 	}
 }

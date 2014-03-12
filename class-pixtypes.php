@@ -65,6 +65,8 @@ class PixTypesPlugin {
 
 	public $display_admin_menu = false;
 
+	protected $github_updater;
+
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 *
@@ -106,9 +108,6 @@ class PixTypesPlugin {
 		 */
 		add_action('wp_ajax_unset_pixtypes', array(&$this, 'ajax_unset_pixtypes'));
 		add_action('wp_ajax_nopriv_unset_pixtypes', array(&$this, 'ajax_unset_pixtypes'));
-
-
-		add_action('wp_ajax_pixtypes_check_update', array(&$this, 'github_plugin_updater_init'));
 	}
 
 	/**
@@ -131,7 +130,7 @@ class PixTypesPlugin {
 	public function wpgrade_init_plugin(){
 //		$this->plugin_textdomain();
 //		$this->add_wpgrade_shortcodes_button();
-//		$this->github_plugin_updater_init();
+		$this->github_plugin_updater_init();
 	}
 
 	/**
@@ -268,13 +267,10 @@ class PixTypesPlugin {
 				'textdomain' => $this->plugin_slug
 //			'access_token' => '',
 			);
-			$result = new WP_Pixtypes_GitHub_Updater( $config );
 
-			echo json_encode($result);
-		} else {
-			echo json_encode('non-admin');
+			$this->github_updater = new WP_Pixtypes_GitHub_Updater( $config );
+
 		}
-		die();
 	}
 
 	/**

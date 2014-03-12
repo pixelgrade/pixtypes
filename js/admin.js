@@ -4,20 +4,20 @@
 
 		// on page load do a check on github for update
 
-		$(document).ready(function(){
-
-			// reload likes number
-			$.ajax({
-				type: "post",url: locals.ajax_url,data: { action: 'pixtypes_check_update' },
-				//beforeSend: function() {jQuery("#loading").show("slow");}, //show loading just when link is clicked
-				//complete: function() { jQuery("#loading").hide("fast");}, //stop showing loading when the process is complete
-				success: function( response ){
-					var result = JSON.parse(response);
-					console.log( result );
-				}
-			});
-
-		});
+//		$(document).ready(function(){
+//
+//			// reload likes number
+//			$.ajax({
+//				type: "post",url: locals.ajax_url,data: { action: 'pixtypes_check_update' },
+//				//beforeSend: function() {jQuery("#loading").show("slow");}, //show loading just when link is clicked
+//				//complete: function() { jQuery("#loading").hide("fast");}, //stop showing loading when the process is complete
+//				success: function( response ){
+//					var result = JSON.parse(response);
+//					console.log( result );
+//				}
+//			});
+//
+//		});
 
 		/**
 		 *  Checkbox value switcher
