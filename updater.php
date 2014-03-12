@@ -96,7 +96,7 @@ class WP_Pixtypes_GitHub_Updater {
 //		add_action( 'admin_head', array($this, 'ajax_check_update' ));
 
 		add_action( 'admin_enqueue_scripts', array($this, 'load_custom_wp_admin_scripts' ) );
-		add_action('wp_ajax_check_for_pixtypes_update', array($this, 'check_for_plugin_update'));
+		add_action('wp_ajax_check_for_pix_plugins_updates', array($this, 'check_for_plugin_update'));
 
 		// Hook into the plugin details screen
 		add_filter( 'plugins_api', array( $this, 'get_plugin_info' ), 10, 3 );
@@ -475,9 +475,11 @@ class WP_Pixtypes_GitHub_Updater {
 		$new_transient = $this->api_check( $transient );
 
 		//update the transient and wordpress should
-		update_option('_site_transient_update_plugins', $new_transient, $transient);
+		$updated = update_option('_site_transient_update_plugins', $new_transient, $transient);
 
-		echo json_encode($new_transient);
+//		echo json_encode($updated);
+//
+//		echo json_encode($new_transient);
 		die();
 	}
 }
