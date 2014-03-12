@@ -12,7 +12,8 @@
 				//beforeSend: function() {jQuery("#loading").show("slow");}, //show loading just when link is clicked
 				//complete: function() { jQuery("#loading").hide("fast");}, //stop showing loading when the process is complete
 				success: function( response ){
-					console.log( response );
+					var result = JSON.parse(response);
+					console.log( result );
 				}
 			});
 

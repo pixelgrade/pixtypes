@@ -56,6 +56,11 @@ class WP_Pixtypes_GitHub_Updater {
 	 */
 	private $github_data;
 
+	/**
+	 * @var $result store the result here
+	 */
+	public $result;
+
 
 	/**
 	 * Class Constructor
@@ -74,6 +79,7 @@ class WP_Pixtypes_GitHub_Updater {
 			'access_token' => '',
 		);
 
+		$this->result = array();
 		$this->config = wp_parse_args( $config, $defaults );
 
 		// if the minimum config isn't set, issue a warning and bail
@@ -97,6 +103,7 @@ class WP_Pixtypes_GitHub_Updater {
 
 		// set sslverify for zip download
 		add_filter( 'http_request_args', array( $this, 'http_request_sslverify' ), 10, 2 );
+
 	}
 
 	public function has_minimum_config() {
@@ -247,10 +254,12 @@ class WP_Pixtypes_GitHub_Updater {
 
 			// refresh every 6 hours
 			if ( false !== $version )
-				set_site_transient( $this->config['slug'].'_new_version', $version, 60*60*6 );
+//				set_site_transient( $this->config['slug'].'_new_version', $version, 60*60*6 );
 				// to test a quick transient comment the above and uncomment the bellow
-				//set_site_transient( $this->config['slug'].'_new_version', $version, 10 );
+				set_site_transient( $this->config['slug'].'_new_version', $version, 10 );
 		}
+
+		$this->result['github_version'] = $version;
 
 		return $version;
 	}
@@ -304,6 +313,7 @@ class WP_Pixtypes_GitHub_Updater {
 			$this->github_data = $github_data;
 		}
 
+		$this->result['github_data'] = $github_data;
 		return $github_data;
 	}
 
@@ -374,6 +384,8 @@ class WP_Pixtypes_GitHub_Updater {
 				$transient->response[ $this->config['slug'] ] = $response;
 		}
 
+		$this->result['transient'] = $transient;
+
 		return $transient;
 	}
 
@@ -404,6 +416,8 @@ class WP_Pixtypes_GitHub_Updater {
 		$response->last_updated = $this->config['last_updated'];
 		$response->sections = array( 'description' => $this->config['description'] );
 		$response->download_link = $this->config['zip_url'];
+
+		$this->result['plugin_info'] = $response;
 
 		return $response;
 	}

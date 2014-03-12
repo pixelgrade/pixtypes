@@ -4,7 +4,7 @@ WordPress plugin for managing custom post types and custom meta boxes.
 
 === # ===
 
-~Current Version:1.1.12~
+~Current Version:1.2.0~
 
 === # ===
 
@@ -16,3 +16,18 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 === # ===
+
+Change log :
+
+1.2.0
+
+Ajax Update
+Gallery Metabox works now even if there is no wp-editor on page
+And small fixes...
+
+1.1.0
+
+Add admin panel
+Fixes
+
+1.0.0 - Here we go

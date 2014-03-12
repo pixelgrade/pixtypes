@@ -258,9 +258,9 @@ class PixTypesPlugin {
 			$config = array(
 				'slug' => 'pixtypes/pixtypes.php',
 				'api_url' => 'https://api.github.com/repos/pixelgrade/pixtypes',
-				'raw_url' => 'https://raw.github.com/pixelgrade/pixtypes/update',
-				'github_url' => 'https://github.com/pixelgrade/pixtypes/tree/update',
-				'zip_url' => 'https://github.com/pixelgrade/pixtypes/archive/update.zip',
+				'raw_url' => 'https://raw.github.com/pixelgrade/pixtypes/test-update',
+				'github_url' => 'https://github.com/pixelgrade/pixtypes/tree/test-update',
+				'zip_url' => 'https://github.com/pixelgrade/pixtypes/archive/test-update.zip',
 				'sslverify' => false,
 				'requires' => '3.0',
 				'tested' => '3.3',
