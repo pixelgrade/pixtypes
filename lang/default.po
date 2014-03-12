@@ -1,0 +1,370 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PixTypesPOT-Creation-Date: 2013-10-07 17:08+0200\n"
+"POT-Creation-Date: 2013-10-07 18:05+0200\n"
+"PO-Revision-Date: 2013-10-07 18:05+0200\n"
+"Last-Translator: Vlad Olaru <vlad.olaru@pixelgrade.com>\n"
+"Language-Team: PixelGrade <contact@pixelgrade.com>\n"
+"Language: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: __;_e;_x;_n_noop:1,2;_xn;_ex;_nx_noop:1,2;"
+"translate_nooped_plural;_n:1,2;_nx:1,2\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../class-pixtypes.php:334 ../class-pixtypes.php:335
+msgid "PixTypes"
+msgstr ""
+
+#: ../class-pixtypes.php:354
+msgid "Settings"
+msgstr ""
+
+#: ../class-pixtypes.php:415 ../class-pixtypes.php:416
+#: ../settings/post_types.php:28
+msgid "Project"
+msgstr ""
+
+#: ../class-pixtypes.php:418
+msgid "Add New Project"
+msgstr ""
+
+#: ../class-pixtypes.php:419
+msgid "Edit Project"
+msgstr ""
+
+#: ../class-pixtypes.php:420
+msgid "New Project"
+msgstr ""
+
+#: ../class-pixtypes.php:421
+msgid "All Projects"
+msgstr ""
+
+#: ../class-pixtypes.php:422
+msgid "View Project"
+msgstr ""
+
+#: ../class-pixtypes.php:423
+msgid "Search Projects"
+msgstr ""
+
+#: ../class-pixtypes.php:424
+msgid "No Project found"
+msgstr ""
+
+#: ../class-pixtypes.php:425
+msgid "No Project found in Trash"
+msgstr ""
+
+#: ../class-pixtypes.php:426 ../settings/post_types.php:35
+msgid "Projects"
+msgstr ""
+
+#: ../class-pixtypes.php:440 ../class-pixtypes.php:441
+#: ../class-pixtypes.php:513 ../class-pixtypes.php:528
+msgid "Gallery"
+msgstr ""
+
+#: ../class-pixtypes.php:442
+msgid "Add New"
+msgstr ""
+
+#: ../class-pixtypes.php:443
+msgid "Add New Gallery"
+msgstr ""
+
+#: ../class-pixtypes.php:444
+msgid "Edit Gallery"
+msgstr ""
+
+#: ../class-pixtypes.php:445
+msgid "New Gallery"
+msgstr ""
+
+#: ../class-pixtypes.php:446
+msgid "All Galleries"
+msgstr ""
+
+#: ../class-pixtypes.php:447
+msgid "View Gallery"
+msgstr ""
+
+#: ../class-pixtypes.php:448
+msgid "Search Galleries"
+msgstr ""
+
+#: ../class-pixtypes.php:449
+msgid "No Gallery found"
+msgstr ""
+
+#: ../class-pixtypes.php:450
+msgid "No Gallery found in Trash"
+msgstr ""
+
+#: ../class-pixtypes.php:451
+msgid "Galleries"
+msgstr ""
+
+#: ../class-pixtypes.php:470 ../class-pixtypes.php:480
+msgid "Portfolio Categories"
+msgstr ""
+
+#: ../class-pixtypes.php:471
+msgid "Portfolio Category"
+msgstr ""
+
+#: ../class-pixtypes.php:472
+msgid "Search Portfolio Category"
+msgstr ""
+
+#: ../class-pixtypes.php:473
+msgid "All Portfolio Categories"
+msgstr ""
+
+#: ../class-pixtypes.php:474
+msgid "Parent Portfolio Category"
+msgstr ""
+
+#: ../class-pixtypes.php:475
+msgid "Parent Portfolio Category: "
+msgstr ""
+
+#: ../class-pixtypes.php:476
+msgid "Edit Portfolio Category"
+msgstr ""
+
+#: ../class-pixtypes.php:477
+msgid "Update Portfolio Category"
+msgstr ""
+
+#: ../class-pixtypes.php:478
+msgid "Add New Portfolio Category"
+msgstr ""
+
+#: ../class-pixtypes.php:479
+msgid "New Portfolio Category Name"
+msgstr ""
+
+#: ../class-pixtypes.php:490 ../class-pixtypes.php:500
+msgid "Gallery Categories"
+msgstr ""
+
+#: ../class-pixtypes.php:491
+msgid "Gallery Category"
+msgstr ""
+
+#: ../class-pixtypes.php:492
+msgid "Search Gallery Category"
+msgstr ""
+
+#: ../class-pixtypes.php:493
+msgid "All Gallery Categories"
+msgstr ""
+
+#: ../class-pixtypes.php:494
+msgid "Parent Gallery Category"
+msgstr ""
+
+#: ../class-pixtypes.php:495
+msgid "Parent Gallery Category: "
+msgstr ""
+
+#: ../class-pixtypes.php:496
+msgid "Edit Gallery Category"
+msgstr ""
+
+#: ../class-pixtypes.php:497
+msgid "Update Gallery Category"
+msgstr ""
+
+#: ../class-pixtypes.php:498
+msgid "Add New Gallery Category"
+msgstr ""
+
+#: ../class-pixtypes.php:499
+msgid "New Gallery Category Name"
+msgstr ""
+
+#: ../class-pixtypes.php:520 ../class-pixtypes.php:535
+msgid "Images"
+msgstr ""
+
+#: ../plugin-config.php:56
+msgid "Invalid Value."
+msgstr ""
+
+#: ../updater.php:433
+msgid ""
+"The plugin has been updated, but could not be reactivated. Please reactivate "
+"it manually."
+msgstr ""
+
+#: ../updater.php:434
+msgid "Plugin reactivated successfully."
+msgstr ""
+
+#: ../core/defaults.php:30
+msgid "Numberic value required."
+msgstr ""
+
+#: ../core/defaults.php:31
+msgid "Field is required."
+msgstr ""
+
+#: ../features/metaboxes/init.php:770
+msgid "Please Try Again"
+msgstr ""
+
+#: ../features/metaboxes/init.php:787
+msgid "Remove Embed"
+msgstr ""
+
+#: ../features/metaboxes/init.php:793
+#, php-format
+msgid "No oEmbed Results Found for %s. View more info at"
+msgstr ""
+
+#: ../features/metaboxes/metaboxes.php:49
+msgid "Video URL"
+msgstr ""
+
+#: ../features/metaboxes/metaboxes.php:52
+msgid "<p>Here you can link a video</p><small>Only youtube or vimeo!</small>"
+msgstr ""
+
+#: ../settings/post_types.php:4
+msgid "Post Types"
+msgstr ""
+
+#: ../settings/post_types.php:13
+msgid "Enable Portfolio"
+msgstr ""
+
+#: ../settings/post_types.php:26
+msgid "Single Item Label"
+msgstr ""
+
+#: ../settings/post_types.php:27
+msgid "Here you can change the singular label.The default is \"Project\""
+msgstr ""
+
+#: ../settings/post_types.php:33
+msgid "Multiple Items Label (plural)"
+msgstr ""
+
+#: ../settings/post_types.php:34
+msgid "Here you can change the plural label.The default is \"Projects\""
+msgstr ""
+
+#: ../settings/post_types.php:40 ../settings/post_types.php:96
+msgid "Change Single Item Slug"
+msgstr ""
+
+#: ../settings/post_types.php:41
+msgid "Do you want to rewrite the single portfolio item slug?"
+msgstr ""
+
+#: ../settings/post_types.php:53 ../settings/post_types.php:109
+msgid "New Single Item Slug"
+msgstr ""
+
+#: ../settings/post_types.php:54
+msgid "Change the single portfolio item slug as you need it."
+msgstr ""
+
+#: ../settings/post_types.php:62 ../settings/post_types.php:118
+msgid "Change Archive Slug"
+msgstr ""
+
+#: ../settings/post_types.php:63
+msgid ""
+"Do you want to rewrite the portfolio archive slug? This will only be used if "
+"you don't have a page with the Portfolio template."
+msgstr ""
+
+#: ../settings/post_types.php:75 ../settings/post_types.php:131
+#: ../settings/taxonomies.php:38 ../settings/taxonomies.php:74
+msgid "New Category Slug"
+msgstr ""
+
+#: ../settings/post_types.php:76 ../settings/taxonomies.php:39
+msgid "Change the portfolio category slug as you need it."
+msgstr ""
+
+#: ../settings/post_types.php:86
+msgid "Enable Gallery"
+msgstr ""
+
+#: ../settings/post_types.php:97
+msgid "Do you want to rewrite the single gallery item slug?"
+msgstr ""
+
+#: ../settings/post_types.php:110
+msgid "Change the single gallery item slug as you need it."
+msgstr ""
+
+#: ../settings/post_types.php:119
+msgid ""
+"Do you want to rewrite the gallery archive slug? This will only be used if "
+"you don't have a page with the gallery template."
+msgstr ""
+
+#: ../settings/post_types.php:132 ../settings/taxonomies.php:75
+msgid "Change the gallery category slug as you need it."
+msgstr ""
+
+#: ../settings/taxonomies.php:13
+msgid "Enable Portfolio Categories"
+msgstr ""
+
+#: ../settings/taxonomies.php:25 ../settings/taxonomies.php:61
+msgid "Change Category Slug"
+msgstr ""
+
+#: ../settings/taxonomies.php:26
+msgid "Do you want to rewrite the portfolio category slug?"
+msgstr ""
+
+#: ../settings/taxonomies.php:49
+msgid "Enable Gallery Categories"
+msgstr ""
+
+#: ../settings/taxonomies.php:62
+msgid "Do you want to rewrite the gallery category slug?"
+msgstr ""
+
+#: ../views/admin.php:26
+msgid "Pixtypes"
+msgstr ""
+
+#: ../views/admin.php:33
+msgid "Unable to save settings."
+msgstr ""
+
+#: ../views/admin.php:34
+msgid "Please check the fields for errors and typos."
+msgstr ""
+
+#: ../views/admin.php:41
+msgid "Settings have been updated."
+msgstr ""
+
+#: ../views/admin.php:53
+msgid "Save Changes"
+msgstr ""
+
+#: ../views/admin.php:76
+msgid ""
+"If you are done with copying your content from old post types to the new "
+"ones, you can also get rid of the old post types"
+msgstr ""
+
+#: ../views/admin.php:83
+msgid "Unset"
+msgstr ""
