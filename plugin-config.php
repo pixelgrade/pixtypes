@@ -79,9 +79,9 @@ return array
 		'github_updater' => array(
 			'slug' => 'pixtypes/pixtypes.php',
 			'api_url' => 'https://api.github.com/repos/pixelgrade/pixtypes',
-			'raw_url' => 'https://raw.github.com/pixelgrade/pixtypes/ajax-update',
-			'github_url' => 'https://github.com/pixelgrade/pixtypes/tree/ajax-update',
-			'zip_url' => 'https://github.com/pixelgrade/pixtypes/archive/ajax-update.zip',
+			'raw_url' => 'https://raw.github.com/pixelgrade/pixtypes/update',
+			'github_url' => 'https://github.com/pixelgrade/pixtypes/tree/update',
+			'zip_url' => 'https://github.com/pixelgrade/pixtypes/archive/update.zip',
 			'sslverify' => false,
 			'requires' => '3.0',
 			'tested' => '3.3',
