@@ -232,10 +232,15 @@ class WP_Pixtypes_GitHub_Updater {
 				$version = $matches[1];
 
 			// refresh every 6 hours
-			if ( false !== $version )
-				set_site_transient( $this->config['slug'].'_new_version', $version, 60*60*6 );
-				// to test a quick transient comment the above and uncomment the bellow
-//				set_site_transient( $this->config['slug'].'_new_version', $version, 10 );
+			if ( false !== $version ) {
+				// or refresh quick if we debug it
+				if ( isset ( $this->config['debug_mode'] ) && $this->config['debug_mode'] == 'true') {
+					// to test a quick transient comment the above and uncomment the bellow
+					set_site_transient( $this->config['slug'].'_new_version', $version, 10 );
+				} else {
+					set_site_transient( $this->config['slug'].'_new_version', $version, 60*60*6 );
+				}
+			}
 		}
 
 		$this->result['github_version'] = $version;
@@ -464,8 +469,10 @@ class WP_Pixtypes_GitHub_Updater {
 		//update the transient and wordpress should
 		$updated = update_option('_site_transient_update_plugins', $new_transient, $transient);
 
-//		echo json_encode($updated);
-//		echo json_encode($new_transient);
-		die();
+		if ( isset( $_POST['debug'] ) && $_POST['debug']  == 'true' ) {
+			echo json_encode(array('updated' => $updated, 'transient' => $new_transient));
+		}
+
+		die(0);
 	}
 }

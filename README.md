@@ -5,7 +5,7 @@ WordPress plugin for managing custom post types and custom meta boxes.
 === # ===
 
 ~Current Version:1.2.0~
-
+Dev note: use debug=true in url for some debugging
 === # ===
 
 Tags: wordpress, cpt, metaboxes, custom post types, plugin
@@ -17,7 +17,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 === # ===
 
-Change log :
+=== Changelog  ===
 
 1.2.0
 
