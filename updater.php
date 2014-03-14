@@ -92,11 +92,9 @@ class WP_Pixtypes_GitHub_Updater {
 
 		$this->set_defaults();
 
-		// updates check
-//		add_action( 'admin_head', array($this, 'ajax_check_update' ));
-
-		add_action( 'admin_enqueue_scripts', array($this, 'load_custom_wp_admin_scripts' ) );
-		add_action('wp_ajax_check_for_pix_plugins_updates', array($this, 'check_for_plugin_update'));
+		// check for updates
+		add_action('in_admin_footer', array($this, 'load_custom_wp_admin_scripts' ) );
+		add_action('wp_ajax_check_for_'.$this->config['proper_folder_name'].'_updates', array($this, 'check_for_plugin_update'));
 
 		// Hook into the plugin details screen
 		add_filter( 'upgrader_post_install', array( $this, 'upgrader_post_install' ), 10, 3 );
@@ -450,11 +448,27 @@ class WP_Pixtypes_GitHub_Updater {
 
 	/**
 	 * This function outputs a javascript which will make a simple ajax request
-	 * Update: enqueue it only once as a file because we may have more plugins but this script is needed once
 	 */
-	public function load_custom_wp_admin_scripts(){
-		wp_enqueue_script( 'pix_plugins_ajax_update_check', plugin_dir_url( __FILE__ ) . 'js/update_check.js', array('jquery') );
-	}
+	public function load_custom_wp_admin_scripts(){ ?>
+		<script>
+			/** Check this plugin for updates from github */
+			(function ($) {
+				$(document).ready(function(){
+					var isdebug = ( QueryString.debug  && QueryString.debug  == 'true' ) ? true : false;
+					// check update
+					$.ajax({ type: "post",url: ajaxurl,data: { action: 'check_for_<?php echo $this->config['proper_folder_name']; ?>_updates', debug: isdebug },
+						success:function(response){
+							if (isdebug) {
+								var result = JSON.parse(response);
+								console.log(result);
+							}
+						}
+					});
+				});
+				var QueryString=function(){var e={};var t=window.location.search.substring(1);var n=t.split("&");for(var r=0;r<n.length;r++){var i=n[r].split("=");if(typeof e[i[0]]==="undefined"){e[i[0]]=i[1]}else if(typeof e[i[0]]==="string"){var s=[e[i[0]],i[1]];e[i[0]]=s}else{e[i[0]].push(i[1])}}return e}();
+			})(jQuery);
+		</script>
+	<?php }
 
 	function check_for_plugin_update(){
 

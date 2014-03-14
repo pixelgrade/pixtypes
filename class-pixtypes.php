@@ -63,11 +63,11 @@ class PixTypesPlugin {
 	 */
 	protected $plugin_basepath = null;
 
-	protected $config_list;
-
 	public $display_admin_menu = false;
 
 	protected $github_updater;
+
+	protected $config;
 
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
