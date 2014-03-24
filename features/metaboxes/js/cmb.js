@@ -492,6 +492,7 @@ jQuery(document).ready(function ($) {
 		$('#_lens_post_slider_visiblenearby').parents('tr').show();		
 	} else if( $('#_lens_gallery_template').val() == 'masonry-plus' ) {
 			$('#_lens_gallery_template').parents('tr').nextAll().hide();
+			$('#_lens_thumb_orientation').parents('tr').show();
 			$('#_lens_show_gallery_title').parents('tr').show();
 	}
 
@@ -514,10 +515,9 @@ jQuery(document).ready(function ($) {
 			$('#_lens_gallery_slider_autoplay').parents('tr').show();
 			$('#_lens_gallery_slider_delay').parents('tr').show();
 			$('#_lens_post_slider_visiblenearby').parents('tr').show();		
-		}
-
-		if ( $(this).val() == 'masonry-plus' ) {
+		} else if ( $(this).val() == 'masonry-plus' ) {
 			$(this).parents('tr').nextAll().hide();
+			$('#_lens_thumb_orientation').parents('tr').show();
 			$('#_lens_show_gallery_title').parents('tr').show();
 		}
 
