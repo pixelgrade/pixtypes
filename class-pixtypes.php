@@ -65,6 +65,10 @@ class PixTypesPlugin {
 
 	public $display_admin_menu = false;
 
+	protected $github_updater;
+
+	protected $config;
+
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 *
@@ -73,14 +77,14 @@ class PixTypesPlugin {
 	protected function __construct() {
 
 		$this->plugin_basepath = plugin_dir_path( __FILE__ );
+		$this->config = self::config();
 
 		// Load plugin text domain
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'admin_init', array( $this, 'wpgrade_init_plugin' ) );
 
 		// Add the options page and menu item only when is needed.
-		$config = include 'plugin-config.php';
-		if ( isset($config['display_settings']) && $config['display_settings'] ) {
+		if ( isset($this->config['display_settings']) && $this->config['display_settings'] ) {
 			add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
 
 			// Add an action link pointing to the options page.
@@ -106,8 +110,6 @@ class PixTypesPlugin {
 		 */
 		add_action('wp_ajax_unset_pixtypes', array(&$this, 'ajax_unset_pixtypes'));
 		add_action('wp_ajax_nopriv_unset_pixtypes', array(&$this, 'ajax_unset_pixtypes'));
-
-
 	}
 
 	/**
@@ -127,6 +129,11 @@ class PixTypesPlugin {
 		return self::$instance;
 	}
 
+	public static function config(){
+		// @TODO maybe check this
+		return include 'plugin-config.php';
+	}
+
 	public function wpgrade_init_plugin(){
 //		$this->plugin_textdomain();
 //		$this->add_wpgrade_shortcodes_button();
@@ -141,7 +148,7 @@ class PixTypesPlugin {
 	 * @param    boolean    $network_wide    True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog.
 	 */
 	public static function activate( $network_wide ) {
-		$config = include 'plugin-config.php';
+		$config = self::config();
 
 		/** get options defined by themes */
 		$theme_types = get_option('pixtypes_themes_settings');
@@ -252,22 +259,10 @@ class PixTypesPlugin {
 	 */
 	public function github_plugin_updater_init() {
 		include_once 'updater.php';
-//        define( 'WP_GITHUB_FORCE_UPDATE', true ); // this is only for testing
+        define( 'WP_GITHUB_FORCE_UPDATE', true ); // this is only for testing
 		if ( is_admin() ) { // note the use of is_admin() to double check that this is happening in the admin
-			$config = array(
-				'slug' => 'pixtypes/pixtypes.php',
-				'api_url' => 'https://api.github.com/repos/pixelgrade/pixtypes',
-				'raw_url' => 'https://raw.github.com/pixelgrade/pixtypes/update',
-				'github_url' => 'https://github.com/pixelgrade/pixtypes/tree/update',
-				'zip_url' => 'https://github.com/pixelgrade/pixtypes/archive/update.zip',
-				'sslverify' => false,
-				'requires' => '3.0',
-				'tested' => '3.3',
-				'readme' => 'README.md',
-				'textdomain' => $this->plugin_slug
-//			'access_token' => '',
-			);
-			new WP_Pixtypes_GitHub_Updater( $config );
+			$git_config = $this->config['github_updater'];
+			$this->github_updater = new WP_Pixtypes_GitHub_Updater( $git_config );
 		}
 	}
 
@@ -341,7 +336,7 @@ class PixTypesPlugin {
 		$this->plugin_screen_hook_suffix = add_options_page(
 			__( 'PixTypes', $this->plugin_slug ),
 			__( 'PixTypes', $this->plugin_slug ),
-			'update_core',
+			'edit_plugins',
 			$this->plugin_slug,
 			array( $this, 'display_plugin_admin_page' )
 		);

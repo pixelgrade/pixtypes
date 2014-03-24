@@ -226,6 +226,7 @@ class pixtypes {
 		$files = scandir($dir);
 
 		foreach ($files as $value) {
+
 			// skip special dot files and directories
 			if (strpos($value,'.') === 0) {
 				continue;

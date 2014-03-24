@@ -1,7 +1,14 @@
 <?php defined('ABSPATH') or die;
 
 $basepath = dirname(__FILE__).DIRECTORY_SEPARATOR;
+
+$debug = false;
+if ( isset( $_GET['debug'] ) && $_GET['debug'] == 'true' ) {
+	$debug = true;
+}
+
 $options = get_option('pixtypes_settings');
+
 $display_settings = false;
 
 if ( isset( $options['display_settings'] ) ){
@@ -69,7 +76,22 @@ return array
 
 		'display_settings' => $display_settings,
 
+		'github_updater' => array(
+			'slug' => 'pixtypes/pixtypes.php',
+			'api_url' => 'https://api.github.com/repos/pixelgrade/pixtypes',
+			'raw_url' => 'https://raw.github.com/pixelgrade/pixtypes/update',
+			'github_url' => 'https://github.com/pixelgrade/pixtypes/tree/update',
+			'zip_url' => 'https://github.com/pixelgrade/pixtypes/archive/update.zip',
+			'sslverify' => false,
+			'requires' => '3.0',
+			'tested' => '3.3',
+			'readme' => 'README.md',
+			'textdomain' => 'pixtypes',
+			'debug_mode' => $debug
+			//'access_token' => '',
+		),
+
 		// shows exception traces on error
-		'debug' => false,
+		'debug' => $debug,
 
 	); # config
