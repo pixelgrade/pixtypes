@@ -77,7 +77,7 @@ return array
 		'display_settings' => $display_settings,
 
 		'github_updater' => array(
-			'slug' => 'pixtypes/pixtypes.php',
+			'slug' => basename(dirname(__FILE__)).'/pixtypes.php',
 			'api_url' => 'https://api.github.com/repos/pixelgrade/pixtypes',
 			'raw_url' => 'https://raw.github.com/pixelgrade/pixtypes/update',
 			'github_url' => 'https://github.com/pixelgrade/pixtypes/tree/update',
