@@ -17,7 +17,6 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 === # ===
-<<<<<<< HEAD
 
 === Changelog  ===
 
@@ -38,5 +37,3 @@ Add admin panel
 Fixes
 
 1.0.0 - Here we go
-=======
->>>>>>> 7117c01e11a99693c89cd859f1b351273d0a0ec6
