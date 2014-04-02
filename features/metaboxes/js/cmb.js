@@ -248,7 +248,6 @@ jQuery(document).ready(function ($) {
 	
 	// theme specific
 
-
     /**
      * No more tractor!!!
      * Hide and show metafields depending on each other
@@ -404,17 +403,44 @@ jQuery(document).ready(function ($) {
 		}
 	});
 	
-	//show the gallery posts selects when radio is on
-	if ($('input:radio[name="_lens_custom_homepage"]:checked').val() == 'lens_gallery') {
+	//Manage the radios controling the homepage contents
+	var $lens_custom_homepage_checked = $('input:radio[name="_lens_custom_homepage"]:checked');
+	if ($lens_custom_homepage_checked.val() == 'lens_gallery') {
 		$('#_lens_homepage_gallery').closest('tr').show();
 		$('#_lens_homepage_projects_number').closest('tr').hide();
+	} else if ($lens_custom_homepage_checked.val() == 'lens_portfolio_cat') {
+		$('#_lens_homepage_portfolio_category').closest('tr').show();
+		$('#_lens_homepage_projects_number').closest('tr').show();
+	} else if ($lens_custom_homepage_checked.val() == 'lens_galleries_cat') {
+		$('#_lens_homepage_galleries_category').closest('tr').show();
+		$('#_lens_homepage_projects_number').closest('tr').show();
 	}
+	
 	//monitor the change of the radio group
 	$("input[name='_lens_custom_homepage']").change(function(e){
 		if($(this).val() == 'lens_gallery') {
+			$('#_lens_homepage_portfolio_category').closest('tr').hide();
+			$('#_lens_homepage_galleries_category').closest('tr').hide();
 			$('#_lens_homepage_gallery').closest('tr').show();
 			$('#_lens_homepage_projects_number').closest('tr').hide();
-		} else {
+		} else if ($(this).val() == 'lens_portfolio') {
+			$('#_lens_homepage_portfolio_category').closest('tr').hide();
+			$('#_lens_homepage_galleries_category').closest('tr').hide();
+			$('#_lens_homepage_gallery').closest('tr').hide();
+			$('#_lens_homepage_projects_number').closest('tr').show();
+		} else if ($(this).val() == 'lens_portfolio_cat') {
+			$('#_lens_homepage_portfolio_category').closest('tr').show();
+			$('#_lens_homepage_galleries_category').closest('tr').hide();
+			$('#_lens_homepage_gallery').closest('tr').hide();
+			$('#_lens_homepage_projects_number').closest('tr').show();
+		} else if ($(this).val() == 'lens_galleries_archive') {
+			$('#_lens_homepage_portfolio_category').closest('tr').hide();
+			$('#_lens_homepage_galleries_category').closest('tr').hide();
+			$('#_lens_homepage_gallery').closest('tr').hide();
+			$('#_lens_homepage_projects_number').closest('tr').show();
+		} else if ($(this).val() == 'lens_galleries_cat') {
+			$('#_lens_homepage_portfolio_category').closest('tr').hide();
+			$('#_lens_homepage_galleries_category').closest('tr').show();
 			$('#_lens_homepage_gallery').closest('tr').hide();
 			$('#_lens_homepage_projects_number').closest('tr').show();
 		}
@@ -494,11 +520,20 @@ jQuery(document).ready(function ($) {
 		$('#_lens_post_slider_visiblenearby').parents('tr').show();
 		$('#_lens_exclude_gallery').parents('tr').show();
 	} else if( $('#_lens_gallery_template').val() == 'masonry-plus' ) {
+<<<<<<< HEAD
 			$('#_lens_gallery_template').parents('tr').nextAll().hide();
 			$('#_lens_thumb_orientation').parents('tr').show();
 			$('#_lens_show_gallery_title').parents('tr').show();
 			$('#_lens_exclude_gallery').parents('tr').show();
 	}
+=======
+		$('#_lens_gallery_template').parents('tr').nextAll().hide();
+		$('#_lens_thumb_orientation').parents('tr').show();
+		$('#_lens_show_gallery_title').parents('tr').show();
+		$('#_lens_exclude_gallery').parents('tr').show();
+	}
+
+>>>>>>> 7117c01e11a99693c89cd859f1b351273d0a0ec6
 
 	$('#_lens_gallery_template').on('change', function() {
 
@@ -514,7 +549,11 @@ jQuery(document).ready(function ($) {
 			$('#_lens_post_slider_visiblenearby').parents('tr').hide();
 		} else if ( $(this).val() == 'fullwidth' || $(this).val() == 'fullscreen' ) {
 			$('#_lens_thumb_orientation').parents('tr').hide();
+<<<<<<< HEAD
 			$('#_lens_show_gallery_title').parents('tr').hide();			
+=======
+			$('#_lens_show_gallery_title').parents('tr').hide();
+>>>>>>> 7117c01e11a99693c89cd859f1b351273d0a0ec6
 			$('#_lens_gallery_slider_transition').parents('tr').show();
 			$('#_lens_gallery_image_scale_mode').parents('tr').show();
 			$('#_lens_gallery_slider_autoplay').parents('tr').show();
