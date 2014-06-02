@@ -18,25 +18,25 @@ jQuery(document).ready(function ($) {
 	'use strict';
 
 	var formfield;
-	
+
 	/**
 	 * First we take care of showing and hiding the meta boxes for post formats
 	 */
 	$('#post-formats-select input').change(verifyFormatMetaboxes);
-	
+
 	function verifyFormatMetaboxes() {
 		var format = $('#post-formats-select input:checked').attr('value');
-		
+
 		//this should only happen on posts pages
-		if(typeof format != 'undefined') {
+		if (typeof format != 'undefined') {
 			$('#post-body div[id^=post_format_metabox_]').hide();
-			$('#post-body #post_format_metabox_'+format+'').stop(true,true).fadeIn(400);	
+			$('#post-body #post_format_metabox_' + format + '').stop(true, true).fadeIn(400);
 		}
 	}
-	
-	$(window).load(function(){
+
+	$(window).load(function () {
 		verifyFormatMetaboxes();
-	})
+	});
 
 	/**
 	 * Initialize timepicker (this will be moved inline in a future release)
@@ -79,12 +79,12 @@ jQuery(document).ready(function ($) {
 			$(this).after('<div id="picker-' + i + '" style="z-index: 1000; background: #EEE; border: 1px solid #CCC; position: absolute; display: block;"></div>');
 			$('#picker-' + i).hide().farbtastic($(this));
 		})
-		.focus(function () {
-			$(this).next().show();
-		})
-		.blur(function () {
-			$(this).next().hide();
-		});
+			.focus(function () {
+				$(this).next().show();
+			})
+			.blur(function () {
+				$(this).next().hide();
+			});
 	}
 
 	/**
@@ -112,19 +112,19 @@ jQuery(document).ready(function ($) {
 	});
 
 	window.original_send_to_editor = window.send_to_editor;
-    window.send_to_editor = function (html) {
+	window.send_to_editor = function (html) {
 		var itemurl, itemclass, itemClassBits, itemid, htmlBits, itemtitle,
 			image, uploadStatus = true;
 
 		if (formfield) {
 
-	        if ($(html).html(html).find('img').length > 0) {
+			if ($(html).html(html).find('img').length > 0) {
 				itemurl = $(html).html(html).find('img').attr('src'); // Use the URL to the size selected.
 				itemclass = $(html).html(html).find('img').attr('class'); // Extract the ID from the returned class name.
 				itemClassBits = itemclass.split(" ");
 				itemid = itemClassBits[itemClassBits.length - 1];
 				itemid = itemid.replace('wp-image-', '');
-	        } else {
+			} else {
 				// It's not an image. Get the URL to the file instead.
 				htmlBits = html.split("'"); // jQuery seems to strip out XHTML when assigning the string to an object. Use alternate method.
 				itemurl = htmlBits[1]; // Use the URL to the file.
@@ -145,23 +145,23 @@ jQuery(document).ready(function ($) {
 				uploadStatus = '<div class="no_image"><span class="file_link">' + html + '</span>&nbsp;&nbsp;&nbsp;<a href="#" class="cmb_remove_file_button" rel="' + formfield + '">Remove</a></div>';
 			}
 
-            var to_meta = $('#' + formfield);
-            if ( to_meta.hasClass('attachment') ) {
+			var to_meta = $('#' + formfield);
+			if (to_meta.hasClass('attachment')) {
 
-                var meta_val = {};
+				var meta_val = {};
 
-                meta_val['link'] = itemurl;
-                meta_val['id'] = itemid;
-                meta_val = JSON.stringify( meta_val );
+				meta_val['link'] = itemurl;
+				meta_val['id'] = itemid;
+				meta_val = JSON.stringify(meta_val);
 
-                $('[name="' + formfield+'"]').val( meta_val );
+				$('[name="' + formfield + '"]').val(meta_val);
 
-            } else {
-                to_meta.val(itemurl);
-                $('#' + formfield + '_id').val(itemid);
-            }
+			} else {
+				to_meta.val(itemurl);
+				$('#' + formfield + '_id').val(itemid);
+			}
 
-            to_meta.siblings('.cmb_media_status').slideDown().html(uploadStatus);
+			to_meta.siblings('.cmb_media_status').slideDown().html(uploadStatus);
 			tb_remove();
 
 		} else {
@@ -175,7 +175,7 @@ jQuery(document).ready(function ($) {
 	 * Ajax oEmbed display
 	 */
 
-	// ajax on paste
+		// ajax on paste
 	$('.cmb_oembed').bind('paste', function (e) {
 		var pasteitem = $(this);
 		// paste event is fired before the value is filled, so wait a bit
@@ -221,10 +221,10 @@ jQuery(document).ready(function ($) {
 				// if they haven't typed in 500 ms
 				if ($('.cmb_oembed:focus').val() == oembed_url) {
 					$.ajax({
-						type : 'post',
-						dataType : 'json',
-						url : window.ajaxurl,
-						data : {
+						type: 'post',
+						dataType: 'json',
+						url: window.ajaxurl,
+						data: {
 							'action': 'cmb_oembed_handler',
 							'oembed_url': oembed_url,
 							'field_id': field_id,
@@ -245,25 +245,42 @@ jQuery(document).ready(function ($) {
 			}, 500);
 		}
 	}
-	
+
 	// theme specific
 
+	/**
+	 * No more tractor!!!
+	 * Hide and show metafields depending on each other
+	 */
 
-    /**
-     * No more tractor!!!
-     * Hide and show metafields depending on each other
-     */
+	var toggle_metafields = function (el) {
 
-    var toggle_metafields = function( el ) {
-
-        var $self = $(el),
-            action = $self.data('action'),
-            field = $self.attr('data-when_key'),
-            value = $self.data('has_value'),
-            selector = '[name="' + field + '"]',
-            $selector =  $('[name="' + field + '"]'),
+		var $self = $(el),
+			action = $self.data('action'),
+			field = $self.attr('data-when_key'),
+			value = $self.data('has_value'),
+			selector = '[name="' + field + '"]',
+			$selector = $('[name="' + field + '"]'),
 			currentValue = '';
 
+		//we need to treat radio groups differently
+		if ($selector.length > 1) {
+			//we assume that we are in a group
+			//then we need to get the value through other means
+			currentValue = $('[name="' + field + '"]:checked').val();
+		} else {
+			currentValue = $selector.val();
+		}
+
+		//do the work
+		if (currentValue == value) {
+			toggle_meta(el, action);
+		} else {
+			toggle_opposite(el, action);
+		}
+
+		//each time it changes get down to business
+		$(document).on('change', selector, function (e) {
 			//we need to treat radio groups differently
 			if ($selector.length > 1) {
 				//we assume that we are in a group
@@ -274,186 +291,254 @@ jQuery(document).ready(function ($) {
 			}
 
 			//do the work
-            if ( currentValue == value) {
-                toggle_meta(el, action);
-            }else {
-                toggle_opposite(el, action);
-            }
-
-		//each time it changes get down to business
-        $(document).on('change', selector, function(e){
-			//we need to treat radio groups differently
-			if ($selector.length > 1) {
-				//we assume that we are in a group
-				//then we need to get the value through other means
-				currentValue = $('[name="' + field + '"]:checked').val();
+			if (currentValue == value) {
+				toggle_meta(el, action);
 			} else {
-				currentValue = $selector.val();
+				toggle_opposite(el, action);
 			}
 
-            //do the work
-            if ( currentValue == value) {
-                toggle_meta(el, action);
-            }else {
-                toggle_opposite(el, action);
+		});
+	};
+
+
+	var toggle_meta = function (selector, action) {
+		var when_key = $(selector).data('when_key'),
+			$target = $('#' + when_key),
+			$parent = $target.parent().parent();
+
+		/**
+		 * Check if the curent element needs to be showed
+		 * Also if it's parent is hidden the child needs to follow
+		 */
+		if (action == 'show' && !$parent.hasClass('hidden')) {
+			$(selector).show().removeClass('hidden');
+		} else {
+			$(selector).hide().addClass('hidden');
+		}
+
+		/**
+		 * Trigger a change!
+		 * This way our kids(elements) will know that something is changed and they should follow
+		 */
+		$(selector).find('select, input:radio').trigger('change');
+	};
+
+	var toggle_opposite = function (selector, action) {
+		var when_key = $(selector).data('when_key'),
+			$target = $('#' + when_key),
+			$parent = $target.parent().parent();
+		/**
+		 * Check if the curent element needs to be showed
+		 * Also if it's parent is hidden the child needs to follow
+		 */
+		if (action == 'hide' && $parent.hasClass('hidden')) {
+			$(selector).show().removeClass('hidden');
+		} else {
+			$(selector).hide().addClass('hidden');
+		}
+
+		/**
+		 * Trigger a change!
+		 * This way our kids(elements) will now that something is changed and they should follow
+		 */
+		$(selector).find('select, input:radio').trigger('change');
+	};
+
+	/**
+	 * Fold elements when the entire page is loaded
+	 * Some css classes are added dynamically, they can only be used after the load event
+	 */
+	$(window).on('load', function () {
+		$('.display_on').each(function () {
+			toggle_metafields(this);
+		});
+
+		$('.show_metabox_on').each(function () {
+			toggle_metaboxes(this);
+		});
+	});
+
+	var toggle_metaboxes = function(el) {
+
+		var $el = $(el),
+			key = $el.data('key'),
+			value = $el.data('value'),
+			display = $el.data('display') || true;
+
+		if ( typeof value === 'undefined' ) return;
+
+		if ( key == 'page-template' ) {
+
+			var condition = false;
+
+//			console.log(el);
+//
+//			if ( typeof $(el).data('display') !== 'undefined' ) {
+//
+//			}
+
+			$.each(value, function(i,e){
+				if ( $('select#page_template').val() == value ) {
+					condition = true;
+				}
+			});
+
+			if ( condition ) {
+				display_metabox( el, display );
+			} else {
+				display_metabox( el, !display );
 			}
 
-        });
+		} else if ( key == 'select_value') {
+			// in the future
+		}
 
-    }
+	};
 
+	var display_metabox = function (element, display) {
+		if ( display ) {
+			$(element).parents('.postbox').show();
+		} else {
+			$(element).parents('.postbox').hide();
+		}
+	};
 
-    var toggle_meta = function( selector, action ) {
+	/**
+	 * On page template change ajaxify metaboxes
+	 */
 
+	$('#page_template').on('change', function () {
+		$('.show_metabox_on').each(function () {
+			toggle_metaboxes(this);
+		});
+	});
 
-        var when_key = $(selector).data('when_key'),
-            $target = $('#' + when_key),
-            $parent = $target.parent().parent();
-
-        /**
-         * Check if the curent element needs to be showed
-         * Also if it's parent is hidden the child needs to follow
-         */
-        if ( action == 'show' && !$parent.hasClass('hidden') ) {
-            $(selector).show().removeClass('hidden');
-        } else {
-            $(selector).hide().addClass('hidden');
-        }
-
-        /**
-         * Trigger a change!
-         * This way our kids(elements) will know that something is changed and they should follow
-         */
-        $(selector).find('select, input:radio').trigger('change');
-    }
-
-    var toggle_opposite = function ( selector, action ) {
-        var when_key = $(selector).data('when_key'),
-            $target = $('#' + when_key),
-            $parent = $target.parent().parent();
-        /**
-         * Check if the curent element needs to be showed
-         * Also if it's parent is hidden the child needs to follow
-         */
-        if ( action == 'hide' && $parent.hasClass('hidden') ) {
-            $(selector).show().removeClass('hidden');
-        } else {
-            $(selector).hide().addClass('hidden');
-        }
-
-        /**
-         * Trigger a change!
-         * This way our kids(elements) will now that something is changed and they should follow
-         */
-        $(selector).find('select, input:radio').trigger('change');
-    }
-
-    /**
-     * Fold elements when the entire page is loaded
-     * Some css classes are added dynamically, they can only be used after the load event
-     */
-    $(window).on('load', function(){
-        $('.display_on').each(function(){
-            toggle_metafields(this);
-        });
-    });
-
-    /**
-     * On page template change ajaxify metaboxes
-     */
-
-    $('#page_template').on('change', function(){
-        $.ajax({
-            type : 'post',
-            dataType : 'json',
-            url : window.ajaxurl,
-            data : {
-                'action': 'ajax_update_metaboxes',
-                'new_page_template': $(this).val(),
-                'post_ID': window.cmb_ajax_data.post_id,
-                'post_type': window.cmb_ajax_data.post_type,
-                'ajax_nonce' : window.cmb_ajax_data.ajax_nonce
-                // do a nonce here
-            },
-            success: function (response) {
-
-                if ( response.hasOwnProperty('metaboxes') ) {
-                    $('#postbox-container-2').html(response.metaboxes);
-                }
-
-                $(window).trigger('load');
-            }
-        });
-
-    });
+//		$.ajax({
+//			type: 'post',
+//			dataType: 'json',
+//			url: window.ajaxurl,
+//			data: {
+//				'action': 'ajax_update_metaboxes',
+//				'new_page_template': $(this).val(),
+//				'post_ID': window.cmb_ajax_data.post_id,
+//				'post_type': window.cmb_ajax_data.post_type,
+//				'ajax_nonce': window.cmb_ajax_data.ajax_nonce
+//				// do a nonce here
+//			},
+//			success: function (response) {
+//
+//				if (response.hasOwnProperty('metaboxes')) {
+//					$('#postbox-container-2').html(response.metaboxes);
+//				}
+//
+////				// update wp-editors
+////				$('#postbox-container-2 .wp-editor-area').each(function (i, e) {
+////					var editor_id = $(e).attr('name');
+////
+////					var editor = new tinymce.Editor(e);
+////					tinyMCE.add(editor);
+////					editor.render();
+////				});
+//
+//				$(window).trigger('load');
+//			}
+//		});
+//	});
 
 	//LENS - Ahaaaaaa!!! This is so evil and shameful, but I like it
-	
+
 	//logic for the LENS homepage chooser metabox
 	if ($('#page_template').val() == 'template-homepage.php') {
 		$('#lens_homepage_chooser').show();
 	} else {
-		$('#lens_homepage_chooser').hide();		
+		$('#lens_homepage_chooser').hide();
 	}
-	
-	$('#page_template').on('change', function() {
+
+	$('#page_template').on('change', function () {
 		if ($('#page_template').val() == 'template-homepage.php') {
 			$('#lens_homepage_chooser').show();
 		} else {
 			$('#lens_homepage_chooser').hide();
 		}
 	});
-	
-	//show the gallery posts selects when radio is on
-	if ($('input:radio[name="_lens_custom_homepage"]:checked').val() == 'lens_gallery') {
+
+	//Manage the radios controling the homepage contents
+	var $lens_custom_homepage_checked = $('input:radio[name="_lens_custom_homepage"]:checked');
+	if ($lens_custom_homepage_checked.val() == 'lens_gallery') {
 		$('#_lens_homepage_gallery').closest('tr').show();
 		$('#_lens_homepage_projects_number').closest('tr').hide();
+	} else if ($lens_custom_homepage_checked.val() == 'lens_portfolio_cat') {
+		$('#_lens_homepage_portfolio_category').closest('tr').show();
+		$('#_lens_homepage_projects_number').closest('tr').show();
+	} else if ($lens_custom_homepage_checked.val() == 'lens_galleries_cat') {
+		$('#_lens_homepage_galleries_category').closest('tr').show();
+		$('#_lens_homepage_projects_number').closest('tr').show();
 	}
+
 	//monitor the change of the radio group
-	$("input[name='_lens_custom_homepage']").change(function(e){
-		if($(this).val() == 'lens_gallery') {
+	$("input[name='_lens_custom_homepage']").change(function (e) {
+		if ($(this).val() == 'lens_gallery') {
+			$('#_lens_homepage_portfolio_category').closest('tr').hide();
+			$('#_lens_homepage_galleries_category').closest('tr').hide();
 			$('#_lens_homepage_gallery').closest('tr').show();
 			$('#_lens_homepage_projects_number').closest('tr').hide();
-		} else {
+		} else if ($(this).val() == 'lens_portfolio') {
+			$('#_lens_homepage_portfolio_category').closest('tr').hide();
+			$('#_lens_homepage_galleries_category').closest('tr').hide();
+			$('#_lens_homepage_gallery').closest('tr').hide();
+			$('#_lens_homepage_projects_number').closest('tr').show();
+		} else if ($(this).val() == 'lens_portfolio_cat') {
+			$('#_lens_homepage_portfolio_category').closest('tr').show();
+			$('#_lens_homepage_galleries_category').closest('tr').hide();
+			$('#_lens_homepage_gallery').closest('tr').hide();
+			$('#_lens_homepage_projects_number').closest('tr').show();
+		} else if ($(this).val() == 'lens_galleries_archive') {
+			$('#_lens_homepage_portfolio_category').closest('tr').hide();
+			$('#_lens_homepage_galleries_category').closest('tr').hide();
+			$('#_lens_homepage_gallery').closest('tr').hide();
+			$('#_lens_homepage_projects_number').closest('tr').show();
+		} else if ($(this).val() == 'lens_galleries_cat') {
+			$('#_lens_homepage_portfolio_category').closest('tr').hide();
+			$('#_lens_homepage_galleries_category').closest('tr').show();
 			$('#_lens_homepage_gallery').closest('tr').hide();
 			$('#_lens_homepage_projects_number').closest('tr').show();
 		}
 	});
-	
+
 	//hide and show the gallery metabox on the project editor depending on the template used
 	if ($('#_lens_project_template').val() == 'classic') {
 		$('#portfolio_gallery').hide();
 		$('#portfolio_video').hide();
-		$('#_lens_portfolio_image_scale_mode').parents('tr').hide();			
-		$('#_lens_portfolio_slider_transition').parents('tr').hide();			
+		$('#_lens_portfolio_image_scale_mode').parents('tr').hide();
+		$('#_lens_portfolio_slider_transition').parents('tr').hide();
 		$('#_lens_portfolio_slider_autoplay').parents('tr').hide();
 		$('#_lens_portfolio_slider_delay').parents('tr').hide();
 	} else {
 		$('#portfolio_gallery').show();
 		$('#portfolio_video').show();
-		$('#_lens_portfolio_image_scale_mode').parents('tr').show();			
-		$('#_lens_portfolio_slider_transition').parents('tr').show();			
+		$('#_lens_portfolio_image_scale_mode').parents('tr').show();
+		$('#_lens_portfolio_slider_transition').parents('tr').show();
 		$('#_lens_portfolio_slider_autoplay').parents('tr').show();
-		$('#_lens_portfolio_slider_delay').parents('tr').show();		
+		$('#_lens_portfolio_slider_delay').parents('tr').show();
 	}
 
 	if ($('#_lens_project_template').val() == 'fullwidth') {
 		$('#_lens_portfolio_image_scale_mode').parents('tr').show();
 		$('#_lens_portfolio_slider_transition').parents('tr').show();
 		$('#_lens_portfolio_slider_autoplay').parents('tr').show();
-		$('#_lens_portfolio_slider_delay').parents('tr').show();		
+		$('#_lens_portfolio_slider_delay').parents('tr').show();
 	} else {
 		$('#_lens_portfolio_image_scale_mode').parents('tr').hide();
 		$('#_lens_portfolio_slider_transition').parents('tr').hide();
 		$('#_lens_portfolio_slider_autoplay').parents('tr').hide();
-		$('#_lens_portfolio_slider_delay').parents('tr').hide();		
-	}	
+		$('#_lens_portfolio_slider_delay').parents('tr').hide();
+	}
 
-	$('#_lens_project_template').on('change', function() {
+	$('#_lens_project_template').on('change', function () {
 
 		if ($('#_lens_project_template').val() == 'classic') {
 			$('#portfolio_gallery').hide();
-			$('#portfolio_video').hide();			
+			$('#portfolio_video').hide();
 		} else {
 			$('#portfolio_gallery').show();
 			$('#portfolio_video').show();
@@ -463,18 +548,18 @@ jQuery(document).ready(function ($) {
 			$('#_lens_portfolio_image_scale_mode').parents('tr').show();
 			$('#_lens_portfolio_slider_transition').parents('tr').show();
 			$('#_lens_portfolio_slider_autoplay').parents('tr').show();
-			$('#_lens_portfolio_slider_delay').parents('tr').show();				
+			$('#_lens_portfolio_slider_delay').parents('tr').show();
 		} else {
 			$('#_lens_portfolio_image_scale_mode').parents('tr').hide();
-			$('#_lens_portfolio_slider_transition').parents('tr').hide();		
+			$('#_lens_portfolio_slider_transition').parents('tr').hide();
 			$('#_lens_portfolio_slider_autoplay').parents('tr').hide();
-			$('#_lens_portfolio_slider_delay').parents('tr').hide();			
+			$('#_lens_portfolio_slider_delay').parents('tr').hide();
 		}
 
 	});
 
 	// hide and show on gallery
-	if ( $('#_lens_gallery_template').val() == 'masonry' ) {
+	if ($('#_lens_gallery_template').val() == 'masonry') {
 		$('#_lens_thumb_orientation').parents('tr').show();
 		$('#_lens_show_gallery_title').parents('tr').show();
 		$('#_lens_exclude_gallery').parents('tr').show();
@@ -484,7 +569,7 @@ jQuery(document).ready(function ($) {
 		$('#_lens_gallery_slider_autoplay').parents('tr').hide();
 		$('#_lens_gallery_slider_delay').parents('tr').hide();
 		$('#_lens_post_slider_visiblenearby').parents('tr').hide();
-	} else if ( $('#_lens_gallery_template').val() == 'fullwidth' || $('#_lens_gallery_template').val() == 'fullscreen' ) {
+	} else if ($('#_lens_gallery_template').val() == 'fullwidth' || $('#_lens_gallery_template').val() == 'fullscreen') {
 		$('#_lens_thumb_orientation').parents('tr').hide();
 		$('#_lens_show_gallery_title').parents('tr').hide();
 		$('#_lens_gallery_slider_transition').parents('tr').show();
@@ -493,17 +578,17 @@ jQuery(document).ready(function ($) {
 		$('#_lens_gallery_slider_delay').parents('tr').show();
 		$('#_lens_post_slider_visiblenearby').parents('tr').show();
 		$('#_lens_exclude_gallery').parents('tr').show();
-	} else if( $('#_lens_gallery_template').val() == 'masonry-plus' ) {
-			$('#_lens_gallery_template').parents('tr').nextAll().hide();
-			$('#_lens_thumb_orientation').parents('tr').show();
-			$('#_lens_show_gallery_title').parents('tr').show();
-			$('#_lens_exclude_gallery').parents('tr').show();
+	} else if ($('#_lens_gallery_template').val() == 'masonry-plus') {
+		$('#_lens_gallery_template').parents('tr').nextAll().hide();
+		$('#_lens_thumb_orientation').parents('tr').show();
+		$('#_lens_show_gallery_title').parents('tr').show();
+		$('#_lens_exclude_gallery').parents('tr').show();
 	}
 
-	$('#_lens_gallery_template').on('change', function() {
+	$('#_lens_gallery_template').on('change', function () {
 
 		// hide and show on gallery
-		if ( $(this).val() == 'masonry' ) {
+		if ($(this).val() == 'masonry') {
 			$('#_lens_thumb_orientation').parents('tr').show();
 			$('#_lens_show_gallery_title').parents('tr').show();
 			$('#_lens_exclude_gallery').parents('tr').show();
@@ -512,16 +597,16 @@ jQuery(document).ready(function ($) {
 			$('#_lens_gallery_slider_autoplay').parents('tr').hide();
 			$('#_lens_gallery_slider_delay').parents('tr').hide();
 			$('#_lens_post_slider_visiblenearby').parents('tr').hide();
-		} else if ( $(this).val() == 'fullwidth' || $(this).val() == 'fullscreen' ) {
+		} else if ($(this).val() == 'fullwidth' || $(this).val() == 'fullscreen') {
 			$('#_lens_thumb_orientation').parents('tr').hide();
-			$('#_lens_show_gallery_title').parents('tr').hide();			
+			$('#_lens_show_gallery_title').parents('tr').hide();
 			$('#_lens_gallery_slider_transition').parents('tr').show();
 			$('#_lens_gallery_image_scale_mode').parents('tr').show();
 			$('#_lens_gallery_slider_autoplay').parents('tr').show();
 			$('#_lens_gallery_slider_delay').parents('tr').show();
 			$('#_lens_post_slider_visiblenearby').parents('tr').show();
 			$('#_lens_exclude_gallery').parents('tr').show();
-		} else if ( $(this).val() == 'masonry-plus' ) {
+		} else if ($(this).val() == 'masonry-plus') {
 			$(this).parents('tr').nextAll().hide();
 			$('#_lens_thumb_orientation').parents('tr').show();
 			$('#_lens_show_gallery_title').parents('tr').show();
@@ -530,15 +615,15 @@ jQuery(document).ready(function ($) {
 
 	});
 
-	if ( $('#_lens_gallery_slider_autoplay').val() == '1' ) {
+	if ($('#_lens_gallery_slider_autoplay').val() == '1') {
 		$('#_lens_gallery_slider_delay').parents('tr').show();
 	} else {
 		$('#_lens_gallery_slider_delay').parents('tr').hide();
 	}
 
-	$('#_lens_gallery_slider_autoplay').on('change', function() {
+	$('#_lens_gallery_slider_autoplay').on('change', function () {
 
-		if ( $('#_lens_gallery_slider_autoplay').val() == '1' ) {
+		if ($('#_lens_gallery_slider_autoplay').val() == '1') {
 			$('#_lens_gallery_slider_delay').parents('tr').show();
 		} else {
 			$('#_lens_gallery_slider_delay').parents('tr').hide();
