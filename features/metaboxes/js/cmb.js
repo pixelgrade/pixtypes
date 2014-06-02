@@ -363,19 +363,13 @@ jQuery(document).ready(function ($) {
 		var $el = $(el),
 			key = $el.data('key'),
 			value = $el.data('value'),
-			display = $el.data('display') || true;
+			hide = $el.data('hide') || false;
 
 		if ( typeof value === 'undefined' ) return;
 
 		if ( key == 'page-template' ) {
 
 			var condition = false;
-
-//			console.log(el);
-//
-//			if ( typeof $(el).data('display') !== 'undefined' ) {
-//
-//			}
 
 			$.each(value, function(i,e){
 				if ( $('select#page_template').val() == value ) {
@@ -384,9 +378,9 @@ jQuery(document).ready(function ($) {
 			});
 
 			if ( condition ) {
-				display_metabox( el, display );
+				display_metabox( el, !hide );
 			} else {
-				display_metabox( el, !display );
+				display_metabox( el, hide );
 			}
 
 		} else if ( key == 'select_value') {
@@ -395,6 +389,11 @@ jQuery(document).ready(function ($) {
 
 	};
 
+	/**
+	 * This function takes an element and decides to show or hide it by the given param
+	 * @param element
+	 * @param display
+	 */
 	var display_metabox = function (element, display) {
 		if ( display ) {
 			$(element).parents('.postbox').show();

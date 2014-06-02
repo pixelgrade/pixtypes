@@ -309,12 +309,12 @@ class cmb_Meta_Box {
 				$data_value = ' data-value=\'' . json_encode(  $this->_meta_box['show_on']['value'] ) . '\'';
 			}
 
-			$data_display = '';
-			if ( isset( $this->_meta_box['show_on']['display'] ) && !empty($this->_meta_box['show_on']['display']) ) {
-				$data_display = ' data-display=\'' . json_encode(  $this->_meta_box['show_on']['display'] ) . '\'';
+			$data_hide = '';
+			if ( isset( $this->_meta_box['show_on']['hide'] ) && !empty($this->_meta_box['show_on']['hide']) ) {
+				$data_hide = ' data-hide=\'' . json_encode(  $this->_meta_box['show_on']['hide'] ) . '\'';
 			}
 
-			echo '<input type="hidden" class="show_metabox_on" ' . $data_value . $data_key . $data_display . ' />';
+			echo '<input type="hidden" class="show_metabox_on" ' . $data_value . $data_key . $data_hide . ' />';
 		}
 
 		// Use nonce for verification
