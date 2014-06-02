@@ -370,9 +370,8 @@ jQuery(document).ready(function ($) {
 		if ( key == 'page-template' ) {
 
 			var condition = false;
-
-			$.each(value, function(i,e){
-				if ( $('select#page_template').val() == value ) {
+			$.each(value, function(key,val){
+				if ( $('select#page_template').val() == val ) {
 					condition = true;
 				}
 			});
