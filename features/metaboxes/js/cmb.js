@@ -246,8 +246,6 @@ jQuery(document).ready(function ($) {
 		}
 	}
 
-	// theme specific
-
 	/**
 	 * No more tractor!!!
 	 * Hide and show metafields depending on each other
