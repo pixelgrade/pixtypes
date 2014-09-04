@@ -10,48 +10,46 @@
 		var gridster = $(".gridster ul"),
 			gridster_params = $('#pix_builder').data('params');
 
-		//var mmuie = new Function(
-		//	gridster_params.serialize_params[0],
-		//	gridster_params.serialize_params[1],
-		//	gridster_params.serialize_params[2]);
-		//gridster_params.serialize_params = mmuie;
+		var theme_params_func = new Function(
+			gridster_params.serialize_params[0],
+			gridster_params.serialize_params[1],
+			gridster_params.serialize_params[2]);
+		gridster_params.serialize_params = theme_params_func;
 
 		/**
 		 * use this to serialize these params
 		 * after that echo them in activation.php config
 		 */
-		var gridster_params = {
-			widget_margins: [30, 30],
-			widget_base_dimensions: [150, 50],
-			min_cols: 3,
-			resize: {
-				enabled: true,
-				axes: ['x']
-			},
-			draggable: {
-				handle: '.drag_handler'
-			},
-			serialize_params: function ($w, wgd) {
-
-				var type = $w.data("type"),
-					content = $w.find(".block_content").text();
-
-				if (type == "text") {
-					content = $w.find(".block_content textarea").val();
-				} else if (type == "image") {
-					content = $w.find(".open_media").attr("data-attachment_id");
-				}
-				return {
-					id: $w.prop("id"),
-					type: type,
-					content: content,
-					col: wgd.col,
-					row: wgd.row,
-					size_x: wgd.size_x,
-					size_y: wgd.size_y
-				};
-			}
-		};
+		//var gridster_params = {
+		//	widget_margins: [30, 30],
+		//	widget_base_dimensions: [150, 50],
+		//	min_cols: 3,
+		//	resize: {
+		//		enabled: true,
+		//		axes: ['x']
+		//	},
+		//	draggable: {
+		//		handle: '.drag_handler'
+		//	},
+		//	serialize_params: function ($w, wgd) {
+		//		var type = $w.data("type"),
+		//			content = $w.find(".block_content").text();
+		//		if (type == "text") {
+		//			content = $w.find(".block_content textarea").val();
+		//		} else if (type == "image") {
+		//			content = $w.find(".open_media").attr("data-attachment_id");
+		//		}
+		//		return {
+		//			id: $w.prop("id"),
+		//			type: type,
+		//			content: content,
+		//			col: wgd.col,
+		//			row: wgd.row,
+		//			size_x: wgd.size_x,
+		//			size_y: wgd.size_y
+		//		};
+		//	}
+		//};
 
 		gridster = gridster.gridster(gridster_params).data('gridster');
 
