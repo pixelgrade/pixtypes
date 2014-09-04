@@ -375,7 +375,7 @@ class cmb_Meta_Box {
 				echo '<tr' . $requires . '>';
 			}
 
-			if ( $field['type'] == "title" || $field['type'] == 'portfolio-gallery' || $field['type'] == 'gallery' ) {
+			if ( $field['type'] == "title" || $field['type'] == 'portfolio-gallery' || $field['type'] == 'gallery' || $field['type'] == 'pix_builder' ) {
 				echo '<td colspan="2">';
 			} else {
 				if ( $this->_meta_box['show_names'] == true ) {
@@ -671,6 +671,24 @@ class cmb_Meta_Box {
 					}
 
 					break;
+
+				case 'pix_builder':
+
+					wp_enqueue_script( 'pix_builder' );
+					wp_enqueue_style( 'pix_builder' );
+
+
+					$file_path = plugin_dir_path( __FILE__ ) . 'fields/pix_builder.php';
+					if ( file_exists( $file_path ) ) {
+						ob_start();
+						include( $file_path );
+						echo ob_get_clean();
+					} else {
+						echo '<p>Wrong path </p>';
+					}
+
+					break;
+
 				case 'oembed':
 					echo '<input class="cmb_oembed" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" />', '<p class="cmb_metabox_description">', $field['desc'], '</p>';
 					echo '<p class="cmb-spinner spinner"></p>';
@@ -883,6 +901,12 @@ function cmb_scripts( $hook ) {
 		wp_register_script( 'cmb-tooltipster', CMB_META_BOX_URL . 'js/jquery.tooltipster.min.js' );
 		wp_register_script( 'cmb-timepicker', CMB_META_BOX_URL . 'js/jquery.timePicker.min.js' );
 		wp_register_script( 'pixgallery', CMB_META_BOX_URL . 'js/pixgallery.js' );
+		wp_register_script( 'gridster', CMB_META_BOX_URL . 'js/jquery.gridster.js' );
+		wp_register_script( 'pix_builder', CMB_META_BOX_URL . 'js/pix_builder.js', array( 'gridster' ) );
+		wp_localize_script( 'pix_builder', 'l18n_pix_builder', array(
+			'set_image' => __('Set image', wpGrade_txtd),
+		) );
+
 		wp_register_script( 'cmb-scripts', CMB_META_BOX_URL . 'js/cmb.js', $cmb_script_array, '0.9.1' );
 		wp_localize_script( 'cmb-scripts', 'cmb_ajax_data', array(
 				'ajax_nonce' => wp_create_nonce( 'ajax_nonce' ),
@@ -892,6 +916,8 @@ function cmb_scripts( $hook ) {
 		wp_enqueue_script( 'cmb-timepicker' );
 		wp_enqueue_script( 'cmb-scripts' );
 
+		wp_register_style( 'gridster', CMB_META_BOX_URL . 'css/jquery.gridster.css' );
+		wp_register_style( 'pix_builder', CMB_META_BOX_URL . 'css/pix_builder.css', array('gridster') );
 		wp_register_style( 'tooltipster', CMB_META_BOX_URL . 'css/tooltipster.css' );
 		wp_register_style( 'cmb-styles', CMB_META_BOX_URL . 'css/style.css', $cmb_style_array );
 		wp_enqueue_style( 'cmb-styles' );

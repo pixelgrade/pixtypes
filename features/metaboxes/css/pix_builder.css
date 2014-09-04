@@ -1,0 +1,56 @@
+.add_block {
+  cursor: pointer; }
+
+.pix_builder_block {
+  position: relative;
+  background: #efefff;
+  border-right: 2px solid #888; }
+  .pix_builder_block .drag_handler {
+    position: absolute;
+    top: -14px;
+    left: 0;
+    right: -2px;
+    background: #e0e0e0;
+    border-right: 2px solid #888;
+    text-align: center;
+    font-weight: bold;
+    height: 15px;
+    cursor: move; }
+  .pix_builder_block .remove_block {
+    color: red;
+    font-weight: bold;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-transform: capitalize;
+    font-size: 27px;
+    border: 2px solid red;
+    cursor: not-allowed; }
+  .pix_builder_block.type-image {
+    background: #0000ff; }
+  .pix_builder_block.type-text {
+    background: #fff; }
+  .pix_builder_block .block_content textarea {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    resize: none; }
+  .pix_builder_block .block_content .image_preview {
+    background-size: cover;
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-clip: content-box; }
+  .pix_builder_block .block_content .open_media {
+    position: absolute;
+    background: #fff;
+    z-index: 99;
+    padding: 5px 16px;
+    bottom: 0;
+    right: 0; }
