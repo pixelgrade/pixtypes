@@ -47,10 +47,41 @@
     left: 0;
     right: 0;
     background-clip: content-box; }
-  .pix_builder_block .block_content .open_media {
+  .pix_builder_block .block_content .open_media, .pix_builder_block .block_content .edit_editor {
     position: absolute;
     background: #fff;
     z-index: 99;
     padding: 5px 16px;
     bottom: 0;
     right: 0; }
+
+#pix_builder_editor_modal_container .modal_wrapper .media-modal {
+  top: 60px;
+  left: 60px;
+  right: 60px;
+  bottom: 60px;
+  z-index: 89; }
+
+#pix_builder_editor_modal_container .modal_wrapper .media-modal-backdrop {
+  z-index: 88; }
+
+#pix_builder_editor_modal_container .modal_wrapper .media-frame-content, #pix_builder_editor_modal_container .modal_wrapper .media-frame-title, #pix_builder_editor_modal_container .modal_wrapper .media-frame-router, #pix_builder_editor_modal_container .modal_wrapper .media-frame-toolbar {
+  right: 30px;
+  left: 30px; }
+
+#pix_builder_editor_modal_container .modal_wrapper .media-frame-title {
+  top: 15px; }
+
+#pix_builder_editor_modal_container .modal_wrapper .media-frame-content {
+  top: 90px; }
+
+#pix_builder_editor_modal_container .modal_wrapper .modal_controls {
+  padding: 15px; }
+
+#portfolio-patterns .wp-editor-wrap * {
+  -webkit-box-sizing: content-box;
+  /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: content-box;
+  /* Firefox, other Gecko */
+  box-sizing: content-box;
+  /* Opera/IE 8+ */ }

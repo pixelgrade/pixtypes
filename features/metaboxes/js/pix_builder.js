@@ -8,7 +8,8 @@
 	$(document).ready(function () {
 
 		var gridster = $(".gridster ul"),
-			gridster_params = $('#pix_builder').data('params');
+			gridster_params = $('#pix_builder').data('params'),
+			modal_container = $('.pix_builder_editor_modal_container');
 
 		var theme_params_func = new Function(
 			gridster_params.serialize_params[0],
@@ -20,36 +21,36 @@
 		 * use this to serialize these params
 		 * after that echo them in activation.php config
 		 */
-		//var gridster_params = {
-		//	widget_margins: [30, 30],
-		//	widget_base_dimensions: [150, 50],
-		//	min_cols: 3,
-		//	resize: {
-		//		enabled: true,
-		//		axes: ['x']
-		//	},
-		//	draggable: {
-		//		handle: '.drag_handler'
-		//	},
-		//	serialize_params: function ($w, wgd) {
-		//		var type = $w.data("type"),
-		//			content = $w.find(".block_content").text();
-		//		if (type == "text") {
-		//			content = $w.find(".block_content textarea").val();
-		//		} else if (type == "image") {
-		//			content = $w.find(".open_media").attr("data-attachment_id");
-		//		}
-		//		return {
-		//			id: $w.prop("id"),
-		//			type: type,
-		//			content: content,
-		//			col: wgd.col,
-		//			row: wgd.row,
-		//			size_x: wgd.size_x,
-		//			size_y: wgd.size_y
-		//		};
-		//	}
-		//};
+			//var gridster_params = {
+			//	widget_margins: [30, 30],
+			//	widget_base_dimensions: [150, 50],
+			//	min_cols: 3,
+			//	resize: {
+			//		enabled: true,
+			//		axes: ['x']
+			//	},
+			//	draggable: {
+			//		handle: '.drag_handler'
+			//	},
+			//	serialize_params: function ($w, wgd) {
+			//		var type = $w.data("type"),
+			//			content = $w.find(".block_content").text();
+			//		if (type == "text") {
+			//			content = $w.find(".block_content textarea").val();
+			//		} else if (type == "image") {
+			//			content = $w.find(".open_media").attr("data-attachment_id");
+			//		}
+			//		return {
+			//			id: $w.prop("id"),
+			//			type: type,
+			//			content: content,
+			//			col: wgd.col,
+			//			row: wgd.row,
+			//			size_x: wgd.size_x,
+			//			size_y: wgd.size_y
+			//		};
+			//	}
+			//};
 
 		gridster = gridster.gridster(gridster_params).data('gridster');
 
@@ -80,18 +81,24 @@
 			$(document).trigger('pix_builder:serialize');
 		});
 
-		var widget_label = 0;
+		// get the curent number of blocks
+		var number_of_blocks = 0;
+
+		if ( $(gridster)[0].$widgets.length > 0 ) {
+			number_of_blocks = $(gridster)[0].$widgets.length;
+		}
 
 		// Add blocks
 		$(document).on('click', '.add_block', function () {
 			var type = $(this).siblings('#block_type').val(),
 				args = {
-					id: parseInt(widget_label) + 1,
+					id: parseInt(number_of_blocks) + 1,
 					type: type,
 					content: ''
 				};
 			var block_template = get_block_template(args);
-
+			number_of_blocks = parseInt(number_of_blocks) + 1;
+			console.log(number_of_blocks);
 			gridster.add_widget(block_template, 2, 2);
 			//after we done update the json
 			$(document).trigger('pix_builder:serialize');
@@ -110,6 +117,71 @@
 			$('#pix_builder').val(parsed_string);
 			console.log(parsed_string);
 		});
+
+		// open modal and prepare the editor
+		$(document).on('click', '.edit_editor', function (e){
+
+			e.preventDefault();
+			var id = $(this).parents('.pix_builder_block').attr('id').replace('block_', '');
+
+			if ( ! modal_container.hasClass('modal_opened') ) {
+				modal_container.addClass('modal_opened')
+					.show();
+
+				var content = $('#block_'+ id + ' .editor_preview_wrapper').text();
+
+				if ( content !== "" ) {
+					tinymce.get('pix_builder_editor').setContent( content.replace(/\n/ig,"<br>") , {format:'text'});
+				}
+
+				modal_container.find('.insert_editor_content').attr('data-block_id', id );
+			}
+		});
+
+		// close modal
+		$(document).on('click', '.close_modal_btn', function (){
+			close_editor_modal();
+		});
+
+		// insert editor content
+		$(document).on('click', '.insert_editor_content',function(e){
+			e.preventDefault();
+			tinyMCE.triggerSave();
+			var editor = $('#pix_builder_editor'), // the only portfolio's editor
+				editor_val = editor.val(),
+				to_send = $('#block_'+ $(this).data('block_id') + ' .to_send');
+
+			$(to_send)
+				.text(editor_val);
+
+			$(to_send).next('.editor_preview').find('.editor_preview_wrapper').html(editor_val.replace(/\n/ig,"<br>"));
+
+			insert_content_into_editor( '' );
+
+			close_editor_modal();
+		});
+
+
+		var close_editor_modal = function () {
+			modal_container.removeClass('modal_opened')
+				.hide();
+		};
+
+		var insert_content_into_editor = function ( content ){
+
+			var this_editor = tinyMCE.get('pix_builder_editor');
+
+			if( typeof this_editor === "undefined" ) { // text editor
+				$('#pix_builder_editor').val( content );
+				$('#pix_builder_editor').text( content );
+
+			} else { // visual editor
+				this_editor.setContent( content.replace(/\n/ig,"<br>") , {format:'text'});
+				this_editor.save( { no_events: true } );
+			}
+//			console.log( tinyMCE.triggerSave() );
+		};
+
 	}); /* Document.ready */
 
 	// get the html for the block
@@ -124,19 +196,11 @@
 		if (args.type === 'text') {
 			content = '<textarea value="' + args.content + '">' + args.content + '</textarea>';
 		} else if (args.type === 'editor') {
-			$.ajax({
-				type: "post",
-				url: exports.ajax.settings.url,
-				data: {action: 'reset_style_section', type: 'get', _ajax_nonce: _ajax_nonce},
-				//beforeSend: function() {jQuery("#loading").show("slow");}, //show loading just when link is clicked
-				//complete: function() { jQuery("#loading").hide("fast");}, //stop showing loading when the process is complete
-				success: function (response) {
-					location.reload();
-				},
-				error: function () {
-					alert('This is wrong!');
-				}
-			});
+			content = '<div class="to_send" style="display: none">' + args.content + '</div>'+
+				'<div class="editor_preview">' +
+					'<div class="editor_preview_wrapper">' + args.content + '</div>' +
+				'</div>' +
+				'<span class="edit_editor">Edit</span>';
 		} else if (args.type == 'image') {
 			// in case of an image the content should hold only an integer which represents the id
 			if (!isNaN(args.content) && args.content !== '') {
@@ -154,7 +218,7 @@
 			}
 		}
 
-		return '<li id="' + args.id + '" class="pix_builder_block type-' + args.type + '" data-type="' + args.type + '">' +
+		return '<li id="block_' + args.id + '" class="pix_builder_block type-' + args.type + '" data-type="' + args.type + '">' +
 		'<span class="drag_handler"></span>' +
 		'<div class="block_content">' +
 		content +
