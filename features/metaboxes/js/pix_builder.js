@@ -158,6 +158,8 @@
 
 			insert_content_into_editor( '' );
 
+			$(document).trigger('pix_builder:serialize');
+
 			close_editor_modal();
 		});
 
