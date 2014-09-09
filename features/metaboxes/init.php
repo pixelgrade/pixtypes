@@ -904,7 +904,7 @@ function cmb_scripts( $hook ) {
 		wp_register_script( 'gridster', CMB_META_BOX_URL . 'js/jquery.gridster.js' );
 		wp_register_script( 'pix_builder', CMB_META_BOX_URL . 'js/pix_builder.js', array( 'gridster' ) );
 		wp_localize_script( 'pix_builder', 'l18n_pix_builder', array(
-			'set_image' => __('Set image', wpGrade_txtd),
+			'set_image' => __('Set image', 'pixproof_txtd'),
 		) );
 
 		wp_register_script( 'cmb-scripts', CMB_META_BOX_URL . 'js/cmb.js', $cmb_script_array, '0.9.1' );
@@ -1014,7 +1014,7 @@ function cmb_oembed_ajax_results() {
 	$oembed_string = sanitize_text_field( $_REQUEST['oembed_url'] );
 
 	if ( empty( $oembed_string ) ) {
-		$return = '<p class="ui-state-error-text">' . __( 'Please Try Again', wpGrade_txtd ) . '</p>';
+		$return = '<p class="ui-state-error-text">' . __( 'Please Try Again', 'pixproof_txtd' ) . '</p>';
 		$found  = 'not found';
 	} else {
 
@@ -1032,13 +1032,13 @@ function cmb_oembed_ajax_results() {
 
 		if ( $check_embed && $check_embed != $fallback ) {
 			// Embed data
-			$return = '<div class="embed_status">' . $check_embed . '<a href="#" class="cmb_remove_file_button" rel="' . $_REQUEST['field_id'] . '">' . __( 'Remove Embed', wpGrade_txtd ) . '</a></div>';
+			$return = '<div class="embed_status">' . $check_embed . '<a href="#" class="cmb_remove_file_button" rel="' . $_REQUEST['field_id'] . '">' . __( 'Remove Embed', 'pixproof_txtd' ) . '</a></div>';
 			// set our response id
 			$found = 'found';
 
 		} else {
 			// error info when no oEmbeds were found
-			$return = '<p class="ui-state-error-text">' . sprintf( __( 'No oEmbed Results Found for %s. View more info at', wpGrade_txtd ), $fallback ) . ' <a href="http://codex.wordpress.org/Embeds" target="_blank">codex.wordpress.org/Embeds</a>.</p>';
+			$return = '<p class="ui-state-error-text">' . sprintf( __( 'No oEmbed Results Found for %s. View more info at', 'pixproof_txtd' ), $fallback ) . ' <a href="http://codex.wordpress.org/Embeds" target="_blank">codex.wordpress.org/Embeds</a>.</p>';
 			// set our response id
 			$found = 'not found';
 		}
