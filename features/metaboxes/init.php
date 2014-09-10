@@ -904,7 +904,7 @@ function cmb_scripts( $hook ) {
 		wp_register_script( 'gridster', CMB_META_BOX_URL . 'js/jquery.gridster.js' );
 		wp_register_script( 'pix_builder', CMB_META_BOX_URL . 'js/pix_builder.js', array( 'gridster' ) );
 		wp_localize_script( 'pix_builder', 'l18n_pix_builder', array(
-			'set_image' => __('Set image', 'pixproof_txtd'),
+			'set_image' => __('<span>Set Image</span>', 'pixproof_txtd'),
 		) );
 
 		wp_register_script( 'cmb-scripts', CMB_META_BOX_URL . 'js/cmb.js', $cmb_script_array, '0.9.1' );

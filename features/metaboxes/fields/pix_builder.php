@@ -20,9 +20,9 @@
 	<span class="deletion  button button-secondary">
 		Clear All
 	</span>
-	<div class="gridster">
-		<ul>
 
+	<div class="pixbuilder-grid gridster">
+		<ul>
 		</ul>
 	</div>
 </div>

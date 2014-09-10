@@ -106,7 +106,7 @@
 
 		// Remove block
 		$(document).on('click', '.remove_block', function () {
-			gridster.remove_widget($(this).parent());
+			gridster.remove_widget($(this).closest('.item'));
 			//after we done update the json
 			$(document).trigger('pix_builder:serialize');
 		});
@@ -122,7 +122,7 @@
 		$(document).on('click', '.edit_editor', function (e){
 
 			e.preventDefault();
-			var id = $(this).parents('.pix_builder_block').attr('id').replace('block_', '');
+			var id = $(this).closest('.item').attr('id').replace('block_', '');
 
 			if ( ! modal_container.hasClass('modal_opened') ) {
 				modal_container.addClass('modal_opened')
@@ -186,23 +186,32 @@
 
 	}); /* Document.ready */
 
-	// get the html for the block
+	// Get the html for the block
 	var get_block_template = function (args) {
 
 		if (typeof args !== 'object') {
 			return '';
 		}
 
-		var content = '';
+		var content = '',
+			controls_content = '';
 
+
+		// Text Block
 		if (args.type === 'text') {
 			content = '<textarea value="' + args.content + '">' + args.content + '</textarea>';
+
+
+		// Editor Block
 		} else if (args.type === 'editor') {
 			content = '<div class="to_send" style="display: none">' + args.content + '</div>'+
 				'<div class="editor_preview">' +
 					'<div class="editor_preview_wrapper">' + args.content + '</div>' +
-				'</div>' +
-				'<span class="edit_editor">Edit</span>';
+				'</div>';
+			controls_content = '<a class="edit_editor"><span>Edit</span></a>';
+
+
+		// Image Block
 		} else if (args.type == 'image') {
 			// in case of an image the content should hold only an integer which represents the id
 			if (!isNaN(args.content) && args.content !== '') {
@@ -210,23 +219,28 @@
 				attach.fetch({
 					async: false,
 					success: function () {
-						content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' + args.content + '">' + l18n_pix_builder.set_image + '</a>' +
-						'<div class="image_preview" style="background-image: url(' + attach.attributes.url + ')"></div>';
+						content = '<img class="image_preview" src="' + attach.attributes.url + '">';
+						controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' + args.content + '">' + l18n_pix_builder.set_image + '</a>';
 					}
 				});
 			} else {
-				content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' + args.content + '">'+ l18n_pix_builder.set_image +'</a>' +
-				'<div class="image_preview" />';
+				content = '<img class="image_preview">';
+				controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' + args.content + '">'+ l18n_pix_builder.set_image +'</a>';
 			}
 		}
 
-		return '<li id="block_' + args.id + '" class="pix_builder_block type-' + args.type + '" data-type="' + args.type + '">' +
-		'<span class="drag_handler"></span>' +
-		'<div class="block_content">' +
-		content +
-		'</div>' +
-		'<span  class="remove_block">X</span>' +
-		'</li>';
+		return '<li id="block_' + args.id + '" class="block-type--' + args.type + ' item" data-type="' + args.type + '">' +
+					'<div class="item__controls">' +
+						'<ul class="nav nav--controls">' +
+							'<li class="edit">'+controls_content+'</li>' +
+							'<li class="remove remove_block"><span>Remove</span></li>' +
+							'<li class="move drag_handler"></li>' +
+						'</ul>' +
+					'</div>' +
+					'<div class="item__content block_content">' +
+						content +
+					'</div>' +
+				'</li>';
 
 	}; /* get_block_template */
 
@@ -308,8 +322,9 @@
 
 		$(wp.media.PixBuilderSingleImage.init);
 
+		// Image Block -- Replace Preview
 		var preview_attachment_image = function (el, attachment) {
-			$(el).parent().find('.image_preview').attr('style' , 'background-image: url(' + attachment.attributes.url + ')');
+			$(el).closest('.item').find('.image_preview').attr("src" , attachment.attributes.url);
 		}
 
 	}); /* Window.load */
