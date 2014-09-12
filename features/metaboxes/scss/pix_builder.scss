@@ -1,78 +1,349 @@
-.add_block {
-  cursor: pointer;
+/*----------------------------------------*\
+*   $GRID PAGE BUILDER
+\*----------------------------------------*/
 
+@import "compass";
+
+$border   : #d9d9d9;
+$light    : #919191;
+$body     : #515150;
+$dark     : #262526;
+$accent   : #0095ea;
+
+/**
+ * A smart grid page builder
+
+<div class="pixbuilder-grid">
+  <ul>
+    <li class="item">
+      <div class="item__controls">
+        <ul class="nav nav--controls">
+          <li>Edit</li>
+          <li>Remove</li>
+        </ul>
+      </div>
+      <div class="item_cotnent">
+        <img src="image.jpg">
+      </div>
+    </li>
+  </ul>
+</div>
+*/
+
+
+
+/*----------------------------------------*\
+            GRID STYLING
+\*----------------------------------------*/
+
+.pixbuilder-grid {
+  ul {
+
+  }
+
+  li {
+    position: relative;
+    
+    &.item {
+
+      // Partial Fix
+      border:1px dashed $border;
+      // padding: 12px;
+      @include box-sizing(border-box);
+    }
+     
+    &:hover {
+      .item__controls, .gs-resize-handle  {
+        opacity: 1;
+      }
+    }
+    
+    &.dragging {
+      opacity: 1;
+      .item__content {
+        opacity: 0.3;
+        z-index:-1;
+      }
+    }
+
+    &.preview-holder {
+      padding: 12px;
+
+      opacity: 1;
+      border:1px dashed $border;
+      background: #f7f7f7;
+
+      @include box-sizing(border-box);
+    }
+  }
 }
 
-.pix_builder_block {
-  position: relative;
-  background: #efefff;
-  border-right: 2px solid #888;
 
-  .drag_handler {
-    position: absolute;
-    top: -14px;
-    left: 0;
-    right: -2px;
-    background: #e0e0e0;
-    border-right: 2px solid #888;
-    text-align: center;
-    font-weight: bold;
-    height: 15px;
-    cursor: move;
-  }
+/* Responsive Gridster */
+$col-number: 6;
+$col-w: 100%/$col-number;
+$col-steps: 1,2,3,4,5,6;
 
-  .remove_block {
-    color: red;
-    font-weight: bold;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    text-transform: capitalize;
-    font-size: 27px;
-    border: 2px solid red;
-    cursor: not-allowed;
-  }
-
-  &.type-image {
-    background: #0000ff;
-  }
-
-  &.type-text {
-    background: #fff;
-  }
-
-  .block_content {
-    textarea {
-      position: absolute;
-      width: 100%;
-      top:0;
-      bottom:0;
-      left: 0;
-      right: 0;
-      resize: none;
-    }
-
-    .image_preview {
-      background-size: cover;
-      display: block;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background-clip: content-box;
-    }
-
-    .open_media, .edit_editor {
-      position: absolute;
-      background: #fff;
-      z-index: 99;
-      padding: 5px 16px;
-      bottom: 0;
-      right: 0;
-    }
+@each $col in $col-steps {
+  [data-sizex="#{$col}"] {
+    // width: $col * $col-w;
   }
 }
+
+
+
+/*----------------------------------------*\
+            CONTENT & CONTROLS
+\*----------------------------------------*/
+
+.pixbuilder-grid {
+
+  // Block Actions
+  .item__controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    opacity: 0;
+    z-index: 100;
+
+    @include transition (all 0.15s);
+    
+    li {
+      display: inline-block;
+      padding: 12px 18px;
+
+      background: none;
+      color: white;
+      @extend .icon;
+
+      &:hover {
+        color: $accent;
+      }
+
+
+      // Buttons
+ 
+      // EDIT
+      &.edit {
+        padding: 0;
+
+        a {
+          padding: 12px 18px;
+          color: white;
+          @extend .icon;
+
+          cursor: pointer;
+          
+          span { display: none; }
+          &:before { content: "\f040" }
+
+          &:hover { color: $accent; }
+        }
+      }
+      
+      // REMOVE
+      &.remove {
+        @extend .icon;
+
+        cursor: pointer;
+          
+        span { display: none; }
+        &:before { content: "\f014" }
+      }
+      
+      // MOVE
+      &.move {
+        overflow:hidden;
+        @extend .icon;
+
+        cursor: pointer;
+        cursor: -webkit-grab;
+        cursor: -moz-grab;
+          
+        &:before { content: "\f047" }
+      }
+    }
+  }
+  
+  // RESIZE
+  .gs-resize-handle {
+        position: absolute;
+        top:50%;
+        right: 0;
+        @include translateY(-50%);
+        height: 100%;
+        width: 36px;
+
+        opacity: 0.3;
+        z-index: 101;
+
+        background: url('../images/icon--drag-gray.svg') center center no-repeat;
+        // background-color: red;
+
+        cursor: col-resize;
+        @include transition(all 0.15s);
+
+        &:hover {
+          background-image: url('../images/icon--drag-hover.svg');
+        }
+  }
+
+    /*ul*/.nav {
+      position:absolute;
+      top: 50%;
+      left: 50%;
+      @include translate(-50%, -50%);
+
+      width: 165px;
+
+      background: $dark;
+      @include border-radius(6px);
+
+    }
+    /*ul.nav*/.nav--controls {
+
+    }
+
+  // Block Content
+  .item__content {
+    height: 100%;
+    padding: 12px;
+    @include box-sizing(border-box);
+  }
+}
+
+
+
+
+
+/*----------------------------------------*\
+            BLOCK TYPES
+\*----------------------------------------*/
+
+/**
+ * IMAGE
+ */
+.block-type--image {
+  text-align: center;
+}
+
+
+
+
+/*----------------------------------------*\
+            GENERAL
+\*----------------------------------------*/
+
+img {
+  // width: 100%;
+  // height: auto;
+
+  // Partial Fix
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.icon {
+  display: inline-block;
+  // width: 20px;
+  // height: 20px;
+  font-size: 20px;
+  line-height: 1;
+  font-family: FontAwesome;
+  text-decoration: inherit;
+  font-weight: 400;
+  font-style: normal;
+  vertical-align: top;
+  text-align: center;
+  -webkit-transition: color .1s ease-in 0;
+  transition: color .1s ease-in 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+
+
+
+// .add_block {
+//   cursor: pointer;
+
+// }
+
+// .pix_builder_block {
+//   position: relative;
+//   background: #efefff;
+//   border-right: 2px solid #888;
+
+//   .drag_handler {
+//     position: absolute;
+//     top: -14px;
+//     left: 0;
+//     right: -2px;
+//     background: #e0e0e0;
+//     border-right: 2px solid #888;
+//     text-align: center;
+//     font-weight: bold;
+//     height: 15px;
+//     cursor: move;
+//   }
+
+//   .remove_block {
+//     color: red;
+//     font-weight: bold;
+//     position: absolute;
+//     bottom: 0;
+//     left: 0;
+//     text-transform: capitalize;
+//     font-size: 27px;
+//     border: 2px solid red;
+//     cursor: not-allowed;
+//   }
+
+//   &.type-image {
+//     background: #0000ff;
+//   }
+
+//   &.type-text {
+//     background: #fff;
+//   }
+
+//   .block_content {
+//     textarea {
+//       position: absolute;
+//       width: 100%;
+//       top:0;
+//       bottom:0;
+//       left: 0;
+//       right: 0;
+//       resize: none;
+//     }
+
+//     .image_preview {
+//       background-size: cover;
+//       display: block;
+//       position: absolute;
+//       top: 0;
+//       bottom: 0;
+//       left: 0;
+//       right: 0;
+//       background-clip: content-box;
+//     }
+
+//     .open_media, .edit_editor {
+//       position: absolute;
+//       background: #fff;
+//       z-index: 99;
+//       padding: 5px 16px;
+//       bottom: 0;
+//       right: 0;
+//     }
+//   }
+// }
 
 #pix_builder_editor_modal_container .modal_wrapper .media-modal {
   top: 60px;
