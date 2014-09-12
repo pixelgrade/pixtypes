@@ -79,6 +79,17 @@ $accent   : #0095ea;
 }
 
 
+/* Responsive Gridster */
+$col-number: 6;
+$col-w: 100%/$col-number;
+$col-steps: 1,2,3,4,5,6;
+
+@each $col in $col-steps {
+  [data-sizex="#{$col}"] {
+    width: $col * $col-w;
+  }
+}
+
 
 
 /*----------------------------------------*\

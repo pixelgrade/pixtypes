@@ -26,6 +26,7 @@
 			// 	widget_base_dimensions: [150, 100],
 			// 	min_cols: 3,
 			// 	max_cols: 6,
+			// 	autogenerate_stylesheet: true,
 			// 	resize: {
 			// 		enabled: true,
 			// 		axes: ['x']
