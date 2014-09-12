@@ -378,7 +378,7 @@ class cmb_Meta_Box {
 			if ( $field['type'] == "title" || $field['type'] == 'portfolio-gallery' || $field['type'] == 'gallery' || $field['type'] == 'pix_builder' ) {
 				echo '<td colspan="2">';
 			} else {
-				if ( $this->_meta_box['show_names'] == true ) {
+				if ( isset( $this->_meta_box['show_names'] ) && $this->_meta_box['show_names'] == true ) {
 					echo '<th style="width:18%"><label for="', $field['id'], '">', $field['name'], '</label></th>';
 				}
 				echo '<td>';
@@ -414,6 +414,7 @@ class cmb_Meta_Box {
 					break;
 				case 'colorpicker':
 					$meta      = '' !== $meta ? $meta : $field['std'];
+
 					$hex_color = '(([a-fA-F0-9]){3}){1,2}$';
 					if ( preg_match( '/^' . $hex_color . '/i', $meta ) ) // Value is just 123abc, so prepend #.
 					{
