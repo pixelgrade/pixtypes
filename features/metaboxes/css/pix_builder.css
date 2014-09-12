@@ -25,6 +25,11 @@
 \*----------------------------------------*/
 .pixbuilder-grid li {
   position: relative; }
+  .pixbuilder-grid li.item {
+    border: 1px dashed #d9d9d9;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box; }
   .pixbuilder-grid li:hover .item__controls, .pixbuilder-grid li:hover .gs-resize-handle {
     opacity: 1; }
   .pixbuilder-grid li.dragging {
@@ -33,11 +38,12 @@
       opacity: 0.3;
       z-index: -1; }
   .pixbuilder-grid li.preview-holder {
+    padding: 12px;
     opacity: 1;
     border: 1px dashed #d9d9d9;
     background: #f7f7f7;
-    -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box; }
 
 /*----------------------------------------*\
@@ -103,7 +109,7 @@
     width: 36px;
     opacity: 0.3;
     z-index: 101;
-    background: url("../images/icon--drag.svg") center center no-repeat;
+    background: url("../images/icon--drag-gray.svg") center center no-repeat;
     cursor: col-resize;
     -moz-transition: all 0.15s;
     -o-transition: all 0.15s;
@@ -125,6 +131,12 @@
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
     border-radius: 6px; }
+  .pixbuilder-grid .item__content {
+    height: 100%;
+    padding: 12px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box; }
 
 /*----------------------------------------*\
             BLOCK TYPES
@@ -132,12 +144,15 @@
 /**
  * IMAGE
  */
+.block-type--image {
+  text-align: center; }
+
 /*----------------------------------------*\
             GENERAL
 \*----------------------------------------*/
 img {
-  width: 100%;
-  height: auto; }
+  max-width: 100%;
+  max-height: 100%; }
 
 .icon, .pixbuilder-grid .item__controls li, .pixbuilder-grid .item__controls li.edit a, .pixbuilder-grid .item__controls li.remove, .pixbuilder-grid .item__controls li.move {
   display: inline-block;
