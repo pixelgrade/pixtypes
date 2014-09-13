@@ -1,9 +1,12 @@
 (function ($) {
+
 	/**
 	 * Global variables
 	 */
 	var media = wp.media,
-		Attachment = media.model.Attachment;
+		Attachment = media.model.Attachment,
+		serialize_intention = false,
+		the_timeout = false;
 
 	$(document).ready(function () {
 
@@ -77,20 +80,63 @@
 			});
 		}
 
-		/**
-		 * Events
-		 */
-		$(document).on('mouseup', '.gridster ul li', function (ev) {
-			// lets serialize again
-			$(document).trigger('pix_builder:serialize');
-		});
-
 		// get the curent number of blocks
 		var number_of_blocks = 0;
 
 		if ( $(gridster)[0].$widgets.length > 0 ) {
 			number_of_blocks = $(gridster)[0].$widgets.length;
 		}
+
+		// Functions
+		/**
+		 * Checks if a serialisation event is already ongoing
+		 * or start one if not
+		 */
+		var intent_to_serialize = function() {
+			if ( ! serialize_intention ) {
+				the_timeout = setTimeout( serialize_pix_builder_values, 2000);
+				serialize_intention = true;
+			} else {
+				// kill the timout and start a new one
+				clearTimeout(the_timeout);
+				the_timeout = setTimeout( serialize_pix_builder_values, 2000);
+			}
+		};
+
+		var serialize_pix_builder_values = function(){
+			var parsed_string = JSON.stringify(gridster.serialize());
+			$('#pix_builder').val(parsed_string);
+			serialize_intention = false;
+		};
+
+		var close_editor_modal = function () {
+			modal_container.removeClass('modal_opened')
+				.hide();
+		};
+
+		var insert_content_into_editor = function ( content ){
+
+			var this_editor = tinyMCE.get('pix_builder_editor');
+
+			if( typeof this_editor === "undefined" ) { // text editor
+				$('#pix_builder_editor').val( content );
+				$('#pix_builder_editor').text( content );
+
+			} else { // visual editor
+				this_editor.setContent( content.replace(/\n/ig,"<br>") , {format:'text'});
+				this_editor.save( { no_events: true } );
+			}
+		};
+
+		/**
+		 * Events
+		 */
+
+		$(document).on('mouseup', '.gridster ul li', function (ev) {
+			// lets serialize again
+			$(document).trigger('pix_builder:serialize');
+		});
+
 
 		// Add blocks
 		$(document).on('click', '.add_block', function () {
@@ -102,7 +148,6 @@
 				};
 			var block_template = get_block_template(args);
 			number_of_blocks = parseInt(number_of_blocks) + 1;
-			console.log(number_of_blocks);
 			gridster.add_widget(block_template, 2, 2);
 			//after we done update the json
 			$(document).trigger('pix_builder:serialize');
@@ -113,13 +158,6 @@
 			gridster.remove_widget($(this).closest('.item'));
 			//after we done update the json
 			$(document).trigger('pix_builder:serialize');
-		});
-
-		// serialize
-		$(document).on('pix_builder:serialize', function () {
-			var parsed_string = JSON.stringify(gridster.serialize());
-			$('#pix_builder').val(parsed_string);
-			console.log(parsed_string);
 		});
 
 		// open modal and prepare the editor
@@ -167,26 +205,12 @@
 			close_editor_modal();
 		});
 
+		$(document).on('click', '#publishing-action', function(){
+			serialize_pix_builder_values();
+		});
 
-		var close_editor_modal = function () {
-			modal_container.removeClass('modal_opened')
-				.hide();
-		};
-
-		var insert_content_into_editor = function ( content ){
-
-			var this_editor = tinyMCE.get('pix_builder_editor');
-
-			if( typeof this_editor === "undefined" ) { // text editor
-				$('#pix_builder_editor').val( content );
-				$('#pix_builder_editor').text( content );
-
-			} else { // visual editor
-				this_editor.setContent( content.replace(/\n/ig,"<br>") , {format:'text'});
-				this_editor.save( { no_events: true } );
-			}
-//			console.log( tinyMCE.triggerSave() );
-		};
+		// serialize pix_builder values
+		$(document).on('pix_builder:serialize', intent_to_serialize );
 
 	}); /* Document.ready */
 
@@ -266,7 +290,6 @@
 					id = $(last_opened_block).attr('data-attachment_id'),
 					attachment;
 				if ('' !== id && -1 !== id) {
-					console.log(id);
 					attachment = Attachment.get(id);
 					attachment.fetch();
 				}

@@ -1624,8 +1624,9 @@
 
         return $widgets.map($.proxy(function(i, widget) {
             var $w = $(widget);
-            return this.options.serialize_params($w, $w.coords().grid);
+	        return this.options.serialize_params($w, $w.coords().grid);
         }, this)).get();
+
     };
 
 
