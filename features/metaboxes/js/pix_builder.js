@@ -6,19 +6,45 @@
 	var media = wp.media,
 		Attachment = media.model.Attachment,
 		serialize_intention = false,
-		the_timeout = false;
+		serialize_timeout = false;
 
 	$(document).ready(function () {
 
-		var gridster = $(".gridster ul"),
-			gridster_params = $('#pix_builder').data('params'),
+		var $pix_builder = $('#pix_builder'),
+			gridster = $(".gridster ul"),
+			gridster_params = $pix_builder.data('params'),
 			modal_container = $('.pix_builder_editor_modal_container');
 
-		var theme_params_func = new Function(
-			gridster_params.serialize_params[0],
-			gridster_params.serialize_params[1],
+		gridster_params.serialize_params = new Function([
+				gridster_params.serialize_params[0],
+				gridster_params.serialize_params[1]
+			],
 			gridster_params.serialize_params[2]);
-		gridster_params.serialize_params = theme_params_func;
+
+		//gridster_params.resize.resize = new Function([
+		//		gridster_params.on_resize_callback[0],
+		//		gridster_params.on_resize_callback[1],
+		//		gridster_params.on_resize_callback[2]
+		//	],
+		//	gridster_params.on_resize_callback[3]);
+
+		var skip_widget_size_5 = function (el, ui, $widget) {
+			var size_x = this.resize_wgd.size_x;
+			if ( size_x == 5 ) {
+				// get the closest widget size
+				var cws = this.resize_last_sizex;
+				// force the widget size to 6
+				$(this.resize_wgd.el).attr('data-sizex', cws);
+				this.resize_wgd.size_x = cws;
+				// now the widget preview
+				var preview = $(this.resize_wgd.el).find('.preview-holder');
+				preview.attr('data-sizex', cws);
+				this.$resize_preview_holder.attr('data-sizex', cws);
+				$(document).trigger('pix_builder:serialize');
+			}
+		};
+
+		gridster_params.resize.resize = skip_widget_size_5;
 
 		/**
 		 * use this to serialize these params
@@ -32,7 +58,21 @@
 			// 	autogenerate_stylesheet: true,
 			// 	resize: {
 			// 		enabled: true,
-			// 		axes: ['x']
+			// 		axes: ['x'],
+			//		resize: function (el, ui, $widget) {
+			//			var size_x = this.resize_wgd.size_x;
+			//			if ( size_x == 5 ) {
+			//				// get the closest widget size
+			//				var cws = this.resize_last_sizex;
+			//				// force the widget size to 6
+			//				$(this.resize_wgd.el).attr('data-sizex', cws);
+			//				this.resize_wgd.size_x = cws;
+			//				// now the widget preview
+			//				var preview = $(this.resize_wgd.el).find('.preview-holder');
+			//				preview.attr('data-sizex', cws);
+			//				this.$resize_preview_holder.attr('data-sizex', cws);
+			//				$(document).trigger('pix_builder:serialize');
+			//		}
 			// 	},
 			// 	draggable: {
 			// 		handle: '.drag_handler'
@@ -62,7 +102,7 @@
 		gridster = gridster.gridster(gridster_params).data('gridster');
 
 		//Build the gridster if the builder has value
-		var serialized_value = $('#pix_builder').val();
+		var serialized_value = $pix_builder.val();
 		if (serialized_value !== 'undefined' && serialized_value.length !== 0) {
 			var parsed = JSON.parse(serialized_value);
 
@@ -94,18 +134,18 @@
 		 */
 		var intent_to_serialize = function() {
 			if ( ! serialize_intention ) {
-				the_timeout = setTimeout( serialize_pix_builder_values, 2000);
+				serialize_timeout = setTimeout( serialize_pix_builder_values, 2000);
 				serialize_intention = true;
 			} else {
 				// kill the timout and start a new one
-				clearTimeout(the_timeout);
-				the_timeout = setTimeout( serialize_pix_builder_values, 2000);
+				clearTimeout(serialize_timeout);
+				serialize_timeout = setTimeout( serialize_pix_builder_values, 2000);
 			}
 		};
 
 		var serialize_pix_builder_values = function(){
 			var parsed_string = JSON.stringify(gridster.serialize());
-			$('#pix_builder').val(parsed_string);
+			$pix_builder.val(parsed_string);
 			serialize_intention = false;
 		};
 
