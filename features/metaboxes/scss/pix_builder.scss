@@ -43,21 +43,22 @@ $accent   : #0095ea;
 
   li {
     position: relative;
-    
+
     &.item {
+      overflow: hidden;
 
       // Partial Fix
       border:1px dashed $border;
       // padding: 12px;
       @include box-sizing(border-box);
     }
-     
+
     &:hover {
       .item__controls, .gs-resize-handle  {
         opacity: 1;
       }
     }
-    
+
     &.dragging {
       opacity: 1;
       .item__content {
@@ -111,7 +112,7 @@ $col-steps: 1,2,3,4,5,6;
     z-index: 100;
 
     @include transition (all 0.15s);
-    
+
     li {
       display: inline-block;
       padding: 12px 18px;
@@ -126,7 +127,7 @@ $col-steps: 1,2,3,4,5,6;
 
 
       // Buttons
- 
+
       // EDIT
       &.edit {
         padding: 0;
@@ -137,24 +138,24 @@ $col-steps: 1,2,3,4,5,6;
           @extend .icon;
 
           cursor: pointer;
-          
+
           span { display: none; }
           &:before { content: "\f040" }
 
           &:hover { color: $accent; }
         }
       }
-      
+
       // REMOVE
       &.remove {
         @extend .icon;
 
         cursor: pointer;
-          
+
         span { display: none; }
         &:before { content: "\f014" }
       }
-      
+
       // MOVE
       &.move {
         overflow:hidden;
@@ -163,12 +164,12 @@ $col-steps: 1,2,3,4,5,6;
         cursor: pointer;
         cursor: -webkit-grab;
         cursor: -moz-grab;
-          
+
         &:before { content: "\f047" }
       }
     }
   }
-  
+
   // RESIZE
   .gs-resize-handle {
         position: absolute;
@@ -369,3 +370,96 @@ img {
   /* Firefox, other Gecko */
   box-sizing: content-box;
   /* Opera/IE 8+ */ }
+
+.pix_builder_container .clear-all {
+  float: right;
+  color: #a00;
+  border-color: rgba(170, 0, 0, 0.62);
+}
+
+.loader {
+  background: #aaa;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  text-align: center;
+  vertical-align: middle;
+
+
+  .square{
+    margin:auto;
+    position:absolute;
+    top:0;left:0;right:0;bottom:0;
+    height:12px;
+    width:12px;
+    background-color:#333;
+    border-radius:50%;
+    -webkit-animation: s1 2s infinite;
+    -moz-animation: s1 2s infinite;
+    animation: s1 2s infinite;
+  }
+  @-webkit-keyframes s1{
+    50%{
+      -webkit-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      transform: rotate(360deg);
+      opacity:.7;
+    }
+  }
+  @-moz-keyframes s1{
+    50%{
+      -webkit-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      transform: rotate(360deg);
+      opacity:.7;
+    }
+  }
+  @keyframes s1{
+    50%{
+      -webkit-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      transform: rotate(360deg);
+      opacity:.7;
+    }
+  }
+  .square div{
+    position:absolute;
+    background-color:yellow;
+    box-shadow: 0 0 10px black;
+    opacity:0.5;
+    width:100%;
+    height:100%;
+    top:6px;
+    right:6px;
+    -webkit-animation: s1 2s infinite;
+    -webkit-animation-timing-function: cubic-bezier(1,.45,.45,1);
+    -webkit-transform-origin: 50%;
+    transform-origin: 50%;
+    -moz-animation: s1 2s cubic-bezier(1,.45,.45,1) infinite;
+    animation: s1 2s cubic-bezier(1,.45,.45,1) infinite;
+  }
+  .square div + div, .square div + div div{
+    position:absolute;
+    background-color:teal;
+    height:100%;
+    width:100%;
+    top:-6px;
+    right:-6px;
+  }
+  .two{
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    transform: rotate(90deg);
+    -webkit-animation: s1 1s infinite;
+    -moz-animation: s1 1s infinite;
+    animation: s1 1s infinite;
+  }
+
+
+}

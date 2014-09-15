@@ -21,30 +21,29 @@
 			],
 			gridster_params.serialize_params[2]);
 
-		//gridster_params.resize.resize = new Function([
-		//		gridster_params.on_resize_callback[0],
-		//		gridster_params.on_resize_callback[1],
-		//		gridster_params.on_resize_callback[2]
-		//	],
-		//	gridster_params.on_resize_callback[3]);
+		gridster_params.resize.resize = new Function(
+				gridster_params.on_resize_callback[0],
+				gridster_params.on_resize_callback[1],
+				gridster_params.on_resize_callback[2],
 
-		var skip_widget_size_5 = function (el, ui, $widget) {
-			var size_x = this.resize_wgd.size_x;
-			if ( size_x == 5 ) {
-				// get the closest widget size
-				var cws = this.resize_last_sizex;
-				// force the widget size to 6
-				$(this.resize_wgd.el).attr('data-sizex', cws);
-				this.resize_wgd.size_x = cws;
-				// now the widget preview
-				var preview = $(this.resize_wgd.el).find('.preview-holder');
-				preview.attr('data-sizex', cws);
-				this.$resize_preview_holder.attr('data-sizex', cws);
-				$(document).trigger('pix_builder:serialize');
-			}
-		};
+			gridster_params.on_resize_callback[3]);
 
-		gridster_params.resize.resize = skip_widget_size_5;
+		//var skip_widget_size_5 = function (el, ui, $widget) {
+		//	var size_x = this.resize_wgd.size_x;
+		//	if ( size_x == 5 ) {
+		//		// get the closest widget size
+		//		var cws = this.resize_last_sizex;
+		//		// force the widget size to 6
+		//		$(this.resize_wgd.el).attr("data-sizex", cws);
+		//		this.resize_wgd.size_x = cws;
+		//		// now the widget preview
+		//		var preview = $(this.resize_wgd.el).find(".preview-holder");
+		//		preview.attr("data-sizex", cws);
+		//		this.$resize_preview_holder.attr("data-sizex", cws);
+		//		$(document).trigger("pix_builder:serialize");
+		//	}
+		//};
+		//gridster_params.resize.resize = skip_widget_size_5;
 
 		/**
 		 * use this to serialize these params
@@ -179,8 +178,10 @@
 
 
 		// Add blocks
-		$(document).on('click', '.add_block', function () {
-			var type = $(this).siblings('#block_type').val(),
+		$(document).on('click', '.add_block', function (ev) {
+			ev.preventDefault();
+
+			var type = $(this).val(),
 				args = {
 					id: parseInt(number_of_blocks) + 1,
 					type: type,
@@ -216,7 +217,7 @@
 					tinymce.get('pix_builder_editor').setContent( content.replace(/\n/ig,"<br>") , {format:'text'});
 				}
 
-				modal_container.find('.insert_editor_content').attr('data-block_id', id );
+				modal_container.find('.insert_editor_content').data('block_id', id );
 			}
 		});
 
@@ -228,6 +229,7 @@
 		// insert editor content
 		$(document).on('click', '.insert_editor_content',function(e){
 			e.preventDefault();
+			console.log($(this));
 			tinyMCE.triggerSave();
 			var editor = $('#pix_builder_editor'), // the only portfolio's editor
 				editor_val = editor.val(),
@@ -252,6 +254,18 @@
 		// serialize pix_builder values
 		$(document).on('pix_builder:serialize', intent_to_serialize );
 
+		$(document).on('click', '.clear-all', function( ev ){
+
+			ev.preventDefault();
+
+			var conf = confirm('Are you sure, sure you want to delete all blocks?');
+
+			if ( conf ) {
+				gridster.remove_all_widgets();
+				$(document).trigger('pix_builder:serialize');
+			}
+		});
+
 	}); /* Document.ready */
 
 	// Get the html for the block
@@ -264,14 +278,8 @@
 		var content = '',
 			controls_content = '';
 
-
-		// Text Block
-		if (args.type === 'text') {
-			content = '<textarea value="' + args.content + '">' + args.content + '</textarea>';
-
-
 		// Editor Block
-		} else if (args.type === 'editor') {
+		if (args.type === 'editor') {
 			content = '<div class="to_send" style="display: none">' + args.content + '</div>'+
 				'<div class="editor_preview">' +
 					'<div class="editor_preview_wrapper">' + args.content + '</div>' +
@@ -288,12 +296,12 @@
 					async: false,
 					success: function () {
 						content = '<img class="image_preview" src="' + attach.attributes.url + '">';
-						controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' + args.content + '">' + l18n_pix_builder.set_image + '</a>';
+						controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' + args.content + '"><span>' + l18n_pix_builder.set_image + '</span></a>';
 					}
 				});
 			} else {
 				content = '<img class="image_preview">';
-				controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' + args.content + '">'+ l18n_pix_builder.set_image +'</a>';
+				controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' + args.content + '"><span>'+ l18n_pix_builder.set_image +'</pan></a>';
 			}
 		}
 
@@ -392,7 +400,10 @@
 		// Image Block -- Replace Preview
 		var preview_attachment_image = function (el, attachment) {
 			$(el).closest('.item').find('.image_preview').attr("src" , attachment.attributes.url);
-		}
+		};
+
+		// just playing
+		jQuery('.pix_builder_container').show(1000);
 
 	}); /* Window.load */
 

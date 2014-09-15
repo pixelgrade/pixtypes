@@ -1,6 +1,5 @@
-<div class="pix_builder_container">
+<div class="pix_builder_container hidden">
 	<?php
-
 	$gridster_params = '';
 	if ( isset($field['gridster_params'] ) ) {
 		$gridster_params = ' data-params=\'' . json_encode($field['gridster_params'] ) . '\'';
@@ -8,16 +7,10 @@
 
 	echo '<input type="hidden" name="', $field['id'], '" id="pix_builder" value="', '' !== $meta ? htmlspecialchars($meta) : $field['std'], '" '. $gridster_params .' />'; ?>
 
-	<span class="add_block button button-primary button-large">
-		Add :
-	</span>
-	<select name="block_type" id="block_type">
-		<option value="image" selected>Image</option>
-		<option value="text">Text</option>
-		<option value="editor">Editor</option>
-	</select>
+	<button class="add_block button button-primary button-large" value="image" > + Image</button>
+	<button class="add_block button button-primary button-large" value="editor"> + Editor</button>
 
-	<span class="deletion  button button-secondary">
+	<span class="clear-all button button-secondary">
 		Clear All
 	</span>
 
