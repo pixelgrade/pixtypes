@@ -346,23 +346,37 @@ img {
 //   }
 // }
 
-#pix_builder_editor_modal_container .modal_wrapper .media-modal {
-  top: 60px;
-  left: 60px;
-  right: 60px;
-  bottom: 60px;
-  z-index: 89; }
-#pix_builder_editor_modal_container .modal_wrapper .media-modal-backdrop {
-  z-index: 88; }
-#pix_builder_editor_modal_container .modal_wrapper .media-frame-content, #pix_builder_editor_modal_container .modal_wrapper .media-frame-title, #pix_builder_editor_modal_container .modal_wrapper .media-frame-router, #pix_builder_editor_modal_container .modal_wrapper .media-frame-toolbar {
-  right: 30px;
-  left: 30px; }
-#pix_builder_editor_modal_container .modal_wrapper .media-frame-title {
-  top: 15px; }
-#pix_builder_editor_modal_container .modal_wrapper .media-frame-content {
-  top: 90px; }
-#pix_builder_editor_modal_container .modal_wrapper .modal_controls {
-  padding: 15px; }
+.pix_builder_editor_modal_container {
+  position: relative;
+
+  .modal_wrapper {
+    .media-modal {
+      top: 60px;
+      left: 60px;
+      right: 60px;
+      bottom: 60px;
+      z-index: 89;
+    }
+
+    .media-modal-backdrop {
+      z-index: 88;
+    }
+
+    .media-frame-content, .media-frame-title, .media-frame-router, .media-frame-toolbar {
+      right: 30px;
+      left: 30px;
+    }
+    .media-frame-title {
+      top: 15px;
+    }
+    .media-frame-content {
+      top: 90px;
+    }
+    .modal_controls {
+      padding: 15px;
+    }
+  }
+}
 #portfolio-patterns .wp-editor-wrap * {
   -webkit-box-sizing: content-box;
   /* Safari/Chrome, other WebKit */
