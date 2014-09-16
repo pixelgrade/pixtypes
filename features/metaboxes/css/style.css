@@ -2806,6 +2806,16 @@ div.time-picker li.selected {
       color: #d9d9d9; }
     #pixgallery .open_pixgallery:hover i.icon {
       color: #111; }
+    #pixgallery .open_pixgallery .clear_gallery {
+      display: none;
+      padding: 5px 10px;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      z-index: -1;
+      background: #333; }
+    #pixgallery .open_pixgallery:hover .clear_gallery {
+      display: inline-block; }
 
 #side-sortables .cmb_metabox > tbody > tr > th {
   width: 70% !important; }
