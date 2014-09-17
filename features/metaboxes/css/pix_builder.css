@@ -46,25 +46,6 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box; }
 
-/* Responsive Gridster */
-[data-sizex="1"] {
-  width: 16.66667%; }
-
-[data-sizex="2"] {
-  width: 33.33333%; }
-
-[data-sizex="3"] {
-  width: 50%; }
-
-[data-sizex="4"] {
-  width: 66.66667%; }
-
-[data-sizex="5"] {
-  width: 83.33333%; }
-
-[data-sizex="6"] {
-  width: 100%; }
-
 /*----------------------------------------*\
             CONTENT & CONTROLS
 \*----------------------------------------*/
@@ -296,25 +277,4 @@ img {
     -moz-animation: s1 1s infinite;
     animation: s1 1s infinite; }
 
-.pixbuilder-grid {
-  /** Cols */ }
-  .pixbuilder-grid [data-sizey="2"] {
-    width: 33%; }
-  .pixbuilder-grid [data-sizey="3"] {
-    width: 55%; }
-  .pixbuilder-grid [data-sizey="4"] {
-    width: 67%; }
-  .pixbuilder-grid [data-sizey="6"] {
-    width: 100%; }
-  .pixbuilder-grid [data-col="1"] {
-    left: 0; }
-  .pixbuilder-grid [data-col="2"] {
-    left: 16%; }
-  .pixbuilder-grid [data-col="3"] {
-    left: 33%; }
-  .pixbuilder-grid [data-col="4"] {
-    left: 50%; }
-  .pixbuilder-grid [data-col="5"] {
-    left: 67%; }
-  .pixbuilder-grid [data-col="6"] {
-    left: 84%; }
+/* Responsive Gridster */
