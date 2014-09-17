@@ -86,7 +86,7 @@ $col-steps: 1,2,3,4,5,6;
 
 @each $col in $col-steps {
   [data-sizex="#{$col}"] {
-    // width: $col * $col-w;
+    width: $col * $col-w;
   }
 }
 
