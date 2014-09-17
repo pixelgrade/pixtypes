@@ -45,7 +45,6 @@ $accent   : #0095ea;
     position: relative;
 
     &.item {
-      overflow: hidden;
 
       // Partial Fix
       border:1px dashed $border;
@@ -476,4 +475,29 @@ img {
   }
 
 
+}
+
+.pixbuilder-grid {
+
+  [data-sizey="2"] { width: 33%; }
+
+  [data-sizey="3"] { width: 55%; }
+
+  [data-sizey="4"] { width: 67%; }
+
+  [data-sizey="6"] { width: 100%; }
+
+  /** Cols */
+
+  [data-col="1"] { left: 0; }
+
+  [data-col="2"] { left: 16%; }
+
+  [data-col="3"] { left: 33%; }
+
+  [data-col="4"] { left: 50%; }
+
+  [data-col="5"] { left: 67%; }
+
+  [data-col="6"] { left: 84%; }
 }

@@ -1,5 +1,4 @@
 (function ($) {
-
 	/**
 	 * Global variables
 	 */
@@ -12,9 +11,13 @@
 
 		var $pix_builder = $('#pix_builder'),
 			gridster = $(".gridster ul"),
-			gridster_params = $pix_builder.data('params'),
 			modal_container = $('.pix_builder_editor_modal_container');
 
+		/**
+		 * @var gridster_params is an object localized by wordpress and is defined by the theme
+		 *
+		 * @type {Function}
+		 */
 		gridster_params.serialize_params = new Function([
 				gridster_params.serialize_params[0],
 				gridster_params.serialize_params[1]
@@ -28,80 +31,64 @@
 
 			gridster_params.on_resize_callback[3]);
 
-		//var skip_widget_size_5 = function (el, ui, $widget) {
-		//	var size_x = this.resize_wgd.size_x;
-		//	if ( size_x == 5 ) {
-		//		// get the closest widget size
-		//		var cws = this.resize_last_sizex;
-		//		// force the widget size to 6
-		//		$(this.resize_wgd.el).attr("data-sizex", cws);
-		//		this.resize_wgd.size_x = cws;
-		//		// now the widget preview
-		//		var preview = $(this.resize_wgd.el).find(".preview-holder");
-		//		preview.attr("data-sizex", cws);
-		//		this.$resize_preview_holder.attr("data-sizex", cws);
-		//		$(document).trigger("pix_builder:serialize");
-		//	}
-		//};
-		//gridster_params.resize.resize = skip_widget_size_5;
-
-		/**
-		 * use this to serialize these params
-		 * after that echo them in activation.php config
-		 */
-			// var gridster_params = {
-			// 	widget_margins: [30, 30],
-			// 	widget_base_dimensions: [150, 100],
-			// 	min_cols: 3,
-			// 	max_cols: 6,
-			// 	autogenerate_stylesheet: true,
-			// 	resize: {
-			// 		enabled: true,
-			// 		axes: ['x'],
-			//		resize: function (el, ui, $widget) {
-			//			var size_x = this.resize_wgd.size_x;
-			//			if ( size_x == 5 ) {
-			//				// get the closest widget size
-			//				var cws = this.resize_last_sizex;
-			//				// force the widget size to 6
-			//				$(this.resize_wgd.el).attr('data-sizex', cws);
-			//				this.resize_wgd.size_x = cws;
-			//				// now the widget preview
-			//				var preview = $(this.resize_wgd.el).find('.preview-holder');
-			//				preview.attr('data-sizex', cws);
-			//				this.$resize_preview_holder.attr('data-sizex', cws);
-			//				$(document).trigger('pix_builder:serialize');
-			//		}
-			// 	},
-			// 	draggable: {
-			// 		handle: '.drag_handler'
-			// 	},
-			// 	serialize_params: function ($w, wgd) {
-			// 		var type = $w.data("type"),
-			// 			content = $w.find(".block_content").text();
-			// 		if (type == "text") {
-			// 			content = $w.find(".block_content textarea").val();
-			// 		} else if (type == "image") {
-			// 			content = $w.find(".open_media").attr("data-attachment_id");
-			// 		} else if (type == "editor") {
-			// 			content = $w.find(".to_send").text();
-			// 		}
-			// 		return {
-			// 			id: $w.prop("id").replace("block_", ""),
-			// 			type: type,
-			// 			content: content,
-			// 			col: wgd.col,
-			// 			row: wgd.row,
-			// 			size_x: wgd.size_x,
-			// 			size_y: wgd.size_y
-			// 		};
-			// 	}
-			// };
+		///**
+		// * use this to serialize these params
+		// * after that echo them in activation.php config
+		// */
+		// var gridster_params = {
+		// 	widget_margins: [30, 30],
+		// 	widget_base_dimensions: [150, 100],
+		// 	min_cols: 3,
+		// 	max_cols: 6,
+		// 	autogenerate_stylesheet: true,
+		// 	resize: {
+		// 		enabled: true,
+		// 		axes: ['x'],
+		//		resize: function (el, ui, $widget) {
+		//			var size_x = this.resize_wgd.size_x;
+		//			if ( size_x == 5 ) {
+		//				// get the closest widget size
+		//				var cws = this.resize_last_sizex;
+		//				// force the widget size to 6
+		//				$(this.resize_wgd.el).attr('data-sizex', cws);
+		//				this.resize_wgd.size_x = cws;
+		//				// now the widget preview
+		//				var preview = $(this.resize_wgd.el).find('.preview-holder');
+		//				preview.attr('data-sizex', cws);
+		//				this.$resize_preview_holder.attr('data-sizex', cws);
+		//				$(document).trigger('pix_builder:serialize');
+		//		}
+		// 	},
+		// 	draggable: {
+		// 		handle: '.drag_handler'
+		// 	},
+		// 	serialize_params: function ($w, wgd) {
+		// 		var type = $w.data("type"),
+		// 			content = $w.find(".block_content").text();
+		// 		if (type == "text") {
+		// 			content = $w.find(".block_content textarea").val();
+		// 		} else if (type == "image") {
+		// 			content = $w.find(".open_media").attr("data-attachment_id");
+		// 		} else if (type == "editor") {
+		// 			content = $w.find(".to_send").text();
+		// 		}
+		// 		return {
+		// 			id: $w.prop("id").replace("block_", ""),
+		// 			type: type,
+		// 			content: content,
+		// 			col: wgd.col,
+		// 			row: wgd.row,
+		// 			size_x: wgd.size_x,
+		// 			size_y: wgd.size_y
+		// 		};
+		// 	}
+		// };
 
 		gridster = gridster.gridster(gridster_params).data('gridster');
 
 		//Build the gridster if the builder has value
 		var serialized_value = $pix_builder.val();
+
 		if (serialized_value !== 'undefined' && serialized_value.length !== 0) {
 			var parsed = JSON.parse(serialized_value);
 
@@ -114,6 +101,7 @@
 					type: this.type,
 					content: this.content
 				};
+				//debugger;
 				var block_template = get_block_template(template_args);
 				gridster.add_widget(block_template, this.size_x, this.size_y, this.col, this.row);
 			});
@@ -234,7 +222,6 @@
 		// insert editor content
 		$(document).on('click', '.insert_editor_content',function(e){
 			e.preventDefault();
-			console.log($(this));
 			tinyMCE.triggerSave();
 			var editor = $('#pix_builder_editor'), // the only portfolio's editor
 				editor_val = editor.val(),
