@@ -31,12 +31,10 @@
 
 			gridster_params.on_resize_callback[3]);
 
-
 		var set_full_w = function(e, ui, $widget) {
 			//jQuery(".gridster > ul").css({ width: "100%" });
 			jQuery(".gridster > ul").width(jQuery(".gridster ul").width());
 		};
-
 
 		//gridster_params.resize.start = function(e, ui, $widget) {
 		//	console.log( 'Actual size: ', $widget.width() );
@@ -55,7 +53,6 @@
 		//	gridster.container_width = jQuery(".gridster ul").width();
 		//	jQuery(".gridster > ul").width(jQuery(".gridster ul").width());
 		//};
-
 
 		///**
 		// * use this to serialize these params
@@ -246,11 +243,10 @@
 				modal_container.addClass('modal_opened')
 					.show();
 
-				var content = $('#block_'+ id + ' .editor_preview_wrapper').text();
+				var content = $('#block_'+ id + ' .to_send').text();
 
 				if ( content !== "" ) {
-					tinymce.get('pix_builder_editor').setContent( content.replace(/\n/ig,"<br>") , {format:'text'});
-
+					//tinymce.get('pix_builder_editor').setContent( content.replace(/\n/ig,"<br>") , {format:'text'});
 					insert_content_into_editor( content );
 				}
 
@@ -274,6 +270,9 @@
 			$(to_send)
 				.text(editor_val);
 
+			// insert the new value
+			$(to_send).html(editor_val.replace(/\n/ig,"<br>"));
+			// preview the new value
 			$(to_send).next('.editor_preview').find('.editor_preview_wrapper').html(editor_val.replace(/\n/ig,"<br>"));
 
 			insert_content_into_editor( '' );
@@ -316,9 +315,9 @@
 
 		// Editor Block
 		if (args.type === 'editor') {
-			content = '<div class="to_send" style="display: none">' + args.content + '</div>'+
+			content = '<textarea class="to_send" style="display: none">' + args.content + '</textarea>'+
 				'<div class="editor_preview">' +
-					'<div class="editor_preview_wrapper">' + args.content + '</div>' +
+					'<div class="editor_preview_wrapper">' + args.content.replace(/\n/ig,"<br>") + '</div>' +
 				'</div>';
 			controls_content = '<a class="edit_editor"><span>Edit</span></a>';
 
