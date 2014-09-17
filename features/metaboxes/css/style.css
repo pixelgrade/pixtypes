@@ -2798,6 +2798,7 @@ div.time-picker li.selected {
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 1;
     opacity: 0.6;
     background-color: #f5f5f5; }
     #pixgallery .open_pixgallery i.icon {
@@ -2812,7 +2813,7 @@ div.time-picker li.selected {
       position: absolute;
       bottom: 0;
       right: 0;
-      z-index: -1;
+      z-index: 2;
       background: #333; }
     #pixgallery .open_pixgallery:hover .clear_gallery {
       display: inline-block; }
