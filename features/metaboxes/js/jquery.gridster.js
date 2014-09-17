@@ -608,7 +608,6 @@
             - this.options.offset_left);
 
         this.options.container_width = container_width;
-
         return this;
     };
 
@@ -1911,10 +1910,13 @@
               'class': 'preview-holder',
               'data-row': this.$player.attr('data-row'),
               'data-col': this.$player.attr('data-col'),
-              css: {
-                  width: coords.width,
-                  height: coords.height
-              }
+              // @TODO Changed by pixelgrade
+              'data-sizex': this.$player.attr('data-sizex'),
+              'data-sizey': this.$player.attr('data-sizey')
+              //css: {
+              //    width: coords.width,
+              //    height: coords.height
+              //}
         }).appendTo(this.$el);
 
         if (this.options.draggable.start) {
@@ -3796,7 +3798,7 @@
     */
     fn.add_faux_rows = function(rows) {
         var actual_rows = this.rows;
-        var max_rows = actual_rows + (rows || 1);
+        var max_rows = parseInt(actual_rows) + (rows || 1);
 
         for (var r = max_rows; r > actual_rows; r--) {
             for (var c = this.cols; c >= 1; c--) {
@@ -3822,7 +3824,7 @@
     */
     fn.add_faux_cols = function(cols) {
         var actual_cols = this.cols;
-        var max_cols = actual_cols + (parseInt( cols || 1) );
+        var max_cols = actual_cols + (cols || 1);
         max_cols = Math.min(max_cols, this.options.max_cols);
 
         for (var c = actual_cols + 1; c <= max_cols; c++) {
@@ -3849,6 +3851,7 @@
     * @return {Object} Returns the instance of the Gridster class.
     */
     fn.recalculate_faux_grid = function() {
+
         var aw = this.$wrapper.width();
         this.baseX = ($(window).width() - aw) / 2;
         this.baseY = this.$wrapper.offset().top;

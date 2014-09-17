@@ -46,6 +46,7 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box; }
 
+/* Responsive Gridster */
 /*----------------------------------------*\
             CONTENT & CONTROLS
 \*----------------------------------------*/
@@ -276,5 +277,3 @@ img {
     -webkit-animation: s1 1s infinite;
     -moz-animation: s1 1s infinite;
     animation: s1 1s infinite; }
-
-/* Responsive Gridster */

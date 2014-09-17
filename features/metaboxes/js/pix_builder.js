@@ -31,6 +31,32 @@
 
 			gridster_params.on_resize_callback[3]);
 
+
+		var set_full_w = function(e, ui, $widget) {
+			//jQuery(".gridster > ul").css({ width: "100%" });
+			jQuery(".gridster > ul").width(jQuery(".gridster ul").width());
+		};
+
+
+		//gridster_params.resize.start = function(e, ui, $widget) {
+		//	console.log( 'Actual size: ', $widget.width() );
+		//	console.log('Resize init W: ', this.resize_initial_width );
+		//	console.log( 'Resize init H: ', this.resize_initial_height );
+		//	this.resize_initial_width = $widget.width();
+		//	this.resize_initial_height = $widget.height();
+		//	jQuery(".gridster > ul").width( jQuery(".gridster ul").width() );
+		//	//$(".gridster > ul").css({ width: '100%' });
+		//};
+		//
+		//gridster_params.resize.stop = set_full_w;
+		//
+		//gridster_params.draggable.start = gridster_params.draggable.stop = gridster_params.draggable.drag = function(e, ui) {
+		//
+		//	gridster.container_width = jQuery(".gridster ul").width();
+		//	jQuery(".gridster > ul").width(jQuery(".gridster ul").width());
+		//};
+
+
 		///**
 		// * use this to serialize these params
 		// * after that echo them in activation.php config
@@ -84,7 +110,23 @@
 		// 	}
 		// };
 
+		var widget_width = $('#project_builder').width() / 6;
+
+		gridster_params.widget_base_dimensions = [ widget_width - 67 , 40];
+
 		gridster = gridster.gridster(gridster_params).data('gridster');
+
+		setTimeout(function(){
+
+			//var new_widget_width = $(".gridster ul").width() / 6;
+			//console.log(new_widget_width);
+			////gridster.min_widget_height = 200;
+			//
+			//gridster.container_width = $(".gridster > ul").width();
+			//
+			//gridster.recalculate_faux_grid();
+			//console.log( gridster );
+		}, 2663);
 
 		//Build the gridster if the builder has value
 		var serialized_value = $pix_builder.val();
@@ -208,6 +250,8 @@
 
 				if ( content !== "" ) {
 					tinymce.get('pix_builder_editor').setContent( content.replace(/\n/ig,"<br>") , {format:'text'});
+
+					insert_content_into_editor( content );
 				}
 
 				modal_container.find('.insert_editor_content').data('block_id', id );
