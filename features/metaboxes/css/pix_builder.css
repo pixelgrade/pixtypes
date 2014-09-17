@@ -48,23 +48,47 @@
     box-sizing: border-box; }
 
 /* Responsive Gridster */
-[data-sizex="1"] {
-  width: 16.66667%; }
+.gridster .gs-w[data-sizex="1"] {
+  width: 14.30902%;
+  margin-right: 2.35765%; }
 
-[data-sizex="2"] {
-  width: 33.33333%; }
+.gridster .gs-w[data-sizex="2"] {
+  width: 30.97568%;
+  margin-right: 2.35765%; }
 
-[data-sizex="3"] {
-  width: 50%; }
+.gridster .gs-w[data-sizex="3"] {
+  width: 47.64235%;
+  margin-right: 2.35765%; }
 
-[data-sizex="4"] {
-  width: 66.66667%; }
+.gridster .gs-w[data-sizex="4"] {
+  width: 64.30902%;
+  margin-right: 2.35765%; }
 
-[data-sizex="5"] {
-  width: 83.33333%; }
+.gridster .gs-w[data-sizex="5"] {
+  width: 80.97568%;
+  margin-right: 2.35765%; }
 
-[data-sizex="6"] {
-  width: 100%; }
+.gridster .gs-w[data-sizex="6"] {
+  width: 97.64235%;
+  margin-right: 2.35765%; }
+
+.gridster .gs-w[data-col="1"] {
+  left: 0%; }
+
+.gridster .gs-w[data-col="2"] {
+  left: 16.66667%; }
+
+.gridster .gs-w[data-col="3"] {
+  left: 33.33333%; }
+
+.gridster .gs-w[data-col="4"] {
+  left: 50%; }
+
+.gridster .gs-w[data-col="5"] {
+  left: 66.66667%; }
+
+.gridster .gs-w[data-col="6"] {
+  left: 83.33333%; }
 
 /*----------------------------------------*\
             CONTENT & CONTROLS
@@ -296,3 +320,5 @@ img {
     -webkit-animation: s1 1s infinite;
     -moz-animation: s1 1s infinite;
     animation: s1 1s infinite; }
+
+/*# sourceMappingURL=pix_builder.css.map */
