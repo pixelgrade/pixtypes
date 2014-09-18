@@ -319,6 +319,7 @@ class cmb_Meta_Box {
 
 		// Use nonce for verification
 		echo '<input type="hidden" name="wp_meta_box_nonce" value="', wp_create_nonce( basename( __FILE__ ) ), '" />';
+
 		echo '<table class="form-table cmb_metabox">';
 
 		foreach ( $this->_meta_box['fields'] as $field ) {
@@ -341,6 +342,8 @@ class cmb_Meta_Box {
 			if ( 'multicheck' == $field['type'] ) {
 				$field['multiple'] = true;
 			}
+			//some extra classes
+			$classes    = 'cmb-type-'. sanitize_html_class( $field['type'] );
 
 			$meta = get_post_meta( $post->ID, $field['id'], 'multicheck' != $field['type'] /* If multicheck this can be multiple values */ );
 			if ( isset( $field['options'] ) && isset( $field['options']['hidden'] ) && $field['options']['hidden'] == true ) {
@@ -350,7 +353,7 @@ class cmb_Meta_Box {
 				$requires = '';
 				if ( isset( $field['display_on'] ) ) {
 
-					$requires = ' class="display_on"';
+					$classes .= ' display_on';
 
 					$display_on = $field['display_on'];
 
@@ -372,7 +375,7 @@ class cmb_Meta_Box {
 
 				}
 
-				echo '<tr' . $requires . '>';
+				echo '<tr class="' . $classes . '" ' . $requires . '>';
 			}
 
 			if ( $field['type'] == "title" || $field['type'] == 'portfolio-gallery' || $field['type'] == 'gallery' || $field['type'] == 'pix_builder' ) {
