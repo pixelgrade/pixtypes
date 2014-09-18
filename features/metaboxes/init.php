@@ -130,7 +130,7 @@ class cmb_Meta_Box {
 		add_action( 'admin_head', array( &$this, 'fold_display' ) );
 
 		add_filter( 'cmb_show_on', array( &$this, 'add_for_id' ), 10, 2 );
-//		add_filter( 'cmb_show_on', array( &$this, 'add_for_page_template' ), 10, 2 );
+		//add_filter( 'cmb_show_on', array( &$this, 'add_for_page_template' ), 10, 2 );
 		//add_filter( 'cmb_show_on', array( &$this, 'add_for_specific_select_value' ), 10, 2 );
 
 	}

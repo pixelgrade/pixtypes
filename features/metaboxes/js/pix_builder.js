@@ -104,8 +104,7 @@
 		// 	}
 		// };
 
-		var widget_width = $('#project_builder').width() / 6;
-
+		var widget_width = $('#normal-sortables').width() / 6;
 		gridster_params.widget_base_dimensions = [ widget_width - 67 , 40];
 
 		gridster = gridster.gridster(gridster_params).data('gridster');
