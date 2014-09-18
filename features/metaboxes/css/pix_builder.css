@@ -27,6 +27,7 @@
   position: relative; }
   .pixbuilder-grid li.item {
     overflow: hidden;
+    display: list-item;
     border: 1px dashed #d9d9d9;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -128,7 +129,7 @@
     -o-transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    width: 165px;
+    width: 175px;
     background: #262526;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;

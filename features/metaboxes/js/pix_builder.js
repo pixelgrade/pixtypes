@@ -10,7 +10,7 @@
 	$(document).ready(function () {
 
 		var $pix_builder = $('#pix_builder'),
-			gridster = $(".gridster ul"),
+			gridster = $(".gridster > ul"),
 			modal_container = $('.pix_builder_editor_modal_container');
 
 		/**
@@ -30,26 +30,6 @@
 				gridster_params.on_resize_callback[2],
 
 			gridster_params.on_resize_callback[3]);
-
-		var set_full_w = function(e, ui, $widget) {
-			//jQuery(".gridster > ul").css({ width: "100%" });
-			jQuery(".gridster > ul").width(jQuery(".gridster ul").width());
-		};
-
-		//gridster_params.resize.start = function(e, ui, $widget) {
-		//	this.resize_initial_width = $widget.width();
-		//	this.resize_initial_height = $widget.height();
-		//	jQuery(".gridster > ul").width( jQuery(".gridster ul").width() );
-		//	//$(".gridster > ul").css({ width: '100%' });
-		//};
-		//
-		//gridster_params.resize.stop = set_full_w;
-		//
-		//gridster_params.draggable.start = gridster_params.draggable.stop = gridster_params.draggable.drag = function(e, ui) {
-		//
-		//	gridster.container_width = jQuery(".gridster ul").width();
-		//	jQuery(".gridster > ul").width(jQuery(".gridster ul").width());
-		//};
 
 		///**
 		// * use this to serialize these params
@@ -109,36 +89,25 @@
 
 		gridster = gridster.gridster(gridster_params).data('gridster');
 
-		setTimeout(function(){
-
-			//var new_widget_width = $(".gridster ul").width() / 6;
-			////gridster.min_widget_height = 200;
-			//
-			//gridster.container_width = $(".gridster > ul").width();
-			//
-			//gridster.recalculate_faux_grid();
-		}, 2663);
-
 		//Build the gridster if the builder has value
-		var serialized_value = $pix_builder.val();
-
-		if (serialized_value !== 'undefined' && serialized_value.length !== 0) {
-			var parsed = JSON.parse(serialized_value);
-
-			// sort serialization
-			parsed = Gridster.sort_by_row_and_col_asc(parsed);
-
-			$.each(parsed, function (i, e) {
-				var template_args = {
-					id: this.id,
-					type: this.type,
-					content: this.content
-				};
-				//debugger;
-				var block_template = get_block_template(template_args);
-				gridster.add_widget(block_template, this.size_x, this.size_y, this.col, this.row);
-			});
-		}
+		//var serialized_value = $pix_builder.val();
+		//if (serialized_value !== 'undefined' && serialized_value.length !== 0) {
+		//	var parsed = JSON.parse(serialized_value);
+		//
+		//	// sort serialization
+		//	parsed = Gridster.sort_by_row_and_col_asc(parsed);
+		//
+		//	$.each(parsed, function (i, e) {
+		//		var template_args = {
+		//			id: this.id,
+		//			type: this.type,
+		//			content: this.content
+		//		};
+		//		//debugger;
+		//		var block_template = get_block_template(template_args);
+		//		gridster.add_widget(block_template, this.size_x, this.size_y, this.col, this.row);
+		//	});
+		//}
 
 		// get the curent number of blocks
 		var number_of_blocks = 0;
@@ -177,13 +146,15 @@
 		var close_editor_modal = function () {
 			modal_container.removeClass('modal_opened')
 				.hide();
+			insert_content_into_editor('');
+			tinyMCE.triggerSave();
 		};
 
 		var insert_content_into_editor = function ( content ){
 
 			var this_editor = tinyMCE.get('pix_builder_editor');
 
-			if( typeof this_editor === "undefined" ) { // text editor
+			if( typeof this_editor === "undefined" || this_editor === null) { // text editor
 				$('#pix_builder_editor').val( content );
 				$('#pix_builder_editor').text( content );
 
@@ -201,7 +172,6 @@
 			// lets serialize again
 			$(document).trigger('pix_builder:serialize');
 		});
-
 
 		// Add blocks
 		$(document).on('click', '.add_block', function (ev) {
@@ -237,12 +207,17 @@
 				modal_container.addClass('modal_opened')
 					.show();
 
-				var content = $('#block_'+ id + ' .to_send').text();
+				var content = $('#block_'+ id + ' .to_send').val();
 
 				if ( content !== "" ) {
-					//tinymce.get('pix_builder_editor').setContent( content.replace(/\n/ig,"<br>") , {format:'text'});
 					insert_content_into_editor( content );
+				} else {
+					insert_content_into_editor( '' );
 				}
+
+				// quick stupid fix ... @TODO come back here when you quit smoking
+				switchEditors.switchto(document.getElementById('pix_builder_editor-html'));
+				switchEditors.switchto(document.getElementById('pix_builder_editor-tmce'));
 
 				modal_container.find('.insert_editor_content').data('block_id', id );
 			}
@@ -253,7 +228,7 @@
 			close_editor_modal();
 		});
 
-		// insert editor content
+		// get editor's content and preview it
 		$(document).on('click', '.insert_editor_content',function(e){
 			e.preventDefault();
 			tinyMCE.triggerSave();
@@ -261,11 +236,10 @@
 				editor_val = editor.val(),
 				to_send = $('#block_'+ $(this).data('block_id') + ' .to_send');
 
-			$(to_send)
-				.text(editor_val);
+			$(to_send).text(editor_val);
 
 			// insert the new value
-			$(to_send).html(editor_val.replace(/\n/ig,"<br>"));
+			//$(to_send).html(editor_val.replace(/\n/ig,"<br>"));
 			// preview the new value
 			$(to_send).next('.editor_preview').find('.editor_preview_wrapper').html(editor_val.replace(/\n/ig,"<br>"));
 
@@ -314,7 +288,6 @@
 					'<div class="editor_preview_wrapper">' + args.content.replace(/\n/ig,"<br>") + '</div>' +
 				'</div>';
 			controls_content = '<a class="edit_editor"><span>Edit</span></a>';
-
 
 		// Image Block
 		} else if (args.type == 'image') {
