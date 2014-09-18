@@ -53,12 +53,18 @@
 					shortcode = wp.shortcode.next('gallery', '[gallery ids="' + galleries_ids + '"]'),
 					defaultPostId = wp.media.gallery.defaults.id,
 					attachments, selection;
+
 				// Bail if we didn't match the shortcode or all of the content.
 				if (!shortcode)
 					return;
 
 				// Ignore the rest of the match object.
 				shortcode = shortcode.shortcode;
+
+				// quit when we don't have images
+				if ( shortcode.get('ids') == '' ) {
+					return;
+				}
 
 				if (_.isUndefined(shortcode.get('id')) && !_.isUndefined(defaultPostId))
 					shortcode.set('id', defaultPostId);
