@@ -1,6 +1,5 @@
 (function ($) {
 	$(window).load(function () {
-
 		wp.media.EditPixGallery = {
 			frame: function () {
 				if (this._frame)
@@ -8,7 +7,6 @@
 				var selection = this.select();
 				// create our own media iframe
 				this._frame = wp.media({
-					displaySettings: false,
 					id: 'pixgallery-frame',
 					title: 'PixGallery',
 					filterable: 'uploaded',
@@ -20,21 +18,25 @@
 					selection: selection
 				});
 
+				var controler =  wp.media.EditPixGallery._frame.states.get('gallery-edit');
+				// force display settings off
+				controler.attributes.displaySettings = false;
+				wp.media.EditPixGallery._frame.states.add('gallery-edit', controler);
+
 				// on update send our attachments ids into a post meta field
-				this._frame.on('update',
-					function () {
-						var controller = wp.media.EditPixGallery._frame.states.get('gallery-edit');
-						var library = controller.get('library');
+				this._frame.on('update', function () {
+					var controller = wp.media.EditPixGallery._frame.states.get('gallery-edit'),
+						library = controller.get('library')
 						// Need to get all the attachment ids for gallery
-						var ids = library.pluck('id');
+						ids = library.pluck('id');
 
-						$('#pixgalleries').val(ids.join(','));
+					$('#pixgalleries').val(ids.join(','));
 
-						// update the galllery_preview
-						pixgallery_ajax_preview();
+					// update the galllery_preview
+					pixgallery_ajax_preview();
 
-						return false;
-					});
+					return false;
+				});
 
 				return this._frame;
 			},

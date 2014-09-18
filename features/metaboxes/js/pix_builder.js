@@ -37,9 +37,6 @@
 		};
 
 		//gridster_params.resize.start = function(e, ui, $widget) {
-		//	console.log( 'Actual size: ', $widget.width() );
-		//	console.log('Resize init W: ', this.resize_initial_width );
-		//	console.log( 'Resize init H: ', this.resize_initial_height );
 		//	this.resize_initial_width = $widget.width();
 		//	this.resize_initial_height = $widget.height();
 		//	jQuery(".gridster > ul").width( jQuery(".gridster ul").width() );
@@ -116,13 +113,11 @@
 		setTimeout(function(){
 
 			//var new_widget_width = $(".gridster ul").width() / 6;
-			//console.log(new_widget_width);
 			////gridster.min_widget_height = 200;
 			//
 			//gridster.container_width = $(".gridster > ul").width();
 			//
 			//gridster.recalculate_faux_grid();
-			//console.log( gridster );
 		}, 2663);
 
 		//Build the gridster if the builder has value
@@ -366,7 +361,8 @@
 				toolbar: 'pix_builder_image',
 				title: l18n_pix_builder.set_image,
 				priority: 60,
-				syncSelection: false
+				syncSelection: false,
+				displaySettings:  false
 			}, wp.media.controller.Library.prototype.defaults),
 			updateSelection: function () {
 				var selection = this.get('selection'),
