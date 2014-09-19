@@ -238,8 +238,6 @@
 
 			$(to_send).text(editor_val);
 
-			// insert the new value
-			//$(to_send).html(editor_val.replace(/\n/ig,"<br>"));
 			// preview the new value
 			$(to_send).next('.editor_preview').find('.editor_preview_wrapper').html(editor_val.replace(/\n/ig,"<br>"));
 
