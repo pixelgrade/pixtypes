@@ -438,7 +438,7 @@ class cmb_Meta_Box {
 					echo '<textarea name="', $field['id'], '" id="', $field['id'], '" cols="60" rows="10" class="cmb_textarea_code">', '' !== $meta ? $meta : $field['std'], '</textarea>', '<p class="cmb_metabox_description">', $field['desc'], '</p>';
 					break;
 				case 'select':
-					//we DON'T consider a the '0' string as empty, nor do we consider (int)0 as empty
+					//we DON'T consider the '0' string as empty, nor do we consider (int)0 as empty
 					if ( ( empty( $meta ) && ! $meta === 0 && ! $meta === '0' ) && ! empty( $field['std'] ) ) {
 						$meta = $field['std'];
 					}
@@ -449,6 +449,7 @@ class cmb_Meta_Box {
 						//this an edge case when using booleans as values (ie true and false)
 						//the problem is that true is cast to 1 but false is cast to empty string
 						//this doesn't help us much in setting the value to false
+						//so we replace false with 0 since when testing for true/false, PHP considers '0' as false
 						if ( $option['value'] === false ) {
 							$option['value'] = 0;
 						}
