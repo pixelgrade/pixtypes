@@ -16,6 +16,60 @@
 
 	<div class="pixbuilder-grid gridster">
 		<ul>
+			<?php if ( !empty($meta) ) {
+				$meta = json_decode($meta);
+				foreach ( $meta as $key => $block ) {
+
+					if ( ! isset( $block->type ) ) {
+						return;
+					}
+
+					$content = '';
+					$controls_content = '';
+					switch ( $block->type) {
+						case 'editor' :
+							$content = '<textarea class="to_send" style="display: none">' . $block->content . '</textarea>' .
+							'<div class="editor_preview">' .
+								'<div class="editor_preview_wrapper">' . pix_builder_display_content($block->content) . '</div>' .
+							'</div>';
+
+							$controls_content = '<a class="edit_editor"><span>Edit</span></a>';
+
+							break;
+
+						case 'image' :
+							// in case of an image the content should hold only an integer which represents the id
+							if ( is_numeric($block->content) && $block->content !== '') {
+								$attach = wp_get_attachment_image_src($block->content);
+
+								if ( isset( $attach[0] ) && !empty( $attach[0] ) ) {
+									$content = '<img class="image_preview" src="' . $attach[0] . '">';
+									$controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' . $block->content . '"><span>' . __( 'Set Image' , 'pixtypes_txtd') . '</span></a>';
+								}
+							} else {
+								$content = '<img class="image_preview">';
+								$controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' . $block->content . '"><span>'. __('Set Image', 'pixtypes_txtd' ) . '</pan></a>';
+							}
+							break;
+						default :
+							break;
+					} ?>
+
+					<li id="block_<?php echo $block->id ?>" class="block-type--<?php echo $block->type ?> item" data-type="<?php echo $block->type ?>" data-row="<?php echo $block->row ?>" data-col="<?php echo $block->col ?>" data-sizex="<?php echo $block->size_x ?>" data-sizey="<?php echo $block->size_y ?>">
+						<div class="item__controls">
+							<ul class="nav nav--controls">
+								<li class="edit"><?php echo $controls_content ?></li>
+								<li class="remove remove_block"><span>Remove</span></li>
+								<li class="move drag_handler"></li>
+							</ul>
+						</div>
+						<div class="item__content block_content">
+							<?php echo $content ?>
+						</div>
+					</li>
+				<?php }
+
+			}?>
 		</ul>
 	</div>
 </div>
@@ -42,3 +96,24 @@ function my_admin_footer_function() { ?>
 		</div>
 	</div>
 <?php }
+
+
+function pix_builder_display_content( $content = '' ) {
+	// since we cannot apply "the_content" filter on some content blocks we should apply at least these bellow
+	$content = apply_filters( 'wptexturize', $content );
+	$content = apply_filters( 'convert_smilies', $content );
+	$content = apply_filters( 'convert_chars', $content );
+
+	$content = wpautop( $content );
+
+	if ( function_exists( 'wpgrade_remove_spaces_around_shortcodes' ) ) {
+		$content = wpgrade_remove_spaces_around_shortcodes( $content );
+	}
+	//	$content = shortcode_unautop ($content);
+	$content = apply_filters( 'prepend_attachment', $content );
+
+	// in case there is a shortcode
+//	return nl2br( $content );
+//	return do_shortcode( $content );
+	return $content;
+}

@@ -46,6 +46,7 @@ $accent   : #0095ea;
 
     &.item {
       overflow: hidden;
+      display: list-item;
 
       // Partial Fix
       border:1px dashed $border;
@@ -207,7 +208,7 @@ $accent   : #0095ea;
           left: 50%;
           @include translate(-50%, -50%);
 
-          width: 165px;
+          width: 175px;
 
           background: $dark;
           @include border-radius(6px);
