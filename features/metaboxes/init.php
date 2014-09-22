@@ -446,6 +446,12 @@ class cmb_Meta_Box {
 					echo '<select name="', $field['id'], '" id="', $field['id'], '">';
 
 					foreach ( $field['options'] as $option ) {
+						//this an edge case when using booleans as values (ie true and false)
+						//the problem is that true is cast to 1 but false is cast to empty string
+						//this doesn't help us much in setting the value to false
+						if ( $option['value'] === false ) {
+							$option['value'] = 0;
+						}
 						echo '<option value="', $option['value'], '"', $meta == $option['value'] ? ' selected="selected"' : '', '>', $option['name'], '</option>';
 					}
 					echo '</select>';
