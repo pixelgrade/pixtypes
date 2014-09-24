@@ -449,7 +449,7 @@ class cmb_Meta_Box {
 						//this an edge case when using booleans as values (ie true and false)
 						//the problem is that true is cast to 1 but false is cast to empty string
 						//this doesn't help us much in setting the value to false
-						//so we replace false with 0 since when testing for true/false, PHP considers '0' as false
+						//so we replace false with 0 since when testing
 						if ( $option['value'] === false ) {
 							$option['value'] = 0;
 						}
