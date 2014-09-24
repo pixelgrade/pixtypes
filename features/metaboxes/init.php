@@ -438,11 +438,21 @@ class cmb_Meta_Box {
 					echo '<textarea name="', $field['id'], '" id="', $field['id'], '" cols="60" rows="10" class="cmb_textarea_code">', '' !== $meta ? $meta : $field['std'], '</textarea>', '<p class="cmb_metabox_description">', $field['desc'], '</p>';
 					break;
 				case 'select':
-					if ( empty( $meta ) && ! empty( $field['std'] ) ) {
+					//we DON'T consider the '0' string as empty, nor do we consider (int)0 as empty
+					if ( ( empty( $meta ) && ! $meta === 0 && ! $meta === '0' ) && ! empty( $field['std'] ) ) {
 						$meta = $field['std'];
 					}
+
 					echo '<select name="', $field['id'], '" id="', $field['id'], '">';
+
 					foreach ( $field['options'] as $option ) {
+						//this an edge case when using booleans as values (ie true and false)
+						//the problem is that true is cast to 1 but false is cast to empty string
+						//this doesn't help us much in setting the value to false
+						//so we replace false with 0 since when testing
+						if ( $option['value'] === false ) {
+							$option['value'] = 0;
+						}
 						echo '<option value="', $option['value'], '"', $meta == $option['value'] ? ' selected="selected"' : '', '>', $option['name'], '</option>';
 					}
 					echo '</select>';
