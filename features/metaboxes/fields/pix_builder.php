@@ -18,57 +18,56 @@
 		<ul>
 			<?php if ( !empty($meta) ) {
 				$meta = json_decode($meta);
-				foreach ( $meta as $key => $block ) {
+				if ( !empty($meta)) {
+					foreach ( $meta as $key => $block ) {
 
-					if ( ! isset( $block->type ) ) {
-						return;
-					}
+						if ( ! isset( $block->type ) ) {
+							return;
+						}
 
-					$content = '';
-					$controls_content = '';
-					switch ( $block->type) {
-						case 'editor' :
-							$content = '<textarea class="to_send" style="display: none">' . $block->content . '</textarea>' .
-							'<div class="editor_preview">' .
-								'<div class="editor_preview_wrapper">' . pix_builder_display_content($block->content) . '</div>' .
-							'</div>';
+						$content          = '';
+						$controls_content = '';
+						switch ( $block->type ) {
+							case 'editor' :
+								$content = '<textarea class="to_send" style="display: none">' . htmlspecialchars($block->content) . '</textarea>' . '<div class="editor_preview">' . '<div class="editor_preview_wrapper">' . pix_builder_display_content( $block->content ) . '</div>' . '</div>';
 
-							$controls_content = '<a class="edit_editor"><span>Edit</span></a>';
+								$controls_content = '<a class="edit_editor"><span>Edit</span></a>';
 
-							break;
+								break;
 
-						case 'image' :
-							// in case of an image the content should hold only an integer which represents the id
-							if ( is_numeric($block->content) && $block->content !== '') {
-								$attach = wp_get_attachment_image_src($block->content);
+							case 'image' :
+								// in case of an image the content should hold only an integer which represents the id
+								if ( is_numeric( $block->content ) && $block->content !== '' ) {
+									$attach = wp_get_attachment_image_src( $block->content );
 
-								if ( isset( $attach[0] ) && !empty( $attach[0] ) ) {
-									$content = '<img class="image_preview" src="' . $attach[0] . '">';
-									$controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' . $block->content . '"><span>' . __( 'Set Image' , 'pixtypes_txtd') . '</span></a>';
+									if ( isset( $attach[ 0 ] ) && ! empty( $attach[ 0 ] ) ) {
+										$content          = '<img class="image_preview" src="' . $attach[ 0 ] . '">';
+										$controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' . $block->content . '"><span>' . __( 'Set Image', 'pixtypes_txtd' ) . '</span></a>';
+									}
+								} else {
+									$content          = '<img class="image_preview">';
+									$controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' . $block->content . '"><span>' . __( 'Set Image', 'pixtypes_txtd' ) . '</pan></a>';
 								}
-							} else {
-								$content = '<img class="image_preview">';
-								$controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' . $block->content . '"><span>'. __('Set Image', 'pixtypes_txtd' ) . '</pan></a>';
-							}
-							break;
-						default :
-							break;
-					} ?>
+								break;
+							default :
+								break;
+						} ?>
 
-					<li id="block_<?php echo $block->id ?>" class="block-type--<?php echo $block->type ?> item" data-type="<?php echo $block->type ?>" data-row="<?php echo $block->row ?>" data-col="<?php echo $block->col ?>" data-sizex="<?php echo $block->size_x ?>" data-sizey="<?php echo $block->size_y ?>">
-						<div class="item__controls">
-							<ul class="nav nav--controls">
-								<li class="edit"><?php echo $controls_content ?></li>
-								<li class="remove remove_block"><span>Remove</span></li>
-								<li class="move drag_handler"></li>
-							</ul>
-						</div>
-						<div class="item__content block_content">
-							<?php echo $content ?>
-						</div>
-					</li>
-				<?php }
-
+						<li id="block_<?php echo $block->id ?>" class="block-type--<?php echo $block->type ?> item" data-type="<?php echo $block->type ?>" data-row="<?php echo $block->row ?>" data-col="<?php echo $block->col ?>" data-sizex="<?php echo $block->size_x ?>" data-sizey="<?php echo $block->size_y ?>">
+							<div class="item__controls">
+								<ul class="nav nav--controls">
+									<li class="edit"><?php echo $controls_content ?></li>
+									<li class="remove remove_block"><span>Remove</span></li>
+									<li class="move drag_handler"></li>
+								</ul>
+							</div>
+							<div class="item__content block_content">
+								<?php echo $content ?>
+							</div>
+						</li>
+					<?php
+					}
+				}
 			}?>
 		</ul>
 	</div>
@@ -84,7 +83,7 @@ function my_admin_footer_function() { ?>
 					<div class="media-frame-title"><h1>Insert Content</h1></div>
 					<div class="media-frame-router"></div>
 					<div class="media-frame-content">
-						<?php wp_editor( '', 'pix_builder_editor', array( 'textarea_rows' => 20, 'editor_height' => 350 ) ); ?>
+						<?php wp_editor( '', 'pix_builder_editor', array( 'textarea_rows' => 20, 'editor_height' => 350 ) );?>
 					</div>
 					<div class="modal_controls media-frame-toolbar">
 						<a class="close_modal_btn button button-large" href="#">Cancel</a>

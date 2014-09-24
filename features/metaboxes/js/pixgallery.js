@@ -26,7 +26,7 @@
 				// on update send our attachments ids into a post meta field
 				this._frame.on('update', function () {
 					var controller = wp.media.EditPixGallery._frame.states.get('gallery-edit'),
-						library = controller.get('library')
+						library = controller.get('library');
 						// Need to get all the attachment ids for gallery
 						ids = library.pluck('id');
 
@@ -34,8 +34,6 @@
 
 					// update the galllery_preview
 					pixgallery_ajax_preview();
-
-					return false;
 				});
 
 				return this._frame;

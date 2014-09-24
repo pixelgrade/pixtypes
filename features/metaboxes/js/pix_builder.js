@@ -146,11 +146,11 @@
 		var close_editor_modal = function () {
 			modal_container.removeClass('modal_opened')
 				.hide();
-			insert_content_into_editor('');
+			set_pix_builder_editor_content('');
 			tinyMCE.triggerSave();
 		};
 
-		var insert_content_into_editor = function ( content ){
+		var set_pix_builder_editor_content = function ( content ){
 
 			var this_editor = tinyMCE.get('pix_builder_editor');
 
@@ -159,7 +159,7 @@
 				$('#pix_builder_editor').text( content );
 
 			} else { // visual editor
-				this_editor.setContent( content.replace(/\n/ig,"<br>") , {format:'text'});
+				this_editor.setContent( content.replace(/\n/ig,"<br>") );
 				this_editor.save( { no_events: true } );
 			}
 		};
@@ -210,9 +210,9 @@
 				var content = $('#block_'+ id + ' .to_send').val();
 
 				if ( content !== "" ) {
-					insert_content_into_editor( content );
+					set_pix_builder_editor_content( content );
 				} else {
-					insert_content_into_editor( '' );
+					set_pix_builder_editor_content( '' );
 				}
 
 				// quick stupid fix ... @TODO come back here when you quit smoking
@@ -236,12 +236,10 @@
 				editor_val = editor.val(),
 				to_send = $('#block_'+ $(this).data('block_id') + ' .to_send');
 
-			$(to_send).text(editor_val);
+			$(to_send).text( editor_val );
 
 			// preview the new value
 			$(to_send).next('.editor_preview').find('.editor_preview_wrapper').html(editor_val.replace(/\n/ig,"<br>"));
-
-			insert_content_into_editor( '' );
 
 			$(document).trigger('pix_builder:serialize');
 
