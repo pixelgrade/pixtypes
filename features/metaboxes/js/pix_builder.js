@@ -144,8 +144,7 @@
 		};
 
 		var close_editor_modal = function () {
-			modal_container.removeClass('modal_opened')
-				.hide();
+			modal_container.removeClass('modal_opened').hide();
 			set_pix_builder_editor_content('');
 			tinyMCE.triggerSave();
 		};
@@ -159,7 +158,7 @@
 				$('#pix_builder_editor').text( content );
 
 			} else { // visual editor
-				this_editor.setContent( content.replace(/\n/ig,"<br>") );
+				this_editor.setContent( content.replace(/\n/ig,"<br>") , {format:'text'});
 				this_editor.save( { no_events: true } );
 			}
 		};

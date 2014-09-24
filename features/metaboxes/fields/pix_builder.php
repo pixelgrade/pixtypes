@@ -83,7 +83,32 @@ function my_admin_footer_function() { ?>
 					<div class="media-frame-title"><h1>Insert Content</h1></div>
 					<div class="media-frame-router"></div>
 					<div class="media-frame-content">
-						<?php wp_editor( '', 'pix_builder_editor', array( 'textarea_rows' => 20, 'editor_height' => 350 ) );?>
+						<?php
+						function pix_builder_change_mce_options($initArray) {
+
+							$initArray['verify_html'] = false;
+							$initArray['cleanup_on_startup'] = false;
+							$initArray['cleanup'] = false;
+							$initArray['forced_root_block'] = false;
+							$initArray['validate_children'] = false;
+							$initArray['remove_redundant_brs'] = false;
+							$initArray['remove_linebreaks'] = false;
+							$initArray['force_p_newlines'] = true;
+							$initArray['force_br_newlines'] = true;
+							$initArray['fix_table_elements'] = false;
+							$initArray['entity_encoding'] = "named";
+
+							$initArray['entities'] = '160,nbsp,38,amp,60,lt,62,gt';
+
+							return $initArray;
+						}
+
+						add_filter('tiny_mce_before_init', 'pix_builder_change_mce_options');
+
+						wp_editor( '', 'pix_builder_editor', array( 'textarea_rows' => 20, 'editor_height' => 350 ) );
+
+						remove_filter('tiny_mce_before_init', 'pix_builder_change_mce_options');
+						?>
 					</div>
 					<div class="modal_controls media-frame-toolbar">
 						<a class="close_modal_btn button button-large" href="#">Cancel</a>
