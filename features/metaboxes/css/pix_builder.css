@@ -48,7 +48,6 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box; }
 
-/* Responsive Gridster */
 /*----------------------------------------*\
             CONTENT & CONTROLS
 \*----------------------------------------*/
@@ -147,8 +146,18 @@
 /**
  * IMAGE
  */
-.block-type--image {
+.block-type--image, .block-type--editor {
   text-align: center; }
+  .block-type--image .block_content:before, .block-type--editor .block_content:before {
+    font-size: 30px;
+    color: #919191;
+    content: "\f1c5"; }
+
+/**
+ * EDITOR
+ */
+.block-type--editor .block_content:before {
+  content: "\f0f6"; }
 
 /*----------------------------------------*\
             GENERAL
@@ -157,7 +166,7 @@ img {
   max-width: 100%;
   max-height: 100%; }
 
-.icon, .pixbuilder-grid .item__controls li, .pixbuilder-grid .item__controls li.edit a, .pixbuilder-grid .item__controls li.remove, .pixbuilder-grid .item__controls li.move {
+.icon, .pixbuilder-grid .item__controls li, .pixbuilder-grid .item__controls li.edit a, .pixbuilder-grid .item__controls li.remove, .pixbuilder-grid .item__controls li.move, .block-type--image .block_content, .block-type--editor .block_content {
   display: inline-block;
   font-size: 20px;
   line-height: 1;
@@ -171,6 +180,16 @@ img {
   transition: color .1s ease-in 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
+
+.block-type--image .block_content:before, .block-type--editor .block_content:before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
 
 .pix_builder_editor_modal_container {
   position: relative; }
@@ -205,3 +224,7 @@ img {
   float: right;
   color: #a00;
   border-color: rgba(170, 0, 0, 0.62); }
+
+/* Responsive Gridster */
+
+/*# sourceMappingURL=pix_builder.css.map */

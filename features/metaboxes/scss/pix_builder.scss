@@ -81,24 +81,6 @@ $accent   : #0095ea;
 }
 
 
-/* Responsive Gridster */
-//$col-number: 6;
-//$col-w: 100%/$col-number;
-//$col-steps: 1,2,3,4,5,6;
-//$gutter: 2.35765%;
-//
-//@each $col in $col-steps {
-//  .gridster .gs-w[data-sizex="#{$col}"] {
-//    width: $col * $col-w - $gutter;
-//    margin-right: $gutter;
-//  }
-//}
-//
-//@each $col in $col-steps {
-//  .gridster .gs-w[data-col="#{$col}"] {
-//    left: ($col - 1) * $col-w;
-//  }
-//}
 
 
 
@@ -234,11 +216,37 @@ $accent   : #0095ea;
             BLOCK TYPES
 \*----------------------------------------*/
 
+
 /**
  * IMAGE
  */
 .block-type--image {
   text-align: center;
+
+  .block_content {
+    @extend .icon;
+
+    &:before { 
+      font-size: 30px;
+      color: $light;
+      @extend %centered;
+      content: "\f1c5" }
+  }
+}
+
+
+/**
+ * EDITOR
+ */
+.block-type--editor {
+  @extend .block-type--image;
+
+  .block_content {
+
+    &:before { 
+      content: "\f0f6" 
+    }
+  }
 }
 
 
@@ -249,18 +257,12 @@ $accent   : #0095ea;
 \*----------------------------------------*/
 
 img {
-  // width: 100%;
-  // height: auto;
-
-  // Partial Fix
   max-width: 100%;
   max-height: 100%;
 }
 
 .icon {
   display: inline-block;
-  // width: 20px;
-  // height: 20px;
   font-size: 20px;
   line-height: 1;
   font-family: FontAwesome;
@@ -275,85 +277,15 @@ img {
   -moz-osx-font-smoothing: grayscale;
 }
 
+%centered {
+    position:absolute;
+    top:50%;
+    left: 50%;
+    @include translate(-50%, -50%);
+}
 
 
 
-
-// .add_block {
-//   cursor: pointer;
-
-// }
-
-// .pix_builder_block {
-//   position: relative;
-//   background: #efefff;
-//   border-right: 2px solid #888;
-
-//   .drag_handler {
-//     position: absolute;
-//     top: -14px;
-//     left: 0;
-//     right: -2px;
-//     background: #e0e0e0;
-//     border-right: 2px solid #888;
-//     text-align: center;
-//     font-weight: bold;
-//     height: 15px;
-//     cursor: move;
-//   }
-
-//   .remove_block {
-//     color: red;
-//     font-weight: bold;
-//     position: absolute;
-//     bottom: 0;
-//     left: 0;
-//     text-transform: capitalize;
-//     font-size: 27px;
-//     border: 2px solid red;
-//     cursor: not-allowed;
-//   }
-
-//   &.type-image {
-//     background: #0000ff;
-//   }
-
-//   &.type-text {
-//     background: #fff;
-//   }
-
-//   .block_content {
-//     textarea {
-//       position: absolute;
-//       width: 100%;
-//       top:0;
-//       bottom:0;
-//       left: 0;
-//       right: 0;
-//       resize: none;
-//     }
-
-//     .image_preview {
-//       background-size: cover;
-//       display: block;
-//       position: absolute;
-//       top: 0;
-//       bottom: 0;
-//       left: 0;
-//       right: 0;
-//       background-clip: content-box;
-//     }
-
-//     .open_media, .edit_editor {
-//       position: absolute;
-//       background: #fff;
-//       z-index: 99;
-//       padding: 5px 16px;
-//       bottom: 0;
-//       right: 0;
-//     }
-//   }
-// }
 
 .pix_builder_editor_modal_container {
   position: relative;
@@ -413,3 +345,24 @@ img {
   color: #a00;
   border-color: rgba(170, 0, 0, 0.62);
 }
+
+
+
+/* Responsive Gridster */
+//$col-number: 6;
+//$col-w: 100%/$col-number;
+//$col-steps: 1,2,3,4,5,6;
+//$gutter: 2.35765%;
+//
+//@each $col in $col-steps {
+//  .gridster .gs-w[data-sizex="#{$col}"] {
+//    width: $col * $col-w - $gutter;
+//    margin-right: $gutter;
+//  }
+//}
+//
+//@each $col in $col-steps {
+//  .gridster .gs-w[data-col="#{$col}"] {
+//    left: ($col - 1) * $col-w;
+//  }
+//}
