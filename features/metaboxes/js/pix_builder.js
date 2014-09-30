@@ -240,6 +240,12 @@
 			// preview the new value
 			$(to_send).next('.editor_preview').find('.editor_preview_wrapper').html(editor_val.replace(/\n/ig,"<br>"));
 
+			if ( editor_val === '' ) {
+				$(to_send).parent().addClass('empty');
+			} else {
+				$(to_send).parent().removeClass('empty');
+			}
+
 			$(document).trigger('pix_builder:serialize');
 
 			close_editor_modal();
@@ -302,6 +308,11 @@
 			}
 		}
 
+		var empty_class = '';
+		if ( args.content === '' ) {
+			empty_class = 'empty';
+		}
+
 		return '<li id="block_' + args.id + '" class="block-type--' + args.type + ' item" data-type="' + args.type + '">' +
 					'<div class="item__controls">' +
 						'<ul class="nav nav--controls">' +
@@ -310,7 +321,7 @@
 							'<li class="move drag_handler"></li>' +
 						'</ul>' +
 					'</div>' +
-					'<div class="item__content block_content">' +
+					'<div class="item__content block_content ' + empty_class + '">' +
 						content +
 					'</div>' +
 				'</li>';
@@ -386,6 +397,8 @@
 
 				if (typeof selected_attach.id !== 'undefined') {
 					$(last_opened_block).attr('data-attachment_id', selected_attach.id);
+
+					$(last_opened_block).parents('.item__controls').siblings('.block_content').removeClass('empty');
 
 					preview_attachment_image(last_opened_block, selected_attach);
 					$(document).trigger('pix_builder:serialize');

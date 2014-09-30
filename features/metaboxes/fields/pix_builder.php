@@ -50,9 +50,15 @@
 								break;
 							default :
 								break;
+						}
+
+						$empty_class = '';
+
+						if ( empty($block->content) ) {
+							$empty_class = 'empty';
 						} ?>
 
-						<li id="block_<?php echo $block->id ?>" class="block-type--<?php echo $block->type ?> item" data-type="<?php echo $block->type ?>" data-row="<?php echo $block->row ?>" data-col="<?php echo $block->col ?>" data-sizex="<?php echo $block->size_x ?>" data-sizey="<?php echo $block->size_y ?>">
+						<li id="block_<?php echo $block->id ?>" class="block-type--<?php echo $block->type; ?> item" data-type="<?php echo $block->type ?>" data-row="<?php echo $block->row ?>" data-col="<?php echo $block->col ?>" data-sizex="<?php echo $block->size_x ?>" data-sizey="<?php echo $block->size_y ?>">
 							<div class="item__controls">
 								<ul class="nav nav--controls">
 									<li class="edit"><?php echo $controls_content ?></li>
@@ -60,7 +66,7 @@
 									<li class="move drag_handler"></li>
 								</ul>
 							</div>
-							<div class="item__content block_content">
+							<div class="item__content block_content <?php echo $empty_class;?>">
 								<?php echo $content ?>
 							</div>
 						</li>
