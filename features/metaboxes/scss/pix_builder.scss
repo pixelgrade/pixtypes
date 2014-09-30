@@ -224,7 +224,11 @@ $accent   : #0095ea;
 .block-type--image {
   text-align: center;
 
-  .block_content {
+  img {
+    @extend %centered;
+  }
+
+  .block_content.empty {
     @extend .icon;
 
     &:before { 
@@ -241,8 +245,19 @@ $accent   : #0095ea;
  */
 .block-type--editor {
   @extend .block-type--image;
+  text-align: left;
 
-  .block_content {
+  .editor_preview {
+    width: 100%;
+    padding: 12px;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    @extend %centered;
+  }
+
+  .block_content.empty {
 
     &:before { 
       content: "\f031" 
@@ -289,6 +304,10 @@ img {
 #project_builder {
   & > h3.hndle, & > .handlediv {
     display: none;
+  }
+
+  table.cmb_metabox td {
+    border: none;
   }
 }
 

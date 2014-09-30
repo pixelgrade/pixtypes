@@ -149,7 +149,7 @@
  */
 .block-type--image, .block-type--editor {
   text-align: center; }
-  .block-type--image .block_content:before, .block-type--editor .block_content:before {
+  .block-type--image .block_content.empty:before, .block-type--editor .block_content.empty:before {
     font-size: 30px;
     color: #919191;
     content: "\f1c5"; }
@@ -157,8 +157,16 @@
 /**
  * EDITOR
  */
-.block-type--editor .block_content:before {
-  content: "\f031"; }
+.block-type--editor {
+  text-align: left; }
+  .block-type--editor .editor_preview {
+    width: 100%;
+    padding: 12px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+  .block-type--editor .block_content.empty:before {
+    content: "\f031"; }
 
 /*----------------------------------------*\
             GENERAL
@@ -167,7 +175,7 @@ img {
   max-width: 100%;
   max-height: 100%; }
 
-.icon, .pixbuilder-grid .item__controls li, .pixbuilder-grid .item__controls li.edit a, .pixbuilder-grid .item__controls li.remove, .pixbuilder-grid .item__controls li.move, .block-type--image .block_content, .block-type--editor .block_content {
+.icon, .pixbuilder-grid .item__controls li, .pixbuilder-grid .item__controls li.edit a, .pixbuilder-grid .item__controls li.remove, .pixbuilder-grid .item__controls li.move, .block-type--image .block_content.empty, .block-type--editor .block_content.empty {
   display: inline-block;
   font-size: 20px;
   line-height: 1;
@@ -182,7 +190,7 @@ img {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
-.block-type--image .block_content:before, .block-type--editor .block_content:before {
+.block-type--image img, .block-type--editor img, .block-type--image .block_content.empty:before, .block-type--editor .block_content.empty:before, .block-type--editor .editor_preview {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -194,6 +202,8 @@ img {
 
 #project_builder > h3.hndle, #project_builder > .handlediv {
   display: none; }
+#project_builder table.cmb_metabox td {
+  border: none; }
 
 .pixbuilder-controls {
   padding: 25px 30px 0 30px;
