@@ -6,13 +6,12 @@
 	}
 
 	echo '<input type="hidden" name="', $field['id'], '" id="pix_builder" value="', '' !== $meta ? htmlspecialchars($meta) : $field['std'], '" '. $gridster_params .' />'; ?>
+	<div class="pixbuilder-controls">
+		<button class="add_block button button-primary button-large" value="image" > + Image</button>
+		<button class="add_block button button-primary button-large" value="editor"> + Editor</button>
+	</div>
 
-	<button class="add_block button button-primary button-large" value="image" > + Image</button>
-	<button class="add_block button button-primary button-large" value="editor"> + Editor</button>
-
-	<span class="clear-all button button-secondary">
-		Clear All
-	</span>
+	<!-- <span class="clear-all button button-secondary">Clear All</span> -->
 
 	<div class="pixbuilder-grid gridster">
 		<ul>
