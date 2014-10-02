@@ -8,11 +8,11 @@
 			success:function(response){
 				if (isdebug) {
 
-					console.log(response);
+					//console.log(response);
 
 					var result = JSON.parse(response);
 
-					console.log(result);
+					//console.log(result);
 
 				}
 			}
