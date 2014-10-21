@@ -82,8 +82,8 @@ if ( $display_option['portfolio'] ) {
 				'type'    => 'group',
 				'options' => array(
 					'portfolio_new_archive_slug' => array(
-						'label'   => __( 'New Category Slug', 'pixtypes_txtd' ),
-						'desc'    => __( 'Change the portfolio category slug as you need it.', 'pixtypes_txtd' ),
+						'label'   => __( 'New Archive Slug', 'pixtypes_txtd' ),
+						'desc'    => __( 'Change the portfolio archive slug as you need it.', 'pixtypes_txtd' ),
 						'default' => 'portfolio',
 						'type'    => 'text',
 					),
@@ -136,8 +136,8 @@ if ( $display_option['gallery'] ) {
 				(
 					'gallery_new_archive_slug' => array
 					(
-						'label'   => __( 'New Category Slug', 'pixtypes_txtd' ),
-						'desc'    => __( 'Change the gallery category slug as you need it.', 'pixtypes_txtd' ),
+						'label'   => __( 'New Archive Slug', 'pixtypes_txtd' ),
+						'desc'    => __( 'Change the gallery archive slug as you need it.', 'pixtypes_txtd' ),
 						'default' => 'gallery',
 						'type'    => 'text',
 					),
