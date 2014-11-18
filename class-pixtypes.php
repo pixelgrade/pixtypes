@@ -336,7 +336,7 @@ class PixTypesPlugin {
 		$this->plugin_screen_hook_suffix = add_options_page(
 			__( 'PixTypes', $this->plugin_slug ),
 			__( 'PixTypes', $this->plugin_slug ),
-			'edit_plugins',
+			'manage_options',
 			$this->plugin_slug,
 			array( $this, 'display_plugin_admin_page' )
 		);
@@ -360,7 +360,7 @@ class PixTypesPlugin {
 	function register_entities(){
 		require_once( $this->plugin_basepath . 'features/custom-entities.php' );
 	}
-	
+
 	function register_metaboxes(){
 		require_once( $this->plugin_basepath . 'features/metaboxes/metaboxes.php' );
 	}
