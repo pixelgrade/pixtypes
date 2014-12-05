@@ -270,7 +270,15 @@ class cmb_Meta_Box {
 						$current_value = get_post_meta( $post_id, $metakey, true );
 					}
 
-					if ( $metavalue == $current_value ) {
+					$value_test = false;
+
+					if ( is_array( $metavalue ) && in_array( $current_value, $metavalue ) ) {
+						$value_test = true;
+					} elseif ( $metavalue == $current_value ) {
+						$value_test = true;
+					}
+
+					if ( $value_test ) {
 						if ( $show ) {
 							return $display;
 						} else {
@@ -369,7 +377,11 @@ class cmb_Meta_Box {
 
 						$requires .= 'data-when_key="' . $on['field'] . '"';
 
-						$requires .= 'data-has_value="' . $on['value'] . '"';
+						if ( is_array($on['value']) ) {
+							$requires .= 'data-has_value=\'' . json_encode($on['value']) . '\'';
+						} else {
+							$requires .= 'data-has_value="' . $on['value'] . '"';
+						}
 
 					}
 

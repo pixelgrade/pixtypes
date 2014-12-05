@@ -270,8 +270,7 @@ jQuery(document).ready(function ($) {
 			currentValue = $selector.val();
 		}
 
-		//do the work
-		if (currentValue == value) {
+		if ( value_check( currentValue, value ) ) {
 			toggle_meta(el, action);
 		} else {
 			toggle_opposite(el, action);
@@ -288,8 +287,7 @@ jQuery(document).ready(function ($) {
 				currentValue = $selector.val();
 			}
 
-			//do the work
-			if (currentValue == value) {
+			if ( value_check( currentValue, value ) ) {
 				toggle_meta(el, action);
 			} else {
 				toggle_opposite(el, action);
@@ -298,6 +296,19 @@ jQuery(document).ready(function ($) {
 		});
 	};
 
+	var value_check = function(currentValue, value ) {
+		var value_test = false;
+
+		// first check for single or multiple values
+		if ( typeof value === 'string' && currentValue == value ) {
+			value_test = true;
+		} else if ( typeof value === 'object' && value.indexOf( currentValue ) > -1) {
+			// in case there are multiple values check if our current values is inside the array
+			value_test = true;
+		}
+
+		return value_test;
+	};
 
 	var toggle_meta = function (selector, action) {
 		var when_key = $(selector).data('when_key'),
