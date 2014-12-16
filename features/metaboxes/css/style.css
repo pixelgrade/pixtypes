@@ -2848,3 +2848,38 @@ img {
   transition: color .1s ease-in 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
+
+.gmap_pins_container {
+  position: relative;
+  padding-bottom: 30px; }
+  .gmap_pins_container .gmap_pin > * {
+    display: inline-block; }
+  .gmap_pins_container .gmap_pin .pin_location_url {
+    width: 68%; }
+  .gmap_pins_container .gmap_pin .pin_name {
+    width: 29%; }
+  .gmap_pins_container .gmap_pin .pin_delete {
+    width: 2%;
+    opacity: 0;
+    color: #AA0000;
+    text-align: right; }
+  .gmap_pins_container .gmap_pin:hover .pin_delete {
+    opacity: 1;
+    text-decoration: underline;
+    cursor: pointer; }
+  .gmap_pins_container .gmap_pin fieldset label {
+    display: inline-block;
+    width: 23%;
+    padding: 4px 3% 4px 0;
+    font-weight: bold;
+    text-align: right;
+    font-size: 15px;
+    color: #000; }
+  .gmap_pins_container .gmap_pin fieldset input {
+    display: inline-block;
+    width: 68%; }
+  .gmap_pins_container .add_new_location {
+    position: absolute;
+    right: 4%; }
+  .gmap_pins_container .cmb_metabox_description {
+    padding-left: 18%; }

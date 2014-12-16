@@ -390,7 +390,7 @@ class cmb_Meta_Box {
 				echo '<tr class="' . $classes . '" ' . $requires . '>';
 			}
 
-			if ( $field['type'] == "title" || $field['type'] == 'portfolio-gallery' || $field['type'] == 'gallery' || $field['type'] == 'pix_builder' ) {
+			if ( $field['type'] == "title" || $field['type'] == 'portfolio-gallery' || $field['type'] == 'gallery' || $field['type'] == 'pix_builder' || $field['type'] == 'gmap_pins' ) {
 				echo '<td colspan="2">';
 			} else {
 				if ( isset( $this->_meta_box['show_names'] ) && $this->_meta_box['show_names'] == true ) {
@@ -715,6 +715,21 @@ class cmb_Meta_Box {
 
 					break;
 
+				case 'gmap_pins':
+
+					wp_enqueue_script( 'gmap_pins' );
+
+					$file_path = plugin_dir_path( __FILE__ ) . 'fields/gmap_pins.php';
+					if ( file_exists( $file_path ) ) {
+						ob_start();
+						include( $file_path );
+						echo ob_get_clean();
+					} else {
+						echo '<p>Wrong path </p>';
+					}
+
+					break;
+
 				case 'oembed':
 					echo '<input class="cmb_oembed" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" />', '<p class="cmb_metabox_description">', $field['desc'], '</p>';
 					echo '<p class="cmb-spinner spinner"></p>';
@@ -930,8 +945,18 @@ function cmb_scripts( $hook ) {
 		wp_register_script( 'gridster', CMB_META_BOX_URL . 'js/jquery.gridster.js' );
 		wp_register_script( 'pix_builder', CMB_META_BOX_URL . 'js/pix_builder.js', array( 'gridster' ) );
 		wp_localize_script( 'pix_builder', 'l18n_pix_builder', array(
-			'set_image' => __('Set Image', 'pixproof_txtd'),
+			'set_image' => __('Set Image', 'pixtypes_txtd'),
 		) );
+
+		wp_register_script( 'gmap_pins', CMB_META_BOX_URL . 'js/gmap_pins.js' );
+		wp_localize_script( 'gmap_pins', 'l18n_gmap_pins', array(
+			'location_url_label' => __('Location URL', 'pixtypes_txtd'),
+			'name_label' => __('Name', 'pixtypes_txtd'),
+			'delete_label' => __('Delete', 'pixtypes_txtd'),
+			'confirm_delete' => __('Are you sure?', 'pixtypes_txtd'),
+			'dont_delete_all_pins' => __('This page is useless without pins. Your better delete the page!', 'pixtypes_txtd'),
+		) );
+
 
 		wp_register_script( 'cmb-scripts', CMB_META_BOX_URL . 'js/cmb.js', $cmb_script_array, '0.9.1' );
 		wp_localize_script( 'cmb-scripts', 'cmb_ajax_data', array(
