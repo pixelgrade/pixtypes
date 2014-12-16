@@ -4,7 +4,7 @@ WordPress plugin for managing custom post types and custom meta boxes.
 
 === # ===
 
-~Current Version:1.2.7~
+~Current Version:1.2.9~
 Dev note: use debug=true in url for some debugging
 
 === # ===
@@ -19,6 +19,10 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 === # ===
 
 === Changelog  ===
+
+1.2.9
+
+Gmap pins added
 
 1.2.6
 
