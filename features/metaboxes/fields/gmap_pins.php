@@ -2,6 +2,18 @@
 /**
  * Wordpress gmap pins procesing
  */
+
+
+wp_enqueue_script( 'gmap_pins' );
+
+wp_localize_script( 'gmap_pins', 'l18n_gmap_pins', array(
+	'location_url_label' => __('Location URL', 'pixtypes_txtd'),
+	'name_label' => __('Name', 'pixtypes_txtd'),
+	'delete_label' => __('Delete', 'pixtypes_txtd'),
+	'confirm_delete' => __('Are you sure?', 'pixtypes_txtd'),
+	'dont_delete_all_pins' => __('This page is useless without pins.Better delete the page!', 'pixtypes_txtd'),
+) );
+
 global $post; ?>
 <div class="gmap_pins_container">
 	<ul class="gmap_pins" data-field_name="<?php echo $field['id']; ?>">

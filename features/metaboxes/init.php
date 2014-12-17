@@ -717,8 +717,6 @@ class cmb_Meta_Box {
 
 				case 'gmap_pins':
 
-					wp_enqueue_script( 'gmap_pins' );
-
 					$file_path = plugin_dir_path( __FILE__ ) . 'fields/gmap_pins.php';
 					if ( file_exists( $file_path ) ) {
 						ob_start();
@@ -947,16 +945,7 @@ function cmb_scripts( $hook ) {
 		wp_localize_script( 'pix_builder', 'l18n_pix_builder', array(
 			'set_image' => __('Set Image', 'pixtypes_txtd'),
 		) );
-
 		wp_register_script( 'gmap_pins', CMB_META_BOX_URL . 'js/gmap_pins.js' );
-		wp_localize_script( 'gmap_pins', 'l18n_gmap_pins', array(
-			'location_url_label' => __('Location URL', 'pixtypes_txtd'),
-			'name_label' => __('Name', 'pixtypes_txtd'),
-			'delete_label' => __('Delete', 'pixtypes_txtd'),
-			'confirm_delete' => __('Are you sure?', 'pixtypes_txtd'),
-			'dont_delete_all_pins' => __('This page is useless without pins.Better delete the page!', 'pixtypes_txtd'),
-		) );
-
 
 		wp_register_script( 'cmb-scripts', CMB_META_BOX_URL . 'js/cmb.js', $cmb_script_array, '0.9.1' );
 		wp_localize_script( 'cmb-scripts', 'cmb_ajax_data', array(
