@@ -954,7 +954,7 @@ function cmb_scripts( $hook ) {
 			'name_label' => __('Name', 'pixtypes_txtd'),
 			'delete_label' => __('Delete', 'pixtypes_txtd'),
 			'confirm_delete' => __('Are you sure?', 'pixtypes_txtd'),
-			'dont_delete_all_pins' => __('This page is useless without pins. Your better delete the page!', 'pixtypes_txtd'),
+			'dont_delete_all_pins' => __('This page is useless without pins.Better delete the page!', 'pixtypes_txtd'),
 		) );
 
 

@@ -12,9 +12,10 @@ global $post; ?>
 					'name' => ''
 				)
 			);
+
 			//this runs only when the field is empty and not initialized ... some sort of demo
 			if ( isset( $field['std'] ) && is_array( $field['std'] ) ) {
-				$meta[1] = $field['std'];
+				$meta = $field['std'];
 			}
 		}
 

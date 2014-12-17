@@ -13,9 +13,8 @@
 
 	$(document ).on('click', '.pin_delete', function(){
 
-		var $pins_list = $(this ).parent('.gmap_pins');
-
-		if ( $pins_list.length < 2 ) {
+		var $pins_list = $(this).parents('.gmap_pins');
+		if ( $pins_list.find('.gmap_pin').length < 2 ) {
 			alert( l18n_gmap_pins.dont_delete_all_pins);
 			return;
 		}
