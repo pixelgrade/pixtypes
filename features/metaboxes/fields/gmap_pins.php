@@ -41,7 +41,7 @@ global $post; ?>
 					<label for="<?php echo $field['id']; ?>[<?php echo $key ?>][name]" ><?php _e('Name', 'pixtypes_txtd'); ?></label>
 					<input type="text" name="<?php echo $field['id']; ?>[<?php echo $key ?>][name]" value="<?php echo $pin['name']; ?>" />
 				</fieldset>
-				<span class="pin_delete"><?php _e('Delete', 'pixtypes_txtd'); ?></span>
+				<span class="pin_delete"></span>
 			</li>
 		<?php } ?>
 	</ul>

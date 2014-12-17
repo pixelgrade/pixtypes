@@ -38,7 +38,7 @@
 				'<label for="' + field_name + '[' + order + '][name]" >' + l18n_gmap_pins.name_label + '</label>' +
 				'<input type="text" name="' + field_name + '[' + order + '][name]"/>' +
 			'</fieldset>' +
-		'<span class="pin_delete">'+ l18n_gmap_pins.delete_label +'</span>' +
+		'<span class="pin_delete"></span>' +
 		'</li>';
 
 	}

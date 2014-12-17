@@ -2861,12 +2861,14 @@ img {
   .gmap_pins_container .gmap_pin .pin_delete {
     width: 2%;
     opacity: 0;
-    color: #AA0000;
-    text-align: right; }
+    color: #AA0000; }
   .gmap_pins_container .gmap_pin:hover .pin_delete {
     opacity: 1;
     text-decoration: underline;
-    cursor: pointer; }
+    cursor: pointer;
+    transition: all .2s linear; }
+    .gmap_pins_container .gmap_pin:hover .pin_delete:before {
+      content: url(../images/ico-delete.png); }
   .gmap_pins_container .gmap_pin fieldset label {
     display: inline-block;
     width: 23%;
