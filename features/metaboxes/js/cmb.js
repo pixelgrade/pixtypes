@@ -299,7 +299,12 @@ jQuery(document).ready(function ($) {
 	var value_check = function(currentValue, value ) {
 		var value_test = false;
 
-		// first check for single or multiple values
+		// if is not an object convert to string
+		if ( typeof value === 'number' || typeof value === 'boolean' ) {
+			value = String(value);
+		}
+
+		//check for single or multiple values
 		if ( typeof value === 'string' && currentValue == value ) {
 			value_test = true;
 		} else if ( typeof value === 'object' && value.indexOf( currentValue ) > -1) {
