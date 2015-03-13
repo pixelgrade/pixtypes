@@ -1,5 +1,9 @@
 (function ($) {
 	$(window).load(function () {
+
+		// Link any localized strings.
+		var l10n = wp.media.view.l10n = typeof _wpMediaViewsL10n === 'undefined' ? {} : _wpMediaViewsL10n;
+
 		wp.media.EditPixGallery = {
 			frame: function () {
 				if (this._frame)
@@ -21,6 +25,24 @@
 				var controler =  wp.media.EditPixGallery._frame.states.get('gallery-edit');
 				// force display settings off
 				controler.attributes.displaySettings = false;
+
+				//but still keep the reverse button in our modal
+				controler.gallerySettings = function( browser ) {
+					var library = this.get('library');
+					if ( ! library || ! browser ) {
+						return;
+					}
+
+					library.gallery = library.gallery || new Backbone.Model();
+					browser.toolbar.set( 'reverse', {
+						text:     l10n.reverseOrder,
+						priority: 80,
+						click: function() {
+							library.reset( library.toArray().reverse() );
+						}
+					});
+				};
+
 				wp.media.EditPixGallery._frame.states.add('gallery-edit', controler);
 
 				// on update send our attachments ids into a post meta field
@@ -40,11 +62,9 @@
 			},
 
 			init: function () {
-
 				$('#pixgallery').on('click', '.open_pixgallery', function (e) {
 					e.preventDefault();
 					wp.media.EditPixGallery.frame().open();
-					//debugger;
 				});
 			},
 
@@ -83,8 +103,9 @@
 					// Break ties with the query.
 					selection.props.set({query: false});
 					selection.unmirror();
-					selection.props.unset('orderby');
+					//selection.props.unset('orderby');
 				});
+
 				return selection;
 			}
 		};
