@@ -76,21 +76,6 @@ return array
 
 		'display_settings' => $display_settings,
 
-		'github_updater' => array(
-			'slug' => basename(dirname(__FILE__)).'/pixtypes.php',
-			'api_url' => 'https://api.github.com/repos/pixelgrade/pixtypes',
-			'raw_url' => 'https://raw.github.com/pixelgrade/pixtypes/update',
-			'github_url' => 'https://github.com/pixelgrade/pixtypes/tree/update',
-			'zip_url' => 'https://github.com/pixelgrade/pixtypes/archive/update.zip',
-			'sslverify' => false,
-			'requires' => '3.0',
-			'tested' => '3.3',
-			'readme' => 'README.md',
-			'textdomain' => 'pixtypes',
-			'debug_mode' => $debug
-			//'access_token' => '',
-		),
-
 		// shows exception traces on error
 		'debug' => $debug,
 
