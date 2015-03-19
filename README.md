@@ -2,6 +2,142 @@
 
 WordPress plugin for managing custom post types and custom meta boxes.
 
+The main idea of this plugin is to allow a WordPress theme to define what custom post-types or metaboxes are needed for that theme.
+
+=== <a name="pixytpes_config">#Configuration</a> ===
+
+Note: We still have to add things in this documentation.
+
+The PixTypes plugin is taking configurations from the `pixtypes_themes_settings` option. 
+
+All we have to do is to add our settings in this option when the theme gets active, so we need to use the [after_switch_theme](http://codex.wordpress.org/Plugin_API/Action_Reference/after_switch_theme) filter.
+
+Here is a small example, which adds a portfolio post type, a portfolio taxonomy and some custom metaboxes for a contact page template(kinda fictive, I know).
+
+```
+function theme_getting_active () {
+
+	// first get the old settings if there are ones. 
+	$types_options = get_option( 'pixtypes_themes_settings' );
+	if ( empty( $types_options ) ) {
+		$types_options = array();
+	}
+
+	// now add your settings
+	$types_options[ 'theme_name' ] = array(
+		'first_activation' => true,
+		'post_types' => array(
+			'theme_name_portfolio' => array(
+				'labels'        => array(
+					'name'               => __( 'Project', 'theme_name_txtd' ),
+					'singular_name'      => __( 'Project', 'theme_name_txtd' ),
+					'add_new'            => __( 'Add New', 'theme_name_txtd' ),
+					'add_new_item'       => __( 'Add New Project', 'theme_name_txtd' ),
+					'edit_item'          => __( 'Edit Project', 'theme_name_txtd' ),
+					'new_item'           => __( 'New Project', 'theme_name_txtd' ),
+					'all_items'          => __( 'All Projects', 'theme_name_txtd' ),
+					'view_item'          => __( 'View Project', 'theme_name_txtd' ),
+					'search_items'       => __( 'Search Projects', 'theme_name_txtd' ),
+					'not_found'          => __( 'No Project found', 'theme_name_txtd' ),
+					'not_found_in_trash' => __( 'No Project found in Trash', 'theme_name_txtd' ),
+					'menu_name'          => __( 'Projects', 'theme_name_txtd' ),
+				),
+				'public'        => true,
+				'rewrite'       => array(
+					'slug'       => 'theme_name_portfolio',
+					'with_front' => false,
+				),
+				'has_archive'   => 'portfolio-archive',
+				'menu_icon'     => 'report.png',
+				'menu_position' => null,
+				'hierarchical' => true,
+				'supports'      => array(
+					'title',
+					'editor',
+					'page-attributes',
+					'thumbnail',
+				),
+				'yarpp_support' => true,
+			)
+		),
+		'taxonomies' => array(
+			'theme_name_portfolio_categories' => array(
+				'hierarchical'      => true,
+				'labels'            => array(
+					'name'              => __( 'Project Categories', 'theme_name_txtd' ),
+					'singular_name'     => __( 'Project Category', 'theme_name_txtd' ),
+					'search_items'      => __( 'Search Project Categories', 'theme_name_txtd' ),
+					'all_items'         => __( 'All Project Categories', 'theme_name_txtd' ),
+					'parent_item'       => __( 'Parent Project Category', 'theme_name_txtd' ),
+					'parent_item_colon' => __( 'Parent Project Category: ', 'theme_name_txtd' ),
+					'edit_item'         => __( 'Edit Project Category', 'theme_name_txtd' ),
+					'update_item'       => __( 'Update Project Category', 'theme_name_txtd' ),
+					'add_new_item'      => __( 'Add New Project Category', 'theme_name_txtd' ),
+					'new_item_name'     => __( 'New Project Category Name', 'theme_name_txtd' ),
+					'menu_name'         => __( 'Portfolio Categories', 'theme_name_txtd' ),
+				),
+				'show_admin_column' => true,
+				'rewrite'           => array( 'slug' => 'portfolio-category', 'with_front' => false ),
+				'sort'              => true,
+				'post_types'        => array( 'theme_name_portfolio' )
+			),
+		),
+		'metaboxes' => array(
+			//for the Contact Page template
+			'_gmap_settings' => array(
+				'id'         => '_gmap_settings',
+				'title'      => __( 'Map Coordinates & Display Options', 'theme_name_txtd' ),
+				'pages'      => array( 'page' ), // Post type
+				'context'    => 'normal',
+				'priority'   => 'high',
+				'hidden'     => true,
+				'show_on'    => array(
+					'key' => 'page-template',
+					'value' => array( 'page-templates-contact.php' ),
+				),
+				'show_names' => true, // Show field names on the left
+				'fields'     => array(
+					array(
+						'name' => __( 'Map Height', 'theme_name_txtd' ),
+						'desc' => __( '<p class="cmb_metabox_description">Select the height of the Google Map area in relation to the browser window.</p>', 'theme_name_txtd' ),
+						'id'   => 'page_gmap_height',
+						'type'    => 'select',
+						'options' => array(
+							array(
+								'name'  => __( '&nbsp; &#9673;&#9711; &nbsp;Half', 'theme_name_txtd' ),
+								'value' => 'half-height',
+							),
+							array(
+								'name'  => __( '&#9673;&#9673;&#9711; Two Thirds', 'theme_name_txtd' ),
+								'value' => 'two-thirds-height',
+							),
+							array(
+								'name'  => __( '&#9673;&#9673;&#9673; Full Height', 'theme_name_txtd' ),
+								'value' => 'full-height',
+							)
+						),
+						'std'     => 'two-thirds-height',
+					),
+					array(
+						'name' => __( 'Google Maps Pins', 'theme_name_txtd' ),
+						'desc' => __( 'Paste here the Share URL you have taken from <a href="http://www.google.com/maps" target="_blank">Google Maps</a>.', 'theme_name_txtd' ),
+						'id'   => 'gmap_urls',
+						'type' => 'gmap_pins',
+						'std' => array(
+							1 => array(
+								'location_url' => "https://www.google.ro/maps/@51.5075586,-0.1284425,18z",
+								'name' => __('London', 'theme_name_txtd')
+							)
+						)
+					),
+				),
+			),
+		),
+	);
+	update_option( 'pixtypes_themes_settings', $types_options );
+}
+```
+
 === # ===
 
 ~Current Version:1.3.0~
@@ -18,7 +154,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 === # ===
 
-=== Changelog  ===
+=== Old Change Log  ===
 
 1.2.10
 
