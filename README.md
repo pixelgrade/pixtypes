@@ -1,4 +1,4 @@
-=== PixTypes ===
+=== PixTypes === [![Build Status](https://travis-ci.org/pixelgrade/pixtypes.svg?branch=update)](https://travis-ci.org/pixelgrade/pixtypes)
 
 WordPress plugin for managing custom post types and custom meta boxes.
 
