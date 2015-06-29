@@ -32,4 +32,13 @@
 		'enable_gallery_categories' => true,
 			'gallery_categories_change_archive_slug' => true,
 			'gallery_categories_new_archive_slug' => 'gallery_category',
+
+		'enable_portfolio-type' => true,
+			'portfolio_type_change_archive_slug' => true,
+			'portfolio_type_new_archive_slug' => 'portfolio-type',
+
+		'enable_portfolio-tag' => true,
+			'portfolio_tag_change_archive_slug' => true,
+			'portfolio_tag_new_archive_slug' => 'portfolio-tag',
+
 	); # config
