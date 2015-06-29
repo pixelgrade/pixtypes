@@ -38,9 +38,19 @@ function save_pixtypes_settings( $values ){
 			if ( isset($theme['post_types']) ) {
 				foreach( $theme['post_types'] as $name => &$post_type ) {
 
-					// get post type key without prefix
-					$post_type_key = strstr( $name, '_');
-					$post_type_key = substr($post_type_key, 1);
+					$is_jetpack_compatible = false;
+					if ( strpos( $name, 'jetpack' ) !== FALSE ) {
+						$is_jetpack_compatible = true;
+					}
+
+					if ( $is_jetpack_compatible ) {
+						$post_type_key = strstr( $name, '-');
+						$post_type_key = substr($post_type_key, 1);
+					} else {
+						// get post type key without prefix
+						$post_type_key = strstr( $name, '_');
+						$post_type_key = substr($post_type_key, 1);
+					}
 
 					// modify these settings only if the post type is enabled
 					if ( isset($options["enable_" . $post_type_key ]) && $options["enable_" . $post_type_key] ) {
@@ -90,9 +100,23 @@ function save_pixtypes_settings( $values ){
 			/** Apply settings for taxonomies */
 			if ( isset($theme['taxonomies']) ) {
 				foreach( $theme['taxonomies'] as $name => &$taxonomy ) {
-					// eliminate the theme prefix
-					$tax_key = strstr( $name, '_');
-					$tax_key = substr($tax_key, 1);
+
+					$is_jetpack_compatible = false;
+					if ( strpos( $name, 'jetpack' ) !== FALSE ) {
+						///$xxxx = str_replace(  'jetpack-', '', $name);
+						$is_jetpack_compatible = true;
+					}
+
+					if ( $is_jetpack_compatible ) {
+						// eliminate the theme prefix
+						$tax_key = strstr( $name, '-');
+						$tax_key = substr($tax_key, 1);
+					} else {
+						// eliminate the theme prefix
+						$tax_key = strstr( $name, '_');
+						$tax_key = substr($tax_key, 1);
+					}
+
 					// modify these settings only if the post type is enabled
 					if ( isset($options["enable_" . $tax_key ]) && $options["enable_" . $tax_key] ) {
 						if ( isset( $values[$tax_key . '_change_archive_slug'] ) && $values[$tax_key . '_change_archive_slug'] && !empty( $values[$tax_key . '_change_archive_slug'] ) ) {

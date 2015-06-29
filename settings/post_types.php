@@ -15,6 +15,10 @@ if ( isset( $options["themes"] ) ) {
 
 		if ( isset( $theme['post_types'] ) && is_array( $theme['post_types'] ) ) {
 			foreach ( $theme['post_types'] as $post_type => $post_type_args ) {
+
+				if ( strpos( $post_type, 'jetpack' ) !== FALSE ) {
+					$post_type = str_replace(  'jetpack-', '', $post_type);
+				}
 				$display_option[ str_replace( $theme_name . '_', '', $post_type ) ] = true;
 			}
 			$display_settings = true;

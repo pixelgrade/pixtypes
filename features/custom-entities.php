@@ -15,7 +15,7 @@ foreach ( $theme_types as $key => $theme ) {
 
 			$is_jetpack_compatible = false;
 			if ( strpos( $post_type, 'jetpack' ) !== FALSE ) {
-				$xxxx = str_replace(  'jetpack-', '', $post_type);
+				///$xxxx = str_replace(  'jetpack-', '', $post_type);
 				$is_jetpack_compatible = true;
 			}
 
@@ -37,7 +37,7 @@ foreach ( $theme_types as $key => $theme ) {
 			}
 		}
 	}
-//var_dump($options);
+
 	// taxonomies
 	if ( isset( $theme['taxonomies'] ) && is_array( $theme['taxonomies'] ) ) {
 		foreach ( $theme['taxonomies'] as $tax => $tax_args) {
@@ -47,7 +47,7 @@ foreach ( $theme_types as $key => $theme ) {
 
 			$is_jetpack_compatible = false;
 			if ( strpos( $tax, 'jetpack' ) !== FALSE ) {
-				$xxxx = str_replace(  'jetpack-', '', $tax);
+				///$xxxx = str_replace(  'jetpack-', '', $tax);
 				$is_jetpack_compatible = true;
 			}
 
@@ -59,7 +59,7 @@ foreach ( $theme_types as $key => $theme ) {
 				$tax_key = strstr( $tax, '_' );
 				$tax_key = substr( $tax_key, 1 );
 			}
-//				var_dump( $tax_key );
+
 			if ( isset($options["enable_" . $tax_key ]) ){
 				$options['display_settings'] = true;
 				if ( $options["enable_" . $tax_key] ) {
