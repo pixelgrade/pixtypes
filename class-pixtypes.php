@@ -65,8 +65,6 @@ class PixTypesPlugin {
 
 	public $display_admin_menu = false;
 
-	protected $github_updater;
-
 	protected $config;
 
 	/**
@@ -81,7 +79,7 @@ class PixTypesPlugin {
 
 		// Load plugin text domain
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
-		add_action( 'admin_init', array( $this, 'wpgrade_init_plugin' ) );
+//		add_action( 'admin_init', array( $this, 'wpgrade_init_plugin' ) );
 
 		// Add the options page and menu item only when is needed.
 		if ( isset($this->config['display_settings']) && $this->config['display_settings'] ) {
@@ -137,7 +135,6 @@ class PixTypesPlugin {
 	public function wpgrade_init_plugin(){
 //		$this->plugin_textdomain();
 //		$this->add_wpgrade_shortcodes_button();
-		$this->github_plugin_updater_init();
 	}
 
 	/**
@@ -251,19 +248,6 @@ class PixTypesPlugin {
 
 		load_textdomain( $domain, WP_LANG_DIR . '/' . $domain . '/' . $domain . '-' . $locale . '.mo' );
 		load_plugin_textdomain( $domain, FALSE, basename( dirname( __FILE__ ) ) . '/lang/' );
-	}
-
-	/**
-	 * Ensure github updates
-	 * Define an update branch and config it here
-	 */
-	public function github_plugin_updater_init() {
-		include_once 'updater.php';
-        define( 'WP_GITHUB_FORCE_UPDATE', true ); // this is only for testing
-		if ( is_admin() ) { // note the use of is_admin() to double check that this is happening in the admin
-			$git_config = $this->config['github_updater'];
-			$this->github_updater = new WP_Pixtypes_GitHub_Updater( $git_config );
-		}
 	}
 
 	/**
