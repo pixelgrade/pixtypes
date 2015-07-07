@@ -140,6 +140,11 @@ function theme_getting_active () {
 
 === Old Change Log  ===
 
+1.3.1
+
+Allow portfolio to be a jetpack compatible type
+Small fixes to the gallery field
+
 1.2.10
 
 Show / Hide options bug fix
