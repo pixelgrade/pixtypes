@@ -8,7 +8,7 @@ The main idea of this plugin is to allow a WordPress theme to define what custom
 
 Note: We still have to add things in this documentation.
 
-The PixTypes plugin is taking configurations from the `pixtypes_themes_settings` option. 
+The PixTypes plugin is taking configurations from the `pixtypes_themes_settings` option.
 
 All we have to do is to add our settings in this option when the theme gets active, so we need to use the [after_switch_theme](http://codex.wordpress.org/Plugin_API/Action_Reference/after_switch_theme) filter.
 
@@ -17,7 +17,7 @@ Here is a small example, which adds a portfolio post type, a portfolio taxonomy 
 ```
 function theme_getting_active () {
 
-	// first get the old settings if there are ones. 
+	// first get the old settings if there are ones.
 	$types_options = get_option( 'pixtypes_themes_settings' );
 	if ( empty( $types_options ) ) {
 		$types_options = array();
@@ -139,6 +139,10 @@ function theme_getting_active () {
 ```
 
 === Old Change Log  ===
+
+1.3.2
+WordPress 4.3 compatibility
+Fixed Sticky buttons for the PixBuilder field
 
 1.3.1
 
