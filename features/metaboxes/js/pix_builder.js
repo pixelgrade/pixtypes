@@ -25,9 +25,9 @@
 			gridster_params.serialize_params[2]);
 
 		gridster_params.resize.resize = new Function(
-				gridster_params.on_resize_callback[0],
-				gridster_params.on_resize_callback[1],
-				gridster_params.on_resize_callback[2],
+			gridster_params.on_resize_callback[0],
+			gridster_params.on_resize_callback[1],
+			gridster_params.on_resize_callback[2],
 
 			gridster_params.on_resize_callback[3]);
 
@@ -214,9 +214,8 @@
 					set_pix_builder_editor_content( '' );
 				}
 
-				// quick stupid fix ... @TODO come back here when you quit smoking
-				switchEditors.switchto(document.getElementById('pix_builder_editor-html'));
-				switchEditors.switchto(document.getElementById('pix_builder_editor-tmce'));
+				// ensure the editor is on visual
+				switchEditors.go( 'pix_builder_editor', 'tmce' );
 
 				modal_container.find('.insert_editor_content').data('block_id', id );
 			}
@@ -286,11 +285,11 @@
 		if (args.type === 'editor') {
 			content = '<textarea class="to_send" style="display: none">' + args.content + '</textarea>'+
 				'<div class="editor_preview">' +
-					'<div class="editor_preview_wrapper">' + args.content.replace(/\n/ig,"<br>") + '</div>' +
+				'<div class="editor_preview_wrapper">' + args.content.replace(/\n/ig,"<br>") + '</div>' +
 				'</div>';
 			controls_content = '<a class="edit_editor"><span>Edit</span></a>';
 
-		// Image Block
+			// Image Block
 		} else if (args.type == 'image') {
 			// in case of an image the content should hold only an integer which represents the id
 			if (!isNaN(args.content) && args.content !== '') {
@@ -314,17 +313,17 @@
 		}
 
 		return '<li id="block_' + args.id + '" class="block-type--' + args.type + ' item" data-type="' + args.type + '">' +
-					'<div class="item__controls">' +
-						'<ul class="nav nav--controls">' +
-							'<li class="edit">'+controls_content+'</li>' +
-							'<li class="remove remove_block"><span>Remove</span></li>' +
-							'<li class="move drag_handler"></li>' +
-						'</ul>' +
-					'</div>' +
-					'<div class="item__content block_content ' + empty_class + '">' +
-						content +
-					'</div>' +
-				'</li>';
+			'<div class="item__controls">' +
+			'<ul class="nav nav--controls">' +
+			'<li class="edit">'+controls_content+'</li>' +
+			'<li class="remove remove_block"><span>Remove</span></li>' +
+			'<li class="move drag_handler"></li>' +
+			'</ul>' +
+			'</div>' +
+			'<div class="item__content block_content ' + empty_class + '">' +
+			content +
+			'</div>' +
+			'</li>';
 
 	}; /* get_block_template */
 
@@ -414,17 +413,77 @@
 		};
 
 		// just playing
-		jQuery('.pix_builder_container').show(1000);
+		$('.pix_builder_container').show(500, function(){
+			$(window).trigger('scroll');
+		});
 
-
-		// Make the control buttons stick on scroll
-		 $(".pixbuilder-controls").sticky({topSpacing:50});
+		$(".pixbuilder-controls").fixer({gap: 40});
 
 	}); /* Window.load */
 
 })(jQuery);
 
-// Sticky Plugin v1.0.0 for jQuery
-// =============
-// Website: http://labs.anthonygarand.com/sticky
-(function(e){var t={topSpacing:0,bottomSpacing:0,className:"is-sticky",wrapperClassName:"sticky-wrapper",center:false,getWidthFrom:"",responsiveWidth:false},n=e(window),r=e(document),i=[],s=n.height(),o=function(){var t=n.scrollTop(),o=r.height(),u=o-s,a=t>u?u-t:0;for(var f=0;f<i.length;f++){var l=i[f],c=l.stickyWrapper.offset().top,h=c-l.topSpacing-a;if(t<=h){if(l.currentTop!==null){l.stickyElement.css("position","").css("top","");l.stickyElement.trigger("sticky-end",[l]).parent().removeClass(l.className);l.currentTop=null}}else{var p=o-l.stickyElement.outerHeight()-l.topSpacing-l.bottomSpacing-t-a;if(p<0){p=p+l.topSpacing}else{p=l.topSpacing}if(l.currentTop!=p){l.stickyElement.css("position","fixed").css("top",p);if(typeof l.getWidthFrom!=="undefined"){l.stickyElement.css("width",e(l.getWidthFrom).width())}l.stickyElement.trigger("sticky-start",[l]).parent().addClass(l.className);l.currentTop=p}}}},u=function(){s=n.height();for(var t=0;t<i.length;t++){var r=i[t];if(typeof r.getWidthFrom!=="undefined"&&r.responsiveWidth===true){r.stickyElement.css("width",e(r.getWidthFrom).width())}}},a={init:function(n){var r=e.extend({},t,n);return this.each(function(){var n=e(this);var s=n.attr("id");var o=s?s+"-"+t.wrapperClassName:t.wrapperClassName;var u=e("<div></div>").attr("id",s+"-sticky-wrapper").addClass(r.wrapperClassName);n.wrapAll(u);if(r.center){n.parent().css({width:n.outerWidth(),marginLeft:"auto",marginRight:"auto"})}if(n.css("float")=="right"){n.css({"float":"none"}).parent().css({"float":"right"})}var a=n.parent();a.css("height",n.outerHeight());i.push({topSpacing:r.topSpacing,bottomSpacing:r.bottomSpacing,stickyElement:n,currentTop:null,stickyWrapper:a,className:r.className,getWidthFrom:r.getWidthFrom,responsiveWidth:r.responsiveWidth})})},update:o,unstick:function(t){return this.each(function(){var t=e(this);var n=-1;for(var r=0;r<i.length;r++){if(i[r].stickyElement.get(0)==t.get(0)){n=r}}if(n!=-1){i.splice(n,1);t.unwrap();t.removeAttr("style")}})}};if(window.addEventListener){window.addEventListener("scroll",o,false);window.addEventListener("resize",u,false)}else if(window.attachEvent){window.attachEvent("onscroll",o);window.attachEvent("onresize",u)}e.fn.sticky=function(t){if(a[t]){return a[t].apply(this,Array.prototype.slice.call(arguments,1))}else if(typeof t==="object"||!t){return a.init.apply(this,arguments)}else{e.error("Method "+t+" does not exist on jQuery.sticky")}};e.fn.unstick=function(t){if(a[t]){return a[t].apply(this,Array.prototype.slice.call(arguments,1))}else if(typeof t==="object"||!t){return a.unstick.apply(this,arguments)}else{e.error("Method "+t+" does not exist on jQuery.sticky")}};e(function(){setTimeout(o,0)})})(jQuery)
+/*!
+ * jquery.fixer.js 0.0.3 - https://github.com/yckart/jquery.fixer.js
+ * Fix elements as `position:sticky` do.
+ *
+ *
+ * Copyright (c) 2013 Yannick Albert (http://yckart.com/) | @yckart
+ * Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php).
+ * 2013/07/02
+ **/
+;(function($, window) {
+
+	var $win = $(window);
+	var defaults = {
+		gap: 0,
+		horizontal: false,
+		isFixed: $.noop
+	};
+
+	var supportSticky = function(elem) {
+		var prefixes = ['', '-webkit-', '-moz-', '-ms-', '-o-'], prefix;
+		while (prefix = prefixes.pop()) {
+			elem.style.cssText = 'position:' + prefix + 'sticky';
+			if (elem.style.position !== '') return true;
+		}
+		return false;
+	};
+
+	$.fn.fixer = function(options) {
+		options = $.extend({}, defaults, options);
+		var hori = options.horizontal,
+			cssPos = hori ? 'left' : 'top';
+
+		return this.each(function() {
+			var style = this.style,
+				$this = $(this),
+				$parent = $this.parent();
+
+			if (supportSticky(this)) {
+				style[cssPos] = options.gap + 'px';
+				return;
+			}
+
+			$win.on('scroll', function() {
+				var scrollPos = $win[hori ? 'scrollLeft' : 'scrollTop'](),
+					elemSize = $this[hori ? 'outerWidth' : 'outerHeight'](),
+					parentPos = $parent.offset()[cssPos],
+					parentSize = $parent[hori ? 'outerWidth' : 'outerHeight']();
+
+				if (scrollPos >= parentPos - options.gap && (parentSize + parentPos - options.gap) >= (scrollPos + elemSize)) {
+					style.position = 'fixed';
+					style[cssPos] = options.gap + 'px';
+					options.isFixed();
+				} else if (scrollPos < parentPos) {
+					style.position = 'absolute';
+					style[cssPos] = 0;
+				} else {
+					style.position = 'absolute';
+					style[cssPos] = parentSize - elemSize + 'px';
+				}
+			}).resize();
+		});
+	};
+
+}(jQuery, this));

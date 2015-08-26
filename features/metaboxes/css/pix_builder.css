@@ -238,9 +238,11 @@ img {
   .pix_builder_editor_modal_container .modal_wrapper .modal_controls {
     text-align: right; }
 
-.pix_builder_container .clear-all {
-  float: right;
-  color: #a00;
-  border-color: rgba(170, 0, 0, 0.62); }
+.pix_builder_container {
+  padding-top: 50px; }
+  .pix_builder_container .clear-all {
+    float: right;
+    color: #a00;
+    border-color: rgba(170, 0, 0, 0.62); }
 
 /* Responsive Gridster */
