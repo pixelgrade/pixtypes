@@ -1655,3 +1655,7 @@ img {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
+
+table.cmb_metabox tr:last-child td {
+	border-bottom: none;
+}
