@@ -579,4 +579,8 @@ class PixTypesPlugin {
 			}
 		}
 	}
+
+	function get_plugin_version() {
+		return $this->version;
+	}
 }

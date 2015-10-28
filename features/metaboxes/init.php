@@ -932,6 +932,13 @@ class cmb_Meta_Box {
  * Adding scripts and styles
  */
 function cmb_scripts( $hook ) {
+
+	global $pixtypes_plugin;
+	$plugin_version = 0;
+	if ( method_exists($pixtypes_plugin, 'get_plugin_version') ) {
+		$plugin_version = $pixtypes_plugin->get_plugin_version();
+	}
+
 	global $wp_version;
 	// only enqueue our scripts/styles on the proper pages
 	if ( $hook == 'post.php' || $hook == 'post-new.php' || $hook == 'page-new.php' || $hook == 'page.php' ) {
@@ -961,13 +968,13 @@ function cmb_scripts( $hook ) {
 		wp_register_script( 'pixgallery', CMB_META_BOX_URL . 'js/pixgallery.js' );
 		wp_register_script( 'pixplaylist', CMB_META_BOX_URL . 'js/pixplaylist.js' );
 		wp_register_script( 'gridster', CMB_META_BOX_URL . 'js/jquery.gridster.js' );
-		wp_register_script( 'pix_builder', CMB_META_BOX_URL . 'js/pix_builder.js', array( 'gridster' ) );
+		wp_register_script( 'pix_builder', CMB_META_BOX_URL . 'js/pix_builder.js', array( 'gridster' ), $plugin_version );
 		wp_localize_script( 'pix_builder', 'l18n_pix_builder', array(
 			'set_image' => __( 'Set Image', 'pixtypes_txtd' ),
 		) );
-		wp_register_script( 'gmap_pins', CMB_META_BOX_URL . 'js/gmap_pins.js' );
+		wp_register_script( 'gmap_pins', CMB_META_BOX_URL . 'js/gmap_pins.js', array(), $plugin_version );
 
-		wp_register_script( 'cmb-scripts', CMB_META_BOX_URL . 'js/cmb.js', $cmb_script_array, '0.9.1' );
+		wp_register_script( 'cmb-scripts', CMB_META_BOX_URL . 'js/cmb.js', $cmb_script_array, $plugin_version );
 		wp_localize_script( 'cmb-scripts', 'cmb_ajax_data', array(
 			'ajax_nonce' => wp_create_nonce( 'ajax_nonce' ),
 			'post_id'    => get_the_ID(),
@@ -977,9 +984,11 @@ function cmb_scripts( $hook ) {
 		wp_enqueue_script( 'cmb-scripts' );
 
 		wp_register_style( 'gridster', CMB_META_BOX_URL . 'css/jquery.gridster.css' );
-		wp_register_style( 'pix_builder', CMB_META_BOX_URL . 'css/pix_builder.css', array( 'gridster' ) );
+
+		wp_register_style( 'pix_builder', CMB_META_BOX_URL . 'css/pix_builder.css', array('gridster'), $plugin_version );
 		wp_register_style( 'tooltipster', CMB_META_BOX_URL . 'css/tooltipster.css' );
-		wp_register_style( 'cmb-styles', CMB_META_BOX_URL . 'css/style.css', $cmb_style_array, '1.5.2' );
+		wp_register_style( 'cmb-styles', CMB_META_BOX_URL . 'css/style.css', $cmb_style_array, $plugin_version );
+
 		wp_enqueue_style( 'cmb-styles' );
 	}
 }
@@ -1162,3 +1171,4 @@ function ajax_pixplaylist_preview() {
 }
 
 add_action( 'wp_ajax_pixplaylist_preview', 'ajax_pixplaylist_preview' );
+
