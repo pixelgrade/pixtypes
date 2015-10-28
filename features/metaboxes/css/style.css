@@ -2839,11 +2839,13 @@ div.time-picker li.selected {
       #pixgallery .open_pixgallery:hover .icon, #pixgallery .open_pixgallery:hover .clear_gallery, #pixgallery .open_pixvideos:hover .icon, #pixgallery .open_pixvideos:hover .clear_gallery, #pixvideos .open_pixgallery:hover .icon, #pixvideos .open_pixgallery:hover .clear_gallery, #pixvideos .open_pixvideos:hover .icon, #pixvideos .open_pixvideos:hover .clear_gallery {
         opacity: 1; }
 
-#pixvideos > ul li {
-  width: 100%; }
-  #pixvideos > ul li span.attachment_title {
-    padding-left: 5px;
-    line-height: 18px; }
+#pixvideos > ul {
+  list-style: none; }
+  #pixvideos > ul li {
+    width: 100%; }
+    #pixvideos > ul li span.attachment_title {
+      padding-left: 5px;
+      line-height: 18px; }
 
 #side-sortables .cmb_metabox > tbody > tr > th {
   width: 70% !important; }
@@ -2922,3 +2924,6 @@ img {
   -o-transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%); }
+
+table.cmb_metabox tr:last-child td {
+  border-bottom: none; }
