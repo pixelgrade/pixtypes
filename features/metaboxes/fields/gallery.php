@@ -20,7 +20,7 @@ wp_localize_script( 'pixgallery', 'locals', array(
 	<ul></ul>
 	<a class="open_pixgallery" href="#" >
 	<input type="hidden" name="<?php echo $field['id']; ?>" id="pixgalleries" value="<?php echo '' !== $meta ? $meta : $field['std'] ?>" />
-		<i class="icon dashicons dashicons-images-alt2"></i>
+		<div><i class="icon dashicons dashicons-images-alt2"></i> <span><?php _e('Add Image', 'pixtypes_txtd' ); ?></span></div>
 		<span class="clear_gallery"><?php _e('Clear', 'pixtypes_txtd' ); ?></span>
 	</a>
 </div>
