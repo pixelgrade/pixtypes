@@ -308,18 +308,18 @@ class cmb_Meta_Box {
 		if ( isset( $this->_meta_box['show_on'] ) ) {
 
 			$data_key = '';
-			if ( isset( $this->_meta_box['show_on']['key'] ) && !empty($this->_meta_box['show_on']['key']) ) {
+			if ( isset( $this->_meta_box['show_on']['key'] ) && ! empty( $this->_meta_box['show_on']['key'] ) ) {
 				$data_key = ' data-key="' . $this->_meta_box['show_on']['key'] . '"';
 			}
 
 			$data_value = '';
-			if ( isset( $this->_meta_box['show_on']['value'] ) && !empty($this->_meta_box['show_on']['value']) ) {
-				$data_value = ' data-value=\'' . json_encode(  $this->_meta_box['show_on']['value'] ) . '\'';
+			if ( isset( $this->_meta_box['show_on']['value'] ) && ! empty( $this->_meta_box['show_on']['value'] ) ) {
+				$data_value = ' data-value=\'' . json_encode( $this->_meta_box['show_on']['value'] ) . '\'';
 			}
 
 			$data_hide = '';
-			if ( isset( $this->_meta_box['show_on']['hide'] ) && !empty($this->_meta_box['show_on']['hide']) ) {
-				$data_hide = ' data-hide=\'' . json_encode(  $this->_meta_box['show_on']['hide'] ) . '\'';
+			if ( isset( $this->_meta_box['show_on']['hide'] ) && ! empty( $this->_meta_box['show_on']['hide'] ) ) {
+				$data_hide = ' data-hide=\'' . json_encode( $this->_meta_box['show_on']['hide'] ) . '\'';
 			}
 
 			echo '<input type="hidden" class="show_metabox_on" ' . $data_value . $data_key . $data_hide . ' />';
@@ -351,7 +351,7 @@ class cmb_Meta_Box {
 				$field['multiple'] = true;
 			}
 			//some extra classes
-			$classes    = 'cmb-type-'. sanitize_html_class( $field['type'] );
+			$classes = 'cmb-type-' . sanitize_html_class( $field['type'] );
 
 			$meta = get_post_meta( $post->ID, $field['id'], 'multicheck' != $field['type'] /* If multicheck this can be multiple values */ );
 			if ( isset( $field['options'] ) && isset( $field['options']['hidden'] ) && $field['options']['hidden'] == true ) {
@@ -377,8 +377,8 @@ class cmb_Meta_Box {
 
 						$requires .= 'data-when_key="' . $on['field'] . '"';
 
-						if ( is_array($on['value']) ) {
-							$requires .= 'data-has_value=\'' . json_encode($on['value']) . '\'';
+						if ( is_array( $on['value'] ) ) {
+							$requires .= 'data-has_value=\'' . json_encode( $on['value'] ) . '\'';
 						} else {
 							$requires .= 'data-has_value="' . $on['value'] . '"';
 						}
@@ -428,7 +428,7 @@ class cmb_Meta_Box {
 					echo '$ <input class="cmb_text_money" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" /><span class="cmb_metabox_description">', $field['desc'], '</span>';
 					break;
 				case 'colorpicker':
-					$meta      = '' !== $meta ? $meta : $field['std'];
+					$meta = '' !== $meta ? $meta : $field['std'];
 
 					$hex_color = '(([a-fA-F0-9]){3}){1,2}$';
 					if ( preg_match( '/^' . $hex_color . '/i', $meta ) ) // Value is just 123abc, so prepend #.
@@ -634,7 +634,7 @@ class cmb_Meta_Box {
 							echo '</div>';
 						} else {
 							$parts = explode( '/', $meta );
-							for ( $i = 0; $i < count( $parts ); ++$i ) {
+							for ( $i = 0; $i < count( $parts ); ++ $i ) {
 								$title = $parts[ $i ];
 							}
 							echo 'File: <strong>', $title, '</strong>&nbsp;&nbsp;&nbsp; (<a href="', $meta, '" target="_blank" rel="external">Download</a> / <a href="#" class="cmb_remove_file_button" rel="', $field['id'], '">Remove</a>)';
@@ -663,7 +663,7 @@ class cmb_Meta_Box {
 							echo '</div>';
 						} else {
 							$parts = explode( '/', $meta );
-							for ( $i = 0; $i < count( $parts ); ++$i ) {
+							for ( $i = 0; $i < count( $parts ); ++ $i ) {
 								$title = $parts[ $i ];
 							}
 							echo 'File: <strong>', $title, '</strong>&nbsp;&nbsp;&nbsp; (<a href="', $meta, '" target="_blank" rel="external">Download</a> / <a href="#" class="cmb_remove_file_button" rel="', $field['id'], '">Remove</a>)';
@@ -687,6 +687,25 @@ class cmb_Meta_Box {
 				case 'gallery':
 
 					$file_path = plugin_dir_path( __FILE__ ) . 'fields/gallery.php';
+					if ( file_exists( $file_path ) ) {
+						ob_start();
+						include( $file_path );
+						echo ob_get_clean();
+					} else {
+						echo '<p>Wrong path </p>';
+						//						util::var_dump( $file_path );
+					}
+
+					break;
+
+				case 'playlist':
+
+					$playlist_type = 'video';
+					if ( isset( $field['playlist_type'] ) && ! empty( $field['playlist_type'] ) ) {
+						$playlist_type = $field['playlist_type'];
+					}
+
+					$file_path = plugin_dir_path( __FILE__ ) . 'fields/playlist.php';
 					if ( file_exists( $file_path ) ) {
 						ob_start();
 						include( $file_path );
@@ -771,15 +790,15 @@ class cmb_Meta_Box {
 		ob_start(); ?>
 		<script>
 			;
-			(function ($) {
-				$(document).ready(function () {
-					var metabox = $('#<?php echo $this->_meta_box['id'];  ?>');
-					metabox.addClass('display_on')
-						.attr('data-action', '<?php echo 'show'; ?>')
-						.attr('data-when_key', '<?php echo $display_on['on']['field']; ?>')
-						.attr('data-has_value', '<?php echo $display_on['on']['value']; ?>');
-				});
-			})(jQuery);
+			(function( $ ) {
+				$( document ).ready( function() {
+					var metabox = $( '#<?php echo $this->_meta_box['id'];  ?>' );
+					metabox.addClass( 'display_on' )
+						.attr( 'data-action', '<?php echo 'show'; ?>' )
+						.attr( 'data-when_key', '<?php echo $display_on['on']['field']; ?>' )
+						.attr( 'data-has_value', '<?php echo $display_on['on']['value']; ?>' );
+				} );
+			})( jQuery );
 		</script>
 		<?php
 		$script = ob_get_clean();
@@ -831,10 +850,10 @@ class cmb_Meta_Box {
 			}
 
 			if ( $type_comp == true && in_array( $field['type'], array(
-						'taxonomy_select',
-						'taxonomy_radio',
-						'taxonomy_multicheck'
-					) )
+					'taxonomy_select',
+					'taxonomy_radio',
+					'taxonomy_multicheck'
+				) )
 			) {
 				$new = wp_set_object_terms( $post_id, $new, $field['taxonomy'] );
 			}
@@ -940,26 +959,27 @@ function cmb_scripts( $hook ) {
 		wp_register_script( 'cmb-tooltipster', CMB_META_BOX_URL . 'js/jquery.tooltipster.min.js' );
 		wp_register_script( 'cmb-timepicker', CMB_META_BOX_URL . 'js/jquery.timePicker.min.js' );
 		wp_register_script( 'pixgallery', CMB_META_BOX_URL . 'js/pixgallery.js' );
+		wp_register_script( 'pixplaylist', CMB_META_BOX_URL . 'js/pixplaylist.js' );
 		wp_register_script( 'gridster', CMB_META_BOX_URL . 'js/jquery.gridster.js' );
 		wp_register_script( 'pix_builder', CMB_META_BOX_URL . 'js/pix_builder.js', array( 'gridster' ) );
 		wp_localize_script( 'pix_builder', 'l18n_pix_builder', array(
-			'set_image' => __('Set Image', 'pixtypes_txtd'),
+			'set_image' => __( 'Set Image', 'pixtypes_txtd' ),
 		) );
 		wp_register_script( 'gmap_pins', CMB_META_BOX_URL . 'js/gmap_pins.js' );
 
 		wp_register_script( 'cmb-scripts', CMB_META_BOX_URL . 'js/cmb.js', $cmb_script_array, '0.9.1' );
 		wp_localize_script( 'cmb-scripts', 'cmb_ajax_data', array(
-				'ajax_nonce' => wp_create_nonce( 'ajax_nonce' ),
-				'post_id'    => get_the_ID(),
-				'post_type'  => get_post_type()
-			) );
+			'ajax_nonce' => wp_create_nonce( 'ajax_nonce' ),
+			'post_id'    => get_the_ID(),
+			'post_type'  => get_post_type()
+		) );
 		wp_enqueue_script( 'cmb-timepicker' );
 		wp_enqueue_script( 'cmb-scripts' );
 
 		wp_register_style( 'gridster', CMB_META_BOX_URL . 'css/jquery.gridster.css' );
-		wp_register_style( 'pix_builder', CMB_META_BOX_URL . 'css/pix_builder.css', array('gridster') );
+		wp_register_style( 'pix_builder', CMB_META_BOX_URL . 'css/pix_builder.css', array( 'gridster' ) );
 		wp_register_style( 'tooltipster', CMB_META_BOX_URL . 'css/tooltipster.css' );
-		wp_register_style( 'cmb-styles', CMB_META_BOX_URL . 'css/style.css', $cmb_style_array );
+		wp_register_style( 'cmb-styles', CMB_META_BOX_URL . 'css/style.css', $cmb_style_array, '1.5.2' );
 		wp_enqueue_style( 'cmb-styles' );
 	}
 }
@@ -976,11 +996,11 @@ function cmb_editor_footer_scripts() {
 		}
 		?>
 		<script type="text/javascript">
-			jQuery(function ($) {
-				$('td.savesend input').val('<?php echo $label; ?>');
-			});
+			jQuery( function( $ ) {
+				$( 'td.savesend input' ).val( '<?php echo $label; ?>' );
+			} );
 		</script>
-	<?php
+		<?php
 	}
 }
 
@@ -1111,7 +1131,6 @@ function ajax_pixgallery_preview() {
 		$attach = wp_get_attachment_image_src( $id, 'thumbnail', false );
 
 		$result["output"] .= '<li><img src="' . $attach[0] . '" /></li>';
-
 	}
 	$result["success"] = true;
 	echo json_encode( $result );
@@ -1119,3 +1138,27 @@ function ajax_pixgallery_preview() {
 }
 
 add_action( 'wp_ajax_ajax_pixgallery_preview', 'ajax_pixgallery_preview' );
+
+function ajax_pixplaylist_preview() {
+
+	if ( isset( $_REQUEST['attachments_ids'] ) ) {
+		$ids = $_REQUEST['attachments_ids'];
+	}
+
+	if ( empty( $ids ) ) {
+		wp_send_json_error( 'empty' );
+		exit();
+	}
+
+	$ids = explode( ',', $ids );
+
+	$result = '';
+	foreach ( $ids as $id ) {
+		$result .= '<li><span class="dashicons dashicons-format-video"></span><span class="attachment_title">' . get_the_title( $id ) . '</span></li>';
+	}
+
+	wp_send_json_success( $result );
+	exit;
+}
+
+add_action( 'wp_ajax_pixplaylist_preview', 'ajax_pixplaylist_preview' );

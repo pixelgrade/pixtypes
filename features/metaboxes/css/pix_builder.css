@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*----------------------------------------*\
 *   $GRID PAGE BUILDER
 \*----------------------------------------*/
@@ -83,7 +84,7 @@
           .pixbuilder-grid .item__controls li.edit a span {
             display: none; }
           .pixbuilder-grid .item__controls li.edit a:before {
-            content: "\f040"; }
+            content: ""; }
           .pixbuilder-grid .item__controls li.edit a:hover {
             color: #0095ea; }
       .pixbuilder-grid .item__controls li.remove {
@@ -91,21 +92,20 @@
         .pixbuilder-grid .item__controls li.remove span {
           display: none; }
         .pixbuilder-grid .item__controls li.remove:before {
-          content: "\f014"; }
+          content: ""; }
       .pixbuilder-grid .item__controls li.move {
         overflow: hidden;
         cursor: pointer;
         cursor: -webkit-grab;
         cursor: -moz-grab; }
         .pixbuilder-grid .item__controls li.move:before {
-          content: "\f047"; }
+          content: ""; }
   .pixbuilder-grid .gs-resize-handle {
     position: absolute;
     top: 50%;
     right: 0;
     -moz-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
     height: 100%;
@@ -126,7 +126,6 @@
     left: 50%;
     -moz-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     width: 175px;
@@ -152,7 +151,7 @@
   .block-type--image .block_content.empty:before, .block-type--editor .block_content.empty:before {
     font-size: 30px;
     color: #919191;
-    content: "\f1c5"; }
+    content: ""; }
 
 /**
  * EDITOR
@@ -166,7 +165,7 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box; }
   .block-type--editor .block_content.empty:before {
-    content: "\f031"; }
+    content: ""; }
 
 /*----------------------------------------*\
             GENERAL
@@ -196,7 +195,6 @@ img {
   left: 50%;
   -moz-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%); }
 
@@ -219,7 +217,6 @@ img {
     top: 50%;
     -moz-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     z-index: 10000; }

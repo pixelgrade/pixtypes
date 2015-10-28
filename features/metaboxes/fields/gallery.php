@@ -15,13 +15,12 @@ wp_localize_script( 'pixgallery', 'locals', array(
 		'confirmClearGallery' => __( 'You want for sure to clear this gallery?', 'pixtypes_txtd' ),
 		'alertGalleryIsEmpty' => __( 'Gallery is already empty!', 'pixtypes_txtd' )
 	)
-) );
-// output html
-echo '<div id="pixgallery">'.
-		 '<ul></ul>'.
-		 '<a class="open_pixgallery" href="#" class="wp-gallery" >'.
-			'<input type="hidden" name="', $field['id'], '" id="pixgalleries" value="', '' !== $meta ? $meta : $field['std'], '" />'.
-			'<i class="icon"></i>'.
-			'<span class="clear_gallery">' . __('Clear', 'pixtypes_txtd' ) .'</span>'.
-		 '</a>'.
-	  '</div>'; ?>
+) );?>
+<div id="pixgallery">
+	<ul></ul>
+	<a class="open_pixgallery" href="#" >
+	<input type="hidden" name="<?php echo $field['id']; ?>" id="pixgalleries" value="<?php echo '' !== $meta ? $meta : $field['std'] ?>" />
+		<i class="icon dashicons dashicons-images-alt2"></i>
+		<span class="clear_gallery"><?php _e('Clear', 'pixtypes_txtd' ); ?></span>
+	</a>
+</div>

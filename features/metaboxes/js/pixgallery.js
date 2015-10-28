@@ -1,6 +1,5 @@
 (function ($) {
 	$(window).load(function () {
-
 		// Link any localized strings.
 		var l10n = wp.media.view.l10n = typeof _wpMediaViewsL10n === 'undefined' ? {} : _wpMediaViewsL10n;
 
@@ -62,6 +61,7 @@
 			},
 
 			init: function () {
+				pixgallery_ajax_preview();
 				$('#pixgallery').on('click', '.open_pixgallery', function (e) {
 					e.preventDefault();
 					wp.media.EditPixGallery.frame().open();
@@ -110,13 +110,10 @@
 			}
 		};
 
-		pixgallery_ajax_preview();
 		$(wp.media.EditPixGallery.init);
-
 	});
 
 	var pixgallery_ajax_preview = function () {
-
 		var ids = '',
 			$pixgallery_ul = $('#pixgallery > ul');
 		ids = $('#pixgalleries').val();
