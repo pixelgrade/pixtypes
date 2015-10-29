@@ -1134,10 +1134,17 @@ function ajax_pixgallery_preview() {
 		exit;
 	}
 
+	$ids = rtrim($ids, ',');
 	$ids = explode( ',', $ids );
 
+	$size = 'thumbnail';
+
+	if ( count( $ids ) === 1 ) {
+		$size = 'medium';
+	}
+
 	foreach ( $ids as $id ) {
-		$attach = wp_get_attachment_image_src( $id, 'thumbnail', false );
+		$attach = wp_get_attachment_image_src( $id, $size, false );
 
 		$result["output"] .= '<li><img src="' . $attach[0] . '" /></li>';
 	}

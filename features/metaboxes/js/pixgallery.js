@@ -143,8 +143,6 @@
 			$pixgallery_ul.html('');
 			pixgallery_review_number_of_images( $('#pixgallery') );
 		}
-
-
 	};
 
 	//init
