@@ -30,14 +30,14 @@ if ( isset( $options["themes"] ) ) {
 
 $options_config = array(
 	'type'    => 'postbox',
-	'label'   => __( 'Post Types', 'pixtypes_txtd' ),
+	'label'   => __( 'Post Types', 'pixtypes' ),
 	'options' => array()
 ); # config
 
 if ( $display_option['portfolio'] ) {
 
 	$options_config['options']['enable_portfolio']       = array(
-		'label'      => __( 'Enable Portfolio', 'pixtypes_txtd' ),
+		'label'      => __( 'Enable Portfolio', 'pixtypes' ),
 		'default'    => true,
 		'type'       => 'switch',
 		'show_group' => 'enable_portfolio_group',
@@ -46,20 +46,20 @@ if ( $display_option['portfolio'] ) {
 		'type'    => 'group',
 		'options' => array(
 			'portfolio_single_item_label'             => array(
-				'label'   => __( 'Single Item Label', 'pixtypes_txtd' ),
-				'desc'    => __( 'Here you can change the singular label.The default is "Project"', 'pixtypes_txtd' ),
-				'default' => __( 'Project', 'pixtypes_txtd' ),
+				'label'   => __( 'Single Item Label', 'pixtypes' ),
+				'desc'    => __( 'Here you can change the singular label.The default is "Project"', 'pixtypes' ),
+				'default' => __( 'Project', 'pixtypes' ),
 				'type'    => 'text',
 			),
 			'portfolio_multiple_items_label'          => array(
-				'label'   => __( 'Multiple Items Label (plural)', 'pixtypes_txtd' ),
-				'desc'    => __( 'Here you can change the plural label.The default is "Projects"', 'pixtypes_txtd' ),
-				'default' => __( 'Projects', 'pixtypes_txtd' ),
+				'label'   => __( 'Multiple Items Label (plural)', 'pixtypes' ),
+				'desc'    => __( 'Here you can change the plural label.The default is "Projects"', 'pixtypes' ),
+				'default' => __( 'Projects', 'pixtypes' ),
 				'type'    => 'text',
 			),
 			'portfolio_change_single_item_slug'       => array(
-				'label'      => __( 'Change Single Item Slug', 'pixtypes_txtd' ),
-				'desc'       => __( 'Do you want to rewrite the single portfolio item slug?', 'pixtypes_txtd' ),
+				'label'      => __( 'Change Single Item Slug', 'pixtypes' ),
+				'desc'       => __( 'Do you want to rewrite the single portfolio item slug?', 'pixtypes' ),
 				'default'    => true,
 				'type'       => 'switch',
 				'show_group' => 'portfolio_change_single_item_slug_group',
@@ -68,16 +68,16 @@ if ( $display_option['portfolio'] ) {
 				'type'    => 'group',
 				'options' => array(
 					'portfolio_new_single_item_slug' => array(
-						'label'   => __( 'New Single Item Slug', 'pixtypes_txtd' ),
-						'desc'    => __( 'Change the single portfolio item slug as you need it.', 'pixtypes_txtd' ),
+						'label'   => __( 'New Single Item Slug', 'pixtypes' ),
+						'desc'    => __( 'Change the single portfolio item slug as you need it.', 'pixtypes' ),
 						'default' => 'project',
 						'type'    => 'text',
 					),
 				),
 			),
 			'portfolio_change_archive_slug'           => array(
-				'label'      => __( 'Change Archive Slug', 'pixtypes_txtd' ),
-				'desc'       => __( 'Do you want to rewrite the portfolio archive slug? This will only be used if you don\'t have a page with the Portfolio template.', 'pixtypes_txtd' ),
+				'label'      => __( 'Change Archive Slug', 'pixtypes' ),
+				'desc'       => __( 'Do you want to rewrite the portfolio archive slug? This will only be used if you don\'t have a page with the Portfolio template.', 'pixtypes' ),
 				'default'    => false,
 				'type'       => 'switch',
 				'show_group' => 'portfolio_change_archive_slug_group',
@@ -86,8 +86,8 @@ if ( $display_option['portfolio'] ) {
 				'type'    => 'group',
 				'options' => array(
 					'portfolio_new_archive_slug' => array(
-						'label'   => __( 'New Archive Slug', 'pixtypes_txtd' ),
-						'desc'    => __( 'Change the portfolio archive slug as you need it.', 'pixtypes_txtd' ),
+						'label'   => __( 'New Archive Slug', 'pixtypes' ),
+						'desc'    => __( 'Change the portfolio archive slug as you need it.', 'pixtypes' ),
 						'default' => 'portfolio',
 						'type'    => 'text',
 					),
@@ -101,7 +101,7 @@ if ( $display_option['portfolio'] ) {
 if ( $display_option['gallery'] ) {
 
 	$options_config['options']['enable_gallery']       = array(
-		'label'      => __( 'Enable Gallery', 'pixtypes_txtd' ),
+		'label'      => __( 'Enable Gallery', 'pixtypes' ),
 		'default'    => true,
 		'type'       => 'switch',
 		'show_group' => 'enable_gallery_group',
@@ -110,8 +110,8 @@ if ( $display_option['gallery'] ) {
 		'type'    => 'group',
 		'options' => array(
 			'gallery_change_single_item_slug'       => array(
-				'label'      => __( 'Change Single Item Slug', 'pixtypes_txtd' ),
-				'desc'       => __( 'Do you want to rewrite the single gallery item slug?', 'pixtypes_txtd' ),
+				'label'      => __( 'Change Single Item Slug', 'pixtypes' ),
+				'desc'       => __( 'Do you want to rewrite the single gallery item slug?', 'pixtypes' ),
 				'default'    => true,
 				'type'       => 'switch',
 				'show_group' => 'gallery_change_single_item_slug_group',
@@ -120,16 +120,16 @@ if ( $display_option['gallery'] ) {
 				'type'    => 'group',
 				'options' => array(
 					'gallery_new_single_item_slug' => array(
-						'label'   => __( 'New Single Item Slug', 'pixtypes_txtd' ),
-						'desc'    => __( 'Change the single gallery item slug as you need it.', 'pixtypes_txtd' ),
+						'label'   => __( 'New Single Item Slug', 'pixtypes' ),
+						'desc'    => __( 'Change the single gallery item slug as you need it.', 'pixtypes' ),
 						'default' => 'project',
 						'type'    => 'text',
 					),
 				),
 			),
 			'gallery_change_archive_slug'           => array(
-				'label'      => __( 'Change Archive Slug', 'pixtypes_txtd' ),
-				'desc'       => __( 'Do you want to rewrite the gallery archive slug? This will only be used if you don\'t have a page with the gallery template.', 'pixtypes_txtd' ),
+				'label'      => __( 'Change Archive Slug', 'pixtypes' ),
+				'desc'       => __( 'Do you want to rewrite the gallery archive slug? This will only be used if you don\'t have a page with the gallery template.', 'pixtypes' ),
 				'default'    => false,
 				'type'       => 'switch',
 				'show_group' => 'gallery_change_archive_slug_group',
@@ -140,8 +140,8 @@ if ( $display_option['gallery'] ) {
 				(
 					'gallery_new_archive_slug' => array
 					(
-						'label'   => __( 'New Archive Slug', 'pixtypes_txtd' ),
-						'desc'    => __( 'Change the gallery archive slug as you need it.', 'pixtypes_txtd' ),
+						'label'   => __( 'New Archive Slug', 'pixtypes' ),
+						'desc'    => __( 'Change the gallery archive slug as you need it.', 'pixtypes' ),
 						'default' => 'gallery',
 						'type'    => 'text',
 					),

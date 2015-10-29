@@ -191,7 +191,7 @@ class pixtypes {
 	}
 
 	/** @var string the translation text domain */
-	protected static $textdomain = 'pixtypes_txtd';
+	protected static $textdomain = 'pixtypes';
 
 	/**
 	 * @return string text domain
@@ -210,7 +210,7 @@ class pixtypes {
 		}
 		else { // null or otherwise empty value
 			// revert to default
-			self::$textdomain = 'pixtypes_txtd';
+			self::$textdomain = 'pixtypes';
 		}
 	}
 

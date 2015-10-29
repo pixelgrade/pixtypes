@@ -12,15 +12,15 @@ wp_enqueue_script( 'jquery-ui-dialog', false, array('jquery'), false, true );
 wp_localize_script( 'pixgallery', 'locals', array(
 	'ajax_url' => admin_url( 'admin-ajax.php' ),
 	'pixtypes_l18n' => array(
-		'confirmClearGallery' => __( 'You want for sure to clear this gallery?', 'pixtypes_txtd' ),
-		'alertGalleryIsEmpty' => __( 'Gallery is already empty!', 'pixtypes_txtd' )
+		'confirmClearGallery' => __( 'You want for sure to clear this gallery?', 'pixtypes' ),
+		'alertGalleryIsEmpty' => __( 'Gallery is already empty!', 'pixtypes' )
 	)
 ) );?>
 <div id="pixgallery" class="pixgallery_field hidden" >
 	<ul></ul>
 	<a class="open_pixgallery" href="#" >
 	<input type="hidden" name="<?php echo $field['id']; ?>" id="pixgalleries" value="<?php echo '' !== $meta ? $meta : $field['std'] ?>" />
-		<div><i class="icon dashicons dashicons-images-alt2"></i> <span><?php _e('Add Image', 'pixtypes_txtd' ); ?></span></div>
-		<span class="clear_gallery"><?php _e('Clear', 'pixtypes_txtd' ); ?></span>
+		<div><i class="icon dashicons dashicons-images-alt2"></i> <span><?php _e('Add Image', 'pixtypes' ); ?></span></div>
+		<span class="clear_gallery"><?php _e('Clear', 'pixtypes' ); ?></span>
 	</a>
 </div>

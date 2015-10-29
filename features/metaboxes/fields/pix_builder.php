@@ -41,11 +41,11 @@
 
 									if ( isset( $attach[ 0 ] ) && ! empty( $attach[ 0 ] ) ) {
 										$content          = '<img class="image_preview" src="' . $attach[ 0 ] . '">';
-										$controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' . $block->content . '"><span>' . __( 'Set Image', 'pixtypes_txtd' ) . '</span></a>';
+										$controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' . $block->content . '"><span>' . __( 'Set Image', 'pixtypes' ) . '</span></a>';
 									}
 								} else {
 									$content          = '<img class="image_preview">';
-									$controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' . $block->content . '"><span>' . __( 'Set Image', 'pixtypes_txtd' ) . '</pan></a>';
+									$controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' . $block->content . '"><span>' . __( 'Set Image', 'pixtypes' ) . '</pan></a>';
 								}
 								break;
 							default :

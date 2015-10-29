@@ -21,7 +21,7 @@ return array
 
 		'settings-key' => 'pixtypes_settings',
 
-		'textdomain' => 'pixtypes_txtd',
+		'textdomain' => 'pixtypes',
 
 		'template-paths' => array
 			(

@@ -7,11 +7,11 @@
 wp_enqueue_script( 'gmap_pins' );
 
 wp_localize_script( 'gmap_pins', 'l18n_gmap_pins', array(
-	'location_url_label' => __('Location URL', 'pixtypes_txtd'),
-	'name_label' => __('Name', 'pixtypes_txtd'),
-	'delete_label' => __('Delete', 'pixtypes_txtd'),
-	'confirm_delete' => __('Are you sure?', 'pixtypes_txtd'),
-	'dont_delete_all_pins' => __('This page is useless without pins.Better delete the page!', 'pixtypes_txtd'),
+	'location_url_label' => __('Location URL', 'pixtypes'),
+	'name_label' => __('Name', 'pixtypes'),
+	'delete_label' => __('Delete', 'pixtypes'),
+	'confirm_delete' => __('Are you sure?', 'pixtypes'),
+	'dont_delete_all_pins' => __('This page is useless without pins.Better delete the page!', 'pixtypes'),
 ) );
 
 global $post; ?>
@@ -34,11 +34,11 @@ global $post; ?>
 		foreach ( $meta as $key => $pin ) { ?>
 			<li class="gmap_pin">
 				<fieldset class="pin_location_url">
-					<label for="<?php echo $field['id']; ?>[<?php echo $key ?>][location_url]" >#<?php echo $key . ' ' . __('Location URL', 'pixtypes_txtd'); ?></label>
+					<label for="<?php echo $field['id']; ?>[<?php echo $key ?>][location_url]" >#<?php echo $key . ' ' . __('Location URL', 'pixtypes'); ?></label>
 					<input type="text" name="<?php echo $field['id']; ?>[<?php echo $key ?>][location_url]" value="<?php echo $pin['location_url']; ?>" />
 				</fieldset>
 				<fieldset class="pin_name">
-					<label for="<?php echo $field['id']; ?>[<?php echo $key ?>][name]" ><?php _e('Name', 'pixtypes_txtd'); ?></label>
+					<label for="<?php echo $field['id']; ?>[<?php echo $key ?>][name]" ><?php _e('Name', 'pixtypes'); ?></label>
 					<input type="text" name="<?php echo $field['id']; ?>[<?php echo $key ?>][name]" value="<?php echo $pin['name']; ?>" />
 				</fieldset>
 				<span class="pin_delete"></span>
@@ -46,7 +46,7 @@ global $post; ?>
 		<?php } ?>
 	</ul>
 
-	<span class="button add_new_location"><?php _e('Add New Location', 'pixtypes_txtd') ?></span>
+	<span class="button add_new_location"><?php _e('Add New Location', 'pixtypes') ?></span>
 
 	<?php if ( isset( $field['desc'] ) && !empty( $field['desc'] ) ) { ?>
 		<span class="cmb_metabox_description"><?php echo $field['desc']; ?></span>
