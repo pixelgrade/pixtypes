@@ -1482,7 +1482,6 @@ $accent: #07d3f8;
 			display: block;
 			width: 70px;
 			height: 60px;
-			font-size: 40px;
 			font: normal 20px/1 'dashicons';
 			font-size: 56px;
 
@@ -1561,7 +1560,7 @@ $accent: #07d3f8;
 				font-size: 56px;
 
 				&:before {
-					content: "\f464";
+					content: "\f464" !important;
 				}
 			}
 
@@ -1592,6 +1591,10 @@ $accent: #07d3f8;
 #pixgallery {
 	&.no-items > ul {
 		min-height: 130px;
+	}
+
+	.open_pixgallery .icon:before {
+		content: "\f233" !important;
 	}
 }
 

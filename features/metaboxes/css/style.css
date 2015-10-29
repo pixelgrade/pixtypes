@@ -2783,8 +2783,7 @@ div.time-picker li.selected {
   #pixgallery > ul, #pixvideos > ul {
     padding-top: 0; }
     #pixgallery > ul li, #pixvideos > ul li {
-      width: 31%;
-      display: inline-block; }
+      width: 31%; }
       #pixgallery > ul li:only-child, #pixvideos > ul li:only-child {
         width: 100%; }
       #pixgallery > ul li img, #pixvideos > ul li img {
@@ -2812,7 +2811,6 @@ div.time-picker li.selected {
       display: block;
       width: 70px;
       height: 60px;
-      font-size: 40px;
       font: normal 20px/1 'dashicons';
       font-size: 56px; }
     #pixgallery .open_pixgallery div, #pixgallery .open_pixvideos div, #pixvideos .open_pixgallery div, #pixvideos .open_pixvideos div {
@@ -2846,7 +2844,7 @@ div.time-picker li.selected {
     #pixgallery.has-items .open_pixgallery i.icon, #pixgallery.has-items .open_pixvideos i.icon, #pixvideos.has-items .open_pixgallery i.icon, #pixvideos.has-items .open_pixvideos i.icon {
       font-size: 56px; }
       #pixgallery.has-items .open_pixgallery i.icon:before, #pixgallery.has-items .open_pixvideos i.icon:before, #pixvideos.has-items .open_pixgallery i.icon:before, #pixvideos.has-items .open_pixvideos i.icon:before {
-        content: "\f464"; }
+        content: "\f464" !important; }
     #pixgallery.has-items .open_pixgallery > div span, #pixgallery.has-items .open_pixvideos > div span, #pixvideos.has-items .open_pixgallery > div span, #pixvideos.has-items .open_pixvideos > div span {
       display: none; }
     #pixgallery.has-items .open_pixgallery:hover, #pixgallery.has-items .open_pixvideos:hover, #pixvideos.has-items .open_pixgallery:hover, #pixvideos.has-items .open_pixvideos:hover {
@@ -2856,6 +2854,8 @@ div.time-picker li.selected {
 
 #pixgallery.no-items > ul {
   min-height: 130px; }
+#pixgallery .open_pixgallery .icon:before {
+  content: "\f233" !important; }
 
 #pixvideos > ul {
   list-style: none;
