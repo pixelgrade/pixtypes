@@ -20,7 +20,7 @@ wp_localize_script( 'pixplaylist', 'playlist_locals', array(
 	<ul></ul>
 	<a class="open_pixvideos" href="#">
 		<input type="hidden" name="<?php echo $field['id'] ?>" id="pixplaylist" value="<?php echo '' !== $meta ? $meta : $field['std']; ?>"/>
-		<i class="icon dashicons dashicons-playlist-video"></i>
+		<div><i class="icon dashicons dashicons-format-video"></i> <span><?php _e('Add Video', 'pixtypes_txtd' ); ?></span></div>
 		<span class="clear_gallery"><?php _e( 'Clear', 'pixtypes_txtd' ); ?></span>
 	</a>
 </div>
