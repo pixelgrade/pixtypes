@@ -175,7 +175,7 @@
 
 		if ( metabox_class !== '' ) {
 			$this
-					.removeClass('no-items has-items')
+					.removeClass('no-items has-items hidden')
 					.addClass(metabox_class);
 		}
 	};

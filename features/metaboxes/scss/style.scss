@@ -1410,7 +1410,16 @@ div.time-picker li.selected {
 	height: 200px; /*must have*/
 }
 
-/* Image gallery */
+
+
+
+
+
+//*--------------------------------------------*\
+//   $GALLERY & $VIDEOS
+//   Used to select multiple images or videos
+//*--------------------------------------------*/
+
 $dark: #464646;
 $light: #777777;
 $accent: #07d3f8;
@@ -1424,23 +1433,26 @@ $accent: #07d3f8;
 	position: relative;
 
 	& > ul {
-		// min-height: 115px;
+		padding-top: 0;
+
 		li {
-			display: inline-block;
-			width: 100px;
+			// Display items in a 3-columns grid
 			width: 31%;
 
+			// If there is only one item, make it full-width
 			&:only-child {
 				width: 100%;
 			}
 
 			img {
-				border-radius: 4px;
+				display: block;
 				width: 100%;
+				border-radius: 4px;
 			}
 		}
 	}
 
+	// Overlay Content (Icon + Label)
 	.open_pixgallery, .open_pixvideos {
 		@extend %box-sizing;
 		width: 100%;
@@ -1459,20 +1471,17 @@ $accent: #07d3f8;
 		border: 1px dashed #CCCCCC;
 		border-radius: 6px;
 
-		opacity: 1;
 		background: none;
 		-webkit-transition: opacity .1s ease-in 0;
+		
+		opacity: 1; // Show it by default (.no-items state)
 
-		div {
-			text-decoration: none;
-			@extend %centered;
-		}
 
+		// Icon
 		i.icon {
 			display: block;
 			width: 70px;
 			height: 60px;
-			// opacity: 0.2;
 			font-size: 40px;
 			font: normal 20px/1 'dashicons';
 			font-size: 56px;
@@ -1481,10 +1490,13 @@ $accent: #07d3f8;
 			}
 		}
 
-		&:hover {
-			opacity: 0.6;
+		// Label
+		div {
+			text-decoration: none;
+			@extend %centered;
 		}
 
+		// Clear items button
 		.clear_gallery {
 			padding: 5px 10px;
 			position: absolute;
@@ -1510,8 +1522,9 @@ $accent: #07d3f8;
 			}
 		}
 
+
 		&:hover {
-			display: inline-block;
+			opacity: 0.6;
 
 			.icon, .clear_gallery {
 				opacity: 1;
@@ -1519,56 +1532,123 @@ $accent: #07d3f8;
 		}
 	}
 
+	// No Items case
 	&.no-items {
+
+		// Hide the Clear items button when there are no items
+		.clear_gallery {
+			display: none; 
+		}
 
 	}
 
+	// Has Items case
 	&.has-items {
+
+		// Enable the Flexbox Grid
+		ul {
+			@extend %flex-gallery;
+		}
+
 		.open_pixgallery, .open_pixvideos {
+
+			// Hide the Icon + Label by default
 			opacity: 0;
 			border: none;
 
+			// Change the Icon to Edit
+			i.icon {
+				font-size: 56px;
+
+				&:before {
+					content: "\f464";
+				}
+			}
+
+			// Hide the Label
+			& > div span {
+				display: none;
+			}
+
+			// Show the Edit Icon
 			&:hover {
 				opacity: 1;
 			}
 		}
 
-		ul {
-			@extend %flex-gallery;
-		}
-
-		&:hover ul {
-			opacity: 0.2;
+		// Reduce the items opacity on Hover
+		&:hover {
+			ul li {
+				opacity: 0.2;
+			}
 		}
 	}
 
 }
 
+
+// Specific Styling
+// Galleries
+#pixgallery {
+	&.no-items > ul {
+		min-height: 130px;
+	}
+}
+
+// Videos
 #pixvideos  {
 
+	// List Layout
 	& > ul {
 		list-style: none;
 		min-height: 55px;
 
 		li {
-			width: 100%;
+		    width: 100%;
+		    font-size: 14px;
+		    border-bottom: 1px solid #EEEEEE;
+		    padding: 15px 0;
+		    margin: 0;
+
+		    &:last-child {
+		    	border-bottom: none;
+		    }
 
 			span.attachment_title {
 				padding-left: 5px;
-				line-height: 18px;
+				line-height: 1.5;
 			}
 		}
 	}
 
 	.open_pixvideos {
-		background-color: #F9F8F8;
-	
+		
+		// Make the icon smaller
 		i.icon {
 			display: inline-block;
 		    font-size: 20px;
 		    width: auto;
 		    height: auto;
 		    margin-right: 4px;
+		}
+		
+		.clear_gallery {
+			bottom: 5px;
+		}
+	}
+
+
+	&.no-items {
+		.open_pixvideos {
+			background-color: #F9F8F8;
+		}
+	}
+
+	&.has-items {
+		ul {
+		    border: 1px solid #EEEEEE;
+		    border-radius: 6px;
+		    padding: 0 15px;
 		}
 	}
 }

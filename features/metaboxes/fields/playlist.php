@@ -16,7 +16,7 @@ wp_localize_script( 'pixplaylist', 'playlist_locals', array(
 		'alertGalleryIsEmpty' => __( 'Gallery is already empty!', 'pixtypes_txtd' )
 	)
 ) ); ?>
-<div id="pixvideos">
+<div id="pixvideos" class="hidden">
 	<ul></ul>
 	<a class="open_pixvideos" href="#">
 		<input type="hidden" name="<?php echo $field['id'] ?>" id="pixplaylist" value="<?php echo '' !== $meta ? $meta : $field['std']; ?>"/>
