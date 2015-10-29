@@ -16,7 +16,7 @@ wp_localize_script( 'pixgallery', 'locals', array(
 		'alertGalleryIsEmpty' => __( 'Gallery is already empty!', 'pixtypes_txtd' )
 	)
 ) );?>
-<div id="pixgallery">
+<div id="pixgallery" class="pixgallery_field" >
 	<ul></ul>
 	<a class="open_pixgallery" href="#" >
 	<input type="hidden" name="<?php echo $field['id']; ?>" id="pixgalleries" value="<?php echo '' !== $meta ? $meta : $field['std'] ?>" />

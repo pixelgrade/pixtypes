@@ -116,8 +116,8 @@
 	} );
 
 	var pixplaylist_ajax_preview = function() {
-		var ids = '',
-			$pixgallery_ul = $( '#pixvideos > ul' );
+		var $playlist =  $( '#pixvideos'),
+			$pixgallery_ul = $playlist.children( 'ul' );
 
 		ids = $( '#pixplaylist' ).val();
 
@@ -132,11 +132,14 @@
 				success: function( response ) {
 					if ( response.success ) {
 						$pixgallery_ul.html( response.data );
+						pixvideos_review_number_of_items( $playlist );
+						$(document ).trigger('pixplaylist_ajax_preview');
 					}
 				}
 			} );
 		} else {
 			$pixgallery_ul.html( '' );
+			pixvideos_review_number_of_items( $playlist );
 		}
 	};
 
@@ -156,5 +159,25 @@
 			alert( playlist_locals.pixtypes_l18n.alertGalleryIsEmpty );
 		}
 	} );
+
+
+	var pixvideos_review_number_of_items = function( $this ) {
+		var $gallery = $this.children('ul'),
+				nr_of_images = $gallery.children('li').length,
+				metabox_class = '',
+				options_container = $('.cmb-type-playlist');
+
+		if ( nr_of_images < 1 ) {
+			metabox_class = 'no-items';
+		} else {
+			metabox_class = 'has-items';
+		}
+
+		if ( metabox_class !== '' ) {
+			$this
+					.removeClass('no-items has-items')
+					.addClass(metabox_class);
+		}
+	};
 
 })( jQuery );
