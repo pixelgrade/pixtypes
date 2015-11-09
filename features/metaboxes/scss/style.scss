@@ -1449,6 +1449,18 @@ $accent: #07d3f8;
 				width: 100%;
 				border-radius: 4px;
 			}
+
+		}
+		// If the items are under Content (larger container)
+		// limit their sizes
+		#postbox-container-2 & {
+
+		    justify-content: flex-start;
+
+			li {
+				width: 77.5px;
+				margin-right: 8px;
+			}
 		}
 	}
 
