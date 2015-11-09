@@ -122,12 +122,12 @@
 			$.ajax({
 				type: "post", url: locals.ajax_url, data: {action: 'ajax_pixgallery_preview', attachments_ids: ids},
 				beforeSend: function () {
-					$('.open_pixgallery i').removeClass('icon-camera-retro');
-					$('.open_pixgallery i').addClass('icon-spin icon-refresh');
+					$('.open_pixgallery i').removeClass('dashicons-images-alt2');
+					$('.open_proof_pixgallery i').addClass('dashicons-update');
 				}, //show loading just when link is clicked
 				complete: function () {
-					$('.open_pixgallery i').removeClass('icon-spin icon-refresh');
-					$('.open_pixgallery i').addClass('icon-camera-retro');
+					$('.open_proof_pixgallery i').removeClass('dashicons-update');
+					$('.open_pixgallery i').addClass('dashicons-images-alt2');
 				}, //stop showing loading when the process is complete
 				success: function (response) {
 					var result = JSON.parse(response);

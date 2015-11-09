@@ -1431,6 +1431,7 @@ $accent: #07d3f8;
 
 #pixgallery, #pixvideos {
 	position: relative;
+	min-height:84px;
 
 	& > ul {
 		padding-top: 0;
