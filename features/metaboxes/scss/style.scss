@@ -1473,7 +1473,7 @@ $accent: #07d3f8;
 
 		background: none;
 		-webkit-transition: opacity .1s ease-in 0;
-		
+
 		opacity: 1; // Show it by default (.no-items state)
 
 
@@ -1536,7 +1536,7 @@ $accent: #07d3f8;
 
 		// Hide the Clear items button when there are no items
 		.clear_gallery {
-			display: none; 
+			display: none;
 		}
 
 	}
@@ -1625,7 +1625,7 @@ $accent: #07d3f8;
 	}
 
 	.open_pixvideos {
-		
+
 		// Make the icon smaller
 		i.icon {
 			display: inline-block;
@@ -1634,7 +1634,7 @@ $accent: #07d3f8;
 		    height: auto;
 		    margin-right: 4px;
 		}
-		
+
 		.clear_gallery {
 			bottom: 5px;
 		}
@@ -1696,7 +1696,6 @@ img {
 	display: inline-block;
 	font-size: 20px;
 	line-height: 1;
-	font-family: FontAwesome;
 	text-decoration: inherit;
 	font-weight: 400;
 	font-style: normal;
