@@ -24,7 +24,7 @@ class PixTypesPlugin {
 	 *
 	 * @const   string
 	 */
-	protected $version = '1.3.2';
+	protected $version = '1.3.3';
 	/**
 	 * Unique identifier for your plugin.
 	 *
