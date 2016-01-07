@@ -140,6 +140,9 @@ function theme_getting_active () {
 
 === Old Change Log  ===
 
+1.3.3
+Improved the multicheck field
+
 1.3.2
 WordPress 4.3 compatibility
 Fixed Sticky buttons for the PixBuilder field
