@@ -530,6 +530,9 @@ class cmb_Meta_Box {
 					echo '<span class="cmb_metabox_description">', $field['desc'], '</span>';
 					break;
 				case 'multicheck':
+					if ( empty( $meta ) && ! empty( $field['std'] ) ) {
+						$meta = $field['std'];
+					}
 					echo '<ul>';
 					$i = 1;
 					foreach ( $field['options'] as $value => $name ) {
