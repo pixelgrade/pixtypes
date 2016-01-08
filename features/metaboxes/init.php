@@ -530,7 +530,8 @@ class cmb_Meta_Box {
 					echo '<span class="cmb_metabox_description">', $field['desc'], '</span>';
 					break;
 				case 'multicheck':
-					if ( empty( $meta ) && ! empty( $field['std'] ) ) {
+					//even if empty, we should check for the meta key existance - empty is a valid value, it means all the checkboxes have been unchecked
+					if ( empty( $meta ) && ! metadata_exists( 'post', $post->ID, $field['id'] ) && ! empty( $field['std'] ) ) {
 						$meta = $field['std'];
 					}
 					echo '<ul>';
