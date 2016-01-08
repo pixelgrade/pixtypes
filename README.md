@@ -140,7 +140,7 @@ function theme_getting_active () {
 
 === Old Change Log  ===
 
-1.3.4
+1.3.5
 Improved the multicheck field
 
 1.3.2
