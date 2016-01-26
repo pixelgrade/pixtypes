@@ -365,7 +365,7 @@ class cmb_Meta_Box {
 
 					$display_on = $field['display_on'];
 
-					if ( isset( $display_on['display'] ) ) {
+					if ( isset( $display_on['display'] ) && ! empty( $display_on['display'] ) ) {
 						$requires .= ' data-action="show"';
 					} else {
 						$requires .= ' data-action="hide" style="display:none;"';
