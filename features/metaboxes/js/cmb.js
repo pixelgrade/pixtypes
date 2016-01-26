@@ -345,7 +345,7 @@ jQuery(document).ready(function ($) {
 		 * Check if the curent element needs to be showed
 		 * Also if it's parent is hidden the child needs to follow
 		 */
-		if (action == 'hide' && $parent.hasClass('hidden')) {
+		if (action == 'hide' && !$parent.hasClass('hidden')) {
 			$(selector).show().removeClass('hidden');
 		} else {
 			$(selector).hide().addClass('hidden');
