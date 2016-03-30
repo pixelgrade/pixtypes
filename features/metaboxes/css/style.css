@@ -2904,7 +2904,8 @@ div.time-picker li.selected {
             GENERAL
 \*----------------------------------------*/
 img {
-  max-width: 100%; }
+  max-width: 100%;
+  max-height: 100%; }
 
 .icon {
   display: inline-block;
@@ -2956,6 +2957,49 @@ img {
     right: 4%; }
   .gmap_pins_container .cmb_metabox_description {
     padding-left: 18%; }
+
+.cmb-type-positions_map .positions_map {
+  width: 150px; }
+
+.cmb-type-positions_map .positions_map li {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  margin: 5px; }
+
+.cmb-type-positions_map .positions_map label {
+  font-size: 32px;
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #999;
+  border-radius: 8px;
+  line-height: 42px; }
+
+.cmb-type-positions_map .positions_map input {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999; }
+
+.cmb-type-positions_map .positions_map input:checked {
+  width: 100%;
+  opacity: 0.5;
+  background: #29ddf4;
+  height: 100%;
+  border-radius: 8px;
+  border: 1px solid #0097d2;
+  margin: 1px;
+  display: inline-block; }
+
+.cmb-type-positions_map .positions_map input:before {
+  content: '';
+  display: none; }
 
 #pixgallery .open_pixgallery div, #pixgallery .open_pixvideos div, #pixvideos .open_pixgallery div, #pixvideos .open_pixvideos div {
   position: absolute;

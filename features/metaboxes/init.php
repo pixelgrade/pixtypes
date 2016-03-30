@@ -769,6 +769,20 @@ class cmb_Meta_Box {
 					echo '</div>';
 					break;
 
+				case 'positions_map':
+					if ( empty( $meta ) && ! empty( $field['std'] ) ) {
+						$meta = $field['std'];
+					}
+					echo '<ul class="positions_map">';
+					$i = 1;
+					foreach ( $field['options'] as $option ) {
+						echo '<li><input type="radio" name="', $field['id'], '" id="', $field['id'], $i, '" value="', $option['value'], '"', $meta == $option['value'] ? ' checked="checked"' : '', ' /><label for="', $field['id'], $i, '">', $option['name'] . '</label></li>';
+						$i ++;
+					}
+					echo '</ul>';
+					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
+					break;
+
 				default:
 					do_action( 'cmb_render_' . $field['type'], $field, $meta );
 			}
