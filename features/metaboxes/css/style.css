@@ -2992,7 +2992,7 @@ img {
   opacity: 0.5;
   background: #29ddf4;
   height: 100%;
-  border-radius: 8px;
+  border-radius: 5px;
   border: 1px solid #0097d2;
   margin: 1px;
   display: inline-block; }
@@ -3000,6 +3000,13 @@ img {
 .cmb-type-positions_map .positions_map input:before {
   content: '';
   display: none; }
+
+.cmb-type-text_range output {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  color: red;
+  border: 1px solid #333; }
 
 #pixgallery .open_pixgallery div, #pixgallery .open_pixvideos div, #pixvideos .open_pixgallery div, #pixvideos .open_pixvideos div {
   position: absolute;

@@ -1830,6 +1830,14 @@ img {
   display: none;
 }
 
+.cmb-type-text_range output{
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  color: red;
+  border: 1px solid #333;
+}
+
   //*------------------------------------*\
 //   $HELPERS
 //*------------------------------------*/
