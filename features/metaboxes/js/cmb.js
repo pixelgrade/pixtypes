@@ -73,7 +73,14 @@ jQuery(document).ready(function ($) {
 	 * Initialize color picker
 	 */
 	if (typeof jQuery.wp === 'object' && typeof jQuery.wp.wpColorPicker === 'function') {
-		$('input:text.cmb_colorpicker').wpColorPicker();
+		$('input:text.cmb_colorpicker').wpColorPicker({
+			change: function ( ev ) {
+				$(this).trigger('wpcolorpicker:change');
+			},
+			color: function ( ev ) {
+				$(this).trigger('wpcolorpicker:change');
+			},
+		});
 	} else {
 		$('input:text.cmb_colorpicker').each(function (i) {
 			$(this).after('<div id="picker-' + i + '" style="z-index: 1000; background: #EEE; border: 1px solid #CCC; position: absolute; display: block;"></div>');

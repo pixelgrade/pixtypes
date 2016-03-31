@@ -328,12 +328,15 @@ class cmb_Meta_Box {
 		// Use nonce for verification
 		echo '<input type="hidden" name="wp_meta_box_nonce" value="', wp_create_nonce( basename( __FILE__ ) ), '" />';
 
-		echo '<table class="form-table cmb_metabox">';
+		echo '<div class="form-table cmb_metabox">';
 
 		foreach ( $this->_meta_box['fields'] as $field ) {
 			// Set up blank or default values for empty ones
 			if ( ! isset( $field['name'] ) ) {
 				$field['name'] = '';
+			}
+			if ( ! isset( $field['show_names'] ) ) {
+				$field['show_names'] = true;
 			}
 			if ( ! isset( $field['desc'] ) ) {
 				$field['desc'] = '';
@@ -355,7 +358,7 @@ class cmb_Meta_Box {
 
 			$meta = get_post_meta( $post->ID, $field['id'], 'multicheck' != $field['type'] /* If multicheck this can be multiple values */ );
 			if ( isset( $field['options'] ) && isset( $field['options']['hidden'] ) && $field['options']['hidden'] == true ) {
-				echo '<tr style="display:none;">';
+				echo '<ul style="display:none;">';
 			} else {
 
 				$requires = '';
@@ -387,16 +390,18 @@ class cmb_Meta_Box {
 
 				}
 
-				echo '<tr class="' . $classes . '" ' . $requires . '>';
+				echo '<ul class="' . $classes . '" ' . $requires . '>';
 			}
 
 			if ( $field['type'] == "title" || $field['type'] == 'portfolio-gallery' || $field['type'] == 'gallery' || $field['type'] == 'pix_builder' || $field['type'] == 'gmap_pins' ) {
-				echo '<td colspan="2">';
+				echo '<li colspan="2">';
 			} else {
 				if ( isset( $this->_meta_box['show_names'] ) && $this->_meta_box['show_names'] == true ) {
-					echo '<th style="width:18%"><label for="', $field['id'], '">', $field['name'], '</label></th>';
+					if ( isset( $field['show_names'] ) && $field['show_names'] == true ) {
+						echo '<h3 style="width:18%"><label for="', $field['id'], '">', $field['name'], '</label></h3>';
+					}
 				}
-				echo '<td>';
+				echo '<li>';
 			}
 
 			switch ( $field['type'] ) {
@@ -419,7 +424,10 @@ class cmb_Meta_Box {
 							$atts .= $key . '="' . $att . '" ';
 						}
 					} ?>
-					<input class="cmb_text_range" type="range" name="<?php echo $field['id']; ?>" id="<?php echo $field['id'] ?>" value="<?php echo '' !== $meta ? $meta : $field['std']; ?>" <?php echo $atts ?> oninput="<?php echo $field['id'] . '_output.value = ' . $field['id'] . '.value'; ?>" />
+					<input class="cmb_text_range" type="range" name="<?php echo $field['id']; ?>"
+					       id="<?php echo $field['id'] ?>"
+					       value="<?php echo '' !== $meta ? $meta : $field['std']; ?>" <?php echo $atts ?>
+					       oninput="<?php echo $field['id'] . '_output.value = ' . $field['id'] . '.value'; ?>"/>
 					<output name="<?php echo $field['id'] ?>_output" id="<?php echo $field['id']; ?>_output">
 						<?php echo '' !== $meta ? $meta : $field['std']; ?>
 					</output>
@@ -564,7 +572,15 @@ class cmb_Meta_Box {
 					echo '<h5 class="cmb_metabox_title">', $field['name'], '</h5>';
 					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
 					break;
-				case 'wysiwyg':
+				case 'wysiwyg': ?>
+
+					<style>
+						.mce-toolbar.mce-last {
+							position: absolute;
+						}
+					</style>
+
+					<?php
 					wp_editor( $meta ? $meta : $field['std'], $field['id'], isset( $field['options'] ) ? $field['options'] : array() );
 					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
 					break;
@@ -802,9 +818,9 @@ class cmb_Meta_Box {
 					do_action( 'cmb_render_' . $field['type'], $field, $meta );
 			}
 
-			echo '</td>', '</tr>';
+			echo '</li>', '</ul>';
 		}
-		echo '</table>';
+		echo '</div>';
 	}
 
 	function fold_display() {
@@ -823,15 +839,15 @@ class cmb_Meta_Box {
 		ob_start(); ?>
 		<script>
 			;
-			(function( $ ) {
-				$( document ).ready( function() {
-					var metabox = $( '#<?php echo $this->_meta_box['id'];  ?>' );
-					metabox.addClass( 'display_on' )
-						.attr( 'data-action', '<?php echo 'show'; ?>' )
-						.attr( 'data-when_key', '<?php echo $display_on['on']['field']; ?>' )
-						.attr( 'data-has_value', '<?php echo $display_on['on']['value']; ?>' );
-				} );
-			})( jQuery );
+			(function ($) {
+				$(document).ready(function () {
+					var metabox = $('#<?php echo $this->_meta_box['id'];  ?>');
+					metabox.addClass('display_on')
+						.attr('data-action', '<?php echo 'show'; ?>')
+						.attr('data-when_key', '<?php echo $display_on['on']['field']; ?>')
+						.attr('data-has_value', '<?php echo $display_on['on']['value']; ?>');
+				});
+			})(jQuery);
 		</script>
 		<?php
 		$script = ob_get_clean();
@@ -968,7 +984,7 @@ function cmb_scripts( $hook ) {
 
 	global $pixtypes_plugin;
 	$plugin_version = 0;
-	if ( method_exists($pixtypes_plugin, 'get_plugin_version') ) {
+	if ( method_exists( $pixtypes_plugin, 'get_plugin_version' ) ) {
 		$plugin_version = $pixtypes_plugin->get_plugin_version();
 	}
 
@@ -1018,7 +1034,7 @@ function cmb_scripts( $hook ) {
 
 		wp_register_style( 'gridster', CMB_META_BOX_URL . 'css/jquery.gridster.css' );
 
-		wp_register_style( 'pix_builder', CMB_META_BOX_URL . 'css/pix_builder.css', array('gridster'), $plugin_version );
+		wp_register_style( 'pix_builder', CMB_META_BOX_URL . 'css/pix_builder.css', array( 'gridster' ), $plugin_version );
 		wp_register_style( 'tooltipster', CMB_META_BOX_URL . 'css/tooltipster.css' );
 		wp_register_style( 'cmb-styles', CMB_META_BOX_URL . 'css/style.css', $cmb_style_array, $plugin_version );
 
@@ -1038,9 +1054,9 @@ function cmb_editor_footer_scripts() {
 		}
 		?>
 		<script type="text/javascript">
-			jQuery( function( $ ) {
-				$( 'td.savesend input' ).val( '<?php echo $label; ?>' );
-			} );
+			jQuery(function ($) {
+				$('td.savesend input').val('<?php echo $label; ?>');
+			});
 		</script>
 		<?php
 	}
@@ -1167,7 +1183,7 @@ function ajax_pixgallery_preview() {
 		exit;
 	}
 
-	$ids = rtrim($ids, ',');
+	$ids = rtrim( $ids, ',' );
 	$ids = explode( ',', $ids );
 
 	$size = 'thumbnail';
