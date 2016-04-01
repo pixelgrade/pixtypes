@@ -56,7 +56,18 @@
 
 						if ( empty($block->content) ) {
 							$empty_class = 'empty';
-						} ?>
+						}
+
+						if ( empty($block->position) ) {
+							$block->position = array(
+								'top' => 0,
+								'right' => 0,
+								'bottom' => 0,
+								'left' => 0
+							);
+						}
+
+						?>
 
 						<li id="block_<?php echo $block->id ?>" class="block-type--<?php echo $block->type; ?> item" data-type="<?php echo $block->type ?>" data-row="<?php echo $block->row ?>" data-col="<?php echo $block->col ?>" data-sizex="<?php echo $block->size_x ?>" data-sizey="<?php echo $block->size_y ?>">
 							<div class="item__controls">
@@ -68,23 +79,23 @@
 											<div class="position__ui-body">
 												<div class="position__ui-row">
 													<div class="position__ui-cell top">
-														<div class="position__ui-handle">top</div>
+														<div class="position__ui-handle" data-step="<?php echo $block->position['top'] ?>">top</div>
 													</div>
 												</div>
 												<div class="position__ui-row">
 													<div class="position__ui-cell left">
-														<div class="position__ui-handle">left</div>
+														<div class="position__ui-handle" data-step="<?php echo $block->position['left'] ?>">left</div>
 													</div>
 													<div class="position__ui-cell middle active">
 														<div class="position__ui-handle">middle</div>
 													</div>
 													<div class="position__ui-cell right">
-														<div class="position__ui-handle">right</div>
+														<div class="position__ui-handle" data-step="<?php echo $block->position['right'] ?>">right</div>
 													</div>
 												</div>
 												<div class="position__ui-row">
 													<div class="position__ui-cell bottom">
-														<div class="position__ui-handle">bottom</div>
+														<div class="position__ui-handle" data-step="<?php echo $block->position['bottom'] ?>">bottom</div>
 													</div>
 												</div>
 											</div>
