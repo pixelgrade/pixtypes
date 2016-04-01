@@ -137,7 +137,7 @@
 			var new_values = gridster.serialize();
 			// sort_them
 			new_values = Gridster.sort_by_row_and_col_asc(new_values);
-
+			console.log( new_values );
 			var parsed_string = JSON.stringify(new_values);
 			$pix_builder.val(parsed_string);
 			serialize_intention = false;

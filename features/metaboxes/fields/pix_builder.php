@@ -7,8 +7,8 @@
 
 	echo '<input type="hidden" name="', $field['id'], '" id="pix_builder" value="', '' !== $meta ? htmlspecialchars($meta) : $field['std'], '" '. $gridster_params .' />'; ?>
 	<div class="pixbuilder-controls">
-		<button class="add_block button button-primary button-large" value="image" > + Image</button>
-		<button class="add_block button button-primary button-large" value="editor"> + Editor</button>
+		<button class="add_block button button-primary button-large" value="image" > <?php esc_html_e( '+ Image', 'pixtypes'); ?></button>
+		<button class="add_block button button-primary button-large" value="editor"> <?php esc_html_e( '+ Editor', 'pixtypes'); ?></button>
 	</div>
 
 	<!-- <span class="clear-all button button-secondary">Clear All</span> -->
@@ -65,43 +65,50 @@
 								'bottom' => 0,
 								'left' => 0
 							);
+						} else {
+							$block->position = (array) $block->position;
 						}
 
-						?>
+						$middle_status = 'active';
 
+						foreach ( $block->position as $pos ) {
+							if ( $pos !== '0' ) {
+								$middle_status = '';
+							}
+						} ?>
 						<li id="block_<?php echo $block->id ?>" class="block-type--<?php echo $block->type; ?> item" data-type="<?php echo $block->type ?>" data-row="<?php echo $block->row ?>" data-col="<?php echo $block->col ?>" data-sizex="<?php echo $block->size_x ?>" data-sizey="<?php echo $block->size_y ?>">
 							<div class="item__controls">
 								<ul class="nav nav--controls">
 									<li class="edit"><?php echo $controls_content ?></li>
-									<li class="position"><span>Position</span>
+									<li class="position"><span><?php esc_html_e( 'Position', 'pixtypes'); ?></span>
 										<div class="position__ui">
-											<div class="position__ui-title">Alignment</div>
+											<div class="position__ui-title"><?php esc_html_e( 'Alignment', 'pixtypes'); ?></div>
 											<div class="position__ui-body">
 												<div class="position__ui-row">
-													<div class="position__ui-cell top">
-														<div class="position__ui-handle" data-step="<?php echo $block->position['top'] ?>">top</div>
+													<div class="position__ui-cell top <?php echo '0' === $block->position['top'] ? '' : 'active'; ?>">
+														<div class="position__ui-handle" data-step="<?php echo $block->position['top']; ?>"><?php esc_html_e( 'top', 'pixtypes'); ?></div>
 													</div>
 												</div>
 												<div class="position__ui-row">
-													<div class="position__ui-cell left">
-														<div class="position__ui-handle" data-step="<?php echo $block->position['left'] ?>">left</div>
+													<div class="position__ui-cell left <?php echo '0' === $block->position['left'] ? '' : 'active'; ?>">
+														<div class="position__ui-handle" data-step="<?php echo $block->position['left']; ?>"><?php esc_html_e( 'left', 'pixtypes'); ?></div>
 													</div>
-													<div class="position__ui-cell middle active">
+													<div class="position__ui-cell middle <?php echo $middle_status;?>">
 														<div class="position__ui-handle">middle</div>
 													</div>
-													<div class="position__ui-cell right">
-														<div class="position__ui-handle" data-step="<?php echo $block->position['right'] ?>">right</div>
+													<div class="position__ui-cell right <?php echo '0' === $block->position['right'] ? '' : 'active'; ?>">
+														<div class="position__ui-handle" data-step="<?php echo $block->position['right']; ?>"><?php esc_html_e( 'right', 'pixtypes'); ?></div>
 													</div>
 												</div>
 												<div class="position__ui-row">
-													<div class="position__ui-cell bottom">
-														<div class="position__ui-handle" data-step="<?php echo $block->position['bottom'] ?>">bottom</div>
+													<div class="position__ui-cell bottom <?php echo '0' === $block->position['bottom'] ? '' : 'active'; ?>">
+														<div class="position__ui-handle" data-step="<?php echo $block->position['bottom']; ?>"><?php esc_html_e( 'bottom', 'pixtypes'); ?></div>
 													</div>
 												</div>
 											</div>
 										</div>
 									</li>
-									<li class="remove remove_block"><span>Remove</span></li>
+									<li class="remove remove_block"><span><?php esc_html_e( 'Remove', 'pixtypes'); ?></span></li>
 									<li class="move drag_handler"></li>
 								</ul>
 							</div>
@@ -124,7 +131,7 @@ function my_admin_footer_function() { ?>
 				<a class="media-modal-close close_modal_btn" href="#" title="Close"><span class="media-modal-icon"></span></a>
 				<!--                <a class="close_modal_btn media-modal-close" href="#"></a>-->
 				<div class="media-modal-content">
-					<div class="media-frame-title"><h1>Insert Content</h1></div>
+					<div class="media-frame-title"><h1><?php esc_html_e( 'Insert Content', 'pixtypes'); ?></h1></div>
 					<div class="media-frame-router"></div>
 					<div class="media-frame-content">
 						<?php
@@ -156,7 +163,7 @@ function my_admin_footer_function() { ?>
 					</div>
 					<div class="modal_controls media-frame-toolbar">
 						<a class="close_modal_btn button button-large" href="#">Cancel</a>
-						<a class="insert_editor_content button media-button button-primary button-large" href="#">Insert Content</a>
+						<a class="insert_editor_content button media-button button-primary button-large" href="#"><?php esc_html_e( 'Insert Content', 'pixtypes'); ?></a>
 					</div>
 				</div>
 			</div>
