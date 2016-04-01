@@ -1620,10 +1620,18 @@
     */
     fn.serialize = function($widgets) {
         $widgets || ($widgets = this.$widgets);
-
         return $widgets.map($.proxy(function(i, widget) {
-            var $w = $(widget);
-	        return this.options.serialize_params($w, $w.coords().grid);
+            var $w = $(widget),
+                position = {
+                    top: $w.find('.position__ui-cell.top .position__ui-handle').attr('data-step') || "0",
+                    right: $w.find('.position__ui-cell.right .position__ui-handle').attr('data-step') || "0",
+                    bottom: $w.find('.position__ui-cell.bottom .position__ui-handle').attr('data-step') || "0",
+                    left: $w.find('.position__ui-cell.left .position__ui-handle').attr('data-step') || "0"
+                },
+                serialized = this.options.serialize_params($w, $w.coords().grid);
+
+            serialized.position = position;
+	        return serialized;
         }, this)).get();
 
     };
