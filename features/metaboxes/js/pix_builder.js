@@ -316,6 +316,34 @@
 			'<div class="item__controls">' +
 			'<ul class="nav nav--controls">' +
 			'<li class="edit">'+controls_content+'</li>' +
+			'<li class="position"><span>Position</span>' +
+				'<div class="position__ui">' +
+					'<div class="position__ui-title">Alignment</div>' +
+					'<div class="position__ui-body">' +
+						'<div class="position__ui-row">' +
+							'<div class="position__ui-cell top">' +
+								'<div class="position__ui-handle">top</div>' +
+							'</div>' +
+						'</div>' +
+						'<div class="position__ui-row">' +
+							'<div class="position__ui-cell left">' +
+								'<div class="position__ui-handle">left</div>' +
+							'</div>' +
+							'<div class="position__ui-cell middle active">' +
+								'<div class="position__ui-handle">middle</div>' +
+							'</div>' +
+							'<div class="position__ui-cell right">' +
+								'<div class="position__ui-handle">right</div>' +
+							'</div>' +
+						'</div>' +
+						'<div class="position__ui-row">' +
+							'<div class="position__ui-cell bottom">' +
+								'<div class="position__ui-handle">bottom</div>' +
+							'</div>' +
+						'</div>' +
+					'</div>' +
+				'</div>' +
+			'</li>' +
 			'<li class="remove remove_block"><span>Remove</span></li>' +
 			'<li class="move drag_handler"></li>' +
 			'</ul>' +
@@ -418,6 +446,37 @@
 		});
 
 		$(".pixbuilder-controls").fixer({gap: 40});
+
+		// margins?
+		$('.pixbuilder-grid').on('click', '.position__ui-cell', function(e) {
+			var $cell = $(this),
+				$container = $cell.closest('.position__ui'),
+				$active = $container.find('.position__ui-cell.active'),
+				$item = $cell.find('.position__ui-handle'),
+				step = $item.attr('data-step'),
+				$target = $active.filter('.middle');
+
+			if ( $cell.is('.middle') ) $target = $active;
+			if ( $cell.is('.top') && $active.filter('.bottom').length ) $target = $active.filter('.bottom');
+			if ( $cell.is('.right') && $active.filter('.left').length ) $target = $active.filter('.left');
+			if ( $cell.is('.bottom') && $active.filter('.top').length ) $target = $active.filter('.top');
+			if ( $cell.is('.left') && $active.filter('.right').length ) $target = $active.filter('.right');
+
+			$target.removeClass('active');
+			$target.find('.position__ui-handle').attr('data-step', 0);
+
+			$cell.addClass('active');
+
+			if ( typeof step === "undefined" ) {
+				step = 1;
+			} else if ( step == 3 ) {
+				step = 0;
+			} else {
+				step = parseInt(step) + 1;
+			}
+
+			$item.attr('data-step', step);
+		});
 
 	}); /* Window.load */
 

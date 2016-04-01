@@ -62,6 +62,34 @@
 							<div class="item__controls">
 								<ul class="nav nav--controls">
 									<li class="edit"><?php echo $controls_content ?></li>
+									<li class="position"><span>Position</span>
+										<div class="position__ui">
+											<div class="position__ui-title">Alignment</div>
+											<div class="position__ui-body">
+												<div class="position__ui-row">
+													<div class="position__ui-cell top">
+														<div class="position__ui-handle">top</div>
+													</div>
+												</div>
+												<div class="position__ui-row">
+													<div class="position__ui-cell left">
+														<div class="position__ui-handle">left</div>
+													</div>
+													<div class="position__ui-cell middle active">
+														<div class="position__ui-handle">middle</div>
+													</div>
+													<div class="position__ui-cell right">
+														<div class="position__ui-handle">right</div>
+													</div>
+												</div>
+												<div class="position__ui-row">
+													<div class="position__ui-cell bottom">
+														<div class="position__ui-handle">bottom</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</li>
 									<li class="remove remove_block"><span>Remove</span></li>
 									<li class="move drag_handler"></li>
 								</ul>
