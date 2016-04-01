@@ -397,7 +397,7 @@ class cmb_Meta_Box {
 			if ( ! ( $field['type'] == "title" && $field['type'] == 'portfolio-gallery' && $field['type'] == 'gallery' && $field['type'] == 'pix_builder' && $field['type'] == 'gmap_pins' ) ) {
 				if ( isset( $this->_meta_box['show_names'] ) && $this->_meta_box['show_names'] == true ) {
 					if ( isset( $field['show_names'] ) && $field['show_names'] == true ) {
-						echo '<h3 style="width:18%"><label for="', $field['id'], '">', $field['name'], '</label></h3>';
+						echo '<h3><label for="', $field['id'], '">', $field['name'], '</label></h3>';
 					}
 				}
 			}

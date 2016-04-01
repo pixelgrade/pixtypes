@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*----------------------------------------*\
 *   $GRID PAGE BUILDER
 \*----------------------------------------*/
@@ -64,6 +65,7 @@
     opacity: 0;
     z-index: 100;
     -moz-transition: all 0.15s;
+    -o-transition: all 0.15s;
     -webkit-transition: all 0.15s;
     transition: all 0.15s; }
     .pixbuilder-grid .item__controls li {
@@ -84,7 +86,7 @@
           .pixbuilder-grid .item__controls li.edit a span {
             display: none; }
           .pixbuilder-grid .item__controls li.edit a:before {
-            content: "\f040"; }
+            content: ""; }
           .pixbuilder-grid .item__controls li.edit a:hover {
             color: #0095ea; }
       .pixbuilder-grid .item__controls li.remove {
@@ -92,7 +94,7 @@
         .pixbuilder-grid .item__controls li.remove span {
           display: none; }
         .pixbuilder-grid .item__controls li.remove:before {
-          content: "\f014"; }
+          content: ""; }
       .pixbuilder-grid .item__controls li.position {
         cursor: pointer; }
         .pixbuilder-grid .item__controls li.position span {
@@ -109,7 +111,7 @@
         cursor: -webkit-grab;
         cursor: -moz-grab; }
         .pixbuilder-grid .item__controls li.move:before {
-          content: "\f047"; }
+          content: ""; }
   .pixbuilder-grid .gs-resize-handle {
     position: absolute;
     top: 50%;
@@ -125,6 +127,7 @@
     background: url("../images/icon--drag-gray.svg") center center no-repeat;
     cursor: col-resize;
     -moz-transition: all 0.15s;
+    -o-transition: all 0.15s;
     -webkit-transition: all 0.15s;
     transition: all 0.15s; }
     .pixbuilder-grid .gs-resize-handle:hover {
@@ -160,7 +163,7 @@
   .block-type--image .block_content.empty:before, .block-type--editor .block_content.empty:before {
     font-size: 30px;
     color: #919191;
-    content: "\f1c5"; }
+    content: ""; }
 
 /**
  * EDITOR
@@ -174,7 +177,7 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box; }
   .block-type--editor .block_content.empty:before {
-    content: "\f031"; }
+    content: ""; }
 
 /*----------------------------------------*\
             GENERAL
