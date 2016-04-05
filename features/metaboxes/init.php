@@ -385,9 +385,7 @@ class cmb_Meta_Box {
 						} else {
 							$requires .= 'data-has_value="' . $on['value'] . '"';
 						}
-
 					}
-
 				}
 
 				echo '<ul class="' . $classes . '" ' . $requires . '>';
@@ -704,9 +702,6 @@ class cmb_Meta_Box {
 						ob_start();
 						include( $file_path );
 						echo ob_get_clean();
-					} else {
-						echo '<p>Wrong path </p>';
-						//                        util::var_dump( $file_path );
 					}
 
 					break;
@@ -717,9 +712,6 @@ class cmb_Meta_Box {
 						ob_start();
 						include( $file_path );
 						echo ob_get_clean();
-					} else {
-						echo '<p>Wrong path </p>';
-						//						util::var_dump( $file_path );
 					}
 
 					break;
@@ -736,9 +728,6 @@ class cmb_Meta_Box {
 						ob_start();
 						include( $file_path );
 						echo ob_get_clean();
-					} else {
-						echo '<p>Wrong path </p>';
-						//						util::var_dump( $file_path );
 					}
 
 					break;
@@ -882,12 +871,6 @@ class cmb_Meta_Box {
 
 			$old = get_post_meta( $post_id, $name, ! $field['multiple'] /* If multicheck this can be multiple values */ );
 			$new = isset( $_POST[ $field['id'] ] ) ? $_POST[ $field['id'] ] : null;
-
-
-			if ( $field['type'] == 'portfolio-gallery' || $field['type'] == 'gallery' ) {
-				//                util::var_dump($new);
-				//                continue;
-			}
 
 			if ( $type_comp == true && in_array( $field['type'], array(
 					'taxonomy_select',
