@@ -9,7 +9,7 @@
 
 	$(document).ready(function () {
 
-		var $pix_builder = $('#pix_builder'),
+		var $pix_builder = $('#content'),
 			gridster = $(".gridster > ul"),
 			modal_container = $('.pix_builder_editor_modal_container');
 
@@ -133,13 +133,17 @@
 		};
 
 		var serialize_pix_builder_values = function(){
-
 			var new_values = gridster.serialize();
 			// sort_them
 			new_values = Gridster.sort_by_row_and_col_asc(new_values);
 			console.log( new_values );
 			var parsed_string = JSON.stringify(new_values);
-			$pix_builder.val(parsed_string);
+
+
+			var tralaa = tinyMCE.get('content');
+			tralaa.setContent(parsed_string, {format:'text'});
+			// $('#content').val(parsed_string);
+			// $('#pix_builder').val(parsed_string);
 			serialize_intention = false;
 		};
 
@@ -250,9 +254,9 @@
 			close_editor_modal();
 		});
 
-		$(document).on('click', '#publishing-action', function(){
-			serialize_pix_builder_values();
-		});
+		// $(document).on('click', '#publishing-action', function(){
+		// 	serialize_pix_builder_values();
+		// });
 
 		// serialize pix_builder values
 		$(document).on('pix_builder:serialize', intent_to_serialize );
@@ -266,6 +270,26 @@
 			if ( conf ) {
 				gridster.remove_all_widgets();
 				$(document).trigger('pix_builder:serialize');
+			}
+		});
+
+		$('#postdivrich').hide();
+		$(document).on('click', '.switch-to-editor-btn', function( ev ){
+
+			ev.preventDefault();
+
+			var $parent = $(this).parents('.postbox');
+
+			if ( $parent.hasClass( 'closed' ) ) {
+				$parent.removeClass('closed');
+				$('#postdivrich').hide();
+			} else {
+
+				$('#postdivrich').show();
+				switchEditors.go( 'content', 'text' );
+				switchEditors.go( 'content', 'tmce' );
+				$(window).scroll();
+				$parent.addClass('closed');
 			}
 		});
 

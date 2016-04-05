@@ -4,6 +4,13 @@
 	if ( isset($field['gridster_params'] ) ) {
 		$gridster_params = ' data-params=\'' . json_encode($field['gridster_params'] ) . '\'';
 	}
+	global $post;
+
+	// this should ensure the legacy with old meta values
+	// basically if there is no post content it will fall on old meta way. and converti it to content(the new way)
+	if ( ! empty( $post->post_content ) ) {
+		$meta = $post->post_content;
+	}
 
 	echo '<input type="hidden" name="', $field['id'], '" id="pix_builder" value="', '' !== $meta ? htmlspecialchars($meta) : $field['std'], '" '. $gridster_params .' />'; ?>
 	<div class="pixbuilder-controls">
