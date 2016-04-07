@@ -1606,7 +1606,7 @@ $accent: #07d3f8;
 	// List Layout
 	& > ul {
 		list-style: none;
-		min-height: 55px;
+		min-height: 3vw;
 
 		li {
 		    width: 100%;
@@ -1899,6 +1899,20 @@ img {
     align-items: center;
 }
 
+.cmb_metabox > ul {
+	margin: 0;
+	padding: 2.5vw 0;
+
+	& + ul {
+		border-top: 1px solid #ddd;
+	}
+}
+
+ul.cmb-type-wysiwyg + ul {
+	border-top: 0;
+	padding-top: 0;
+}
+
 .cmb-type-pix_builder > li {
 	flex-direction: column;
 }
@@ -1906,23 +1920,63 @@ img {
 .cmb_field_description {
 	flex-basis: 50%;
 	flex-shrink: 0;
+	padding-right: 55px;
 
 	&:empty {
 		display: none;
 	}
 }
 
-p.cmb_metabox_description {
+.cmb_metabox_description {
 	color: #AAA;
 	font-size: 14px;
+	line-height: 1.5;
 	margin: 0;
+
+	p, ul {
+		font: inherit;
+		margin: 0;
+		margin-bottom: 1.5em;
+	}
+
+	> :last-child {
+		margin-bottom: 0
+	}
+
+	li {
+		margin: 0;
+
+		&:before {
+			content: "\2014 ";
+			padding-right: 10px;
+		}
+	}
 }
 
-.cmb_metabox > ul > li h3 {
+.postbox .inside {
+	padding: 1.5vw 3vw;
+}
+
+.cmb_metabox h3 {
 	font-size: 16px;
 	font-weight: 600;
 	color: #444;
 	margin: 6px 0;
+}
+
+ul.cmb-type-title {
+	padding-top: 2vw;
+	padding-bottom: 0;
+
+	+ ul {
+		padding-top: 0;
+		border-top: 0;
+	}
+
+	h3 {
+		font-size: 23px;
+		line-height: 1.8;
+	}
 }
 
 .wp-editor-wrap {
@@ -1938,4 +1992,45 @@ p.cmb_metabox_description {
     border: 1px solid #DDD;
     border-radius: 4px;
     box-shadow: none;
+}
+
+#wp-_pile_header_cover_description-wrap .mce-toolbar.mce-last .mce-btn {
+	border: 1px solid #ddd;
+	border-radius: 2px;
+	margin: 16px 0 0 10px;
+	background: white;
+}
+
+body .mce-menubtn.mce-menubtn {
+	button {
+		font-size: 13px;
+		line-height: 1.5;
+		padding: 2px 40px 2px 8px;
+		border: 0;
+		width: auto;
+	}
+
+	&.mce-first button {
+		visibility: hidden;
+		width: 12em;
+
+		i {
+			visibility: visible;
+		}
+
+		&:before {
+			content: "Custom Elements";
+			position: absolute;
+			top: 2px;
+			left: 8px;
+			visibility: visible;
+		}
+	}
+
+	.mce-caret {
+	    position: absolute;
+	    margin-top: -2px !important;
+	    right: 8px;
+	    top: 50%;
+	}
 }

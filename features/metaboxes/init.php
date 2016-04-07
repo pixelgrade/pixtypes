@@ -589,7 +589,7 @@ class cmb_Meta_Box {
 					echo '</ul>';
 					break;
 				case 'title':
-					echo '<h5 class="cmb_metabox_title">', $field['name'], '</h5>';
+					// echo '<h5 class="cmb_metabox_title">', $field['name'], '</h5>';
 					break;
 				case 'wysiwyg':
 
