@@ -133,6 +133,7 @@ class cmb_Meta_Box {
 		//add_filter( 'cmb_show_on', array( &$this, 'add_for_page_template' ), 10, 2 );
 		//add_filter( 'cmb_show_on', array( &$this, 'add_for_specific_select_value' ), 10, 2 );
 
+		add_filter('_wp_post_revision_field_post_content', array( $this, 'pixtypes_fix_builder_revisions_display'), 15, 4 );
 	}
 
 	function add_post_enctype() {
@@ -297,7 +298,32 @@ class cmb_Meta_Box {
 		} else {
 			return $display;
 		}
+	}
 
+	function pixtypes_fix_builder_revisions_display ( $compare_to_field, $field, $compare_to, $target ){
+		
+		$parsed = json_decode( $compare_to_field, true );
+		$change = false;
+		if ( ! empty( $parsed ) && is_array( $parsed ) ) {
+			$preview_content = '';
+			foreach ( $parsed as $key => $line ) {
+				if ( isset( $line['type'] ) && isset( $line['content'] ) && ! empty($line['content']) && $line['type']=== 'editor') {
+
+					$new_link = base64_decode(  $line['content'] );
+
+					if ( ! empty( $new_link ) ) {
+						$change = true;
+						$parsed[$key]['content'] = htmlspecialchars( $new_link ) ;
+					}
+				}
+			}
+		}
+
+		if ( $change ) {
+			$compare_to_field = json_encode( $parsed );
+		}
+
+		return $compare_to_field;
 	}
 
 	// Show fields
@@ -326,7 +352,7 @@ class cmb_Meta_Box {
 		}
 
 		// Use nonce for verification
-		echo '<input type="hidden" name="wp_meta_box_nonce" value="', wp_create_nonce( basename( __FILE__ ) ), '" />';
+		echo '<input type="hidden" name="wp_meta_box_nonce" value="', wp_create_nonce( basename( __FILE__ ) ), '" />'; 
 
 		echo '<div class="form-table cmb_metabox">';
 
@@ -385,9 +411,7 @@ class cmb_Meta_Box {
 						} else {
 							$requires .= 'data-has_value="' . $on['value'] . '"';
 						}
-
 					}
-
 				}
 
 				echo '<ul class="' . $classes . '" ' . $requires . '>';
@@ -704,9 +728,6 @@ class cmb_Meta_Box {
 						ob_start();
 						include( $file_path );
 						echo ob_get_clean();
-					} else {
-						echo '<p>Wrong path </p>';
-						//                        util::var_dump( $file_path );
 					}
 
 					break;
@@ -717,9 +738,6 @@ class cmb_Meta_Box {
 						ob_start();
 						include( $file_path );
 						echo ob_get_clean();
-					} else {
-						echo '<p>Wrong path </p>';
-						//						util::var_dump( $file_path );
 					}
 
 					break;
@@ -736,9 +754,6 @@ class cmb_Meta_Box {
 						ob_start();
 						include( $file_path );
 						echo ob_get_clean();
-					} else {
-						echo '<p>Wrong path </p>';
-						//						util::var_dump( $file_path );
 					}
 
 					break;
@@ -882,12 +897,6 @@ class cmb_Meta_Box {
 
 			$old = get_post_meta( $post_id, $name, ! $field['multiple'] /* If multicheck this can be multiple values */ );
 			$new = isset( $_POST[ $field['id'] ] ) ? $_POST[ $field['id'] ] : null;
-
-
-			if ( $field['type'] == 'portfolio-gallery' || $field['type'] == 'gallery' ) {
-				//                util::var_dump($new);
-				//                continue;
-			}
 
 			if ( $type_comp == true && in_array( $field['type'], array(
 					'taxonomy_select',

@@ -15,7 +15,7 @@ wp_localize_script( 'pixgallery', 'locals', array(
 		'confirmClearGallery' => __( 'You want for sure to clear this gallery?', 'pixtypes' ),
 		'alertGalleryIsEmpty' => __( 'Gallery is already empty!', 'pixtypes' )
 	)
-) );?>
+) ); ?>
 <div id="pixgallery" class="pixgallery_field hidden" >
 	<ul></ul>
 	<a class="open_pixgallery" href="#" >
