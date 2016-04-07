@@ -499,6 +499,7 @@
 				step = 1;
 			} else if ( step == 3 ) {
 				step = 0;
+				$cell.removeClass('active');
 			} else {
 				step = parseInt(step) + 1;
 			}
