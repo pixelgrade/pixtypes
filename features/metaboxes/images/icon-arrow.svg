@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="21px" height="14px" viewBox="0 0 21 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.6.1 (26313) - http://www.bohemiancoding.com/sketch -->
+    <title>arrow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Options" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Add-Page-2" transform="translate(-679.000000, -1383.000000)" fill="#000000">
+            <g id="Section-Block" transform="translate(184.000000, 656.000000)">
+                <g id="Align" transform="translate(31.000000, 617.000000)">
+                    <g id="Select" transform="translate(453.000000, 41.000000)">
+                        <g id="Top-Left-Copy" transform="translate(0.000000, 54.000000)">
+                            <path d="M23.3333333,18.6666667 L28.3333333,18.6666667 L21.6666667,12 L15,18.6666667 L20,18.6666667 L20,32 L23.3333333,32 L23.3333333,18.6666667 Z" id="arrow" transform="translate(21.666667, 22.000000) rotate(-90.000000) translate(-21.666667, -22.000000) "></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -17,17 +17,6 @@ table.cmb_metabox th label {
 	display: block;
 }
 
-p.cmb_metabox_description {
-	color: #AAA;
-	font-style: italic;
-	margin: 2px 0 !important;
-}
-
-span.cmb_metabox_description {
-	color: #AAA;
-	font-style: italic;
-}
-
 table.cmb_metabox input, table.cmb_metabox textarea {
 	font-size: 12px;
 	padding: 5px;
@@ -1784,45 +1773,66 @@ img {
 
 
 .cmb-type-positions_map .positions_map {
-  width: 150px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 162px;
 }
 
 .cmb-type-positions_map .positions_map li {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  position: relative;
+  width: 44px;
   margin: 5px;
 }
 
-.cmb-type-positions_map .positions_map label {
-  font-size: 32px;
-  text-align: center;
-  display: inline-block;
-  width: 100%;
-  height: 100%;
-  border: 1px solid #999;
-  border-radius: 8px;
-  line-height: 42px;
+.positions_map label {
+	display: block;
+	padding-top: 100%;
+	border: 1px solid #DDD;
+	border-radius: 4px;
+	position: relative;
+
+	&:after {
+		content: "";
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: url('../images/icon-arrow.svg') center no-repeat;
+	}
+
+	span {
+		display: none;
+	}
 }
 
-.cmb-type-positions_map .positions_map input {
-  opacity: 0;
-  position: absolute;
-  top:0; bottom: 0;
-  left: 0; right: 0;
-  z-index: 999;
+.positions_map li {
+	&:nth-child(1) label:after { transform: rotate(45deg); }
+	&:nth-child(2) label:after { transform: rotate(90deg); }
+	&:nth-child(3) label:after { transform: rotate(135deg); }
+	&:nth-child(5) label:after {
+		width: 10px;
+		height: 10px;
+		top: 50%;
+		left: 50%;
+		margin-left: -5px;
+		margin-top: -5px;
+		border-radius: 50%;
+		background: black;
+	}
+	&:nth-child(6) label:after { transform: rotate(180deg); }
+	&:nth-child(7) label:after { transform: rotate(315deg); }
+	&:nth-child(8) label:after { transform: rotate(270deg); }
+	&:nth-child(9) label:after { transform: rotate(225deg); }
 }
 
-.cmb-type-positions_map .positions_map input:checked {
-  width: 100%;
-  opacity: 0.5;
-  background: #29ddf4;
-  height: 100%;
-  border-radius: 5px;
-  border: 1px solid #0097d2;
-  margin: 1px;
-  display: inline-block;
+.positions_map input {
+	display: none;
+}
+
+.positions_map input:checked + label {
+	background: #EAF9FE;
+	border-color: #73C5EE;
 }
 
 .cmb-type-positions_map .positions_map input:before {
@@ -1884,6 +1894,48 @@ img {
 //
 //
 
-.cmb_metabox > * {
+.cmb_metabox > ul > li {
 	display: flex;
+    align-items: center;
+}
+
+.cmb-type-pix_builder > li {
+	flex-direction: column;
+}
+
+.cmb_field_description {
+	flex-basis: 50%;
+	flex-shrink: 0;
+
+	&:empty {
+		display: none;
+	}
+}
+
+p.cmb_metabox_description {
+	color: #AAA;
+	font-size: 14px;
+	margin: 0;
+}
+
+.cmb_metabox > ul > li h3 {
+	font-size: 16px;
+	font-weight: 600;
+	color: #444;
+	margin: 6px 0;
+}
+
+.wp-editor-wrap {
+	width: 100%;
+}
+
+.meta-box-sortables select {
+    width: 100%;
+    -webkit-appearance: none;
+    padding: 10px 14px 10px 16px;
+    line-height: 1.5;
+    height: auto;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+    box-shadow: none;
 }

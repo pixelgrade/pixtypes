@@ -301,7 +301,7 @@ class cmb_Meta_Box {
 	}
 
 	function pixtypes_fix_builder_revisions_display ( $compare_to_field, $field, $compare_to, $target ){
-		
+
 		$parsed = json_decode( $compare_to_field, true );
 		$change = false;
 		if ( ! empty( $parsed ) && is_array( $parsed ) ) {
@@ -353,7 +353,7 @@ class cmb_Meta_Box {
 		}
 
 		// Use nonce for verification
-		echo '<input type="hidden" name="wp_meta_box_nonce" value="', wp_create_nonce( basename( __FILE__ ) ), '" />'; 
+		echo '<input type="hidden" name="wp_meta_box_nonce" value="', wp_create_nonce( basename( __FILE__ ) ), '" />';
 
 		echo '<div class="form-table cmb_metabox">';
 
@@ -419,6 +419,7 @@ class cmb_Meta_Box {
 			}
 
 			echo '<li>';
+			echo '<div class="cmb_field_description">';
 			if ( ! ( $field['type'] == "title" && $field['type'] == 'portfolio-gallery' && $field['type'] == 'gallery' && $field['type'] == 'pix_builder' && $field['type'] == 'gmap_pins' ) ) {
 				if ( isset( $this->_meta_box['show_names'] ) && $this->_meta_box['show_names'] == true ) {
 					if ( isset( $field['show_names'] ) && $field['show_names'] == true ) {
@@ -426,17 +427,22 @@ class cmb_Meta_Box {
 					}
 				}
 			}
+			if ( ! empty($field['desc']) ) {
+				echo '<div class="cmb_metabox_description">' . $field['desc'] . '</div>';
+			}
+			echo '</div>';
+
 
 			switch ( $field['type'] ) {
 
 				case 'text':
-					echo '<input type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" />', '<p class="cmb_metabox_description">', $field['desc'], '</p>';
+					echo '<input type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" />';
 					break;
 				case 'text_small':
-					echo '<input class="cmb_text_small" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" /><span class="cmb_metabox_description">', $field['desc'], '</span>';
+					echo '<input class="cmb_text_small" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" />';
 					break;
 				case 'text_medium':
-					echo '<input class="cmb_text_medium" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" /><span class="cmb_metabox_description">', $field['desc'], '</span>';
+					echo '<input class="cmb_text_medium" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" />';
 					break;
 
 				case 'text_range':
@@ -454,13 +460,12 @@ class cmb_Meta_Box {
 					<output name="<?php echo $field['id'] ?>_output" id="<?php echo $field['id']; ?>_output">
 						<?php echo '' !== $meta ? $meta : $field['std']; ?>
 					</output>
-					<span class="cmb_metabox_description"><?php echo $field['desc']; ?></span>
 					<?php break;
 				case 'text_date':
-					echo '<input class="cmb_text_small cmb_datepicker" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" /><span class="cmb_metabox_description">', $field['desc'], '</span>';
+					echo '<input class="cmb_text_small cmb_datepicker" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" />';
 					break;
 				case 'text_date_timestamp':
-					echo '<input class="cmb_text_small cmb_datepicker" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? date( 'm\/d\/Y', $meta ) : $field['std'], '" /><span class="cmb_metabox_description">', $field['desc'], '</span>';
+					echo '<input class="cmb_text_small cmb_datepicker" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? date( 'm\/d\/Y', $meta ) : $field['std'], '" />';
 					break;
 
 				case 'text_datetime_timestamp':
@@ -468,10 +473,10 @@ class cmb_Meta_Box {
 					echo '<input class="cmb_timepicker text_time" type="text" name="', $field['id'], '[time]" id="', $field['id'], '_time" value="', '' !== $meta ? date( 'h:i A', $meta ) : $field['std'], '" /><span class="cmb_metabox_description" >', $field['desc'], '</span>';
 					break;
 				case 'text_time':
-					echo '<input class="cmb_timepicker text_time" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" /><span class="cmb_metabox_description">', $field['desc'], '</span>';
+					echo '<input class="cmb_timepicker text_time" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" />';
 					break;
 				case 'text_money':
-					echo '$ <input class="cmb_text_money" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" /><span class="cmb_metabox_description">', $field['desc'], '</span>';
+					echo '$ <input class="cmb_text_money" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" />';
 					break;
 				case 'colorpicker':
 					$meta = '' !== $meta ? $meta : $field['std'];
@@ -484,16 +489,16 @@ class cmb_Meta_Box {
 					{
 						$meta = "#";
 					}
-					echo '<input class="cmb_colorpicker cmb_text_small" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', $meta, '" /><span class="cmb_metabox_description">', $field['desc'], '</span>';
+					echo '<input class="cmb_colorpicker cmb_text_small" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', $meta, '" />';
 					break;
 				case 'textarea':
-					echo '<textarea name="', $field['id'], '" id="', $field['id'], '" cols="60" rows="10">', '' !== $meta ? $meta : $field['std'], '</textarea>', '<p class="cmb_metabox_description">', $field['desc'], '</p>';
+					echo '<textarea name="', $field['id'], '" id="', $field['id'], '" cols="60" rows="10">', '' !== $meta ? $meta : $field['std'], '</textarea>';
 					break;
 				case 'textarea_small':
-					echo '<textarea name="', $field['id'], '" id="', $field['id'], '" cols="60" rows="4">', '' !== $meta ? $meta : $field['std'], '</textarea>', '<p class="cmb_metabox_description">', $field['desc'], '</p>';
+					echo '<textarea name="', $field['id'], '" id="', $field['id'], '" cols="60" rows="4">', '' !== $meta ? $meta : $field['std'], '</textarea>';
 					break;
 				case 'textarea_code':
-					echo '<textarea name="', $field['id'], '" id="', $field['id'], '" cols="60" rows="10" class="cmb_textarea_code">', '' !== $meta ? $meta : $field['std'], '</textarea>', '<p class="cmb_metabox_description">', $field['desc'], '</p>';
+					echo '<textarea name="', $field['id'], '" id="', $field['id'], '" cols="60" rows="10" class="cmb_textarea_code">', '' !== $meta ? $meta : $field['std'], '</textarea>';
 					break;
 				case 'select':
 					//we DON'T consider the '0' string as empty, nor do we consider (int)0 as empty
@@ -514,7 +519,6 @@ class cmb_Meta_Box {
 						echo '<option value="', $option['value'], '"', $meta == $option['value'] ? ' selected="selected"' : '', '>', $option['name'], '</option>';
 					}
 					echo '</select>';
-					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
 					break;
 				case 'select_cpt_post':
 					echo '<select name="', $field['id'], '" id="', $field['id'], '">';
@@ -532,7 +536,6 @@ class cmb_Meta_Box {
 					}
 					$post = $old_post;
 					echo '</select>';
-					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
 					break;
 				case 'select_cpt_term':
 					echo '<select name="', $field['id'], '" id="', $field['id'], '">';
@@ -543,7 +546,6 @@ class cmb_Meta_Box {
 						}
 					}
 					echo '</select>';
-					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
 					break;
 				case 'radio_inline':
 					if ( empty( $meta ) && ! empty( $field['std'] ) ) {
@@ -556,7 +558,6 @@ class cmb_Meta_Box {
 						$i ++;
 					}
 					echo '</div>';
-					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
 					break;
 				case 'radio':
 					if ( empty( $meta ) && ! empty( $field['std'] ) ) {
@@ -569,11 +570,9 @@ class cmb_Meta_Box {
 						$i ++;
 					}
 					echo '</ul>';
-					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
 					break;
 				case 'checkbox':
 					echo '<input type="checkbox" name="', $field['id'], '" id="', $field['id'], '"', ( $meta === 'on' ) ? ' checked="checked"' : '', ' />';
-					echo '<span class="cmb_metabox_description">', $field['desc'], '</span>';
 					break;
 				case 'multicheck':
 					//even if empty, we should check for the meta key existance - empty is a valid value, it means all the checkboxes have been unchecked
@@ -589,16 +588,13 @@ class cmb_Meta_Box {
 						$i ++;
 					}
 					echo '</ul>';
-					echo '<span class="cmb_metabox_description">', $field['desc'], '</span>';
 					break;
 				case 'title':
 					echo '<h5 class="cmb_metabox_title">', $field['name'], '</h5>';
-					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
 					break;
 				case 'wysiwyg':
-					
+
 					wp_editor( $meta ? $meta : $field['std'], $field['id'], isset( $field['options'] ) ? $field['options'] : array() );
-					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
 					break;
 				case 'taxonomy_select':
 					echo '<select name="', $field['id'], '" id="', $field['id'], '">';
@@ -612,7 +608,6 @@ class cmb_Meta_Box {
 						}
 					}
 					echo '</select>';
-					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
 					break;
 				case 'taxonomy_radio':
 					$names = wp_get_object_terms( $post->ID, $field['taxonomy'] );
@@ -626,7 +621,6 @@ class cmb_Meta_Box {
 						}
 					}
 					echo '</ul>';
-					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
 					break;
 				case 'taxonomy_multicheck':
 					echo '<ul>';
@@ -642,12 +636,10 @@ class cmb_Meta_Box {
 						echo ' /><label>', $term->name, '</label></li>';
 					}
 					echo '</ul>';
-					echo '<span class="cmb_metabox_description">', $field['desc'], '</span>';
 					break;
 				case 'file_list':
 					echo '<input class="cmb_upload_file" type="text" size="36" name="', $field['id'], '" value="" />';
 					echo '<input class="cmb_upload_button button" type="button" value="Upload File" />';
-					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
 					$args        = array(
 						'post_type'   => 'attachment',
 						'numberposts' => null,
@@ -674,7 +666,6 @@ class cmb_Meta_Box {
 					echo '<input class="cmb_upload_file" type="' . $input_type_url . '" size="45" id="', $field['id'], '" name="', $field['id'], '" value="', $meta, '" />';
 					echo '<input class="cmb_upload_button button" type="button" value="Upload File" />';
 					echo '<input class="cmb_upload_file_id" type="hidden" id="', $field['id'], '_id" name="', $field['id'], '_id" value="', get_post_meta( $post->ID, $field['id'] . "_id", true ), '" />';
-					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
 					echo '<div id="', $field['id'], '_status" class="cmb_media_status">';
 					if ( $meta != '' ) {
 						$check_image = preg_match( '/(^.*\.jpg|jpeg|png|gif|ico*)/i', $meta );
@@ -702,7 +693,6 @@ class cmb_Meta_Box {
 					echo '<input class="cmb_upload_file attachment" type="' . $input_type_url . '" size="45" id="', $field['id'], '" name="', $field['id'], '" value=\'', $meta, '\' />';
 					echo '<input class="cmb_upload_button button" type="button" value="Upload File" />';
 					echo '<input class="cmb_upload_file_id" type="hidden" id="', $field['id'], '_id" name="', $field['id'], '_id" value="', get_post_meta( $post->ID, $field['id'] . "_id", true ), '" />';
-					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
 					echo '<div id="', $field['id'], '_status" class="cmb_media_status">';
 					if ( $meta != '' ) {
 						$check_image = preg_match( '/(^.*\.jpg|jpeg|png|gif|ico*)/i', $meta );
@@ -790,7 +780,7 @@ class cmb_Meta_Box {
 					break;
 
 				case 'oembed':
-					echo '<input class="cmb_oembed" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" />', '<p class="cmb_metabox_description">', $field['desc'], '</p>';
+					echo '<input class="cmb_oembed" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" />';
 					echo '<p class="cmb-spinner spinner"></p>';
 					echo '<div id="', $field['id'], '_status" class="cmb_media_status ui-helper-clearfix embed_wrap">';
 					if ( $meta != '' ) {
@@ -814,11 +804,10 @@ class cmb_Meta_Box {
 					echo '<ul class="positions_map">';
 					$i = 1;
 					foreach ( $field['options'] as $option ) {
-						echo '<li><input type="radio" name="', $field['id'], '" id="', $field['id'], $i, '" value="', $option['value'], '"', $meta == $option['value'] ? ' checked="checked"' : '', ' /><label for="', $field['id'], $i, '">', $option['name'] . '</label></li>';
+						echo '<li><input type="radio" name="', $field['id'], '" id="', $field['id'], $i, '" value="', $option['value'], '"', $meta == $option['value'] ? ' checked="checked"' : '', ' /><label for="', $field['id'], $i, '">', '<span>' . $option['value'] . '</span>' . '</label></li>';
 						$i ++;
 					}
 					echo '</ul>';
-					echo '<p class="cmb_metabox_description">', $field['desc'], '</p>';
 					break;
 
 				default:
