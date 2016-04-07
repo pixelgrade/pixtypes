@@ -1,7 +1,6 @@
 <div class="pix_builder_container hidden">
 	<?php
-
-	$base64_decode = false;
+	$base64_decode = true;
 	$gridster_params = '';
 	if( isset( $field['gridster_params'] ) ) {
 		$gridster_params = ' data-params=\'' . json_encode( $field['gridster_params'] ) . '\'';
@@ -9,14 +8,14 @@
 	global $post;
 
 	// this should ensure the legacy with old meta values
-	// basically if there is no post content it will fall on old meta way. and converti it to content(the new way)
-	if( isset( $post->post_content ) && ! empty( $post->post_content ) ) {
+	// basically if there is no post content it will fall on old meta way. and convert it to content(the new way)
+	if( isset( $post->post_content ) && ! empty( $post->post_content ) && empty( $meta ) ) {
 		// remove the white spacces added by the editor
 		$meta = preg_replace( '/[\p{Z}\s]{2,}/u', ' ', $post->post_content );
-		$base64_decode = true;
+	} elseif ( ! empty( $meta ) ) {
+		$base64_decode = false;
 	}
-
-	echo '<input type="hidden" name="', $field['id'], '" id="pix_builder" value="', '' !== $meta ? htmlspecialchars( $meta ) : $field['std'], '" ' . $gridster_params . ' />'; ?>
+	echo '<input type="hidden" name="', $field['id'], '" id="pix_builder" value="" ' . $gridster_params . ' />'; ?>
 	<div class="pixbuilder-controls">
 		<button class="add_block button button-primary button-large"
 		        value="image"> <?php esc_html_e( '+ Image', 'pixtypes' ); ?></button>
@@ -34,7 +33,6 @@
 
 				$meta = json_decode( $meta );
 
-
 				if( ! empty( $meta ) && is_array( $meta ) ) {
 
 					foreach ( $meta as $key => $block ) {
@@ -48,10 +46,10 @@
 						switch ( $block->type ) {
 							case 'editor' :
 								if ( $base64_decode ) {
-									$block_content = base64_decode( $base64_decode );
+									$block->content = base64_decode( $block->content );
 								}
-								$block_content = htmlspecialchars( $block->content );
-								$content = '<textarea class="to_send" style="display: none">' . $block_content . '</textarea>' . '<div class="editor_preview">' . '<div class="editor_preview_wrapper">' . pix_builder_display_content( $block->content, $base64_decode ) . '</div>' . '</div>';
+
+								$content = '<textarea class="to_send" style="display: none">' . htmlspecialchars( $block->content ) . '</textarea>' . '<div class="editor_preview">' . '<div class="editor_preview_wrapper">' . pix_builder_display_content( $block->content, false ) . '</div>' . '</div>';
 
 								$controls_content = '<a class="edit_editor"><span>' . esc_html__( 'Edit', 'pixtypes' ) . '</span></a>';
 
@@ -197,8 +195,7 @@ function my_admin_footer_function() { ?>
 
 						wp_editor( '', 'pix_builder_editor', array( 'textarea_rows' => 20, 'editor_height' => 350 ) );
 
-						remove_filter( 'tiny_mce_before_init', 'pix_builder_change_mce_options' );
-						?>
+						remove_filter( 'tiny_mce_before_init', 'pix_builder_change_mce_options' ); ?>
 					</div>
 					<div class="modal_controls media-frame-toolbar">
 						<a class="close_modal_btn button button-large" href="#"><?php esc_html_e( 'Cancel', 'pixtypes' ) ?></a>
@@ -211,33 +208,6 @@ function my_admin_footer_function() { ?>
 		</div>
 	</div>
 <?php }
-
-add_filter('_wp_post_revision_field_post_content', 'testtt', 15, 4 );
-
-function testtt ( $compare_to_field, $field, $compare_to, $target ){
-	$parsed = json_decode( $compare_to_field, true );
-	$change = false;
-	if ( ! empty( $parsed ) && is_array( $parsed ) ) {
-		$preview_content = '';
-		foreach ( $parsed as $key => $line ) {
-			if ( isset( $line['type'] ) && isset( $line['content'] ) && ! empty($line['content']) && $line['type']=== 'editor') {
-
-				$new_link = base64_decode(  $line['content'] );
-
-				if ( ! empty( $new_link ) ) {
-					$change = true;
-					$parsed[$key]['content'] = htmlspecialchars( $new_link ) ;
-				}
-			}
-		}
-	}
-
-	if ( $change ) {
-		$compare_to_field = json_encode( $parsed );
-	}
-
-	return $compare_to_field;
-}
 
 function pix_builder_display_content( $content = '', $decode = true ) {
 

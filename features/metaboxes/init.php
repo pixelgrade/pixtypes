@@ -133,6 +133,7 @@ class cmb_Meta_Box {
 		//add_filter( 'cmb_show_on', array( &$this, 'add_for_page_template' ), 10, 2 );
 		//add_filter( 'cmb_show_on', array( &$this, 'add_for_specific_select_value' ), 10, 2 );
 
+		add_filter('_wp_post_revision_field_post_content', array( $this, 'pixtypes_fix_builder_revisions_display'), 15, 4 );
 	}
 
 	function add_post_enctype() {
@@ -297,7 +298,32 @@ class cmb_Meta_Box {
 		} else {
 			return $display;
 		}
+	}
 
+	function pixtypes_fix_builder_revisions_display ( $compare_to_field, $field, $compare_to, $target ){
+		
+		$parsed = json_decode( $compare_to_field, true );
+		$change = false;
+		if ( ! empty( $parsed ) && is_array( $parsed ) ) {
+			$preview_content = '';
+			foreach ( $parsed as $key => $line ) {
+				if ( isset( $line['type'] ) && isset( $line['content'] ) && ! empty($line['content']) && $line['type']=== 'editor') {
+
+					$new_link = base64_decode(  $line['content'] );
+
+					if ( ! empty( $new_link ) ) {
+						$change = true;
+						$parsed[$key]['content'] = htmlspecialchars( $new_link ) ;
+					}
+				}
+			}
+		}
+
+		if ( $change ) {
+			$compare_to_field = json_encode( $parsed );
+		}
+
+		return $compare_to_field;
 	}
 
 	// Show fields
