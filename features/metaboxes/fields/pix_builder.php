@@ -9,12 +9,13 @@
 
 	// this should ensure the legacy with old meta values
 	// basically if there is no post content it will fall on old meta way. and convert it to content(the new way)
-	if( isset( $post->post_content ) && ! empty( $post->post_content ) && empty( $meta ) ) {
+	if( isset( $post->post_content ) && ! empty( $post->post_content ) || empty( $meta ) ) {
 		// remove the white spacces added by the editor
 		$meta = preg_replace( '/[\p{Z}\s]{2,}/u', ' ', $post->post_content );
 	} elseif ( ! empty( $meta ) ) {
 		$base64_decode = false;
 	}
+
 	echo '<input type="hidden" name="', $field['id'], '" id="pix_builder" value="" ' . $gridster_params . ' />'; ?>
 	<div class="pixbuilder-controls">
 		<button class="add_block button button-primary button-large"
@@ -49,7 +50,7 @@
 									$block->content = base64_decode( $block->content );
 								}
 
-								$content = '<textarea class="to_send" style="display: none">' . htmlspecialchars( $block->content ) . '</textarea>' . '<div class="editor_preview">' . '<div class="editor_preview_wrapper">' . pix_builder_display_content( $block->content, false ) . '</div>' . '</div>';
+								$content = '<textarea class="to_send" style="display: none">' . $block->content. '</textarea>' . '<div class="editor_preview">' . '<div class="editor_preview_wrapper">' . pix_builder_display_content( $block->content, false ) . '</div>' . '</div>';
 
 								$controls_content = '<a class="edit_editor"><span>' . esc_html__( 'Edit', 'pixtypes' ) . '</span></a>';
 
@@ -184,7 +185,7 @@ function my_admin_footer_function() { ?>
 							$initArray['fix_table_elements']   = false;
 							$initArray['convert_urls']   = false;
 							$initArray['relative_urls']   = false;
-							$initArray['entity_encoding']      = "raw";
+							$initArray['entity_encoding']      = "named";
 
 							$initArray['entities'] = '160,nbsp,38,amp,60,lt,62,gt';
 

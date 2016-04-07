@@ -306,6 +306,7 @@ class cmb_Meta_Box {
 		$change = false;
 		if ( ! empty( $parsed ) && is_array( $parsed ) ) {
 			$preview_content = '';
+
 			foreach ( $parsed as $key => $line ) {
 				if ( isset( $line['type'] ) && isset( $line['content'] ) && ! empty($line['content']) && $line['type']=== 'editor') {
 
@@ -313,7 +314,8 @@ class cmb_Meta_Box {
 
 					if ( ! empty( $new_link ) ) {
 						$change = true;
-						$parsed[$key]['content'] = htmlspecialchars( $new_link ) ;
+//						var_dump( $new_link );
+						$parsed[$key]['content'] = $new_link;
 					}
 				}
 			}
@@ -322,7 +324,6 @@ class cmb_Meta_Box {
 		if ( $change ) {
 			$compare_to_field = json_encode( $parsed );
 		}
-
 		return $compare_to_field;
 	}
 
