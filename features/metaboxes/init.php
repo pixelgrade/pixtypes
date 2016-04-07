@@ -326,16 +326,7 @@ class cmb_Meta_Box {
 		}
 
 		// Use nonce for verification
-		echo '<input type="hidden" name="wp_meta_box_nonce" value="', wp_create_nonce( basename( __FILE__ ) ), '" />';
-
-		if ( ! empty( $this->_meta_box['fields'] ) ) {
-			foreach ( $this->_meta_box['fields'] as $meta_arr ) {
-				if ( in_array( 'pix_builder', $meta_arr ) ) {
-					echo '<button class="switch-to-editor-btn">' . esc_html__( 'Switch to editor', 'pixtypes' ) . '</button>';
-				}
-			}
-		}
-
+		echo '<input type="hidden" name="wp_meta_box_nonce" value="', wp_create_nonce( basename( __FILE__ ) ), '" />'; 
 
 		echo '<div class="form-table cmb_metabox">';
 

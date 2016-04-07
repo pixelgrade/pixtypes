@@ -1,5 +1,7 @@
 <div class="pix_builder_container hidden">
 	<?php
+
+	$base64_decode = false;
 	$gridster_params = '';
 	if( isset( $field['gridster_params'] ) ) {
 		$gridster_params = ' data-params=\'' . json_encode( $field['gridster_params'] ) . '\'';
@@ -10,7 +12,8 @@
 	// basically if there is no post content it will fall on old meta way. and converti it to content(the new way)
 	if( isset( $post->post_content ) && ! empty( $post->post_content ) ) {
 		// remove the white spacces added by the editor
-		$meta = preg_replace( '/[\p{Z}\s]{2,}/u', ' ', $post->post_content );;
+		$meta = preg_replace( '/[\p{Z}\s]{2,}/u', ' ', $post->post_content );
+		$base64_decode = true;
 	}
 
 	echo '<input type="hidden" name="', $field['id'], '" id="pix_builder" value="', '' !== $meta ? htmlspecialchars( $meta ) : $field['std'], '" ' . $gridster_params . ' />'; ?>
@@ -25,9 +28,15 @@
 
 	<div class="pixbuilder-grid gridster">
 		<ul>
-			<?php if( ! empty ( $meta ) ) {
+			<?php
+
+			if( ! empty ( $meta ) ) {
+
 				$meta = json_decode( $meta );
+
+
 				if( ! empty( $meta ) && is_array( $meta ) ) {
+
 					foreach ( $meta as $key => $block ) {
 
 						if( ! isset( $block->type ) ) {
@@ -38,9 +47,13 @@
 						$controls_content = '';
 						switch ( $block->type ) {
 							case 'editor' :
-								$content = '<textarea class="to_send" style="display: none">' . htmlspecialchars( $block->content ) . '</textarea>' . '<div class="editor_preview">' . '<div class="editor_preview_wrapper">' . pix_builder_display_content( $block->content ) . '</div>' . '</div>';
+								$block_content = htmlspecialchars( $block->content );
+								if ( $base64_decode ) {
+									$block_content = base64_decode( $base64_decode );
+								}
+								$content = '<textarea class="to_send" style="display: none">' . $block_content . '</textarea>' . '<div class="editor_preview">' . '<div class="editor_preview_wrapper">' . pix_builder_display_content( $block->content, $base64_decode ) . '</div>' . '</div>';
 
-								$controls_content = '<a class="edit_editor"><span>Edit</span></a>';
+								$controls_content = '<a class="edit_editor"><span>' . esc_html__( 'Edit', 'pixtypes' ) . '</span></a>';
 
 								break;
 
@@ -171,7 +184,9 @@ function my_admin_footer_function() { ?>
 							$initArray['force_p_newlines']     = true;
 							$initArray['force_br_newlines']    = true;
 							$initArray['fix_table_elements']   = false;
-							$initArray['entity_encoding']      = "named";
+							$initArray['convert_urls']   = false;
+							$initArray['relative_urls']   = false;
+							$initArray['entity_encoding']      = "raw";
 
 							$initArray['entities'] = '160,nbsp,38,amp,60,lt,62,gt';
 
@@ -186,7 +201,7 @@ function my_admin_footer_function() { ?>
 						?>
 					</div>
 					<div class="modal_controls media-frame-toolbar">
-						<a class="close_modal_btn button button-large" href="#">Cancel</a>
+						<a class="close_modal_btn button button-large" href="#"><?php esc_html_e( 'Cancel', 'pixtypes' ) ?></a>
 						<a class="insert_editor_content button media-button button-primary button-large"
 						   href="#"><?php esc_html_e( 'Insert Content', 'pixtypes' ); ?></a>
 					</div>
@@ -197,8 +212,38 @@ function my_admin_footer_function() { ?>
 	</div>
 <?php }
 
+add_filter('_wp_post_revision_field_post_content', 'testtt', 15, 4 );
 
-function pix_builder_display_content( $content = '' ) {
+function testtt ( $compare_to_field, $field, $compare_to, $target ){
+	$parsed = json_decode( $compare_to_field, true );
+	$change = false;
+	if ( ! empty( $parsed ) && is_array( $parsed ) ) {
+		$preview_content = '';
+		foreach ( $parsed as $key => $line ) {
+			if ( isset( $line['type'] ) && isset( $line['content'] ) && ! empty($line['content']) && $line['type']=== 'editor') {
+
+				$new_link = base64_decode(  $line['content'] );
+
+				if ( ! empty( $new_link ) ) {
+					$change = true;
+					$parsed[$key]['content'] = htmlspecialchars( $new_link ) ;
+				}
+			}
+		}
+	}
+
+	if ( $change ) {
+		$compare_to_field = json_encode( $parsed );
+	}
+
+	return $compare_to_field;
+}
+
+function pix_builder_display_content( $content = '', $decode = true ) {
+
+	if ( $decode && ! empty( $content ) ) {
+		$content = base64_decode($content);
+	}
 	// since we cannot apply "the_content" filter on some content blocks we should apply at least these bellow
 	$content = apply_filters( 'wptexturize', $content );
 	$content = apply_filters( 'convert_smilies', $content );
