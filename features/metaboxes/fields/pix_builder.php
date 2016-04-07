@@ -47,10 +47,10 @@
 						$controls_content = '';
 						switch ( $block->type ) {
 							case 'editor' :
-								$block_content = htmlspecialchars( $block->content );
 								if ( $base64_decode ) {
 									$block_content = base64_decode( $base64_decode );
 								}
+								$block_content = htmlspecialchars( $block->content );
 								$content = '<textarea class="to_send" style="display: none">' . $block_content . '</textarea>' . '<div class="editor_preview">' . '<div class="editor_preview_wrapper">' . pix_builder_display_content( $block->content, $base64_decode ) . '</div>' . '</div>';
 
 								$controls_content = '<a class="edit_editor"><span>' . esc_html__( 'Edit', 'pixtypes' ) . '</span></a>';
