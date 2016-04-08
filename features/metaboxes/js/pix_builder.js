@@ -153,7 +153,6 @@
 				}
 			});
 
-
 			var parsed_string = JSON.stringify(new_values);
 			var content_editor = tinyMCE.get('content');
 
@@ -295,8 +294,14 @@
 			}
 		});
 
-		// on builders pages keep the editori hidden
-		$('#postdivrich').hide();
+		setTimeout( function () {
+			// on builders pages keep the editor hidden
+			if ( $('.cmb-type-pix_builder').is(":visible") ) {
+				$('#postdivrich').hide();
+			} else {
+				$('#postdivrich').show();
+			}
+		}, 1000);
 	}); /* Document.ready */
 
 	// Get the html for the block
