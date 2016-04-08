@@ -23,9 +23,9 @@
 	echo '<input type="hidden" name="', $field['id'], '" id="pix_builder" value="', '' !== $meta ? htmlspecialchars( $meta ) : $content, '" ' . $gridster_params . ' />'; ?>
 	<div class="pixbuilder-controls">
 		<button class="add_block button button-primary button-large"
-		        value="image"> <?php esc_html_e( '+ Image', 'pixtypes' ); ?></button>
+		        value="image"> <?php esc_html_e( '+ Add Image', 'pixtypes' ); ?></button>
 		<button class="add_block button button-primary button-large"
-		        value="editor"> <?php esc_html_e( '+ Editor', 'pixtypes' ); ?></button>
+		        value="editor"> <?php esc_html_e( '+ Text', 'pixtypes' ); ?></button>
 	</div>
 
 	<!-- <span class="clear-all button button-secondary">Clear All</span> -->

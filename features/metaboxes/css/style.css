@@ -3065,7 +3065,8 @@ img {
 
 .cmb-type-pix_builder {
   flex-direction: column;
-  align-items: stretch; }
+  align-items: stretch;
+  margin: 0 -30px; }
 
 .cmb_metabox_description {
   color: #AAA;
@@ -3087,7 +3088,6 @@ img {
 #postbox-container-2 .inside {
   padding: 1.5vw 3vw; }
 #postbox-container-2 .cmb-type {
-  margin: 0;
   padding: 2.5vw 0; }
   #postbox-container-2 .cmb-type + .cmb-type {
     border-top: 1px solid #ddd; }

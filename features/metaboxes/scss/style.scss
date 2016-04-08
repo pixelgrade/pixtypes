@@ -1908,6 +1908,7 @@ img {
 .cmb-type-pix_builder {
 	flex-direction: column;
 	align-items: stretch;
+	margin: 0 -30px;
 }
 
 .cmb_metabox_description {
@@ -1943,7 +1944,6 @@ img {
 	}
 
 	.cmb-type {
-		margin: 0;
 		padding: 2.5vw 0;
 
 		& + .cmb-type {

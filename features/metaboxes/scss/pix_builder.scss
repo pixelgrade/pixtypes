@@ -196,10 +196,25 @@ $accent   : #0095ea;
           left: 50%;
           @include translate(-50%, -50%);
 
-          width: 220px;
+          display: flex;
 
           background: $dark;
           @include border-radius(6px);
+
+          > li {
+            width: 51px;
+            box-sizing: border-box;
+          }
+
+          > li:first-child {
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px;
+          }
+
+          > li:last-child {
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px;
+          }
 
         }
   /*ul.nav*/.nav--controls {
@@ -211,6 +226,31 @@ $accent   : #0095ea;
     height: 100%;
     padding: 12px;
     @include box-sizing(border-box);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+
+    &.top-1, &.top-2, &.top-3             { align-items: flex-start; }
+    &.right-1, &.right-2, &.right-3       { justify-content: flex-end; }
+    &.bottom-1, &.bottom-2, &.bottom-3    { align-items: flex-end; }
+    &.left-1, &.left-2, &.left-3          { justify-content: flex-start; }
+
+    &.top-1 { top: -12px; }
+    &.top-2 { top: -24px; }
+    &.top-3 { top: -36px; }
+
+    &.right-1 { right: -12px; }
+    &.right-2 { right: -24px; }
+    &.right-3 { right: -36px; }
+
+    &.bottom-1 { bottom: -12px; }
+    &.bottom-2 { bottom: -24px; }
+    &.bottom-3 { bottom: -36px; }
+
+    &.left-1 { left: -12px; }
+    &.left-2 { left: -24px; }
+    &.left-3 { left: -36px; }
   }
 }
 
@@ -228,10 +268,6 @@ $accent   : #0095ea;
  */
 .block-type--image {
   text-align: center;
-
-  img {
-    @extend %centered;
-  }
 
   .block_content.empty {
 
@@ -253,12 +289,6 @@ $accent   : #0095ea;
 
   .editor_preview {
     width: 100%;
-    padding: 12px;
-
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    @extend %centered;
   }
 
   .block_content.empty {
@@ -379,7 +409,6 @@ img {
 }
 
 .pix_builder_container {
-  padding-top: 50px ;
 
   .clear-all {
     float: right;

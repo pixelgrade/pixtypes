@@ -477,35 +477,46 @@
 
 		// margins?
 		$('.pixbuilder-grid').on('click', '.position__ui-cell', function(e) {
-			var $cell = $(this),
-				$container = $cell.closest('.position__ui'),
-				$active = $container.find('.position__ui-cell.active'),
-				$item = $cell.find('.position__ui-handle'),
-				step = $item.attr('data-step'),
-				$target = $active.filter('.middle');
+			var $cell 		= $(this),
+                $container  = $cell.closest('.position__ui'),
+                $item       = $cell.find('.position__ui-handle'),
+                $active     = $container.find('.position__ui-cell.active'),
+                $turnOff    = $active.filter('.middle');
 
-			if ( $cell.is('.middle') ) $target = $active;
-			if ( $cell.is('.top') && $active.filter('.bottom').length ) $target = $active.filter('.bottom');
-			if ( $cell.is('.right') && $active.filter('.left').length ) $target = $active.filter('.left');
-			if ( $cell.is('.bottom') && $active.filter('.top').length ) $target = $active.filter('.top');
-			if ( $cell.is('.left') && $active.filter('.right').length ) $target = $active.filter('.right');
+            if ( $cell.is('.top') && $active.filter('.bottom').length ) $turnOff = $active.filter('.bottom');
+            if ( $cell.is('.right') && $active.filter('.left').length ) $turnOff = $active.filter('.left');
+            if ( $cell.is('.bottom') && $active.filter('.top').length ) $turnOff = $active.filter('.top');
+            if ( $cell.is('.left') && $active.filter('.right').length ) $turnOff = $active.filter('.right');
 
-			$target.removeClass('active');
-			$target.find('.position__ui-handle').attr('data-step', 0);
+            $turnOff.removeClass('active').find('.position__ui-handle').attr('data-step', 0);
+            step = typeof step === "undefined" ? 1 : step == 3 ? 0 : parseInt(step) + 1;
 
-			$cell.addClass('active');
+            $item.attr('data-step', step);
+            $cell.toggleClass('active', !!step);
 
-			if ( typeof step === "undefined" ) {
-				step = 1;
-			} else if ( step == 3 ) {
-				step = 0;
-				$cell.removeClass('active');
-			} else {
-				step = parseInt(step) + 1;
-			}
-
-			$item.attr('data-step', step);
+            updateCell($cell);
 		});
+
+        $('.position__ui-cell').each(function() { updateCell($(this)); });
+
+        function updateCell($cell) {
+            var $container  = $cell.closest('.position__ui'),
+                $active     = $container.find('.position__ui-cell.active'),
+                $item       = $cell.find('.position__ui-handle'),
+                step        = $item.attr('data-step'),
+                $content    = $item.closest('.item').find('.item__content'),
+                props       = ['top', 'right', 'bottom', 'left'];
+
+            for (var i = 0; i < props.length; i++)
+                for (var j = 0; j < 4; j++)
+                    $content.removeClass(props[i] + '-' + j);
+
+            // update block
+            for (var i = 0; i < props.length; i++) {
+                var $prop = $active.filter('.'+props[i]);
+                if ( $prop.length ) $content.addClass(props[i] + '-' + $prop.find('.position__ui-handle').attr('data-step'));
+            }
+        }
 
 	}); /* Window.load */
 
