@@ -2,21 +2,25 @@
 	<?php
 	$base64_decode = true;
 	$gridster_params = '';
+
 	if( isset( $field['gridster_params'] ) ) {
 		$gridster_params = ' data-params=\'' . json_encode( $field['gridster_params'] ) . '\'';
 	}
+
 	global $post;
+	$content = $field['std'];
 
 	// this should ensure the legacy with old meta values
 	// basically if there is no post content it will fall on old meta way. and convert it to content(the new way)
 	if( isset( $post->post_content ) && ! empty( $post->post_content ) || empty( $meta ) ) {
 		// remove the white spacces added by the editor
-		$meta = preg_replace( '/[\p{Z}\s]{2,}/u', ' ', $post->post_content );
+		$content = preg_replace( '/[\p{Z}\s]{2,}/u', ' ', $post->post_content );
 	} elseif ( ! empty( $meta ) ) {
 		$base64_decode = false;
+		$content = $meta;
 	}
 
-	echo '<input type="hidden" name="', $field['id'], '" id="pix_builder" value="" ' . $gridster_params . ' />'; ?>
+	echo '<input type="hidden" name="', $field['id'], '" id="pix_builder" value="', '' !== $meta ? htmlspecialchars( $meta ) : $content, '" ' . $gridster_params . ' />'; ?>
 	<div class="pixbuilder-controls">
 		<button class="add_block button button-primary button-large"
 		        value="image"> <?php esc_html_e( '+ Image', 'pixtypes' ); ?></button>
@@ -29,14 +33,13 @@
 	<div class="pixbuilder-grid gridster">
 		<ul>
 			<?php
+			if( ! empty ( $content ) ) {
 
-			if( ! empty ( $meta ) ) {
+				$content = json_decode( $content );
 
-				$meta = json_decode( $meta );
+				if( ! empty( $content ) && is_array( $content ) ) {
 
-				if( ! empty( $meta ) && is_array( $meta ) ) {
-
-					foreach ( $meta as $key => $block ) {
+					foreach ( $content as $key => $block ) {
 
 						if( ! isset( $block->type ) ) {
 							return;
