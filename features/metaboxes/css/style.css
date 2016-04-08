@@ -3058,25 +3058,12 @@ img {
   display: flex;
   align-items: center; }
 
-.cmb_metabox > ul {
-  margin: 0;
-  padding: 2.5vw 0; }
-  .cmb_metabox > ul + ul {
-    border-top: 1px solid #ddd; }
-
 ul.cmb-type-wysiwyg + ul {
   border-top: 0;
   padding-top: 0; }
 
 .cmb-type-pix_builder > li {
   flex-direction: column; }
-
-.cmb_field_description {
-  flex-basis: 50%;
-  flex-shrink: 0;
-  padding-right: 55px; }
-  .cmb_field_description:empty {
-    display: none; }
 
 .cmb_metabox_description {
   color: #AAA;
@@ -3095,24 +3082,34 @@ ul.cmb-type-wysiwyg + ul {
       content: "\2014 ";
       padding-right: 10px; }
 
-.postbox .inside {
+#postbox-container-2 .inside {
   padding: 1.5vw 3vw; }
+#postbox-container-2 .cmb_metabox > ul {
+  margin: 0;
+  padding: 2.5vw 0; }
+  #postbox-container-2 .cmb_metabox > ul + ul {
+    border-top: 1px solid #ddd; }
+#postbox-container-2 ul.cmb-type-title {
+  padding-top: 2vw;
+  padding-bottom: 0; }
+  #postbox-container-2 ul.cmb-type-title + ul {
+    padding-top: 0;
+    border-top: 0; }
+  #postbox-container-2 ul.cmb-type-title h3 {
+    font-size: 23px;
+    line-height: 1.8; }
+#postbox-container-2 .cmb_field_description {
+  flex-basis: 50%;
+  flex-shrink: 0;
+  padding-right: 2vw; }
+  #postbox-container-2 .cmb_field_description:empty {
+    display: none; }
 
 .cmb_metabox h3 {
   font-size: 16px;
   font-weight: 600;
   color: #444;
   margin: 6px 0; }
-
-ul.cmb-type-title {
-  padding-top: 2vw;
-  padding-bottom: 0; }
-  ul.cmb-type-title + ul {
-    padding-top: 0;
-    border-top: 0; }
-  ul.cmb-type-title h3 {
-    font-size: 23px;
-    line-height: 1.8; }
 
 .wp-editor-wrap {
   width: 100%; }
