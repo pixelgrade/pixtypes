@@ -355,12 +355,12 @@ class cmb_Meta_Box {
 		// Use nonce for verification
 		echo '<input type="hidden" name="wp_meta_box_nonce" value="', wp_create_nonce( basename( __FILE__ ) ), '" />';
 
-		echo '<div class="form-table cmb_metabox">';
+		echo '<ul class="form-table cmb_metabox">';
 
 		foreach ( $this->_meta_box['fields'] as $field ) {
 
 			//some extra classes
-			$classes = 'cmb-type-' . sanitize_html_class( $field['type'] );
+			$classes = 'cmb-type cmb-type-' . sanitize_html_class( $field['type'] );
 
 			// Set up blank or default values for empty ones
 			if ( ! isset( $field['name'] ) ) {
@@ -387,7 +387,7 @@ class cmb_Meta_Box {
 
 			$meta = get_post_meta( $post->ID, $field['id'], 'multicheck' != $field['type'] /* If multicheck this can be multiple values */ );
 			if ( isset( $field['options'] ) && isset( $field['options']['hidden'] ) && $field['options']['hidden'] == true ) {
-				echo '<ul style="display:none;">';
+				echo '<li style="display:none;">';
 			} else {
 
 				$requires = '';
@@ -417,11 +417,10 @@ class cmb_Meta_Box {
 					}
 				}
 
-				echo '<ul class="' . $classes . '" ' . $requires . '>';
+				echo '<li class="' . $classes . '" ' . $requires . '>';
 			}
 
-			echo '<li>';
-			echo '<div class="cmb_field_description">';
+			echo '<div class="cmb_metabox_description">';
 			if ( ! ( $field['type'] == "title" && $field['type'] == 'portfolio-gallery' && $field['type'] == 'gallery' && $field['type'] == 'pix_builder' && $field['type'] == 'gmap_pins' ) ) {
 				if ( isset( $this->_meta_box['show_names'] ) && $this->_meta_box['show_names'] == true ) {
 					if ( isset( $field['show_names'] ) && $field['show_names'] == true ) {
@@ -430,7 +429,7 @@ class cmb_Meta_Box {
 				}
 			}
 			if ( ! empty($field['desc']) ) {
-				echo '<div class="cmb_metabox_description">' . $field['desc'] . '</div>';
+				echo $field['desc'];
 			}
 			echo '</div>';
 
@@ -827,9 +826,9 @@ class cmb_Meta_Box {
 					do_action( 'cmb_render_' . $field['type'], $field, $meta );
 			}
 
-			echo '</li>', '</ul>';
+			echo '</li>';
 		}
-		echo '</div>';
+		echo '</ul>';
 	}
 
 	function fold_display() {
