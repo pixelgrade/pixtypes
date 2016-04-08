@@ -124,14 +124,13 @@ $accent   : #0095ea;
 
         a {
           padding: 12px 18px;
-          color: white;
 
           cursor: pointer;
 
           span { display: none; }
           &:before { content: "\f040" }
 
-          &:hover { color: $accent; }
+          &, &:hover, &:active { color: white; }
         }
       }
 

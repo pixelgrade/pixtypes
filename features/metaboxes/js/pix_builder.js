@@ -480,19 +480,27 @@
 			var $cell 		= $(this),
                 $container  = $cell.closest('.position__ui'),
                 $item       = $cell.find('.position__ui-handle'),
+                step        = $item.attr('data-step'),
                 $active     = $container.find('.position__ui-cell.active'),
-                $turnOff    = $active.filter('.middle');
+                $turnOff    = $container.find('.position__ui-cell.middle');
 
-            if ( $cell.is('.top') && $active.filter('.bottom').length ) $turnOff = $active.filter('.bottom');
-            if ( $cell.is('.right') && $active.filter('.left').length ) $turnOff = $active.filter('.left');
-            if ( $cell.is('.bottom') && $active.filter('.top').length ) $turnOff = $active.filter('.top');
-            if ( $cell.is('.left') && $active.filter('.right').length ) $turnOff = $active.filter('.right');
+            if ( $cell.is('.middle') ) $turnOff = $active.filter('.middle');
+            if ( $cell.is('.top') && $active.filter('.bottom').length ) $turnOff.add($active.filter('.bottom'));
+            if ( $cell.is('.right') && $active.filter('.left').length ) $turnOff.add($active.filter('.left'));
+            if ( $cell.is('.bottom') && $active.filter('.top').length ) $turnOff.add($active.filter('.top'));
+            if ( $cell.is('.left') && $active.filter('.right').length ) $turnOff.add($active.filter('.right'));
 
             $turnOff.removeClass('active').find('.position__ui-handle').attr('data-step', 0);
             step = typeof step === "undefined" ? 1 : step == 3 ? 0 : parseInt(step) + 1;
 
             $item.attr('data-step', step);
             $cell.toggleClass('active', !!step);
+
+            $active     = $container.find('.position__ui-cell.active');
+
+            if ( ! $active.filter('.active').length ) {
+                $container.find('.position__ui-cell.middle').addClass('active');
+            }
 
             updateCell($cell);
 		});
