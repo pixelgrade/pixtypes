@@ -107,6 +107,7 @@
       color: #999;
       z-index: 5;
       -moz-transition: color 1s ease;
+      -o-transition: color 1s ease;
       -webkit-transition: color 1s ease;
       transition: color 1s ease; }
     #portfolio-patterns1 .portolio-pattern .image-preview:hover:after {
@@ -135,6 +136,7 @@
       -webkit-border-bottom-left-radius: 6px;
       border-bottom-left-radius: 6px;
       -moz-transition: right 0.4s ease;
+      -o-transition: right 0.4s ease;
       -webkit-transition: right 0.4s ease;
       transition: right 0.4s ease; }
     #portfolio-patterns1 .portolio-pattern .image-preview .cmb_edit_file {
@@ -154,6 +156,7 @@
       -webkit-border-top-right-radius: 6px;
       border-top-right-radius: 6px;
       -moz-transition: left 0.4s ease;
+      -o-transition: left 0.4s ease;
       -webkit-transition: left 0.4s ease;
       transition: left 0.4s ease; }
     #portfolio-patterns1 .portolio-pattern .image-preview:hover .cmb_edit_file {
@@ -203,6 +206,7 @@
     -webkit-border-bottom-left-radius: 6px;
     border-bottom-left-radius: 6px;
     -moz-transition: right 0.4s ease;
+    -o-transition: right 0.4s ease;
     -webkit-transition: right 0.4s ease;
     transition: right 0.4s ease; }
   #portfolio-patterns1 .add_new_row:hover .close_btn {
@@ -397,6 +401,7 @@
       -webkit-border-radius: 2px;
       border-radius: 2px;
       -moz-transition: all 0.3s;
+      -o-transition: all 0.3s;
       -webkit-transition: all 0.3s;
       transition: all 0.3s; }
       .row-content .image-box .image-preview:hover {
@@ -426,6 +431,7 @@
           z-index: 20;
           opacity: 0;
           -moz-transition: all 0.3s;
+          -o-transition: all 0.3s;
           -webkit-transition: all 0.3s;
           transition: all 0.3s; }
         .row-content .image-box .image-preview .img_status .cmb_edit_file {
@@ -436,6 +442,7 @@
           display: block;
           opacity: 0;
           -moz-transition: all 0.3s;
+          -o-transition: all 0.3s;
           -webkit-transition: all 0.3s;
           transition: all 0.3s; }
         .row-content .image-box .image-preview .img_status:hover .cmb_remove_file_button, .row-content .image-box .image-preview .img_status:hover .cmb_edit_file {
@@ -521,6 +528,7 @@
       -webkit-border-radius: 3px;
       border-radius: 3px;
       -moz-transition: all 0.3s;
+      -o-transition: all 0.3s;
       -webkit-transition: all 0.3s;
       transition: all 0.3s; }
     .row-content .video_field:hover .clear_upload_btn {
@@ -645,15 +653,12 @@
 @-webkit-keyframes loading {
   0% {
     background-color: rgba(255, 211, 78, 0.69); }
-
   50% {
     background-color: #50a1ff; }
-
   100% {
     background-color: rgba(232, 0, 208, 0.67); } }
 @-webkit-keyframes fadeIn {
   0% {
     opacity: 0; }
-
   100% {
     opacity: 1; } }

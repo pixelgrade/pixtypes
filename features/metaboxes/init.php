@@ -306,6 +306,7 @@ class cmb_Meta_Box {
 		$change = false;
 		if ( ! empty( $parsed ) && is_array( $parsed ) ) {
 			$preview_content = '';
+
 			foreach ( $parsed as $key => $line ) {
 				if ( isset( $line['type'] ) && isset( $line['content'] ) && ! empty($line['content']) && $line['type']=== 'editor') {
 
@@ -313,7 +314,8 @@ class cmb_Meta_Box {
 
 					if ( ! empty( $new_link ) ) {
 						$change = true;
-						$parsed[$key]['content'] = htmlspecialchars( $new_link ) ;
+//						var_dump( $new_link );
+						$parsed[$key]['content'] = $new_link;
 					}
 				}
 			}
@@ -322,7 +324,6 @@ class cmb_Meta_Box {
 		if ( $change ) {
 			$compare_to_field = json_encode( $parsed );
 		}
-
 		return $compare_to_field;
 	}
 
@@ -357,6 +358,10 @@ class cmb_Meta_Box {
 		echo '<div class="form-table cmb_metabox">';
 
 		foreach ( $this->_meta_box['fields'] as $field ) {
+
+			//some extra classes
+			$classes = 'cmb-type-' . sanitize_html_class( $field['type'] );
+
 			// Set up blank or default values for empty ones
 			if ( ! isset( $field['name'] ) ) {
 				$field['name'] = '';
@@ -379,8 +384,6 @@ class cmb_Meta_Box {
 			if ( 'multicheck' == $field['type'] ) {
 				$field['multiple'] = true;
 			}
-			//some extra classes
-			$classes = 'cmb-type-' . sanitize_html_class( $field['type'] );
 
 			$meta = get_post_meta( $post->ID, $field['id'], 'multicheck' != $field['type'] /* If multicheck this can be multiple values */ );
 			if ( isset( $field['options'] ) && isset( $field['options']['hidden'] ) && $field['options']['hidden'] == true ) {
@@ -497,7 +500,18 @@ class cmb_Meta_Box {
 					echo '<textarea name="', $field['id'], '" id="', $field['id'], '" cols="60" rows="4">', '' !== $meta ? $meta : $field['std'], '</textarea>';
 					break;
 				case 'textarea_code':
-					echo '<textarea name="', $field['id'], '" id="', $field['id'], '" cols="60" rows="10" class="cmb_textarea_code">', '' !== $meta ? $meta : $field['std'], '</textarea>';
+					$rows = $cols = '';
+					if( isset( $field['rows'] ) && ! empty( $field['rows'] ) ) {
+						$rows =  'rows="' . $field['rows'] . '"';
+					}
+
+					if( isset( $field['cols'] ) && ! empty( $field['cols'] ) ) {
+						$cols = 'cols="' . $field['cols'] . '"';
+					} else {
+						$cols = 'style="width: 100%"';
+					}
+
+					echo '<textarea name="', $field['id'], '" id="', $field['id'], '" ' . $cols .' ' . $rows . ' class="cmb_textarea_code">', '' !== $meta ? $meta : $field['std'], '</textarea>';
 					break;
 				case 'select':
 					//we DON'T consider the '0' string as empty, nor do we consider (int)0 as empty
