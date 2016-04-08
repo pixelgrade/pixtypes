@@ -3117,7 +3117,9 @@ img {
 .wp-editor-wrap {
   width: 100%; }
 
-.cmb_metabox select {
+.cmb_metabox select,
+.cmb_text_small,
+.cmb_text_medium {
   width: 100%;
   -webkit-appearance: none;
   padding: 10px 14px 10px 16px;
