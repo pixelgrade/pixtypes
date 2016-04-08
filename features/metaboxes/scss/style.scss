@@ -1604,6 +1604,10 @@ $accent: #07d3f8;
 // Videos
 #pixvideos  {
 
+	&.has-items {
+		min-height: 0;
+	}
+
 	// List Layout
 	& > ul {
 		list-style: none;
@@ -1991,8 +1995,8 @@ img {
 
 .cmb_metabox select,
 .cmb_text_small,
-.cmb_text_medium {
-    width: 100%;
+.cmb_text_medium,
+.cmb-type-text_range output {
     -webkit-appearance: none;
     padding: 10px 14px 10px 16px;
     line-height: 1.5;
@@ -2000,6 +2004,46 @@ img {
     border: 1px solid #DDD;
     border-radius: 4px;
     box-shadow: none;
+    color: #444444;
+}
+
+.cmb_text_range {
+	width: 100%;
+    position: relative;
+    -webkit-appearance: none;
+    height: 22px;
+    overflow: hidden;
+    outline: none;
+    background: none;
+    margin-right: 20px;
+
+    &:before {
+	    content: " ";
+	    position: absolute;
+	    top: 8px;
+	    left: 0;
+	    height: 6px;
+	    width: 100%;
+	    background: #DFE8EF;
+	    box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.3);
+	    border-radius: 10px;
+    }
+
+	/* Special styling for WebKit/Blink */
+	&::-webkit-slider-thumb {
+	  -webkit-appearance: none;
+	  border-radius: 4px;
+	  width: 22px;
+	  height: 22px;
+	  border: 1px solid #0083BD;
+	  position: relative;
+	  z-index: 20;
+	  background: white;
+	}
+
+	/* All the same stuff for Firefox */
+	&::-moz-range-thumb {}
+	&::-ms-thumb {}
 }
 
 #wp-_pile_header_cover_description-wrap .mce-toolbar.mce-last .mce-btn {
