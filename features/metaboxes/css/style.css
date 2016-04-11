@@ -1663,6 +1663,11 @@
 /**
  * CMB Styling
  */
+.form-table.cmb_metabox:first-of-type {
+  margin-top: 0; }
+.form-table.cmb_metabox:last-of-type {
+  margin-bottom: 0; }
+
 table.cmb_metabox th {
   text-align: right;
   font-weight: bold; }
@@ -3054,9 +3059,11 @@ img {
   flex-wrap: wrap;
   align-items: center;
   position: relative;
-  padding: 20px 0;
+  padding: 38px 0;
   margin: 0; }
-  .cmb-type:last-child {
+  .cmb-type:first-of-type {
+    padding-top: 0; }
+  .cmb-type:last-of-type {
     padding-bottom: 0; }
   .cmb-type #postbox-container-2 {
     padding: 2.5vw 0; }
@@ -3105,7 +3112,7 @@ img {
       padding-right: 10px; }
 
 #postbox-container-2 .inside {
-  padding: 1.5vw 3vw; }
+  padding: 30px; }
 #postbox-container-2 .cmb-type-title {
   padding-top: 2vw;
   padding-bottom: 0; }

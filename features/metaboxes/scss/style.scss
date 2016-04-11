@@ -7,6 +7,16 @@ table.cmb_metabox td, table.cmb_metabox th {
 	// border-bottom: 1px solid #E9E9E9;
 }
 
+.form-table.cmb_metabox {
+	&:first-of-type {
+		margin-top: 0;
+	}
+
+	&:last-of-type {
+		margin-bottom: 0;
+	}
+}
+
 table.cmb_metabox th {
 	text-align: right;
 	font-weight: bold;
@@ -1896,10 +1906,14 @@ img {
 	flex-wrap: wrap;
     align-items: center;
     position: relative;
-	padding: 20px 0;
+	padding: 38px 0;
 	margin: 0;
 
-	&:last-child {
+	&:first-of-type {
+		padding-top: 0;
+	}
+
+	&:last-of-type {
 		padding-bottom: 0;
 	}
 
@@ -1972,7 +1986,7 @@ img {
 #postbox-container-2 {
 
 	.inside {
-		padding: 1.5vw 3vw;
+		padding: 30px;
 	}
 
 	.cmb-type-title {
