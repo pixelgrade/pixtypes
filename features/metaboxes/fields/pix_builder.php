@@ -188,7 +188,7 @@ function my_admin_footer_function() { ?>
 							$initArray['fix_table_elements']   = false;
 							$initArray['convert_urls']   = false;
 							$initArray['relative_urls']   = false;
-							$initArray['entity_encoding']      = "named";
+							$initArray['entity_encoding']      = "raw";
 
 							$initArray['entities'] = '160,nbsp,38,amp,60,lt,62,gt';
 
