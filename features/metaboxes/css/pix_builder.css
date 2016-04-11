@@ -52,7 +52,7 @@
 \*----------------------------------------*/
 .pixbuilder-grid {
   margin-top: -10px;
-  z-index: 100;
+  z-index: 1000;
   /*ul*/
   /*ul.nav*/ }
   .pixbuilder-grid .item__controls {
