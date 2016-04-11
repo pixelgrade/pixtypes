@@ -457,6 +457,7 @@ class cmb_Meta_Box {
 					<input class="cmb_text_range" type="range" name="<?php echo $field['id']; ?>"
 					       id="<?php echo $field['id'] ?>"
 					       value="<?php echo '' !== $meta ? $meta : $field['std']; ?>" <?php echo $atts ?>
+					       style="background-size: <?php echo 0 !== $meta ? $meta : $field['std']; ?>% 100%;"
 					       oninput="<?php echo $field['id'] . '_output.value = ' . $field['id'] . '.value'; ?>"/>
 					<output name="<?php echo $field['id'] ?>_output" id="<?php echo $field['id']; ?>_output">
 						<?php echo '' !== $meta ? $meta : $field['std']; ?>
@@ -471,7 +472,7 @@ class cmb_Meta_Box {
 
 				case 'text_datetime_timestamp':
 					echo '<input class="cmb_text_small cmb_datepicker" type="text" name="', $field['id'], '[date]" id="', $field['id'], '_date" value="', '' !== $meta ? date( 'm\/d\/Y', $meta ) : $field['std'], '" />';
-					echo '<input class="cmb_timepicker text_time" type="text" name="', $field['id'], '[time]" id="', $field['id'], '_time" value="', '' !== $meta ? date( 'h:i A', $meta ) : $field['std'], '" /><span class="cmb_metabox_description" >', $field['desc'], '</span>';
+					echo '<input class="cmb_timepicker text_time" type="text" name="', $field['id'], '[time]" id="', $field['id'], '_time" value="', '' !== $meta ? date( 'h:i A', $meta ) : $field['std'], '" />';
 					break;
 				case 'text_time':
 					echo '<input class="cmb_timepicker text_time" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" />';

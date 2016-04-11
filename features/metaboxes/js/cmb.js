@@ -19,6 +19,16 @@ jQuery(document).ready(function ($) {
 
 	var formfield;
 
+	$('body').on('input', '.cmb_text_range', function(e) {
+		var $slider = $(this),
+			value = $slider.val(),
+			sliderMin = $slider.attr('min'),
+			sliderMax = $slider.attr('max'),
+			progress = (value - sliderMin) / (sliderMax - sliderMin),
+			percentage = (progress * 100).toFixed(2) + '%';
+		$slider.css('background-size', percentage + ' 100%');
+	});
+
 	/**
 	 * First we take care of showing and hiding the meta boxes for post formats
 	 */

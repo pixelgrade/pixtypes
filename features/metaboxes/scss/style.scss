@@ -1845,14 +1845,6 @@ img {
   display: none;
 }
 
-.cmb-type-text_range output{
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  color: red;
-  border: 1px solid #333;
-}
-
   //*------------------------------------*\
 //   $HELPERS
 //*------------------------------------*/
@@ -1901,12 +1893,42 @@ img {
 
 .cmb-type {
 	display: flex;
+	flex-wrap: wrap;
     align-items: center;
+    position: relative;
+	padding: 20px 0;
+	margin: 0;
+
+	&:last-child {
+		padding-bottom: 0;
+	}
+
+	#postbox-container-2 {
+		padding: 2.5vw 0;
+	}
+
+	& + .cmb-type {
+		border-top: 1px solid #ddd;
+	}
 }
 
+.cmb-type-wysiwyg,
+.cmb-type-gallery,
+.cmb-type-playlist {
+	+ .cmb-type {
+		border-top: 0;
+	}
+}
 .cmb-type-wysiwyg + .cmb-type {
-	border-top: 0;
 	padding-top: 0;
+}
+
+.cmb-type-gallery,
+.cmb-type-playlist {
+	&:first-child {
+		padding-top: 0;
+	}
+	padding-bottom: 0;
 }
 
 .cmb-type-pix_builder {
@@ -1917,10 +1939,15 @@ img {
 }
 
 .cmb_metabox_description {
+	width: 100%;
 	color: #AAA;
 	font-size: 14px;
 	line-height: 1.5;
 	margin: 0;
+
+	strong {
+		color: #444;
+	}
 
 	p, ul {
 		font: inherit;
@@ -1946,14 +1973,6 @@ img {
 
 	.inside {
 		padding: 1.5vw 3vw;
-	}
-
-	.cmb-type {
-		padding: 2.5vw 0;
-
-		& + .cmb-type {
-			border-top: 1px solid #ddd;
-		}
 	}
 
 	.cmb-type-title {
@@ -1982,7 +2001,7 @@ img {
 	}
 }
 
-.cmb_metabox h3 {
+.cmb_metabox .cmb_metabox_description h3 {
 	font-size: 16px;
 	font-weight: 600;
 	color: #444;
@@ -2007,24 +2026,39 @@ img {
     color: #444444;
 }
 
+.cmb-type-text_range output {
+	width: 38px;
+	padding: 6px 0;
+	text-align: center;
+}
+
 .cmb_text_range {
-	width: 100%;
+	flex-grow: 1;
     position: relative;
     -webkit-appearance: none;
-    height: 22px;
-    overflow: hidden;
+    height: 6px;
     outline: none;
     background: none;
     margin-right: 20px;
+    background: linear-gradient(to right, #0083BD, #0083BD 100%, transparent 100%) top left no-repeat;
+    background-size: 100% 100%;
+	padding-left: 0;
+	padding-right: 0;
+
+	cursor: pointer;
+	cursor: -webkit-grab;
+
+	&:active {
+	    cursor: -webkit-grabbing;
+	}
 
     &:before {
 	    content: " ";
 	    position: absolute;
-	    top: 8px;
+	    top: 0;
 	    left: 0;
 	    height: 6px;
 	    width: 100%;
-	    background: #DFE8EF;
 	    box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.3);
 	    border-radius: 10px;
     }
@@ -2099,4 +2133,60 @@ body .mce-menubtn.mce-menubtn {
 #pixvideos,
 #pixgallery {
 	width: 100%;
+}
+
+.wp-color-result {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 38px;
+    min-height: 33px;
+    border: 1px solid #DDD;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+
+    display: flex;
+    align-items: center;
+
+	&:after {
+		content: none;
+	}
+}
+
+.wp-picker-container {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -9px;
+    z-index: 10;
+
+	.iris-border {
+    	border-radius: 4px;
+	}
+}
+
+.wp-picker-active {
+	display: flex;
+	flex-wrap: wrap;
+
+	.wp-color-result:after {
+		content: none;
+	}
+}
+
+.wp-picker-open + .wp-picker-input-wrap {
+	display: flex;
+	align-items: stretch;
+
+	.button {
+		height: auto;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+}
+
+.wp-picker-container input[type=text].wp-color-picker {
+	width: 85px;
+	text-align: left;
 }
