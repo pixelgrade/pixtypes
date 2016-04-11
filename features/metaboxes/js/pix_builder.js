@@ -228,19 +228,28 @@
 			var id = $(this).closest('.item').attr('id').replace('block_', '');
 
 			if ( ! modal_container.hasClass('modal_opened') ) {
-				modal_container.addClass('modal_opened')
-					.show();
+				setTimeout(function () {
+					modal_container.addClass('modal_opened')
+						.show();
 
-				var content = $('#block_'+ id + ' .to_send').val();
+					var content = $('#block_'+ id + ' .to_send').val();
 
-				if ( content !== "" ) {
-					set_pix_builder_editor_content( content );
-				} else {
-					set_pix_builder_editor_content( '' );
-				}
+					if ( content !== "" ) {
+						set_pix_builder_editor_content( content );
+					} else {
+						set_pix_builder_editor_content( '' );
+					}
 
-				// ensure the editor is on visual
-				switchEditors.go( 'pix_builder_editor', 'tmce' );
+					// ensure the editor is on visual
+					// switchEditors.go( 'pix_builder_editor', 'tmce' );
+					// switchEditors.go( 'pix_builder_editor', 'html' );
+
+					// force a reformat of the code by going to the text editor once
+					tinymce.execCommand('mceToggleEditor',false,'pix_builder_editor');
+					// and go back to visual
+					tinymce.execCommand('mceToggleEditor',false,'pix_builder_editor');
+				}, 600);
+
 
 				modal_container.find('.insert_editor_content').data('block_id', id );
 			}
