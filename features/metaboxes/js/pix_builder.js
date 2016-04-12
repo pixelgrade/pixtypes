@@ -319,15 +319,15 @@
 				$(document).trigger('pix_builder:serialize');
 			}
 		});
-
-		setTimeout( function () {
-			// on builders pages keep the editor hidden
-			if ( $('.cmb-type-pix_builder').is(":visible") ) {
-				$('#postdivrich').hide();
-			} else {
-				$('#postdivrich').show();
-			}
-		}, 1000);
+		//
+		// setTimeout( function () {
+		// 	// on builders pages keep the editor hidden
+		// 	if ( $('.cmb-type-pix_builder').is(":visible") ) {
+		// 		$('#postdivrich').hide();
+		// 	} else {
+		// 		$('#postdivrich').show();
+		// 	}
+		// }, 1000);
 	}); /* Document.ready */
 
 	// Get the html for the block
