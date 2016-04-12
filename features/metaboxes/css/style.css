@@ -3274,3 +3274,14 @@ body .mce-menubtn.mce-menubtn .mce-caret {
 .wp-picker-container input[type=text].wp-color-picker {
   width: 85px;
   text-align: left; }
+
+.media-modal-close {
+  text-decoration: none; }
+  .media-modal-close span.media-modal-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%); }
+
+.media-frame-title h1 {
+  padding-left: 0; }

@@ -2205,3 +2205,18 @@ body .mce-menubtn.mce-menubtn {
 	width: 85px;
 	text-align: left;
 }
+
+.media-modal-close {
+	text-decoration: none;
+
+	span.media-modal-icon {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50%);
+	}
+}
+
+.media-frame-title h1 {
+	padding-left: 0;
+}
