@@ -109,13 +109,6 @@
 		//	});
 		//}
 
-		// get the curent number of blocks
-		var number_of_blocks = 0;
-
-		if ( $(gridster)[0].$widgets.length > 0 ) {
-			number_of_blocks = $(gridster)[0].$widgets.length;
-		}
-
 		// Functions
 		/**
 		 * Checks if a serialisation event is already ongoing
@@ -188,6 +181,28 @@
 			}
 		};
 
+		function create_block_id() {
+
+			// get the curent number of blocks
+			var blocks = $('.pixbuilder-grid > ul > li'),
+				number_of_blocks = 1;
+
+			if ( $('.pixbuilder-grid > ul > li').length < 1 ) {
+				return number_of_blocks;
+			}
+
+			$('.pixbuilder-grid > ul > li').each( function (i, j) {
+				var id = $( this ).attr('id').replace('block_');
+
+				if ( parseInt(id) > number_of_blocks ) {
+					number_of_blocks = parseInt(id) + 1;
+				} else {
+					number_of_blocks = number_of_blocks + 1;
+				}
+			});
+
+			return parseInt(number_of_blocks) + 1;
+		}
 		/**
 		 * Events
 		 */
@@ -201,14 +216,16 @@
 		$(document).on('click', '.add_block', function (ev) {
 			ev.preventDefault();
 
+			var number_of_blocks = create_block_id();
+
 			var type = $(this).val(),
 				args = {
-					id: parseInt(number_of_blocks) + 1,
+					id: number_of_blocks,
 					type: type,
 					content: ''
 				};
 			var block_template = get_block_template(args);
-			number_of_blocks = parseInt(number_of_blocks) + 1;
+
 			gridster.add_widget(block_template, 2, 2);
 			//after we done update the json
 			$(document).trigger('pix_builder:serialize');
