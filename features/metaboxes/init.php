@@ -603,10 +603,11 @@ class cmb_Meta_Box {
 					echo '</ul>';
 					break;
 				case 'title':
-					// echo '<h5 class="cmb_metabox_title">', $field['name'], '</h5>';
+					if ( isset( $field['value']) ) {
+						echo '<div class="cmb_metabox_title" id="', $field['id'], '">', $field['value'], '</div>';
+					}
 					break;
 				case 'wysiwyg':
-
 					wp_editor( $meta ? $meta : $field['std'], $field['id'], isset( $field['options'] ) ? $field['options'] : array() );
 					break;
 				case 'taxonomy_select':
