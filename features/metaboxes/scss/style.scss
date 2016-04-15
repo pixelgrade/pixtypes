@@ -2013,6 +2013,11 @@ img {
 			display: none;
 		}
 	}
+	.cmb-type-wysiwyg, .cmb-type-textarea_small, .cmb-type-textarea, .cmb-type-textarea_medium {
+	  .cmb_metabox_description {
+		flex-basis: 100%;
+	  }
+	}
 }
 
 .cmb_metabox .cmb_metabox_description h3 {
@@ -2039,6 +2044,20 @@ img {
     box-shadow: none;
     color: #444444;
 	flex: 1 1 auto;
+}
+
+.cmb_metabox .selector-wrapper {
+  flex-basis: 46%;
+  position: relative;
+  &:before {
+	top: 13px;
+	position: absolute;
+	right: 8px;
+	color: #DDD;
+  }
+  & > select {
+	width: 100%;
+  }
 }
 
 .cmb-type-text_range output {

@@ -430,7 +430,7 @@ class cmb_Meta_Box {
 			}
 
 			echo '<div class="cmb_metabox_description">';
-			if ( ! ( $field['type'] == "title" && $field['type'] == 'portfolio-gallery' && $field['type'] == 'gallery' && $field['type'] == 'pix_builder' && $field['type'] == 'gmap_pins' ) ) {
+			if ( ! ( $field['type'] == "title" || $field['type'] == 'portfolio-gallery' || $field['type'] == 'gallery' || $field['type'] == 'pix_builder' || $field['type'] == 'gmap_pins' ) ) {
 				if ( isset( $this->_meta_box['show_names'] ) && $this->_meta_box['show_names'] == true ) {
 					if ( isset( $field['show_names'] ) && $field['show_names'] == true ) {
 						echo '<h3><label for="', $field['id'], '">', $field['name'], '</label></h3>';
@@ -532,6 +532,7 @@ class cmb_Meta_Box {
 						$meta = $field['std'];
 					}
 
+					echo '<div class="selector-wrapper dashicons-before dashicons-arrow-down-alt2">';
 					echo '<select name="', $field['id'], '" id="', $field['id'], '">';
 
 					foreach ( $field['options'] as $option ) {
@@ -545,8 +546,12 @@ class cmb_Meta_Box {
 						echo '<option value="', $option['value'], '"', $meta == $option['value'] ? ' selected="selected"' : '', '>', $option['name'], '</option>';
 					}
 					echo '</select>';
+					echo '</div>';
+
 					break;
 				case 'select_cpt_post':
+
+					echo '<div class="selector-wrapper dashicons-before dashicons-arrow-down-alt2">';
 					echo '<select name="', $field['id'], '" id="', $field['id'], '">';
 					$args = array(
 						'posts_per_page' => - 1,
@@ -562,8 +567,10 @@ class cmb_Meta_Box {
 					}
 					$post = $old_post;
 					echo '</select>';
+					echo '</div>';
 					break;
 				case 'select_cpt_term':
+					echo '<div class="selector-wrapper dashicons-before dashicons-arrow-down-alt2">';
 					echo '<select name="', $field['id'], '" id="', $field['id'], '">';
 					$cpt_terms = get_terms( $field['taxonomy'], 'orderby=count&hide_empty=0' );
 					if ( ! empty( $cpt_terms ) ) {
@@ -572,6 +579,7 @@ class cmb_Meta_Box {
 						}
 					}
 					echo '</select>';
+					echo '</div>';
 					break;
 				case 'radio_inline':
 					if ( empty( $meta ) && ! empty( $field['std'] ) ) {
@@ -624,6 +632,8 @@ class cmb_Meta_Box {
 					wp_editor( $meta, $field['id'], isset( $field['options'] ) ? $field['options'] : array() );
 					break;
 				case 'taxonomy_select':
+
+					echo '<div class="selector-wrapper dashicons-before dashicons-arrow-down-alt2">';
 					echo '<select name="', $field['id'], '" id="', $field['id'], '">';
 					$names = wp_get_object_terms( $post->ID, $field['taxonomy'] );
 					$terms = get_terms( $field['taxonomy'], 'hide_empty=0' );
@@ -635,6 +645,7 @@ class cmb_Meta_Box {
 						}
 					}
 					echo '</select>';
+					echo '</div>';
 					break;
 				case 'taxonomy_radio':
 					$names = wp_get_object_terms( $post->ID, $field['taxonomy'] );

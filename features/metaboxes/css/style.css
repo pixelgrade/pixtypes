@@ -3128,6 +3128,8 @@ img {
   padding-right: 2vw; }
   #postbox-container-2 .cmb_metabox_description:empty {
     display: none; }
+#postbox-container-2 .cmb-type-wysiwyg .cmb_metabox_description, #postbox-container-2 .cmb-type-textarea_small .cmb_metabox_description, #postbox-container-2 .cmb-type-textarea .cmb_metabox_description, #postbox-container-2 .cmb-type-textarea_medium .cmb_metabox_description {
+  flex-basis: 100%; }
 
 .cmb_metabox .cmb_metabox_description h3 {
   font-size: 16px;
@@ -3151,6 +3153,17 @@ img {
   box-shadow: none;
   color: #444444;
   flex: 1 1 auto; }
+
+.cmb_metabox .selector-wrapper {
+  flex-basis: 46%;
+  position: relative; }
+  .cmb_metabox .selector-wrapper:before {
+    top: 13px;
+    position: absolute;
+    right: 8px;
+    color: #DDD; }
+  .cmb_metabox .selector-wrapper > select {
+    width: 100%; }
 
 .cmb-type-text_range output {
   width: 38px;
