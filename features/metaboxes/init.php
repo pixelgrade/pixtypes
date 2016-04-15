@@ -357,6 +357,9 @@ class cmb_Meta_Box {
 
 		echo '<ul class="form-table cmb_metabox">';
 
+		// we use the variable to check if we need a default or not
+		$all_metas = get_post_meta( $post->ID );
+
 		foreach ( $this->_meta_box['fields'] as $field ) {
 
 			//some extra classes
@@ -386,6 +389,12 @@ class cmb_Meta_Box {
 			}
 
 			$meta = get_post_meta( $post->ID, $field['id'], 'multicheck' != $field['type'] /* If multicheck this can be multiple values */ );
+
+			$meta_exists = false;
+			if ( isset( $all_metas[ $field['id'] ] ) ) {
+				$meta_exists = true;
+			}
+
 			if ( isset( $field['options'] ) && isset( $field['options']['hidden'] ) && $field['options']['hidden'] == true ) {
 				echo '<li style="display:none;">';
 			} else {
@@ -434,16 +443,20 @@ class cmb_Meta_Box {
 			echo '</div>';
 
 
+			if ( ! $meta_exists && isset( $field['std'] ) ) {
+				$meta = $field['std'];
+			}
+
 			switch ( $field['type'] ) {
 
 				case 'text':
-					echo '<input type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" />';
+					echo '<input type="text" name="', $field['id'], '" id="', $field['id'], '" value="', $meta, '" />';
 					break;
 				case 'text_small':
-					echo '<input class="cmb_text_small" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" />';
+					echo '<input class="cmb_text_small" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', $meta, '" />';
 					break;
 				case 'text_medium':
-					echo '<input class="cmb_text_medium" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', '' !== $meta ? $meta : $field['std'], '" />';
+					echo '<input class="cmb_text_medium" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', $meta, '" />';
 					break;
 
 				case 'text_range':
@@ -494,10 +507,10 @@ class cmb_Meta_Box {
 					echo '<input class="cmb_colorpicker cmb_text_small" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', $meta, '" />';
 					break;
 				case 'textarea':
-					echo '<textarea name="', $field['id'], '" id="', $field['id'], '" cols="60" rows="10">', '' !== $meta ? $meta : $field['std'], '</textarea>';
+					echo '<textarea name="', $field['id'], '" id="', $field['id'], '" cols="60" rows="10">', $meta, '</textarea>';
 					break;
 				case 'textarea_small':
-					echo '<textarea name="', $field['id'], '" id="', $field['id'], '" cols="60" rows="4">', '' !== $meta ? $meta : $field['std'], '</textarea>';
+					echo '<textarea name="', $field['id'], '" id="', $field['id'], '" cols="60" rows="4">', $meta, '</textarea>';
 					break;
 				case 'textarea_code':
 					$rows = $cols = '';
@@ -511,7 +524,7 @@ class cmb_Meta_Box {
 						$cols = 'style="width: 100%"';
 					}
 
-					echo '<textarea name="', $field['id'], '" id="', $field['id'], '" ' . $cols .' ' . $rows . ' class="cmb_textarea_code">', '' !== $meta ? $meta : $field['std'], '</textarea>';
+					echo '<textarea name="', $field['id'], '" id="', $field['id'], '" ' . $cols .' ' . $rows . ' class="cmb_textarea_code">', $meta, '</textarea>';
 					break;
 				case 'select':
 					//we DON'T consider the '0' string as empty, nor do we consider (int)0 as empty
@@ -608,7 +621,7 @@ class cmb_Meta_Box {
 					}
 					break;
 				case 'wysiwyg':
-					wp_editor( $meta ? $meta : $field['std'], $field['id'], isset( $field['options'] ) ? $field['options'] : array() );
+					wp_editor( $meta, $field['id'], isset( $field['options'] ) ? $field['options'] : array() );
 					break;
 				case 'taxonomy_select':
 					echo '<select name="', $field['id'], '" id="', $field['id'], '">';
@@ -957,7 +970,7 @@ class cmb_Meta_Box {
 			} elseif ( '' !== $new && $new != $old ) {
 				update_post_meta( $post_id, $name, $new );
 			} elseif ( '' == $new ) {
-				delete_post_meta( $post_id, $name );
+				update_post_meta( $post_id, $name, $new );
 			}
 
 			if ( 'file' == $field['type'] ) {
