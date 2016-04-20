@@ -1726,7 +1726,9 @@ table.cmb_metabox input:focus, table.cmb_metabox textarea:focus {
 .cmb_metabox_title {
   margin: 0 0 5px 0;
   padding: 5px 0 0 0;
-  font: italic 24px/35px Georgia, "Times New Roman", "Bitstream Charter", Times, serif; }
+  font-size: 23px;
+  line-height: 1.25;
+  color: #232323; }
 
 .cmb_radio_inline {
   padding: 4px 0 0 0; }
@@ -3059,7 +3061,7 @@ img {
   flex-wrap: wrap;
   align-items: center;
   position: relative;
-  padding: 38px 0;
+  padding: 29px 0 41px;
   margin: 0; }
   .cmb-type:first-of-type {
     padding-top: 0; }
@@ -3068,7 +3070,7 @@ img {
   .cmb-type #postbox-container-2 {
     padding: 2.5vw 0; }
   .cmb-type + .cmb-type {
-    border-top: 1px solid #ddd; }
+    border-top: 1px solid #EEEEEE; }
 
 .cmb-type-wysiwyg + .cmb-type,
 .cmb-type-gallery + .cmb-type,
@@ -3114,14 +3116,22 @@ img {
 #postbox-container-2 .inside {
   padding: 30px; }
 #postbox-container-2 .cmb-type-title {
-  padding-top: 2vw;
-  padding-bottom: 0; }
+  margin: 0 -30px;
+  padding-top: 20px;
+  padding-bottom: 8px;
+  padding-left: 30px;
+  padding-right: 30px;
+  border-top: 2px solid #EEEEEE; }
   #postbox-container-2 .cmb-type-title + .cmb-type {
     padding-top: 0;
     border-top: 0; }
   #postbox-container-2 .cmb-type-title h3 {
     font-size: 23px;
-    line-height: 1.8; }
+    font-weight: 500;
+    line-height: 1.8;
+    color: #232323; }
+  #postbox-container-2 .cmb-type-title .cmb_metabox_description {
+    flex-basis: 100%; }
 #postbox-container-2 .cmb_metabox_description {
   flex-basis: 50%;
   flex-shrink: 0;
@@ -3130,6 +3140,17 @@ img {
     display: none; }
 #postbox-container-2 .cmb-type-wysiwyg .cmb_metabox_description, #postbox-container-2 .cmb-type-textarea_small .cmb_metabox_description, #postbox-container-2 .cmb-type-textarea .cmb_metabox_description, #postbox-container-2 .cmb-type-textarea_medium .cmb_metabox_description {
   flex-basis: 100%; }
+#postbox-container-2 .select2-container-multi {
+  width: auto;
+  flex-basis: 46%; }
+  #postbox-container-2 .select2-container-multi .select2-choices {
+    padding: 5px;
+    line-height: 1.5;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+    box-shadow: none;
+    color: #444444;
+    flex: 1 1 auto; }
 
 .cmb_metabox .cmb_metabox_description h3 {
   font-size: 16px;
