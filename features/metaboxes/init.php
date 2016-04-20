@@ -134,6 +134,7 @@ class cmb_Meta_Box {
 		//add_filter( 'cmb_show_on', array( &$this, 'add_for_specific_select_value' ), 10, 2 );
 
 		add_filter('_wp_post_revision_field_post_content', array( $this, 'pixtypes_fix_builder_revisions_display'), 15, 4 );
+		add_filter('default_hidden_meta_boxes', array( $this, 'hide_metaboxes_from_screen_options_by_config'), 15, 2 );
 	}
 
 	function add_post_enctype() {
@@ -144,6 +145,17 @@ class cmb_Meta_Box {
 			jQuery("#post").attr("encoding", "multipart/form-data");
 		});
 		</script>';
+	}
+
+	function hide_metaboxes_from_screen_options_by_config ( $hidden, $screen ){
+		foreach ( $this->_meta_box['pages'] as $page ) {
+			if ( apply_filters( 'cmb_show_on', true, $this->_meta_box ) ) {
+				if ( isset( $this->_meta_box['hidden'] ) && true === $this->_meta_box['hidden'] ) {
+					$hidden[]=$this->_meta_box['id'];
+				}
+			}
+		}
+		return $hidden;
 	}
 
 	// Add metaboxes
@@ -157,10 +169,14 @@ class cmb_Meta_Box {
 
 		foreach ( $this->_meta_box['pages'] as $page ) {
 			if ( apply_filters( 'cmb_show_on', true, $this->_meta_box ) ) {
-				add_meta_box( $this->_meta_box['id'], $this->_meta_box['title'], array(
-					&$this,
-					'show'
-				), $page, $this->_meta_box['context'], $this->_meta_box['priority'] );
+				add_meta_box(
+					$this->_meta_box['id'],
+					$this->_meta_box['title'],
+					array( &$this, 'show' ),
+					$page,
+					$this->_meta_box['context'],
+					$this->_meta_box['priority']
+				);
 			}
 		}
 	}
