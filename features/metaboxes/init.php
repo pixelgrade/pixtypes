@@ -446,7 +446,7 @@ class cmb_Meta_Box {
 			}
 
 			echo '<div class="cmb_metabox_description">';
-			if ( ! ( $field['type'] == "title" || $field['type'] == 'portfolio-gallery' || $field['type'] == 'gallery' || $field['type'] == 'pix_builder' || $field['type'] == 'gmap_pins' ) ) {
+			if ( ! ( $field['type'] == 'portfolio-gallery' || $field['type'] == 'gallery' || $field['type'] == 'pix_builder' || $field['type'] == 'gmap_pins' ) ) {
 				if ( isset( $this->_meta_box['show_names'] ) && $this->_meta_box['show_names'] == true ) {
 					if ( isset( $field['show_names'] ) && $field['show_names'] == true ) {
 						echo '<h3><label for="', $field['id'], '">', $field['name'], '</label></h3>';
