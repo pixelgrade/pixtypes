@@ -3,6 +3,8 @@
 	$base64_decode = true;
 	$gridster_params = '';
 
+//	wp_enqueue_script( 'editor-functions' );
+	
 	if( isset( $field['gridster_params'] ) ) {
 		$gridster_params = ' data-params=\'' . json_encode( $field['gridster_params'] ) . '\'';
 	}

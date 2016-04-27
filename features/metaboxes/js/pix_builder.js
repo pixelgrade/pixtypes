@@ -246,6 +246,7 @@
 
 			if ( ! modal_container.hasClass('modal_opened') ) {
 				setTimeout(function () {
+
 					modal_container.addClass('modal_opened')
 						.show();
 
@@ -258,13 +259,7 @@
 					}
 
 					// ensure the editor is on visual
-					// switchEditors.go( 'pix_builder_editor', 'tmce' );
-					// switchEditors.go( 'pix_builder_editor', 'html' );
-
-					// force a reformat of the code by going to the text editor once
-					tinymce.execCommand('mceToggleEditor',false,'pix_builder_editor');
-					// and go back to visual
-					tinymce.execCommand('mceToggleEditor',false,'pix_builder_editor');
+					switchEditors.go( 'pix_builder_editor', 'tmce' );
 				}, 600);
 
 
