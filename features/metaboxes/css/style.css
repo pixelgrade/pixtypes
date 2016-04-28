@@ -3064,9 +3064,6 @@ img {
   align-items: center; }
 
 .cmb-type {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
   position: relative;
   padding: 29px 0 41px;
   margin: 0; }
@@ -3076,6 +3073,10 @@ img {
     padding-bottom: 0; }
   .cmb-type + .cmb-type {
     border-top: 1px solid #EEEEEE; }
+  #postbox-container-2 .cmb-type {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start; }
   #postbox-container-1 .cmb-type {
     padding: 10px 0; }
     #postbox-container-1 .cmb-type + .cmb-type {

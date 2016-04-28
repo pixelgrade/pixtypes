@@ -1918,9 +1918,6 @@ img {
 
 
 .cmb-type {
-	display: flex;
-	flex-wrap: wrap;
-    align-items: flex-start;
     position: relative;
     padding: 29px 0 41px;
 	margin: 0;
@@ -1935,6 +1932,13 @@ img {
 	
 	& + .cmb-type {
 		border-top: 1px solid #EEEEEE;
+	}
+
+	// Main
+	#postbox-container-2 & {
+		display: flex;
+		flex-wrap: wrap;
+	    align-items: flex-start;
 	}
 
 	// Sidebar
