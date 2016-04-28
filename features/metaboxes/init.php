@@ -466,13 +466,13 @@ class cmb_Meta_Box {
 			switch ( $field['type'] ) {
 
 				case 'text':
-					echo '<input type="text" name="', $field['id'], '" id="', $field['id'], '" value="', $meta, '" />';
+					echo '<input class="cmb_text" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', $meta, '" />';
 					break;
 				case 'text_small':
-					echo '<input class="cmb_text_small" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', $meta, '" />';
+					echo '<input class="cmb_text cmb_text_small" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', $meta, '" />';
 					break;
 				case 'text_medium':
-					echo '<input class="cmb_text_medium" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', $meta, '" />';
+					echo '<input class="cmb_text cmb_text_medium" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', $meta, '" />';
 					break;
 
 				case 'text_range':
@@ -523,10 +523,10 @@ class cmb_Meta_Box {
 					echo '<input class="cmb_colorpicker cmb_text_small" type="text" name="', $field['id'], '" id="', $field['id'], '" value="', $meta, '" />';
 					break;
 				case 'textarea':
-					echo '<textarea name="', $field['id'], '" id="', $field['id'], '" cols="60" rows="10">', $meta, '</textarea>';
+					echo '<textarea class="cmb_textarea" name="', $field['id'], '" id="', $field['id'], '" cols="60" rows="10">', $meta, '</textarea>';
 					break;
 				case 'textarea_small':
-					echo '<textarea name="', $field['id'], '" id="', $field['id'], '" cols="60" rows="4">', $meta, '</textarea>';
+					echo '<textarea class="cmb_textarea" name="', $field['id'], '" id="', $field['id'], '" cols="60" rows="4">', $meta, '</textarea>';
 					break;
 				case 'textarea_code':
 					$rows = $cols = '';
@@ -540,7 +540,7 @@ class cmb_Meta_Box {
 						$cols = 'style="width: 100%"';
 					}
 
-					echo '<textarea name="', $field['id'], '" id="', $field['id'], '" ' . $cols .' ' . $rows . ' class="cmb_textarea_code">', $meta, '</textarea>';
+					echo '<textarea name="', $field['id'], '" id="', $field['id'], '" ' . $cols .' ' . $rows . ' class="cmb_textarea cmb_textarea_code">', $meta, '</textarea>';
 					break;
 				case 'select':
 					//we DON'T consider the '0' string as empty, nor do we consider (int)0 as empty
