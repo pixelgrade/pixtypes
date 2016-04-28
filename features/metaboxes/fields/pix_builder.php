@@ -62,17 +62,19 @@
 								break;
 
 							case 'image' :
-								// in case of an image the content should hold only an integer which represents the id
-								if( is_numeric( $block->content ) && $block->content !== '' ) {
-									$attach = wp_get_attachment_image_src( $block->content );
+								if ( isset( $block->content ) ) {
+									// in case of an image the content should hold only an integer which represents the id
+									if ( ! empty( $block->content ) && is_numeric( $block->content ) ) {
+										$attach = wp_get_attachment_image_src( $block->content );
 
-									if( isset( $attach[0] ) && ! empty( $attach[0] ) ) {
-										$content          = '<img class="image_preview" src="' . $attach[0] . '">';
-										$controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' . $block->content . '"><span>' . __( 'Set Image', 'pixtypes' ) . '</span></a>';
+										if ( isset( $attach[0] ) && ! empty( $attach[0] ) ) {
+											$content          = '<img class="image_preview" src="' . $attach[0] . '">';
+											$controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' . $block->content . '"><span>' . __( 'Set Image', 'pixtypes' ) . '</span></a>';
+										}
+									} else {
+										$content          = '<img class="image_preview">';
+										$controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' . $block->content . '"><span>' . __( 'Set Image', 'pixtypes' ) . '</pan></a>';
 									}
-								} else {
-									$content          = '<img class="image_preview">';
-									$controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' . $block->content . '"><span>' . __( 'Set Image', 'pixtypes' ) . '</pan></a>';
 								}
 								break;
 							default :

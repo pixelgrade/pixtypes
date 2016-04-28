@@ -330,7 +330,7 @@ class cmb_Meta_Box {
 
 					if ( ! empty( $new_link ) ) {
 						$change = true;
-//						var_dump( $new_link );
+						
 						$parsed[$key]['content'] = $new_link;
 					}
 				}
@@ -454,7 +454,7 @@ class cmb_Meta_Box {
 				}
 			}
 			if ( ! empty($field['desc']) ) {
-				echo $field['desc'];
+				echo "<div>" . $field['desc'] . "</div>";
 			}
 			echo '</div>';
 
