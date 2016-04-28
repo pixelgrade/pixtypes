@@ -3063,16 +3063,16 @@ img {
   position: relative;
   padding: 29px 0 41px;
   margin: 0; }
+  .cmb-type:first-of-type {
+    padding-top: 0; }
   .cmb-type:last-of-type {
     padding-bottom: 0; }
-  .cmb-type #postbox-container-2 {
-    padding: 2.5vw 0; }
-    .cmb-type #postbox-container-2:first-of-type {
-      padding-top: 0; }
-  #postbox-container-1 .cmb-type {
-    padding: 10px 0; }
   .cmb-type + .cmb-type {
     border-top: 1px solid #EEEEEE; }
+  #postbox-container-1 .cmb-type {
+    padding: 10px 0; }
+    #postbox-container-1 .cmb-type + .cmb-type {
+      border-top: none; }
 
 .cmb-type-wysiwyg + .cmb-type,
 .cmb-type-gallery + .cmb-type,
@@ -3242,11 +3242,13 @@ img {
   #postbox-container-2 .cmb_metabox .cmb-type-checkbox .cmb_metabox_description {
     margin-top: 2px;
     flex-basis: 90%; }
-  #postbox-container-1 .cmb_metabox .cmb-type-checkbox h3 {
-    font-size: 14px; }
-  #postbox-container-1 .cmb_metabox .cmb-type-checkbox .cmb_metabox_description {
-    flex-basis: 80%;
-    font-size: 14px; }
+  #postbox-container-1 .cmb_metabox .cmb-type-checkbox {
+    border-top: none; }
+    #postbox-container-1 .cmb_metabox .cmb-type-checkbox h3 {
+      font-size: 14px; }
+    #postbox-container-1 .cmb_metabox .cmb-type-checkbox .cmb_metabox_description {
+      flex-basis: 80%;
+      font-size: 14px; }
 
 .cmb-type-text_range output {
   width: 38px;

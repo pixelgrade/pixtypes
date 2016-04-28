@@ -1901,9 +1901,6 @@ img {
     align-items: center;
 }
 
-//
-//
-//
 
 .cmb-type {
 	display: flex;
@@ -1913,28 +1910,27 @@ img {
     padding: 29px 0 41px;
 	margin: 0;
 
-	
+	&:first-of-type {
+		padding-top: 0;
+	}
 
 	&:last-of-type {
 		padding-bottom: 0;
 	}
-
-	#postbox-container-2 {
-		padding: 2.5vw 0;
-
-		&:first-of-type {
-			padding-top: 0;
-		}
-	}
-
-	#postbox-container-1 & {
-		padding: 10px 0;
-		// border: none;
-	}
-
+	
 	& + .cmb-type {
 		border-top: 1px solid #EEEEEE;
 	}
+
+	// Sidebar
+	#postbox-container-1 & {
+		padding: 10px 0;
+		
+		+ .cmb-type {
+			border-top: none;
+		}
+	}
+
 }
 
 .cmb-type-wysiwyg,
@@ -2186,6 +2182,9 @@ img {
 
 	// Sidebar
 	#postbox-container-1 & {
+
+		border-top: none;
+
 		h3 {
 			font-size: 14px;
 		}
