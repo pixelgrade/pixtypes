@@ -3233,11 +3233,15 @@ img {
     font-size: 100%;
     font-weight: bold;
     color: #444; }
+  #postbox-container-2 .cmb_metabox .cmb-type-checkbox:first-child {
+    padding-top: 0; }
   #postbox-container-2 .cmb_metabox .cmb-type-checkbox h3 {
-    margin-left: 34px; }
+    margin-top: -2px; }
+    #postbox-container-2 .cmb_metabox .cmb-type-checkbox h3 + * {
+      margin-left: -34px; }
   #postbox-container-2 .cmb_metabox .cmb-type-checkbox .cmb_metabox_description {
-    flex-basis: 90%;
-    margin-left: -34px; }
+    margin-top: 2px;
+    flex-basis: 90%; }
   #postbox-container-1 .cmb_metabox .cmb-type-checkbox h3 {
     font-size: 14px; }
   #postbox-container-1 .cmb_metabox .cmb-type-checkbox .cmb_metabox_description {

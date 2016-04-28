@@ -2164,17 +2164,27 @@ img {
 			color: #444;
 		}
 
+	// Main
 	#postbox-container-2 & {
 
+		&:first-child {
+			padding-top: 0;
+		}
+
 		h3 {
-			margin-left: 34px;
+			margin-top: -2px;
+
+			+ * {
+				margin-left: -34px;
+			}
 		}
 		.cmb_metabox_description {
+			margin-top: 2px;
 			flex-basis: 90%;
-			margin-left: -34px;
 		}
 	}
 
+	// Sidebar
 	#postbox-container-1 & {
 		h3 {
 			font-size: 14px;
