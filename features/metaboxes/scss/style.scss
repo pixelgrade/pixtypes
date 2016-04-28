@@ -2023,7 +2023,7 @@ img {
 			color: #232323;
 		}
 
-		.cmb_metabox_description {
+		&:not(.is--disabled) .cmb_metabox_description {
 			flex-basis: 100%;
 		}
 	}

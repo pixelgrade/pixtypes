@@ -3133,7 +3133,7 @@ img {
     font-weight: 500;
     line-height: 1.8;
     color: #232323; }
-  #postbox-container-2 .cmb-type-title .cmb_metabox_description {
+  #postbox-container-2 .cmb-type-title:not(.is--disabled) .cmb_metabox_description {
     flex-basis: 100%; }
 #postbox-container-2 .cmb_metabox_description {
   flex-basis: 50%;
