@@ -3267,7 +3267,6 @@ img {
     color: #444444; }
     .cmb_metabox .cmb-type-checkbox h3 + *,
     .cmb_metabox .cmb-type-multicheck h3 + * {
-      font-size: 90%;
       font-weight: normal;
       color: #AAA; }
   .cmb_metabox .cmb-type-checkbox .cmb_metabox_description,
@@ -3295,6 +3294,9 @@ img {
     .cmb_metabox .cmb-type-multicheck h3 {
       font-size: 14px;
       margin-top: 1px; }
+      #postbox-container-1 .cmb_metabox .cmb-type-checkbox h3 + *, #postbox-container-1
+      .cmb_metabox .cmb-type-multicheck h3 + * {
+        font-size: 90%; }
     #postbox-container-1 .cmb_metabox .cmb-type-checkbox .cmb_metabox_description, #postbox-container-1
     .cmb_metabox .cmb-type-multicheck .cmb_metabox_description {
       position: relative;

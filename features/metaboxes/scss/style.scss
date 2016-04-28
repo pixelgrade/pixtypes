@@ -2211,7 +2211,6 @@ img {
 			color: #444444;
 
 			+ * {
-				font-size: 90%;
 				font-weight: normal;
 				color: #AAA;
 			}
@@ -2251,6 +2250,10 @@ img {
 		h3 {
 			font-size: 14px;
 			margin-top: 1px;
+
+			+ * {
+				font-size: 90%;
+			}
 		}
 
 		.cmb_metabox_description {
