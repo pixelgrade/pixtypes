@@ -2922,37 +2922,44 @@ img {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
+.cmb-type-gmap_pins .gmap_pins_container {
+  flex-basis: 100%; }
+.cmb-type-gmap_pins .cmb_metabox_description {
+  display: none; }
+
 .gmap_pins_container {
-  position: relative;
-  padding-bottom: 30px; }
-  .gmap_pins_container .gmap_pin > * {
-    display: inline-block; }
-  .gmap_pins_container .gmap_pin .pin_location_url {
-    width: 68%; }
-  .gmap_pins_container .gmap_pin .pin_name {
-    width: 29%; }
-  .gmap_pins_container .gmap_pin .pin_delete {
-    width: 2%;
-    opacity: 0;
-    color: #AA0000; }
-  .gmap_pins_container .gmap_pin:hover .pin_delete {
-    opacity: 1;
-    text-decoration: underline;
-    cursor: pointer;
-    transition: all .2s linear; }
-    .gmap_pins_container .gmap_pin:hover .pin_delete:before {
-      content: url(../images/ico-delete.png); }
-  .gmap_pins_container .gmap_pin fieldset label {
-    display: inline-block;
-    width: 23%;
-    padding: 4px 3% 4px 0;
-    font-weight: bold;
-    text-align: right;
-    font-size: 15px;
-    color: #000; }
-  .gmap_pins_container .gmap_pin fieldset input {
-    display: inline-block;
-    width: 68%; }
+  position: relative; }
+  .gmap_pins_container .gmap_pin {
+    display: flex;
+    justify-content: space-between; }
+    .gmap_pins_container .gmap_pin > * {
+      display: inline-block; }
+    .gmap_pins_container .gmap_pin .pin_location_url {
+      flex-basis: 68%; }
+    .gmap_pins_container .gmap_pin .pin_name {
+      flex-basis: 29%; }
+    .gmap_pins_container .gmap_pin .pin_delete {
+      flex-basis: 2%;
+      opacity: 0;
+      color: #AA0000; }
+    .gmap_pins_container .gmap_pin:hover .pin_delete {
+      opacity: 1;
+      text-decoration: underline;
+      cursor: pointer;
+      transition: all .2s linear; }
+      .gmap_pins_container .gmap_pin:hover .pin_delete:before {
+        content: url(../images/ico-delete.png); }
+    .gmap_pins_container .gmap_pin fieldset label {
+      display: inline-block;
+      width: 23%;
+      padding: 4px 3% 4px 0;
+      font-weight: bold;
+      text-align: right;
+      font-size: 15px;
+      color: #000; }
+    .gmap_pins_container .gmap_pin fieldset input {
+      display: inline-block;
+      width: 68%; }
   .gmap_pins_container .add_new_location {
     position: absolute;
     right: 4%; }
@@ -3059,7 +3066,7 @@ img {
 .cmb-type {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   position: relative;
   padding: 29px 0 41px;
   margin: 0; }
@@ -3116,7 +3123,8 @@ img {
       padding-right: 10px; }
 
 #postbox-container-2 .inside {
-  padding: 30px; }
+  padding: 30px 30px;
+  margin-top: 0; }
 #postbox-container-2 .cmb-type-title {
   margin: 0 -30px;
   padding-top: 20px;
@@ -3141,7 +3149,7 @@ img {
   padding-right: 2vw; }
   #postbox-container-2 .cmb_metabox_description:empty {
     display: none; }
-#postbox-container-2 .cmb-type-wysiwyg .cmb_metabox_description, #postbox-container-2 .cmb-type-textarea_small .cmb_metabox_description, #postbox-container-2 .cmb-type-textarea .cmb_metabox_description, #postbox-container-2 .cmb-type-textarea_medium .cmb_metabox_description {
+#postbox-container-2 .cmb-type-wysiwyg .cmb_metabox_description {
   flex-basis: 100%; }
 #postbox-container-2 .select2-container-multi {
   width: auto;
@@ -3165,9 +3173,24 @@ img {
   width: 100%; }
 
 .cmb_metabox select,
+.cmb_text,
 .cmb_text_small,
 .cmb_text_medium,
-.cmb-type-text_range output {
+.cmb-type-text_range output,
+.cmb_metabox input[type=text],
+.cmb_metabox input[type=search],
+.cmb_metabox input[type=tel],
+.cmb_metabox input[type=time],
+.cmb_metabox input[type=url],
+.cmb_metabox input[type=week],
+.cmb_metabox input[type=password],
+.cmb_metabox input[type=date],
+.cmb_metabox input[type=datetime],
+.cmb_metabox input[type=datetime-local],
+.cmb_metabox input[type=email],
+.cmb_metabox input[type=month],
+.cmb_metabox input[type=number],
+.cmb_metabox select {
   -webkit-appearance: none;
   padding: 10px 14px 10px 16px;
   line-height: 1.5;
@@ -3177,6 +3200,10 @@ img {
   box-shadow: none;
   color: #444444;
   flex: 1 1 auto; }
+
+.cmb_textarea,
+.cmb_text {
+  flex-basis: 46%; }
 
 .cmb_metabox .selector-wrapper {
   flex-basis: 46%;
@@ -3189,12 +3216,20 @@ img {
   .cmb_metabox .selector-wrapper > select {
     width: 100%; }
 
-.cmb_metabox .cmb-type-checkbox {
+.cmb_metabox .cmb-type-multicheck {
+  margin-left: -24px; }
+  .cmb_metabox .cmb-type-multicheck ul {
+    margin-left: 0 !important; }
+
+.cmb_metabox .cmb-type-checkbox,
+.cmb_metabox .cmb-type-multicheck {
   display: flex;
   flex-wrap: nowrap;
   align-items: flex-start; }
   .cmb_metabox .cmb-type-checkbox input[type=checkbox],
-  .cmb_metabox .cmb-type-checkbox input[type=radio] {
+  .cmb_metabox .cmb-type-checkbox input[type=radio],
+  .cmb_metabox .cmb-type-multicheck input[type=checkbox],
+  .cmb_metabox .cmb-type-multicheck input[type=radio] {
     order: -1;
     width: 26px;
     height: 26px;
@@ -3211,44 +3246,65 @@ img {
     outline: 0;
     box-shadow: none; }
     .cmb_metabox .cmb-type-checkbox input[type=checkbox]:checked,
-    .cmb_metabox .cmb-type-checkbox input[type=radio]:checked {
+    .cmb_metabox .cmb-type-checkbox input[type=radio]:checked,
+    .cmb_metabox .cmb-type-multicheck input[type=checkbox]:checked,
+    .cmb_metabox .cmb-type-multicheck input[type=radio]:checked {
       background: #76C6EC;
       border-color: #76C6EC; }
       .cmb_metabox .cmb-type-checkbox input[type=checkbox]:checked:before,
-      .cmb_metabox .cmb-type-checkbox input[type=radio]:checked:before {
+      .cmb_metabox .cmb-type-checkbox input[type=radio]:checked:before,
+      .cmb_metabox .cmb-type-multicheck input[type=checkbox]:checked:before,
+      .cmb_metabox .cmb-type-multicheck input[type=radio]:checked:before {
         color: white;
         margin: 1px 0 0 0px;
         font-size: 23px; }
-  .cmb_metabox .cmb-type-checkbox h3 {
+  .cmb_metabox .cmb-type-checkbox h3,
+  .cmb_metabox .cmb-type-multicheck h3 {
     margin-top: 0;
     margin-left: 0px;
     padding-top: 0;
     padding-bottom: 0;
     color: #444444; }
-    .cmb_metabox .cmb-type-checkbox h3 + * {
+    .cmb_metabox .cmb-type-checkbox h3 + *,
+    .cmb_metabox .cmb-type-multicheck h3 + * {
       font-size: 90%;
       font-weight: normal;
       color: #AAA; }
-  .cmb_metabox .cmb-type-checkbox .cmb_metabox_description {
+  .cmb_metabox .cmb-type-checkbox .cmb_metabox_description,
+  .cmb_metabox .cmb-type-multicheck .cmb_metabox_description {
     font-size: 100%;
     font-weight: bold;
     color: #444; }
-  #postbox-container-2 .cmb_metabox .cmb-type-checkbox:first-child {
+  #postbox-container-2 .cmb_metabox .cmb-type-checkbox:first-child, #postbox-container-2
+  .cmb_metabox .cmb-type-multicheck:first-child {
     padding-top: 0; }
-  #postbox-container-2 .cmb_metabox .cmb-type-checkbox h3 {
+  #postbox-container-2 .cmb_metabox .cmb-type-checkbox h3, #postbox-container-2
+  .cmb_metabox .cmb-type-multicheck h3 {
     margin-top: -2px; }
-    #postbox-container-2 .cmb_metabox .cmb-type-checkbox h3 + * {
+    #postbox-container-2 .cmb_metabox .cmb-type-checkbox h3 + *, #postbox-container-2
+    .cmb_metabox .cmb-type-multicheck h3 + * {
       margin-left: -34px; }
-  #postbox-container-2 .cmb_metabox .cmb-type-checkbox .cmb_metabox_description {
+  #postbox-container-2 .cmb_metabox .cmb-type-checkbox .cmb_metabox_description, #postbox-container-2
+  .cmb_metabox .cmb-type-multicheck .cmb_metabox_description {
     margin-top: 2px;
     flex-basis: 90%; }
-  #postbox-container-1 .cmb_metabox .cmb-type-checkbox {
+  #postbox-container-1 .cmb_metabox .cmb-type-checkbox, #postbox-container-1
+  .cmb_metabox .cmb-type-multicheck {
     border-top: none; }
-    #postbox-container-1 .cmb_metabox .cmb-type-checkbox h3 {
-      font-size: 14px; }
-    #postbox-container-1 .cmb_metabox .cmb-type-checkbox .cmb_metabox_description {
+    #postbox-container-1 .cmb_metabox .cmb-type-checkbox h3, #postbox-container-1
+    .cmb_metabox .cmb-type-multicheck h3 {
+      font-size: 14px;
+      margin-top: 1px; }
+    #postbox-container-1 .cmb_metabox .cmb-type-checkbox .cmb_metabox_description, #postbox-container-1
+    .cmb_metabox .cmb-type-multicheck .cmb_metabox_description {
+      position: relative;
       flex-basis: 80%;
       font-size: 14px; }
+    #postbox-container-1 .cmb_metabox .cmb-type-checkbox .tooltipster-icon, #postbox-container-1
+    .cmb_metabox .cmb-type-multicheck .tooltipster-icon {
+      position: absolute;
+      top: 5px;
+      right: -19px; }
 
 .cmb-type-text_range output {
   width: 38px;

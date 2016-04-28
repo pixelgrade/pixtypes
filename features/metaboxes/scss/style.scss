@@ -1728,25 +1728,40 @@ img {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+// Gmap Pins
+// MIES (maybe ROSA?)
+.cmb-type-gmap_pins {
+	.gmap_pins_container {
+		flex-basis: 100%;
+	}
+	
+	// Hide default field description
+	.cmb_metabox_description {
+		display: none;
+	}
+}
+
 .gmap_pins_container {
 	position: relative;
-	padding-bottom: 30px;
+	// padding-bottom: 30px;
 
 	.gmap_pin {
+		display: flex;
+		justify-content: space-between;
 		& > * {
 			display: inline-block;
 		}
 
 		.pin_location_url {
-			width: 68%;
+			flex-basis: 68%;
 		}
 
 		.pin_name {
-			width: 29%;
+			flex-basis: 29%;
 		}
 
 		.pin_delete {
-			width: 2%;
+			flex-basis: 2%;
 			opacity: 0;
 			color: #AA0000;
 		}
@@ -1905,7 +1920,7 @@ img {
 .cmb-type {
 	display: flex;
 	flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-start;
     position: relative;
     padding: 29px 0 41px;
 	margin: 0;
@@ -1993,7 +2008,9 @@ img {
 #postbox-container-2 {
 
 	.inside {
-		padding: 30px;
+		// padding: 15px 30px;
+		padding: 30px 30px;
+		margin-top: 0;
 	}
 
 	// Title Type Field
@@ -2033,7 +2050,12 @@ img {
 			display: none;
 		}
 	}
-	.cmb-type-wysiwyg, .cmb-type-textarea_small, .cmb-type-textarea, .cmb-type-textarea_medium {
+	.cmb-type-wysiwyg, 
+	// .cmb-type-textarea_small, 
+	// .cmb-type-textarea, 
+	// .cmb-type-textarea_medium,
+	// .cmb-type-text, 
+	{
 	  .cmb_metabox_description {
 		flex-basis: 100%;
 	  }
@@ -2066,11 +2088,34 @@ img {
 .wp-editor-wrap {
 	width: 100%;
 }
+.cmb_metabox {
+	input[type=text], 
+	input[type=search], 
+	input[type=tel], 
+	input[type=time], 
+	input[type=url], 
+	input[type=week], 
+	input[type=password], 
+	input[type=date], 
+	input[type=datetime], 
+	input[type=datetime-local], 
+	input[type=email], 
+	input[type=month],
+	input[type=number], 
+	select, 
+	// textarea 
+	{
+		@extend %input-fields;
+	}
+	
+}
 
 .cmb_metabox select,
+.cmb_text,
 .cmb_text_small,
 .cmb_text_medium,
-.cmb-type-text_range output {
+.cmb-type-text_range output,
+%input-fields {
     -webkit-appearance: none;
     padding: 10px 14px 10px 16px;
     line-height: 1.5;
@@ -2079,8 +2124,16 @@ img {
     border-radius: 4px;
     box-shadow: none;
     color: #444444;
+
 	flex: 1 1 auto;
 }
+
+.cmb_textarea,
+.cmb_text {
+	flex-basis: 46%;
+}
+
+
 
 .cmb_metabox .selector-wrapper {
   flex-basis: 46%;
@@ -2096,8 +2149,18 @@ img {
   }
 }
 
+// $Multicheck
+.cmb_metabox .cmb-type-multicheck {
+	margin-left: -24px;
+
+	ul {
+		margin-left: 0 !important;
+	}
+}
+
 // $Checkbox
-.cmb_metabox .cmb-type-checkbox {
+.cmb_metabox .cmb-type-checkbox,
+.cmb_metabox .cmb-type-multicheck {
 
 	display: flex;
 	flex-wrap: nowrap;
@@ -2187,11 +2250,19 @@ img {
 
 		h3 {
 			font-size: 14px;
+			margin-top: 1px;
 		}
 
 		.cmb_metabox_description {
+			position: relative;
 			flex-basis: 80%;
 			font-size: 14px;
+		}
+
+		.tooltipster-icon {
+			position: absolute;
+			top: 5px;
+		    right: -19px;
 		}
 	}
 	
