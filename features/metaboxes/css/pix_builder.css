@@ -437,3 +437,6 @@ img {
   border-radius: 4px;
   transition: all .2s ease-out;
   position: relative; }
+
+.pix_builder_editor_modal_container {
+  z-index: 1600; }
