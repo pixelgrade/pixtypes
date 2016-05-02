@@ -115,6 +115,8 @@
 		 * or start one if not
 		 */
 		var intent_to_serialize = function() {
+			// prevent the user from saving
+			$('#publish').attr('disabled', 'disabled');
 			if ( ! serialize_intention ) {
 				serialize_timeout = setTimeout( serialize_pix_builder_values, 1000);
 				serialize_intention = true;
@@ -154,6 +156,9 @@
 			} else { // visual editor
 				content_editor.setContent( parsed_string.replace(/\n/ig,"<br>") , {format:'text'});
 			}
+
+			// now  it can be saved
+			$('#publish').removeAttr('disabled');
 
 			// $('#content').val(parsed_string);
 			// $('#pix_builder').val(parsed_string);
