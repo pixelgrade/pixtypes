@@ -189,7 +189,7 @@ class cmb_Meta_Box {
 
 	// Add for ID
 	function add_for_id( $display, $meta_box ) {
-		if ( 'id' !== $meta_box['show_on']['key'] ) {
+		if ( ! isset( $meta_box['show_on']['key'] ) || 'id' !== $meta_box['show_on']['key'] ) {
 			return $display;
 		}
 
