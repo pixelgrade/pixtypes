@@ -2276,12 +2276,16 @@ img {
 }
 
 .cmb-type-text_range output {
-	width: 38px;
+	width: 40px;
+	max-width: 50px;
 	padding: 6px 0;
 	text-align: center;
+	display: inline-block;
 }
 
 .cmb_text_range {
+	margin: 14px 0;
+	min-width: 187px;
 	flex-grow: 1;
     position: relative;
     -webkit-appearance: none;
