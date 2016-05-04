@@ -1,9 +1,9 @@
 === PixTypes ===
-Contributors: pixelgrade, euthelup, babbardel, vlad.olaru
+Contributors: pixelgrade, euthelup, babbardel, vlad.olaru, cristianfrumusanu, razvanonofrei
 Tags: custom, post-types, metadata
-Requires at least: 4.0.0
-Tested up to: 4.3.1
-Stable tag: 1.3.3
+Requires at least: 4.2.0
+Tested up to: 4.5.1
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,6 +23,17 @@ Note: This plugin is addressed to developers, it doesn't do nothing if it isn't 
 3. After activating PixTypes all your custom post-types should be visible now.
 
 == Changelog ==
+
+= 1.4.0 =
+Improved all the fields Visuals and styles.
+Improved the pix_builder field, now will save values in the content instead of its own meta.And the editor is better now.
+Added a positioning UI for the builder blocks.
+Fixed the defaults for the textarea fields.
+Fixed the defaults for colorpicker.
+Fixed small PHP warnings and notices.
+
+= 1.3.5 =
+Improved the multicheck field
 
 = 1.3.3 =
 
