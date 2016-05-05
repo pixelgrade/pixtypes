@@ -3446,3 +3446,37 @@ body .mce-menubtn.mce-menubtn .mce-caret {
 
 .media-frame-title h1 {
   padding-left: 0; }
+
+.tooltipster-base {
+  border-color: #23282d; }
+  .tooltipster-base .tooltipster-content {
+    padding: 20px;
+    font-style: normal;
+    color: inherit;
+    background-color: #23282d;
+    text-align: left;
+    color: #FFF;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.06); }
+    .tooltipster-base .tooltipster-content a {
+      color: white;
+      text-decoration: none;
+      border-bottom: 1px dotted; }
+      .tooltipster-base .tooltipster-content a:hover {
+        opacity: 0.7; }
+    .tooltipster-base .tooltipster-content p {
+      margin: 0 0 1em 0; }
+      .tooltipster-base .tooltipster-content p:last-child {
+        margin-bottom: 0; }
+  .tooltipster-base .tooltipster-arrow {
+    z-index: 1;
+    height: auto;
+    width: auto;
+    top: auto;
+    right: auto;
+    left: calc(50% - 5px);
+    bottom: 0; }
+    .tooltipster-base .tooltipster-arrow span {
+      border-top-color: #23282d !important; }
+
+.tooltipster-icon {
+  color: #AAA; }

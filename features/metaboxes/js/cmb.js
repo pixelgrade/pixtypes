@@ -65,7 +65,12 @@ jQuery(document).ready(function ($) {
 		icon: '(?)',
 		iconDesktop: true,
 		iconTouch: true,
-		iconTheme: '.tooltipster-icon'
+		iconTheme: '.tooltipster-icon',
+		delay: 300,
+		maxWidth: 280,
+		interactive: true,
+		trigger: 'hover',
+		contentAsHTML: true,
 	});
 
 	/**

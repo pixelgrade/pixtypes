@@ -2458,3 +2458,54 @@ body .mce-menubtn.mce-menubtn {
 .media-frame-title h1 {
 	padding-left: 0;
 }
+
+
+.tooltipster-base {
+	border-color: #23282d;
+	.tooltipster-content {
+	    padding: 20px;
+
+	    font-style: normal;
+	    color: inherit;
+	    background-color: #23282d;
+	    text-align: left;
+	    color: #FFF;
+	    box-shadow: 0 4px 20px rgba(0,0,0,.20),0 0 0 1px rgba(0,0,0,.06);
+
+	    a {
+	    	color: white;
+		    text-decoration: none;
+		    border-bottom: 1px dotted;
+
+		    &:hover {
+		    	opacity: 0.7;
+		    }
+	    }
+
+	    p {
+	    	margin: 0 0 1em 0;
+
+	    	&:last-child {
+	    		margin-bottom: 0;
+	    	}
+	    }
+	}
+
+	.tooltipster-arrow {
+		z-index: 1;
+	    height: auto;
+	    width: auto;
+	    top: auto;
+	    right: auto;
+	    left: calc(50% - 5px);
+	    bottom: 0;
+	    
+		span {
+			border-top-color: #23282d !important;
+		}
+	}
+}
+
+.tooltipster-icon {
+	color: #AAA;
+}
