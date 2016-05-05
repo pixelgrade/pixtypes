@@ -87,6 +87,8 @@ $accent   : #0095ea;
 
 .pixbuilder-grid {
   margin-top: -10px;
+  margin-left: 15px;
+  margin-bottom: -15px;
   z-index: 1000;
 
   // Block Actions
@@ -201,7 +203,7 @@ $accent   : #0095ea;
           @include border-radius(6px);
 
           > li {
-            width: 51px;
+            width: 47px;
             box-sizing: border-box;
           }
 
@@ -284,10 +286,13 @@ $accent   : #0095ea;
  */
 .block-type--editor {
   @extend .block-type--image;
-  text-align: left;
 
   .editor_preview {
     width: 100%;
+  }
+
+  .block_content:not(empty) {
+    text-align: left;
   }
 
   .block_content.empty {
@@ -606,8 +611,4 @@ img {
   border-radius: 4px;
   transition: all .2s ease-out;
   position: relative;
-}
-
-.pix_builder_editor_modal_container {
-  z-index: 1600;
 }

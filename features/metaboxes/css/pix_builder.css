@@ -53,6 +53,8 @@
 \*----------------------------------------*/
 .pixbuilder-grid {
   margin-top: -10px;
+  margin-left: 15px;
+  margin-bottom: -15px;
   z-index: 1000;
   /*ul*/
   /*ul.nav*/ }
@@ -145,7 +147,7 @@
     -webkit-border-radius: 6px;
     border-radius: 6px; }
     .pixbuilder-grid .nav > li {
-      width: 51px;
+      width: 47px;
       box-sizing: border-box; }
     .pixbuilder-grid .nav > li:first-child {
       border-top-left-radius: 6px;
@@ -212,12 +214,12 @@
 /**
  * EDITOR
  */
-.block-type--editor {
+.block-type--editor .editor_preview {
+  width: 100%; }
+.block-type--editor .block_content:not(empty) {
   text-align: left; }
-  .block-type--editor .editor_preview {
-    width: 100%; }
-  .block-type--editor .block_content.empty:before {
-    content: ""; }
+.block-type--editor .block_content.empty:before {
+  content: ""; }
 
 /*----------------------------------------*\
             GENERAL
@@ -437,6 +439,3 @@ img {
   border-radius: 4px;
   transition: all .2s ease-out;
   position: relative; }
-
-.pix_builder_editor_modal_container {
-  z-index: 1600; }
