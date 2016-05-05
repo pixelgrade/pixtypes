@@ -29,85 +29,13 @@
 			gridster_params.on_resize_callback[1],
 			gridster_params.on_resize_callback[2],
 
-			gridster_params.on_resize_callback[3]);
-
-		///**
-		// * use this to serialize these params
-		// * after that echo them in activation.php config
-		// */
-		// var gridster_params = {
-		// 	widget_margins: [30, 30],
-		// 	widget_base_dimensions: [150, 100],
-		// 	min_cols: 3,
-		// 	max_cols: 6,
-		// 	autogenerate_stylesheet: true,
-		// 	resize: {
-		// 		enabled: true,
-		// 		axes: ['x'],
-		//		resize: function (el, ui, $widget) {
-		//			var size_x = this.resize_wgd.size_x;
-		//			if ( size_x == 5 ) {
-		//				// get the closest widget size
-		//				var cws = this.resize_last_sizex;
-		//				// force the widget size to 6
-		//				$(this.resize_wgd.el).attr('data-sizex', cws);
-		//				this.resize_wgd.size_x = cws;
-		//				// now the widget preview
-		//				var preview = $(this.resize_wgd.el).find('.preview-holder');
-		//				preview.attr('data-sizex', cws);
-		//				this.$resize_preview_holder.attr('data-sizex', cws);
-		//				$(document).trigger('pix_builder:serialize');
-		//		}
-		// 	},
-		// 	draggable: {
-		// 		handle: '.drag_handler'
-		// 	},
-		// 	serialize_params: function ($w, wgd) {
-		// 		var type = $w.data("type"),
-		// 			content = $w.find(".block_content").text();
-		// 		if (type == "text") {
-		// 			content = $w.find(".block_content textarea").val();
-		// 		} else if (type == "image") {
-		// 			content = $w.find(".open_media").attr("data-attachment_id");
-		// 		} else if (type == "editor") {
-		// 			content = $w.find(".to_send").text();
-		// 		}
-		// 		return {
-		// 			id: $w.prop("id").replace("block_", ""),
-		// 			type: type,
-		// 			content: content,
-		// 			col: wgd.col,
-		// 			row: wgd.row,
-		// 			size_x: wgd.size_x,
-		// 			size_y: wgd.size_y
-		// 		};
-		// 	}
-		// };
+			gridster_params.on_resize_callback[3]
+		);
 
 		var widget_width = $('#normal-sortables').width() / 6;
 		gridster_params.widget_base_dimensions = [ widget_width - 67 , 40];
 
 		gridster = gridster.gridster(gridster_params).data('gridster');
-
-		//Build the gridster if the builder has value
-		//var serialized_value = $pix_builder.val();
-		//if (serialized_value !== 'undefined' && serialized_value.length !== 0) {
-		//	var parsed = JSON.parse(serialized_value);
-		//
-		//	// sort serialization
-		//	parsed = Gridster.sort_by_row_and_col_asc(parsed);
-		//
-		//	$.each(parsed, function (i, e) {
-		//		var template_args = {
-		//			id: this.id,
-		//			type: this.type,
-		//			content: this.content
-		//		};
-		//		//debugger;
-		//		var block_template = get_block_template(template_args);
-		//		gridster.add_widget(block_template, this.size_x, this.size_y, this.col, this.row);
-		//	});
-		//}
 
 		// Functions
 		/**
@@ -266,7 +194,6 @@
 					switchEditors.go( 'pix_builder_editor', 'tmce' );
 				}, 600);
 
-
 				modal_container.find('.insert_editor_content').data('block_id', id );
 			}
 		});
@@ -300,10 +227,6 @@
 			close_editor_modal();
 		});
 
-		// $(document).on('click', '#publishing-action', function(){
-		// 	serialize_pix_builder_values();
-		// });
-
 		// serialize pix_builder values
 		$(document).on('pix_builder:serialize', intent_to_serialize );
 
@@ -318,15 +241,7 @@
 				$(document).trigger('pix_builder:serialize');
 			}
 		});
-		//
-		// setTimeout( function () {
-		// 	// on builders pages keep the editor hidden
-		// 	if ( $('.cmb-type-pix_builder').is(":visible") ) {
-		// 		$('#postdivrich').hide();
-		// 	} else {
-		// 		$('#postdivrich').show();
-		// 	}
-		// }, 1000);
+
 	}); /* Document.ready */
 
 	// Get the html for the block

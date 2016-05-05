@@ -183,7 +183,6 @@ function my_admin_footer_function() { ?>
 							$initArray['verify_html']          = false;
 							$initArray['cleanup_on_startup']   = false;
 							$initArray['cleanup']              = false;
-							$initArray['forced_root_block']    = false;
 							$initArray['validate_children']    = false;
 							$initArray['remove_redundant_brs'] = false;
 							$initArray['remove_linebreaks']    = false;
