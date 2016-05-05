@@ -2489,6 +2489,14 @@ body .mce-menubtn.mce-menubtn {
 	    		margin-bottom: 0;
 	    	}
 	    }
+
+	    title {
+    	    display: block;
+		    font-weight: bold;
+		    margin-bottom: 12px;
+		    font-size: 14px;
+		    margin-top: -4px;
+	    }
 	}
 
 	.tooltipster-arrow {
@@ -2499,7 +2507,7 @@ body .mce-menubtn.mce-menubtn {
 	    right: auto;
 	    left: calc(50% - 5px);
 	    bottom: 0;
-	    
+
 		span {
 			border-top-color: #23282d !important;
 		}
