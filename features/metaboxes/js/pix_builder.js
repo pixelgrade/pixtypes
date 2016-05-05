@@ -506,7 +506,9 @@
 		$(".pixbuilder-controls").fixer({gap: 40});
 
 		// margins?
-		$('.pixbuilder-grid').on('click', '.position__ui-cell', function(e) {
+		var $grid = $('.pixbuilder-grid');
+
+		$grid.on('click', '.position__ui-cell', function(e) {
 			var $cell 		= $(this),
                 $container  = $cell.closest('.position__ui'),
                 $item       = $cell.find('.position__ui-handle'),
@@ -533,6 +535,16 @@
             }
 
             updateCell($cell);
+		});
+
+		$grid.on('mouseenter', '.position', function(e) {
+			$grid.css('z-index', '1200');
+		});
+
+		$grid.on('mouseleave', '.position', function(e) {
+			setTimeout(function() {
+				$grid.css('z-index', '');
+			}, 200);
 		});
 
         $('.position__ui-cell').each(function() { updateCell($(this)); });
