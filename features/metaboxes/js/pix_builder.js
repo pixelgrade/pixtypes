@@ -84,6 +84,8 @@
 			} else { // visual editor
 				content_editor.setContent( parsed_string.replace(/\n/ig,"<br>") , {format:'text'});
 			}
+			
+			$('#pix_builder').val(parsed_string);
 
 			// now  it can be saved
 			$('#publish').removeAttr('disabled');

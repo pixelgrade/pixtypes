@@ -874,11 +874,27 @@ class cmb_Meta_Box {
 	}
 
 	function fold_display() {
+		// some special care for the pix_builder type
+		// when this type is on the page we need to make sure that the editor is supported but folded by default
+		if ( ! empty( $this->_meta_box['fields'] ) ) {
+			foreach ( $this->_meta_box['fields'] as $field ) {
+				if ( 'pix_builder' === $field['type'] ) {
+					$post_type = get_post_type();
+					add_post_type_support( $post_type, 'editor' );
+					echo '<style>
+					.post-type-' . $post_type . ' #postdivrich {
+						display: none !important;
+					}
+					</style>';
+					break;
+				}
+			}
+		}
 
 		if ( ! isset( $this->_meta_box['display_on'] ) ) {
 			return;
 		}
-
+		
 		if ( $this->_meta_box['display_on']['display'] ) {
 			$show = true;
 		} else {
