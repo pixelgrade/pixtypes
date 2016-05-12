@@ -1,6 +1,6 @@
 <div class="pix_builder_container hidden">
 	<?php
-	$base64_decode = false;
+	$base64_decode = true;
 	$gridster_params = '';
 
 	if( isset( $field['gridster_params'] ) ) {
@@ -9,10 +9,6 @@
 
 	global $post;
 	$content = $field['std'];
-
-	if ( isset( $field['base64_encoded'] ) && $field['base64_encoded'] ) {
-		$base64_decode = true;
-	}
 
 	// this should ensure the legacy with old meta values
 	// basically if there is no post content it will fall on old meta way. and convert it to content(the new way)
