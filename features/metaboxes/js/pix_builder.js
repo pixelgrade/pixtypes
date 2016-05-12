@@ -421,6 +421,14 @@
 
 		$(".pixbuilder-controls").fixer({gap: 40});
 
+		$(document).on('mouseover', '.position', function() {
+			$('.pixbuilder-grid').addClass('is--over-controls');
+		});
+
+		$(document).on('mouseout', '.position', function() {
+			$('.pixbuilder-grid').removeClass('is--over-controls');
+		});
+
 		// margins?
 		var $grid = $('.pixbuilder-grid');
 

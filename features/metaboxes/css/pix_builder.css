@@ -47,6 +47,8 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box; }
+.pixbuilder-grid.is--over-controls {
+  z-index: 1300; }
 
 /*----------------------------------------*\
             CONTENT & CONTROLS
