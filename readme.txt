@@ -3,7 +3,7 @@ Contributors: pixelgrade, euthelup, babbardel, vlad.olaru, cristianfrumusanu, ra
 Tags: custom, post-types, metadata
 Requires at least: 4.2.0
 Tested up to: 4.5.1
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,13 +24,18 @@ Note: This plugin is addressed to developers, it doesn't do nothing if it isn't 
 
 == Changelog ==
 
+= 1.4.1 =
+* Fixed pix_builder on old configs.
+* Fixed an issue with WPJM Extended Location
+* Fixed new block ids in pix_builder
+
 = 1.4.0 =
-Improved all the fields Visuals and styles.
-Improved the pix_builder field, now will save values in the content instead of its own meta.And the editor is better now.
-Added a positioning UI for the builder blocks.
-Fixed the defaults for the textarea fields.
-Fixed the defaults for colorpicker.
-Fixed small PHP warnings and notices.
+* Improved all the fields Visuals and styles.
+* Improved the pix_builder field, now will save values in the content instead of its own meta.And the editor is better now.
+* Added a positioning UI for the builder blocks.
+* Fixed the defaults for the textarea fields.
+* Fixed the defaults for colorpicker.
+* Fixed small PHP warnings and notices.
 
 = 1.3.5 =
 Improved the multicheck field

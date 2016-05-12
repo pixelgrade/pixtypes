@@ -10,7 +10,7 @@
 Plugin Name: PixTypes
 Plugin URI:  http://pixelgrade.com
 Description: Custom post types and metaboxes needed by your theme
-Version: 1.4.0
+Version: 1.4.1
 Author: PixelGrade
 Author URI: http://pixelgrade.com
 Author Email: contact@pixelgrade.com
