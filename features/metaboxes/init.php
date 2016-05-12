@@ -124,7 +124,6 @@ class cmb_Meta_Box {
 			add_action( 'admin_menu', array( &$this, 'add' ) );
 		}
 
-
 		add_action( 'save_post', array( &$this, 'save' ) );
 
 		add_action( 'admin_head', array( &$this, 'fold_display' ) );

@@ -11,8 +11,7 @@
 
 		var $pix_builder = $('#content'),
 			gridster = $(".gridster > ul"),
-			modal_container = $('.pix_builder_editor_modal_container'),
-			is_encoded = $('#pix_builder').attr('data-base64_encoded');
+			modal_container = $('.pix_builder_editor_modal_container');
 
 		/**
 		 * @var gridster_params is an object localized by wordpress and is defined by the theme
@@ -67,26 +66,22 @@
 
 			// sort_them
 			new_values = Gridster.sort_by_row_and_col_asc(new_values);
-
-			if ( typeof is_encoded !== "undefined" && is_encoded ) {
-				$.each( new_values, function ( i, j) {
-					if ( j.hasOwnProperty('content') ) {
-						if ( j.type === 'editor') {
-							new_values[i].content = b64EncodeUnicode( j.content );
-						}
+			$.each( new_values, function ( i, j) {
+				if ( j.hasOwnProperty('content') ) {
+					if ( j.type === 'editor') {
+						new_values[i].content = b64EncodeUnicode( j.content );
 					}
-				});
-			}
+				}
+			});
 
-
-			var parsed_string = JSON.stringify(new_values);
-			var content_editor = tinyMCE.get('content');
+			var parsed_string = JSON.stringify(new_values),
+				content_editor = tinyMCE.get('content');
 
 			if( typeof content_editor === "undefined" || content_editor === null) { // text editor
 				$('#content').val( parsed_string );
 				$('#content').text( parsed_string );
 			} else { // visual editor
-				content_editor.setContent( parsed_string.replace(/\n/ig,"<br>") , {format:'text'});
+				content_editor.setContent( parsed_string , {format:'text'});
 			}
 
 			$('#pix_builder').val(parsed_string);
@@ -114,7 +109,7 @@
 				$('#pix_builder_editor').text( content );
 
 			} else { // visual editor
-				this_editor.setContent( content.replace(/\n/ig,"<br>") , {format:'text'});
+				this_editor.setContent( content, {format:'text'});
 				this_editor.save( { no_events: true } );
 			}
 		};
@@ -305,10 +300,10 @@
 							'</div>' +
 						'</div>' +
 						'<div class="position__ui-row">' +
-							'<div class="position__ui-cell left">' +
-								'<div class="position__ui-handle">left</div>' +
+							'<div class="position__ui-cell left' + ((args.type === 'editor') ? ' active' : '') + '">' +
+								'<div class="position__ui-handle"' + ((args.type === 'editor') ? ' data-step="1"' : '') + '>left</div>' +
 							'</div>' +
-							'<div class="position__ui-cell middle active">' +
+							'<div class="position__ui-cell middle' + ((args.type !== 'editor') ? ' active' : '') + '">' +
 								'<div class="position__ui-handle">middle</div>' +
 							'</div>' +
 							'<div class="position__ui-cell right">' +
