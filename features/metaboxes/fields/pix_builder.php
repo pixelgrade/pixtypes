@@ -3,8 +3,6 @@
 	$base64_decode = true;
 	$gridster_params = '';
 
-//	wp_enqueue_script( 'editor-functions' );
-	
 	if( isset( $field['gridster_params'] ) ) {
 		$gridster_params = ' data-params=\'' . json_encode( $field['gridster_params'] ) . '\'';
 	}
@@ -22,7 +20,16 @@
 		$content = $meta;
 	}
 
-	echo '<input type="hidden" name="', $field['id'], '" id="pix_builder" value="', '' !== $meta ? htmlspecialchars( $meta ) : $content, '" ' . $gridster_params . ' />'; ?>
+	$post_type = get_post_type();
+	if ( $post_type !== 'page' ) {
+		echo '<style>
+		.post-type-' . $post_type . ' #postdivrich {
+			display: none !important;
+		}
+		</style>';
+	}
+
+	echo '<input type="hidden" name="', $field['id'], '" id="pix_builder" value="', '' !== $meta ? htmlspecialchars( $meta ) : $content, '" ' . $gridster_params . ' ' . ( $base64_decode ? 'data-base64_encoded="true"' : '' ) .' />'; ?>
 	<div class="pixbuilder-controls">
 		<button class="add_block button button-primary button-large"
 		        value="image"> <?php esc_html_e( '+ Add Image', 'pixtypes' ); ?></button>

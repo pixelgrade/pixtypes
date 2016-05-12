@@ -1708,11 +1708,6 @@ $accent: #07d3f8;
             GENERAL
 \*----------------------------------------*/
 
-img {
-	max-width: 100%;
-	max-height: 100%;
-}
-
 .icon {
 	display: inline-block;
 	font-size: 20px;
@@ -2344,7 +2339,7 @@ body .mce-menubtn.mce-menubtn {
 	button {
 		font-size: 13px;
 		line-height: 1.5;
-		padding: 2px 40px 2px 8px;
+		padding: 2px 10px 2px 8px;
 		border: 0;
 		width: auto;
 	}
@@ -2457,4 +2452,63 @@ body .mce-menubtn.mce-menubtn {
 
 .media-frame-title h1 {
 	padding-left: 0;
+}
+
+
+.tooltipster-base {
+	border-color: #23282d;
+	.tooltipster-content {
+	    padding: 20px;
+
+	    font-style: normal;
+	    color: inherit;
+	    background-color: #23282d;
+	    text-align: left;
+	    color: #FFF;
+	    box-shadow: 0 4px 20px rgba(0,0,0,.20),0 0 0 1px rgba(0,0,0,.06);
+
+	    a {
+	    	color: white;
+		    text-decoration: none;
+		    border-bottom: 1px dotted;
+
+		    &:hover {
+		    	opacity: 0.7;
+		    }
+	    }
+
+	    p {
+	    	margin: 0 0 1em 0;
+
+	    	&:last-child {
+	    		margin-bottom: 0;
+	    	}
+	    }
+
+	    title {
+    	    display: block;
+		    font-weight: bold;
+		    margin-bottom: 12px;
+		    font-size: 14px;
+		    margin-top: -4px;
+	    }
+	}
+
+	.tooltipster-arrow {
+		z-index: 1;
+	    height: auto;
+	    width: auto;
+	    top: auto;
+	    right: auto;
+	    left: calc(50% - 5px);
+	    bottom: 0;
+
+		span {
+			border-top-color: #23282d !important;
+		}
+	}
+}
+
+.tooltipster-icon {
+	color: #AAA;
 }

@@ -124,7 +124,6 @@ class cmb_Meta_Box {
 			add_action( 'admin_menu', array( &$this, 'add' ) );
 		}
 
-
 		add_action( 'save_post', array( &$this, 'save' ) );
 
 		add_action( 'admin_head', array( &$this, 'fold_display' ) );
@@ -133,7 +132,7 @@ class cmb_Meta_Box {
 		//add_filter( 'cmb_show_on', array( &$this, 'add_for_page_template' ), 10, 2 );
 		//add_filter( 'cmb_show_on', array( &$this, 'add_for_specific_select_value' ), 10, 2 );
 
-		add_filter('_wp_post_revision_field_post_content', array( $this, 'pixtypes_fix_builder_revisions_display'), 15, 4 );
+		//add_filter('_wp_post_revision_field_post_content', array( $this, 'pixtypes_fix_builder_revisions_display'), 915, 4 );
 		add_filter('default_hidden_meta_boxes', array( $this, 'hide_metaboxes_from_screen_options_by_config'), 15, 2 );
 	}
 
@@ -316,31 +315,25 @@ class cmb_Meta_Box {
 		}
 	}
 
-	function pixtypes_fix_builder_revisions_display ( $compare_to_field, $field, $compare_to, $target ){
+	function pixtypes_fix_builder_revisions_display (  $post_content, $field, $compare_to, $target ){
 
-		$parsed = json_decode( $compare_to_field, true );
 		$change = false;
-		if ( ! empty( $parsed ) && is_array( $parsed ) ) {
-			$preview_content = '';
+		$parsed = json_decode( $post_content, true );
 
-			foreach ( $parsed as $key => $line ) {
-				if ( isset( $line['type'] ) && isset( $line['content'] ) && ! empty($line['content']) && $line['type']=== 'editor') {
+		if ( empty( $parsed ) || ! is_array( $parsed ) ) return $post_content;
 
-					$new_link = base64_decode(  $line['content'] );
-
-					if ( ! empty( $new_link ) ) {
-						$change = true;
-						
-						$parsed[$key]['content'] = $new_link;
-					}
-				}
+		foreach ( $parsed as $key => $block ) {
+			if ( isset( $block['type'] ) && isset( $block['content'] ) && ! empty($block['content']) && $block['type']=== 'editor') {
+				$new_link = base64_decode( $block['content'] );
+				$change = true;
+				$parsed[$key]['content'] = $new_link;
 			}
 		}
 
 		if ( $change ) {
-			$compare_to_field = json_encode( $parsed );
+			return json_encode( $parsed );
 		}
-		return $compare_to_field;
+		return $post_content;
 	}
 
 	// Show fields
@@ -874,6 +867,21 @@ class cmb_Meta_Box {
 	}
 
 	function fold_display() {
+		// some special care for the pix_builder type
+		// when this type is on the page we need to make sure that the editor is supported but folded by default
+		if ( ! empty( $this->_meta_box['fields'] ) ) {
+			foreach ( $this->_meta_box['fields'] as $field ) {
+				if ( 'pix_builder' === $field['type'] ) {
+					if ( ! isset( $this->_meta_box['pages'] ) || empty( $this->_meta_box['pages'] ) ) {
+						continue;
+					}
+					foreach ( $this->_meta_box['pages'] as $post_type ) {
+						add_post_type_support( $post_type, 'editor' );
+					}
+					break;
+				}
+			}
+		}
 
 		if ( ! isset( $this->_meta_box['display_on'] ) ) {
 			return;
