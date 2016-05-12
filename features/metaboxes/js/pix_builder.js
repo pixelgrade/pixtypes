@@ -78,7 +78,6 @@
 				});
 			}
 
-
 			var parsed_string = JSON.stringify(new_values);
 			var content_editor = tinyMCE.get('content');
 
@@ -86,7 +85,7 @@
 				$('#content').val( parsed_string );
 				$('#content').text( parsed_string );
 			} else { // visual editor
-				content_editor.setContent( parsed_string.replace(/\n/ig,"<br>") , {format:'text'});
+				content_editor.setContent( parsed_string , {format:'text'});
 			}
 
 			$('#pix_builder').val(parsed_string);
@@ -114,7 +113,7 @@
 				$('#pix_builder_editor').text( content );
 
 			} else { // visual editor
-				this_editor.setContent( content.replace(/\n/ig,"<br>") , {format:'text'});
+				this_editor.setContent( content, {format:'text'});
 				this_editor.save( { no_events: true } );
 			}
 		};
