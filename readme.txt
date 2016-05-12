@@ -3,7 +3,7 @@ Contributors: pixelgrade, euthelup, babbardel, vlad.olaru, cristianfrumusanu, ra
 Tags: custom, post-types, metadata
 Requires at least: 4.2.0
 Tested up to: 4.5.1
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,6 +23,11 @@ Note: This plugin is addressed to developers, it doesn't do nothing if it isn't 
 3. After activating PixTypes all your custom post-types should be visible now.
 
 == Changelog ==
+
+= 1.4.1 =
+* Fixed pix_builder on old configs.
+* Fixed an issue with WPJM Extended Location
+* Fixed new block ids in pix_builder
 
 = 1.4.0 =
 * Improved all the fields Visuals and styles.
