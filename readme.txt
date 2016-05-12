@@ -25,12 +25,12 @@ Note: This plugin is addressed to developers, it doesn't do nothing if it isn't 
 == Changelog ==
 
 = 1.4.0 =
-Improved all the fields Visuals and styles.
-Improved the pix_builder field, now will save values in the content instead of its own meta.And the editor is better now.
-Added a positioning UI for the builder blocks.
-Fixed the defaults for the textarea fields.
-Fixed the defaults for colorpicker.
-Fixed small PHP warnings and notices.
+* Improved all the fields Visuals and styles.
+* Improved the pix_builder field, now will save values in the content instead of its own meta.And the editor is better now.
+* Added a positioning UI for the builder blocks.
+* Fixed the defaults for the textarea fields.
+* Fixed the defaults for colorpicker.
+* Fixed small PHP warnings and notices.
 
 = 1.3.5 =
 Improved the multicheck field
