@@ -130,16 +130,16 @@
 			}
 
 			$('.pixbuilder-grid > ul > li').each( function (i, j) {
-				var id = $( this ).attr('id').replace('block_');
+				var id_nr = $( this ).attr('id').replace('block_', '');
 
-				if ( parseInt(id) > number_of_blocks ) {
-					number_of_blocks = parseInt(id) + 1;
+				if ( parseInt(id_nr) > number_of_blocks ) {
+					number_of_blocks = parseInt(id_nr) + 1;
 				} else {
 					number_of_blocks = number_of_blocks + 1;
 				}
 			});
-
-			return parseInt(number_of_blocks) + 1;
+			
+			return parseInt(number_of_blocks);
 		}
 		/**
 		 * Events
