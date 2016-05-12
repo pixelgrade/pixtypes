@@ -75,6 +75,10 @@ $accent   : #0095ea;
       @include box-sizing(border-box);
     }
   }
+
+  &.is--over-controls {
+    z-index: 1300;
+  }
 }
 
 
