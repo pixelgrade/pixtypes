@@ -304,10 +304,10 @@
 							'</div>' +
 						'</div>' +
 						'<div class="position__ui-row">' +
-							'<div class="position__ui-cell left">' +
-								'<div class="position__ui-handle">left</div>' +
+							'<div class="position__ui-cell left' + ((args.type === 'editor') ? ' active' : '') + '">' +
+								'<div class="position__ui-handle"' + ((args.type === 'editor') ? ' data-step="1"' : '') + '>left</div>' +
 							'</div>' +
-							'<div class="position__ui-cell middle active">' +
+							'<div class="position__ui-cell middle' + ((args.type !== 'editor') ? ' active' : '') + '">' +
 								'<div class="position__ui-handle">middle</div>' +
 							'</div>' +
 							'<div class="position__ui-cell right">' +
