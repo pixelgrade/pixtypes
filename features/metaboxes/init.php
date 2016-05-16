@@ -1280,3 +1280,83 @@ function ajax_pixplaylist_preview() {
 
 add_action( 'wp_ajax_pixplaylist_preview', 'ajax_pixplaylist_preview' );
 
+
+
+/* ========== RELATED TO PIXBUILDER ======== */
+
+
+/**
+ * Add the builder meta to the revision fields (by default only post title, content and excerpt are accounted for)
+ *
+ * @param array $fields
+ *
+ * @return array
+ */
+function pixbuilder_add_revision_field( $fields ) {
+	$fields['_pile_project_builder'] = 'Content Builder';
+
+	return $fields;
+}
+add_filter( '_wp_post_revision_fields', 'pixbuilder_add_revision_field', 10, 1 );
+
+/**
+ * Overwrite the meta value if we have a global revision set
+ *
+ * @param mixed $value
+ * @param string $field
+ * @param WP_Post $revision
+ * @param string $type It ca be either "from" or "to"; see wp-admin/includes/revision.php @73-76
+ *
+ * @return mixed
+ */
+function pixbuilder_revision_field_value( $value, $field, $revision, $type ) {
+	if ( ! empty( $revision->ID ) ) {
+		$value = get_metadata( 'post', $revision->ID, $field, true );
+	}
+
+	return $value;
+}
+add_filter( '_wp_post_revision_field__pile_project_builder', 'pixbuilder_revision_field_value', 10, 4 );
+
+/**
+ * @param int $post_ID     Post ID.
+ * @param int $revision_ID Post revision ID.
+ */
+function pixbuilder_on_restore_revision( $post_ID, $revision_ID ) {
+	//bail if something is fishy
+	if ( empty( $post_ID ) || empty( $revision_ID ) ) {
+		return;
+	}
+
+	$revision_meta = get_metadata( 'post', $revision_ID, '_pile_project_builder', true );
+
+	//save the revision meta to the parent post
+	if ( false === $revision_meta ) {
+		delete_post_meta( $post_ID, '_pile_project_builder' );
+	} else {
+		update_post_meta( $post_ID, '_pile_project_builder', $revision_meta );
+	}
+}
+add_action( 'wp_restore_post_revision', 'pixbuilder_on_restore_revision', 20, 2 );
+
+function pixbuilder_save_revision_meta( $post_ID, $post ) {
+	//test if the current post is a revision
+	//we are only interested in them
+	$parent_ID = wp_is_post_revision( $post_ID );
+	if ( false !== $parent_ID ) {
+		$parent = get_post( $parent_ID );
+		if ( empty( $parent ) ) {
+			//bail as we don't like playing with fire
+			return;
+		}
+
+		//get the parent's meta data
+		$meta = get_post_meta( $parent->ID, '_pile_project_builder', true );
+
+		if ( false !== $meta ) {
+			//we will only save one entry per revision, hence the update_metadata
+			update_metadata( 'post', $post_ID, '_pile_project_builder', $meta );
+		}
+	}
+}
+add_action( 'save_post', 'pixbuilder_save_revision_meta', 20, 2 );
