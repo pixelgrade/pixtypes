@@ -265,28 +265,31 @@
 
 .pix_builder_editor_modal_container {
   position: relative; }
-  .pix_builder_editor_modal_container .modal_wrapper .media-modal {
-    height: 80%;
-    max-height: 750px;
-    max-width: 800px;
-    left: 50%;
-    top: 50%;
-    -moz-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%); }
-  .pix_builder_editor_modal_container .modal_wrapper .media-frame-content, .pix_builder_editor_modal_container .modal_wrapper .media-frame-title, .pix_builder_editor_modal_container .modal_wrapper .media-frame-router, .pix_builder_editor_modal_container .modal_wrapper .media-frame-toolbar {
-    right: 30px;
-    left: 30px; }
-  .pix_builder_editor_modal_container .modal_wrapper .media-frame-title {
-    top: 15px; }
-  .pix_builder_editor_modal_container .modal_wrapper .media-frame-content {
-    top: 90px;
-    bottom: 80px;
-    background: none;
-    border: none; }
-  .pix_builder_editor_modal_container .modal_wrapper .modal_controls {
-    text-align: right; }
+  .pix_builder_editor_modal_container .modal_wrapper {
+    position: relative;
+    z-index: 11000; }
+    .pix_builder_editor_modal_container .modal_wrapper .media-modal {
+      height: 80%;
+      max-height: 750px;
+      max-width: 800px;
+      left: 50%;
+      top: 50%;
+      -moz-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%); }
+    .pix_builder_editor_modal_container .modal_wrapper .media-frame-content, .pix_builder_editor_modal_container .modal_wrapper .media-frame-title, .pix_builder_editor_modal_container .modal_wrapper .media-frame-router, .pix_builder_editor_modal_container .modal_wrapper .media-frame-toolbar {
+      right: 30px;
+      left: 30px; }
+    .pix_builder_editor_modal_container .modal_wrapper .media-frame-title {
+      top: 15px; }
+    .pix_builder_editor_modal_container .modal_wrapper .media-frame-content {
+      top: 90px;
+      bottom: 80px;
+      background: none;
+      border: none; }
+    .pix_builder_editor_modal_container .modal_wrapper .modal_controls {
+      text-align: right; }
 
 .pix_builder_container {
   padding-top: 55px; }

@@ -367,6 +367,8 @@ $accent   : #0095ea;
   position: relative;
 
   .modal_wrapper {
+    position: relative;
+    z-index: 11000;
     .media-modal {
       height: 80%;
       max-height: 750px;
