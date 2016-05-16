@@ -37,6 +37,14 @@
 
 		gridster = gridster.gridster(gridster_params).data('gridster');
 
+		$(window).on('resize', function() {
+			var widget_width = $('#normal-sortables').width() / 6,
+				options = {
+					widget_base_dimensions: [ widget_width - 35, 40 ]
+				}
+			gridster.resize_widget_dimensions(options);
+		});
+
 		// Functions
 		/**
 		 * Checks if a serialisation event is already ongoing
