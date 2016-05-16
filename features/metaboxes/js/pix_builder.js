@@ -62,10 +62,28 @@
 		};
 
 		var serialize_pix_builder_values = function(){
+
 			var new_values = gridster.serialize();
 
 			// sort_them
 			new_values = Gridster.sort_by_row_and_col_asc(new_values);
+
+			var public_content = '',
+				output = [],
+				attachment = null;
+
+			$.each( new_values, function ( i, j) {
+				if ( j.hasOwnProperty('content') ) {
+					if ( j.type === 'editor') {
+						public_content = public_content + j.content + "\n";
+					}
+				}
+			});
+
+			// we will save 2 versions of the content
+			// 1 for public: public_content
+			// 2 for internal use: internal_content
+			// var public_content = prepare_values_for_content( new_values );
 			$.each( new_values, function ( i, j) {
 				if ( j.hasOwnProperty('content') ) {
 					if ( j.type === 'editor') {
@@ -74,23 +92,21 @@
 				}
 			});
 
-			var parsed_string = JSON.stringify(new_values),
+			var internal_content = JSON.stringify(new_values),
 				content_editor = tinyMCE.get('content');
 
-			if( typeof content_editor === "undefined" || content_editor === null) { // text editor
-				$('#content').val( parsed_string );
-				$('#content').text( parsed_string );
+			if( typeof content_editor === "undefined" || content_editor === null ) { // text editor
+				$('#content').val( public_content );
+				$('#content').text( public_content );
 			} else { // visual editor
-				content_editor.setContent( parsed_string , {format:'text'});
+				content_editor.setContent( public_content , {format:'text'});
 			}
 
-			$('#pix_builder').val(parsed_string);
+			$('#pix_builder').val(internal_content);
 
 			// now  it can be saved
 			$('#publish').removeAttr('disabled');
 
-			// $('#content').val(parsed_string);
-			// $('#pix_builder').val(parsed_string);
 			serialize_intention = false;
 		};
 
