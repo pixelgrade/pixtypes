@@ -3357,24 +3357,23 @@ div.time-picker li.selected {
   margin: 16px 0 0 10px;
   background: white; }
 
-body .mce-menubtn.mce-menubtn button {
+body .mce-toolbar.mce-last .mce-container.mce-first .mce-menubtn.mce-first.mce-btn-has-text button {
   font-size: 13px;
   line-height: 1.5;
   padding: 2px 10px 2px 8px;
   border: 0;
-  width: auto; }
-body .mce-menubtn.mce-menubtn.mce-first button {
+  width: auto;
   visibility: hidden;
   width: 12em; }
-  body .mce-menubtn.mce-menubtn.mce-first button i {
+  body .mce-toolbar.mce-last .mce-container.mce-first .mce-menubtn.mce-first.mce-btn-has-text button i {
     visibility: visible; }
-  body .mce-menubtn.mce-menubtn.mce-first button:before {
+  body .mce-toolbar.mce-last .mce-container.mce-first .mce-menubtn.mce-first.mce-btn-has-text button:before {
     content: "Custom Elements";
     position: absolute;
     top: 2px;
     left: 8px;
     visibility: visible; }
-body .mce-menubtn.mce-menubtn .mce-caret {
+body .mce-toolbar.mce-last .mce-container.mce-first .mce-menubtn.mce-first.mce-btn-has-text .mce-caret {
   position: absolute;
   margin-top: -2px !important;
   right: 8px;
