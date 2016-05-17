@@ -61,6 +61,8 @@
 									$block->content = base64_decode( $block->content );
 								}
 
+								$block->content = wp_unslash( $block->content );
+
 								$content = '<textarea class="to_send" style="display: none">' . $block->content. '</textarea>' . '<div class="editor_preview">' . '<div class="editor_preview_wrapper">' . pix_builder_display_content( $block->content, false ) . '</div>' . '</div>';
 
 								$controls_content = '<a class="edit_editor"><span>' . esc_html__( 'Edit', 'pixtypes' ) . '</span></a>';
