@@ -7,7 +7,15 @@
 		$gridster_params = ' data-params=\'' . json_encode( $field['gridster_params'] ) . '\'';
 	}
 
-	$content = $meta;
+	global $post;
+	$content = $field['std'];
+
+	if( isset( $post->post_content ) && ! empty( $post->post_content ) && ! empty( json_decode( $post->post_content ) ) ) {
+		// remove the white spacces added by the editor
+		$content = preg_replace( '/[\p{Z}\s]{2,}/u', ' ', $post->post_content );
+	} elseif ( ! empty( $meta ) ) {
+		$content = $meta;
+	}
 
 	$post_type = get_post_type();
 	if ( $post_type !== 'page' ) {
