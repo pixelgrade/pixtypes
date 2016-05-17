@@ -10,7 +10,8 @@
 	global $post;
 	$content = $field['std'];
 
-	if( isset( $post->post_content ) && ! empty( $post->post_content ) && ! empty( json_decode( $post->post_content ) ) ) {
+	$test_for_content = json_decode( $post->post_content );
+	if( isset( $post->post_content ) && ! empty( $post->post_content ) && ! empty( $test_for_content ) ) {
 		// remove the white spacces added by the editor
 		$content = preg_replace( '/[\p{Z}\s]{2,}/u', ' ', $post->post_content );
 	} elseif ( ! empty( $meta ) ) {
