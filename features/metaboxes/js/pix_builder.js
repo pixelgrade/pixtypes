@@ -92,13 +92,13 @@
 			// 1 for public: public_content
 			// 2 for internal use: internal_content
 			// var public_content = prepare_values_for_content( new_values );
-			$.each( new_values, function ( i, j) {
-				if ( j.hasOwnProperty('content') ) {
-					if ( j.type === 'editor') {
-						new_values[i].content = b64EncodeUnicode( j.content );
-					}
-				}
-			});
+			// $.each( new_values, function ( i, j) {
+			// 	if ( j.hasOwnProperty('content') ) {
+			// 		if ( j.type === 'editor') {
+			// 			new_values[i].content = b64EncodeUnicode( j.content );
+			// 		}
+			// 	}
+			// });
 
 			var internal_content = JSON.stringify(new_values),
 				content_editor = tinyMCE.get('content');

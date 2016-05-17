@@ -1,6 +1,6 @@
 <div class="pix_builder_container hidden">
 	<?php
-	$base64_decode = true;
+	$base64_decode = false;
 	$gridster_params = '';
 
 	if( isset( $field['gridster_params'] ) ) {
@@ -12,6 +12,7 @@
 
 	$test_for_content = json_decode( $post->post_content );
 	if( isset( $post->post_content ) && ! empty( $post->post_content ) && ! empty( $test_for_content ) ) {
+		$base64_decode = true;
 		// remove the white spacces added by the editor
 		$content = preg_replace( '/[\p{Z}\s]{2,}/u', ' ', $post->post_content );
 	} elseif ( ! empty( $meta ) ) {
