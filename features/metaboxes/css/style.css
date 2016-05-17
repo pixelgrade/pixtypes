@@ -3357,7 +3357,7 @@ div.time-picker li.selected {
   margin: 16px 0 0 10px;
   background: white; }
 
-body .mce-toolbar.mce-last .mce-container.mce-first .mce-menubtn.mce-first.mce-btn-has-text button {
+body .mce-toolbar.mce-last .mce-container.mce-first .mce-menubtn.mce-first button {
   font-size: 13px;
   line-height: 1.5;
   padding: 2px 10px 2px 8px;
@@ -3365,15 +3365,15 @@ body .mce-toolbar.mce-last .mce-container.mce-first .mce-menubtn.mce-first.mce-b
   width: auto;
   visibility: hidden;
   width: 12em; }
-  body .mce-toolbar.mce-last .mce-container.mce-first .mce-menubtn.mce-first.mce-btn-has-text button i {
+  body .mce-toolbar.mce-last .mce-container.mce-first .mce-menubtn.mce-first button i {
     visibility: visible; }
-  body .mce-toolbar.mce-last .mce-container.mce-first .mce-menubtn.mce-first.mce-btn-has-text button:before {
+  body .mce-toolbar.mce-last .mce-container.mce-first .mce-menubtn.mce-first button:before {
     content: "Custom Elements";
     position: absolute;
     top: 2px;
     left: 8px;
     visibility: visible; }
-body .mce-toolbar.mce-last .mce-container.mce-first .mce-menubtn.mce-first.mce-btn-has-text .mce-caret {
+body .mce-toolbar.mce-last .mce-container.mce-first .mce-menubtn.mce-first .mce-caret {
   position: absolute;
   margin-top: -2px !important;
   right: 8px;
