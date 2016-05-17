@@ -2335,16 +2335,14 @@ $accent: #07d3f8;
 	background: white;
 }
 
-body .mce-menubtn.mce-menubtn {
+// Change Formats to Custom Elements
+body .mce-toolbar.mce-last .mce-container.mce-first .mce-menubtn.mce-first {
 	button {
 		font-size: 13px;
 		line-height: 1.5;
 		padding: 2px 10px 2px 8px;
 		border: 0;
 		width: auto;
-	}
-
-	&.mce-first button {
 		visibility: hidden;
 		width: 12em;
 
@@ -2449,11 +2447,6 @@ body .mce-menubtn.mce-menubtn {
 		transform: translateX(-50%) translateY(-50%);
 	}
 }
-
-.media-frame-title h1 {
-	padding-left: 0;
-}
-
 
 .tooltipster-base {
 	border-color: #23282d;
