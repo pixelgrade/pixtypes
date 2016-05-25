@@ -95,7 +95,7 @@
 							$empty_class = 'empty';
 						}
 
-						if( empty( $block->position ) ) {
+						if ( empty( $block->position ) ) {
 							$block->position = array(
 								'top'    => 0,
 								'right'  => 0,
@@ -109,7 +109,7 @@
 						$middle_status = 'active';
 
 						foreach ( $block->position as $pos ) {
-							if( $pos !== '0' ) {
+							if ( intval( $pos ) !== 0 ) {
 								$middle_status = '';
 							}
 						} ?>
@@ -127,14 +127,14 @@
 											<div class="position__ui-body">
 												<div class="position__ui-row">
 													<div
-														class="position__ui-cell top <?php echo '0' === $block->position['top'] ? '' : 'active'; ?>">
+														class="position__ui-cell top <?php echo 0 == intval($block->position['top']) ? '' : 'active'; ?>">
 														<div class="position__ui-handle"
 														     data-step="<?php echo $block->position['top']; ?>"><?php esc_html_e( 'top', 'pixtypes' ); ?></div>
 													</div>
 												</div>
 												<div class="position__ui-row">
 													<div
-														class="position__ui-cell left <?php echo '0' === $block->position['left'] ? '' : 'active'; ?>">
+														class="position__ui-cell left <?php echo 0 == intval($block->position['left']) ? '' : 'active'; ?>">
 														<div class="position__ui-handle"
 														     data-step="<?php echo $block->position['left']; ?>"><?php esc_html_e( 'left', 'pixtypes' ); ?></div>
 													</div>
@@ -142,14 +142,14 @@
 														<div class="position__ui-handle">middle</div>
 													</div>
 													<div
-														class="position__ui-cell right <?php echo '0' === $block->position['right'] ? '' : 'active'; ?>">
+														class="position__ui-cell right <?php echo 0 == intval($block->position['right']) ? '' : 'active'; ?>">
 														<div class="position__ui-handle"
 														     data-step="<?php echo $block->position['right']; ?>"><?php esc_html_e( 'right', 'pixtypes' ); ?></div>
 													</div>
 												</div>
 												<div class="position__ui-row">
 													<div
-														class="position__ui-cell bottom <?php echo '0' === $block->position['bottom'] ? '' : 'active'; ?>">
+														class="position__ui-cell bottom <?php echo 0 == intval($block->position['bottom']) ? '' : 'active'; ?>">
 														<div class="position__ui-handle"
 														     data-step="<?php echo $block->position['bottom']; ?>"><?php esc_html_e( 'bottom', 'pixtypes' ); ?></div>
 													</div>
