@@ -9,9 +9,10 @@
 
 	global $post;
 	$content = $field['std'];
-
+	
 	$test_for_content = json_decode( $post->post_content );
-	if( isset( $post->post_content ) && ! empty( $post->post_content ) && ! empty( $test_for_content ) ) {
+
+	if( isset( $post->post_content ) && ! empty( $post->post_content ) && ! empty( $test_for_content ) && is_object( $test_for_content ) ) {
 		$base64_decode = true;
 		// remove the white spacces added by the editor
 		$content = preg_replace( '/[\p{Z}\s]{2,}/u', ' ', $post->post_content );

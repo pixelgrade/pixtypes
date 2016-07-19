@@ -133,7 +133,10 @@
 				$('#pix_builder_editor').text( content );
 
 			} else { // visual editor
-				this_editor.setContent( content, {format:'text'});
+
+				console.log(content);
+
+				this_editor.setContent( content.replace(/\n/ig,"<br>"), { format:'text' });
 				this_editor.save( { no_events: true } );
 			}
 		};
