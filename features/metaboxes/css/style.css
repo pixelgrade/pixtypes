@@ -3414,6 +3414,7 @@ body .mce-toolbar.mce-last .mce-container.mce-first .mce-menubtn.mce-first .mce-
     border-radius: 4px; }
 
 .wp-picker-active {
+  width: 255px;
   display: flex;
   flex-wrap: wrap; }
   .wp-picker-active .wp-color-result:after {
