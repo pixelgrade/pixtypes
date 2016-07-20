@@ -364,6 +364,9 @@ class cmb_Meta_Box {
 		// Use nonce for verification
 		echo '<input type="hidden" name="wp_meta_box_nonce" value="', wp_create_nonce( basename( __FILE__ ) ), '" />';
 
+		// load assets only when we have a metabox on page
+		cmb_enqueue_scripts();
+
 		echo '<ul class="form-table cmb_metabox">';
 
 		// we use the variable to check if we need a default or not
@@ -1032,7 +1035,7 @@ class cmb_Meta_Box {
 /**
  * Adding scripts and styles
  */
-function cmb_scripts( $hook ) {
+function cmb_register_scripts( $hook ) {
 
 	global $pixtypes_plugin;
 	$plugin_version = 0;
@@ -1054,15 +1057,9 @@ function cmb_scripts( $hook ) {
 		);
 		// styles required for cmb
 		$cmb_style_array = array( 'thickbox', 'tooltipster' );
-		// if we're 3.5 or later, user wp-color-picker
-		if ( 3.5 <= $wp_version ) {
-			$cmb_script_array[] = 'wp-color-picker';
-			$cmb_style_array[]  = 'wp-color-picker';
-		} else {
-			// otherwise use the older 'farbtastic'
-			$cmb_script_array[] = 'farbtastic';
-			$cmb_style_array[]  = 'farbtastic';
-		}
+
+		$cmb_script_array[] = 'wp-color-picker';
+		$cmb_style_array[]  = 'wp-color-picker';
 
 		wp_register_script( 'cmb-tooltipster', CMB_META_BOX_URL . 'js/jquery.tooltipster.min.js' );
 		wp_register_script( 'cmb-timepicker', CMB_META_BOX_URL . 'js/jquery.timePicker.min.js' );
@@ -1081,30 +1078,29 @@ function cmb_scripts( $hook ) {
 			'post_id'    => get_the_ID(),
 			'post_type'  => get_post_type()
 		) );
-		wp_enqueue_script( 'cmb-timepicker' );
-		wp_enqueue_script( 'cmb-scripts' );
 
 		wp_register_style( 'gridster', CMB_META_BOX_URL . 'css/jquery.gridster.css' );
 
 		wp_register_style( 'pix_builder', CMB_META_BOX_URL . 'css/pix_builder.css', array( 'gridster' ), $plugin_version );
 		wp_register_style( 'tooltipster', CMB_META_BOX_URL . 'css/tooltipster.css' );
 		wp_register_style( 'cmb-styles', CMB_META_BOX_URL . 'css/style.css', $cmb_style_array, $plugin_version );
-
-		wp_enqueue_style( 'cmb-styles' );
 	}
 }
 
-add_action( 'admin_enqueue_scripts', 'cmb_scripts', 10 );
+add_action( 'admin_enqueue_scripts', 'cmb_register_scripts', 10 );
+
+function cmb_enqueue_scripts(){
+	wp_enqueue_script( 'cmb-timepicker' );
+	wp_enqueue_script( 'cmb-scripts' );
+	wp_enqueue_style( 'cmb-styles' );
+}
 
 function cmb_editor_footer_scripts() {
-	?>
-	<?php
 	if ( isset( $_GET['cmb_force_send'] ) && 'true' == $_GET['cmb_force_send'] ) {
 		$label = $_GET['cmb_send_label'];
 		if ( empty( $label ) ) {
 			$label = "Select File";
-		}
-		?>
+		} ?>
 		<script type="text/javascript">
 			jQuery(function ($) {
 				$('td.savesend input').val('<?php echo $label; ?>');
