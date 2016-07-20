@@ -1,9 +1,9 @@
 === PixTypes ===
 Contributors: pixelgrade, euthelup, babbardel, vlad.olaru, cristianfrumusanu, razvanonofrei
-Tags: custom, post-types, metadata
-Requires at least: 4.2.0
+Tags: custom, post-types, metadata, builder, gallery
+Requires at least: 4.3.0
 Tested up to: 4.5.2
-Stable tag: 1.4.2
+Stable tag: 1.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,6 +23,12 @@ Note: This plugin is addressed to developers, it doesn't do nothing if it isn't 
 3. After activating PixTypes all your custom post-types should be visible now.
 
 == Changelog ==
+
+= 1.4.3 =
+* Fixed Builder on PHP 5.2
+* Fixed Builder text block.Now it doesn't lose new lines on editor switch
+* Fixed ColorPicker style in normal context
+* Improved assets loading. Now we won't load styles on non-PixTypes pages.
 
 = 1.4.2 =
 * Fixed Builder visuals

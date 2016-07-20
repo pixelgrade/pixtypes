@@ -1,16 +1,16 @@
 <?php
 /*
 * @package   PixTypes
-* @author    Pixelgrade <contact@pixelgrade.com>
+* @author    PixelGrade <contact@pixelgrade.com>
 * @license   GPL-2.0+
 * @link      http://pixelgrade.com
-* @copyright 2013 Pixelgrade Media
+* @copyright 2013 PixelGrade
 *
 * @wordpress-plugin
 Plugin Name: PixTypes
 Plugin URI:  http://pixelgrade.com
-Description: Custom post types and metaboxes needed by your theme
-Version: 1.4.2
+Description: Custom post types and meta-boxes needed by your theme
+Version: 1.4.3
 Author: PixelGrade
 Author URI: http://pixelgrade.com
 Author Email: contact@pixelgrade.com
