@@ -133,9 +133,6 @@
 				$('#pix_builder_editor').text( content );
 
 			} else { // visual editor
-
-				console.log(content);
-
 				this_editor.setContent( content.replace(/\n/ig,"<br>"), { format:'text' });
 				this_editor.save( { no_events: true } );
 			}
