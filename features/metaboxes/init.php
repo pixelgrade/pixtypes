@@ -783,6 +783,17 @@ class cmb_Meta_Box {
 
 					break;
 
+				case 'image':
+
+					$file_path = plugin_dir_path( __FILE__ ) . 'fields/image.php';
+					if ( file_exists( $file_path ) ) {
+						ob_start();
+						include( $file_path );
+						echo ob_get_clean();
+					}
+
+					break;
+
 				case 'playlist':
 
 					$playlist_type = 'video';
@@ -1064,6 +1075,7 @@ function cmb_register_scripts( $hook ) {
 		wp_register_script( 'cmb-tooltipster', CMB_META_BOX_URL . 'js/jquery.tooltipster.min.js' );
 		wp_register_script( 'cmb-timepicker', CMB_META_BOX_URL . 'js/jquery.timePicker.min.js' );
 		wp_register_script( 'pixgallery', CMB_META_BOX_URL . 'js/pixgallery.js' );
+		wp_register_script( 'piximage', CMB_META_BOX_URL . 'js/piximage.js' );
 		wp_register_script( 'pixplaylist', CMB_META_BOX_URL . 'js/pixplaylist.js' );
 		wp_register_script( 'gridster', CMB_META_BOX_URL . 'js/jquery.gridster.js' );
 		wp_register_script( 'pix_builder', CMB_META_BOX_URL . 'js/pix_builder.js', array( 'gridster' ), $plugin_version );
@@ -1275,7 +1287,6 @@ function ajax_pixplaylist_preview() {
 }
 
 add_action( 'wp_ajax_pixplaylist_preview', 'ajax_pixplaylist_preview' );
-
 
 
 /* ========== RELATED TO PIXBUILDER ======== */

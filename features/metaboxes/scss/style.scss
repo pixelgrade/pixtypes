@@ -1420,7 +1420,7 @@ div.time-picker li.selected {
 
 
 //*--------------------------------------------*\
-//   $GALLERY & $VIDEOS
+//   $GALLERY & $VIDEOS & $IMAGE
 //   Used to select multiple images or videos
 //*--------------------------------------------*/
 
@@ -1429,11 +1429,12 @@ $light: #777777;
 $accent: #07d3f8;
 
 .cmb-type-gallery td,
-.cmb-type-playlist td {
+.cmb-type-playlist td,
+.cmb-type-image td {
 	padding: 10px 2px;
 }
 
-#pixgallery, #pixvideos {
+#pixgallery, #pixvideos, .piximage_field {
 	position: relative;
 	min-height:84px;
 
@@ -1470,7 +1471,7 @@ $accent: #07d3f8;
 	}
 
 	// Overlay Content (Icon + Label)
-	.open_pixgallery, .open_pixvideos {
+	.open_pixgallery, .open_pixvideos, .open_piximage  {
 		@extend %box-sizing;
 		width: 100%;
 		height: 100%;
@@ -1501,6 +1502,7 @@ $accent: #07d3f8;
 			height: 60px;
 			font: normal 20px/1 'dashicons';
 			font-size: 56px;
+            margin: 0 auto;
 
 			&:before {
 			}
@@ -1508,12 +1510,13 @@ $accent: #07d3f8;
 
 		// Label
 		div {
-			text-decoration: none;
-			@extend %centered;
+          text-decoration: none;
+          @extend %centered;
+          width: 100%;
 		}
 
 		// Clear items button
-		.clear_gallery {
+		.clear_gallery, .clear_image {
 			padding: 5px 10px;
 			position: absolute;
 			bottom: 10px;
@@ -1542,7 +1545,7 @@ $accent: #07d3f8;
 		&:hover {
 			opacity: 0.6;
 
-			.icon, .clear_gallery {
+			.icon, .clear_gallery, .clear_image {
 				opacity: 1;
 			}
 		}
@@ -1552,7 +1555,7 @@ $accent: #07d3f8;
 	&.no-items {
 
 		// Hide the Clear items button when there are no items
-		.clear_gallery {
+		.clear_gallery, .clear_image {
 			display: none;
 		}
 
@@ -1566,7 +1569,7 @@ $accent: #07d3f8;
 			@extend %flex-gallery;
 		}
 
-		.open_pixgallery, .open_pixvideos {
+		.open_pixgallery, .open_pixvideos, .open_piximage {
 
 			// Hide the Icon + Label by default
 			opacity: 0;
@@ -1611,6 +1614,17 @@ $accent: #07d3f8;
 	}
 
 	.open_pixgallery .icon:before {
+		content: "\f233" !important;
+	}
+}
+
+// Single Image
+.piximage_field {
+	&.no-items > ul {
+		min-height: 130px;
+	}
+
+	.open_piximage .icon:before {
 		content: "\f233" !important;
 	}
 }
