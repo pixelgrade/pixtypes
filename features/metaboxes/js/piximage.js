@@ -59,39 +59,9 @@
 						text: 'Use this image'
 					},
 					filterable: 'uploaded',
-					// frame: 'post',
-					// state: 'select',
 					library: {type: 'image'},
 					multiple: false  // Set to true to allow multiple files to be selected
-					//editing: true
-					//selection: selection
 				});
-
-				// var controler =  wp.media.EditPixImage._frame.states.get('select');
-				// // force display settings off
-				// controler.attributes.displaySettings = false;
-                //
-				// wp.media.EditPixImage._frame.states.add('select', controler);
-
-				// this._frame.on( 'toolbar:create:select', function( toolbar ) {
-				// 	/**
-				// 	 * @this wp.media.view.MediaFrame.Select
-				// 	 */
-				// 	this.createSelectToolbar( toolbar, {
-				// 		text: wp.media.view.l10n.setThumbnailImage
-				// 	});
-				// }, this._frame );
-                //
-				// this._frame.on( 'content:render:edit-image', function() {
-				// 	var selection = this.state('featured-image').get('selection'),
-				// 		view = new wp.media.view.EditImage( { model: selection.single(), controller: this } ).render();
-                //
-				// 	this.content.set( view );
-                //
-				// 	// after bringing in the frame, load the actual editor via an ajax call
-				// 	view.loadEditor();
-                //
-				// }, this._frame );
 
 				this._frame.on( 'select', this.select );
 
