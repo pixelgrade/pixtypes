@@ -3360,7 +3360,8 @@ div.time-picker li.selected {
     z-index: 20;
     background: white; }
 
-#wp-_pile_header_cover_description-wrap .mce-toolbar.mce-last .mce-btn {
+#wp-_pile_header_cover_description-wrap .mce-toolbar.mce-last .mce-btn,
+#wp-_hero_content_description-editor-container .mce-toolbar.mce-last .mce-btn {
   border: 1px solid #ddd;
   border-radius: 2px;
   margin: 16px 0 0 10px;
