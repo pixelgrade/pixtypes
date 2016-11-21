@@ -2521,3 +2521,9 @@ body .mce-toolbar.mce-last .mce-container.mce-first .mce-menubtn.mce-first {
 .tooltipster-icon {
 	color: #AAA;
 }
+
+// Fix a textarea + flex issue in Safari
+.cmb_textarea[name*="custom_css"] {
+	flex: initial;
+	width: 100%;
+}
