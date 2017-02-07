@@ -463,5 +463,5 @@ msgid "Custom post types and metaboxes needed by your theme"
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "PixelGrade"
+msgid "Pixelgrade"
 msgstr ""

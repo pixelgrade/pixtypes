@@ -6,7 +6,7 @@
  * @author    Pixelgrade <contact@pixelgrade.com>
  * @license   GPL-2.0+
  * @link      http://pixelgrade.com
- * @copyright 2013 Pixelgrade
+ * @copyright 2013-2017 Pixelgrade
  */
 
 /**
@@ -24,7 +24,7 @@ class PixTypesPlugin {
 	 *
 	 * @const   string
 	 */
-	protected $version = '1.4.4';
+	protected $version = '1.4.5';
 	/**
 	 * Unique identifier for your plugin.
 	 *
