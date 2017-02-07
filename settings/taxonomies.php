@@ -2,15 +2,15 @@
 
 // init display options with false
 $display_option = array(
-	'portfolio_categories' => false,
-	'gallery_categories' => false,
+	'portfolio_categories'   => false,
+	'gallery_categories'     => false,
 	'jetpack-portfolio-type' => false,
-	'jetpack-portfolio-tag' => false
+	'jetpack-portfolio-tag'  => false
 );
 
-$options = get_option('pixtypes_settings');
+$options = get_option( 'pixtypes_settings' );
 // go through each theme and activate portfolio post types
-if ( isset($options["themes"]) ) {
+if ( isset( $options["themes"] ) ) {
 	$theme_types = $options["themes"];
 	foreach ( $theme_types as $key => $theme ) {
 		if ( isset( $theme['taxonomies'] ) && is_array( $theme['taxonomies'] ) ) {
@@ -20,14 +20,14 @@ if ( isset($options["themes"]) ) {
 			}
 			$display_settings = true;
 		} else {
-			return array( 'type'=> 'hidden');
+			return array( 'type' => 'hidden' );
 		}
 	}
 }
 
-$options_config = array (
-	'type' => 'postbox',
-	'label' => 'Taxonomies',
+$options_config = array(
+	'type'    => 'postbox',
+	'label'   => 'Taxonomies',
 	'options' => array()
 ); # config
 
@@ -37,7 +37,7 @@ $options_config = array (
 if ( $display_option['jetpack-portfolio-type'] ) {
 
 	$options_config['options']['enable_portfolio-type'] = array(
-		'label'          => __( 'Enable Portfolio Types', 'pixtypes' ),
+		'label'          => esc_html__( 'Enable Portfolio Types', 'pixtypes' ),
 		'default'        => true,
 		'type'           => 'switch',
 		'show_group'     => 'enable_portfolio-type_group',
@@ -48,8 +48,8 @@ if ( $display_option['jetpack-portfolio-type'] ) {
 		'type'    => 'group',
 		'options' => array(
 			'portfolio-type_change_archive_slug'       => array(
-				'label'      => __( 'Change Portfolio Types Slug', 'pixtypes' ),
-				'desc'       => __( 'Do you want to rewrite the portfolio type slug?', 'pixtypes' ),
+				'label'      => esc_html__( 'Change Portfolio Types Slug', 'pixtypes' ),
+				'desc'       => esc_html__( 'Do you want to rewrite the portfolio type slug?', 'pixtypes' ),
 				'default'    => false,
 				'type'       => 'switch',
 				'show_group' => 'portfolio-type_change_archive_slug_group'
@@ -58,8 +58,8 @@ if ( $display_option['jetpack-portfolio-type'] ) {
 				'type'    => 'group',
 				'options' => array(
 					'portfolio-type_new_archive_slug' => array(
-						'label'   => __( 'New Portfolio Type Slug', 'pixtypes' ),
-						'desc'    => __( 'Change the portfolio type slug as you need it.', 'pixtypes' ),
+						'label'   => esc_html__( 'New Portfolio Type Slug', 'pixtypes' ),
+						'desc'    => esc_html__( 'Change the portfolio type slug as you need it.', 'pixtypes' ),
 						'default' => 'project-type',
 						'type'    => 'text',
 					),
@@ -73,7 +73,7 @@ if ( $display_option['jetpack-portfolio-type'] ) {
 if ( $display_option['jetpack-portfolio-tag'] ) {
 
 	$options_config['options']['enable_portfolio-tag'] = array(
-		'label'          => __( 'Enable Portfolio Tag', 'pixtypes' ),
+		'label'          => esc_html__( 'Enable Portfolio Tag', 'pixtypes' ),
 		'default'        => true,
 		'type'           => 'switch',
 		'show_group'     => 'enable_portfolio-tag_group',
@@ -84,8 +84,8 @@ if ( $display_option['jetpack-portfolio-tag'] ) {
 		'type'    => 'group',
 		'options' => array(
 			'portfolio-tag_change_archive_slug'       => array(
-				'label'      => __( 'Change Portfolio Tag Slug', 'pixtypes' ),
-				'desc'       => __( 'Do you want to rewrite the portfolio tag slug?', 'pixtypes' ),
+				'label'      => esc_html__( 'Change Portfolio Tag Slug', 'pixtypes' ),
+				'desc'       => esc_html__( 'Do you want to rewrite the portfolio tag slug?', 'pixtypes' ),
 				'default'    => false,
 				'type'       => 'switch',
 				'show_group' => 'portfolio-tag_change_archive_slug_group'
@@ -94,8 +94,8 @@ if ( $display_option['jetpack-portfolio-tag'] ) {
 				'type'    => 'group',
 				'options' => array(
 					'portfolio-tag_new_archive_slug' => array(
-						'label'   => __( 'New Portfolio Tag Slug', 'pixtypes' ),
-						'desc'    => __( 'Change the portfolio tag slug as you need it.', 'pixtypes' ),
+						'label'   => esc_html__( 'New Portfolio Tag Slug', 'pixtypes' ),
+						'desc'    => esc_html__( 'Change the portfolio tag slug as you need it.', 'pixtypes' ),
 						'default' => 'project-tag',
 						'type'    => 'text',
 					),
@@ -108,7 +108,7 @@ if ( $display_option['jetpack-portfolio-tag'] ) {
 if ( $display_option['portfolio_categories'] ) {
 
 	$options_config['options']['enable_portfolio_categories'] = array(
-		'label'          => __( 'Enable Portfolio Categories', 'pixtypes' ),
+		'label'          => esc_html__( 'Enable Portfolio Categories', 'pixtypes' ),
 		'default'        => true,
 		'type'           => 'switch',
 		'show_group'     => 'enable_portfolio_categories_group',
@@ -119,8 +119,8 @@ if ( $display_option['portfolio_categories'] ) {
 		'type'    => 'group',
 		'options' => array(
 			'portfolio_categories_change_archive_slug'       => array(
-				'label'      => __( 'Change Category Slug', 'pixtypes' ),
-				'desc'       => __( 'Do you want to rewrite the portfolio category slug?', 'pixtypes' ),
+				'label'      => esc_html__( 'Change Category Slug', 'pixtypes' ),
+				'desc'       => esc_html__( 'Do you want to rewrite the portfolio category slug?', 'pixtypes' ),
 				'default'    => false,
 				'type'       => 'switch',
 				'show_group' => 'portfolio_categories_change_archive_slug_group'
@@ -129,8 +129,8 @@ if ( $display_option['portfolio_categories'] ) {
 				'type'    => 'group',
 				'options' => array(
 					'portfolio_categories_new_archive_slug' => array(
-						'label'   => __( 'New Category Slug', 'pixtypes' ),
-						'desc'    => __( 'Change the portfolio category slug as you need it.', 'pixtypes' ),
+						'label'   => esc_html__( 'New Category Slug', 'pixtypes' ),
+						'desc'    => esc_html__( 'Change the portfolio category slug as you need it.', 'pixtypes' ),
 						'default' => 'portfolio_categories',
 						'type'    => 'text',
 					),
@@ -143,7 +143,7 @@ if ( $display_option['portfolio_categories'] ) {
 if ( $display_option['gallery_categories'] ) {
 
 	$options_config['options']['enable_gallery_categories'] = array(
-		'label'      => __( 'Enable Gallery Categories', 'pixtypes' ),
+		'label'      => esc_html__( 'Enable Gallery Categories', 'pixtypes' ),
 		'default'    => true,
 		'type'       => 'switch',
 		'show_group' => 'enable_gallery_categories_group'
@@ -153,8 +153,8 @@ if ( $display_option['gallery_categories'] ) {
 		'type'    => 'group',
 		'options' => array(
 			'gallery_categories_change_archive_slug'       => array(
-				'label'      => __( 'Change Category Slug', 'pixtypes' ),
-				'desc'       => __( 'Do you want to rewrite the gallery category slug?', 'pixtypes' ),
+				'label'      => esc_html__( 'Change Category Slug', 'pixtypes' ),
+				'desc'       => esc_html__( 'Do you want to rewrite the gallery category slug?', 'pixtypes' ),
 				'default'    => false,
 				'type'       => 'switch',
 				'show_group' => 'gallery_categories_change_archive_slug_group'
@@ -163,8 +163,8 @@ if ( $display_option['gallery_categories'] ) {
 				'type'    => 'group',
 				'options' => array(
 					'gallery_categories_new_archive_slug' => array(
-						'label'   => __( 'New Category Slug', 'pixtypes' ),
-						'desc'    => __( 'Change the gallery category slug as you need it.', 'pixtypes' ),
+						'label'   => esc_html__( 'New Category Slug', 'pixtypes' ),
+						'desc'    => esc_html__( 'Change the gallery category slug as you need it.', 'pixtypes' ),
 						'default' => 'gallery_categories',
 						'type'    => 'text',
 					),

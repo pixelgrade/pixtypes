@@ -29,18 +29,18 @@ function theme_getting_active () {
 		'post_types' => array(
 			'theme_name_portfolio' => array(
 				'labels'        => array(
-					'name'               => __( 'Project', 'theme_name_txtd' ),
-					'singular_name'      => __( 'Project', 'theme_name_txtd' ),
-					'add_new'            => __( 'Add New', 'theme_name_txtd' ),
-					'add_new_item'       => __( 'Add New Project', 'theme_name_txtd' ),
-					'edit_item'          => __( 'Edit Project', 'theme_name_txtd' ),
-					'new_item'           => __( 'New Project', 'theme_name_txtd' ),
-					'all_items'          => __( 'All Projects', 'theme_name_txtd' ),
-					'view_item'          => __( 'View Project', 'theme_name_txtd' ),
-					'search_items'       => __( 'Search Projects', 'theme_name_txtd' ),
-					'not_found'          => __( 'No Project found', 'theme_name_txtd' ),
-					'not_found_in_trash' => __( 'No Project found in Trash', 'theme_name_txtd' ),
-					'menu_name'          => __( 'Projects', 'theme_name_txtd' ),
+					'name'               => esc_html__( 'Project', 'theme_name_txtd' ),
+					'singular_name'      => esc_html__( 'Project', 'theme_name_txtd' ),
+					'add_new'            => esc_html__( 'Add New', 'theme_name_txtd' ),
+					'add_new_item'       => esc_html__( 'Add New Project', 'theme_name_txtd' ),
+					'edit_item'          => esc_html__( 'Edit Project', 'theme_name_txtd' ),
+					'new_item'           => esc_html__( 'New Project', 'theme_name_txtd' ),
+					'all_items'          => esc_html__( 'All Projects', 'theme_name_txtd' ),
+					'view_item'          => esc_html__( 'View Project', 'theme_name_txtd' ),
+					'search_items'       => esc_html__( 'Search Projects', 'theme_name_txtd' ),
+					'not_found'          => esc_html__( 'No Project found', 'theme_name_txtd' ),
+					'not_found_in_trash' => esc_html__( 'No Project found in Trash', 'theme_name_txtd' ),
+					'menu_name'          => esc_html__( 'Projects', 'theme_name_txtd' ),
 				),
 				'public'        => true,
 				'rewrite'       => array(
@@ -64,17 +64,17 @@ function theme_getting_active () {
 			'theme_name_portfolio_categories' => array(
 				'hierarchical'      => true,
 				'labels'            => array(
-					'name'              => __( 'Project Categories', 'theme_name_txtd' ),
-					'singular_name'     => __( 'Project Category', 'theme_name_txtd' ),
-					'search_items'      => __( 'Search Project Categories', 'theme_name_txtd' ),
-					'all_items'         => __( 'All Project Categories', 'theme_name_txtd' ),
-					'parent_item'       => __( 'Parent Project Category', 'theme_name_txtd' ),
-					'parent_item_colon' => __( 'Parent Project Category: ', 'theme_name_txtd' ),
-					'edit_item'         => __( 'Edit Project Category', 'theme_name_txtd' ),
-					'update_item'       => __( 'Update Project Category', 'theme_name_txtd' ),
-					'add_new_item'      => __( 'Add New Project Category', 'theme_name_txtd' ),
-					'new_item_name'     => __( 'New Project Category Name', 'theme_name_txtd' ),
-					'menu_name'         => __( 'Portfolio Categories', 'theme_name_txtd' ),
+					'name'              => esc_html__( 'Project Categories', 'theme_name_txtd' ),
+					'singular_name'     => esc_html__( 'Project Category', 'theme_name_txtd' ),
+					'search_items'      => esc_html__( 'Search Project Categories', 'theme_name_txtd' ),
+					'all_items'         => esc_html__( 'All Project Categories', 'theme_name_txtd' ),
+					'parent_item'       => esc_html__( 'Parent Project Category', 'theme_name_txtd' ),
+					'parent_item_colon' => esc_html__( 'Parent Project Category: ', 'theme_name_txtd' ),
+					'edit_item'         => esc_html__( 'Edit Project Category', 'theme_name_txtd' ),
+					'update_item'       => esc_html__( 'Update Project Category', 'theme_name_txtd' ),
+					'add_new_item'      => esc_html__( 'Add New Project Category', 'theme_name_txtd' ),
+					'new_item_name'     => esc_html__( 'New Project Category Name', 'theme_name_txtd' ),
+					'menu_name'         => esc_html__( 'Portfolio Categories', 'theme_name_txtd' ),
 				),
 				'show_admin_column' => true,
 				'rewrite'           => array( 'slug' => 'portfolio-category', 'with_front' => false ),
@@ -86,7 +86,7 @@ function theme_getting_active () {
 			//for the Contact Page template
 			'_gmap_settings' => array(
 				'id'         => '_gmap_settings',
-				'title'      => __( 'Map Coordinates & Display Options', 'theme_name_txtd' ),
+				'title'      => esc_html__( 'Map Coordinates & Display Options', 'theme_name_txtd' ),
 				'pages'      => array( 'page' ), // Post type
 				'context'    => 'normal',
 				'priority'   => 'high',
@@ -98,35 +98,35 @@ function theme_getting_active () {
 				'show_names' => true, // Show field names on the left
 				'fields'     => array(
 					array(
-						'name' => __( 'Map Height', 'theme_name_txtd' ),
+						'name' => esc_html__( 'Map Height', 'theme_name_txtd' ),
 						'desc' => __( '<p class="cmb_metabox_description">Select the height of the Google Map area in relation to the browser window.</p>', 'theme_name_txtd' ),
 						'id'   => 'page_gmap_height',
 						'type'    => 'select',
 						'options' => array(
 							array(
-								'name'  => __( '&nbsp; &#9673;&#9711; &nbsp;Half', 'theme_name_txtd' ),
+								'name'  => esc_html__( '&nbsp; &#9673;&#9711; &nbsp;Half', 'theme_name_txtd' ),
 								'value' => 'half-height',
 							),
 							array(
-								'name'  => __( '&#9673;&#9673;&#9711; Two Thirds', 'theme_name_txtd' ),
+								'name'  => esc_html__( '&#9673;&#9673;&#9711; Two Thirds', 'theme_name_txtd' ),
 								'value' => 'two-thirds-height',
 							),
 							array(
-								'name'  => __( '&#9673;&#9673;&#9673; Full Height', 'theme_name_txtd' ),
+								'name'  => esc_html__( '&#9673;&#9673;&#9673; Full Height', 'theme_name_txtd' ),
 								'value' => 'full-height',
 							)
 						),
 						'std'     => 'two-thirds-height',
 					),
 					array(
-						'name' => __( 'Google Maps Pins', 'theme_name_txtd' ),
+						'name' => esc_html__( 'Google Maps Pins', 'theme_name_txtd' ),
 						'desc' => __( 'Paste here the Share URL you have taken from <a href="http://www.google.com/maps" target="_blank">Google Maps</a>.', 'theme_name_txtd' ),
 						'id'   => 'gmap_urls',
 						'type' => 'gmap_pins',
 						'std' => array(
 							1 => array(
 								'location_url' => "https://www.google.ro/maps/@51.5075586,-0.1284425,18z",
-								'name' => __('London', 'theme_name_txtd')
+								'name' => esc_html__('London', 'theme_name_txtd')
 							)
 						)
 					),

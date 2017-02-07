@@ -26,39 +26,38 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // ensure EXT is defined
-if ( ! defined('EXT')) {
-	define('EXT', '.php');
+if ( ! defined( 'EXT' ) ) {
+	define( 'EXT', '.php' );
 }
 
-require 'core/bootstrap'.EXT;
+require 'core/bootstrap' . EXT;
 
-$config = include 'plugin-config'.EXT;
-include 'features/class-pix-query'.EXT;
+$config = include 'plugin-config' . EXT;
+include 'features/class-pix-query' . EXT;
 // set textdomain
-pixtypes::settextdomain($config['textdomain']);
+pixtypes::settextdomain( $config['textdomain'] );
 
 // Ensure Test Data
 // ----------------
 
-$defaults = include 'plugin-defaults'.EXT;
+$defaults = include 'plugin-defaults' . EXT;
 
-$current_data = get_option($config['settings-key']);
+$current_data = get_option( $config['settings-key'] );
 
-if ($current_data === false) {
-	add_option($config['settings-key'], $defaults);
-}
-else if (count(array_diff_key($defaults, $current_data)) != 0) {
-	$plugindata = array_merge($defaults, $current_data);
-	update_option($config['settings-key'], $plugindata);
+if ( $current_data === false ) {
+	add_option( $config['settings-key'], $defaults );
+} else if ( count( array_diff_key( $defaults, $current_data ) ) != 0 ) {
+	$plugindata = array_merge( $defaults, $current_data );
+	update_option( $config['settings-key'], $plugindata );
 }
 # else: data is available; do nothing
 
 // Load Callbacks
 // --------------
 
-$basepath = dirname(__FILE__).DIRECTORY_SEPARATOR;
-$callbackpath = $basepath.'callbacks'.DIRECTORY_SEPARATOR;
-pixtypes::require_all($callbackpath);
+$basepath     = dirname( __FILE__ ) . DIRECTORY_SEPARATOR;
+$callbackpath = $basepath . 'callbacks' . DIRECTORY_SEPARATOR;
+pixtypes::require_all( $callbackpath );
 
 require_once( plugin_dir_path( __FILE__ ) . 'class-pixtypes.php' );
 
