@@ -343,22 +343,28 @@ class cmb_Meta_Box {
 
 		if ( isset( $this->_meta_box['show_on'] ) ) {
 
-			$data_key = '';
-			if ( isset( $this->_meta_box['show_on']['key'] ) && ! empty( $this->_meta_box['show_on']['key'] ) ) {
-				$data_key = ' data-key="' . $this->_meta_box['show_on']['key'] . '"';
-			}
+		    // Allow others to filter the show_on value on the fly
+            $show_on = apply_filters( 'pixtypes_cmb_metabox_show_on', $this->_meta_box['show_on'], $this->_meta_box );
 
-			$data_value = '';
-			if ( isset( $this->_meta_box['show_on']['value'] ) && ! empty( $this->_meta_box['show_on']['value'] ) ) {
-				$data_value = ' data-value=\'' . json_encode( $this->_meta_box['show_on']['value'] ) . '\'';
-			}
+            if ( ! empty( $show_on ) ) {
 
-			$data_hide = '';
-			if ( isset( $this->_meta_box['show_on']['hide'] ) && ! empty( $this->_meta_box['show_on']['hide'] ) ) {
-				$data_hide = ' data-hide=\'' . json_encode( $this->_meta_box['show_on']['hide'] ) . '\'';
-			}
+	            $data_key = '';
+	            if ( isset( $show_on['key'] ) && ! empty( $show_on['key'] ) ) {
+		            $data_key = ' data-key="' . $show_on['key'] . '"';
+	            }
 
-			echo '<input type="hidden" class="show_metabox_on" ' . $data_value . $data_key . $data_hide . ' />';
+	            $data_value = '';
+	            if ( isset( $show_on['value'] ) && ! empty( $show_on['value'] ) ) {
+		            $data_value = ' data-value=\'' . json_encode( $show_on['value'] ) . '\'';
+	            }
+
+	            $data_hide = '';
+	            if ( isset( $show_on['hide'] ) && ! empty( $show_on['hide'] ) ) {
+		            $data_hide = ' data-hide=\'' . json_encode( $show_on['hide'] ) . '\'';
+	            }
+
+	            echo '<input type="hidden" class="show_metabox_on" ' . $data_value . $data_key . $data_hide . ' />';
+            }
 		}
 
 		// Use nonce for verification
