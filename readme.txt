@@ -3,7 +3,7 @@ Contributors: pixelgrade, euthelup, babbardel, vlad.olaru, cristianfrumusanu, ra
 Tags: custom, post-types, metadata, builder, gallery
 Requires at least: 4.3.0
 Tested up to: 4.7.2
-Stable tag: 1.4.5
+Stable tag: 1.4.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,6 +23,9 @@ Note: This plugin is addressed to developers, it doesn't do nothing if it isn't 
 3. After activating PixTypes all your custom post-types should be visible now.
 
 == Changelog ==
+
+= 1.4.6 =
+* Fixed HTTPS WP admin issue with regards to assets.
 
 = 1.4.5 =
 * Added advanced show_on behaviour and filtering.
