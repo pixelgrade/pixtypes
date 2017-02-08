@@ -86,10 +86,10 @@ class cmb_Meta_Box_Validate {
  */
 if ( strtoupper( substr( PHP_OS, 0, 3 ) ) === 'WIN' ) {
 	//winblows
-	define( 'CMB_META_BOX_URL', trailingslashit( str_replace( DIRECTORY_SEPARATOR, '/', str_replace( str_replace( '/', DIRECTORY_SEPARATOR, WP_CONTENT_DIR ), WP_CONTENT_URL, dirname( __FILE__ ) ) ) ) );
+	define( 'CMB_META_BOX_URL', trailingslashit( str_replace( DIRECTORY_SEPARATOR, '/', str_replace( str_replace( '/', DIRECTORY_SEPARATOR, WP_CONTENT_DIR ), content_url(), dirname( __FILE__ ) ) ) ) );
 
 } else {
-	define( 'CMB_META_BOX_URL', apply_filters( 'cmb_meta_box_url', trailingslashit( str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, dirname( __FILE__ ) ) ) ) );
+	define( 'CMB_META_BOX_URL', apply_filters( 'cmb_meta_box_url', trailingslashit( str_replace( WP_CONTENT_DIR, content_url(), dirname( __FILE__ ) ) ) ) );
 }
 
 /**
