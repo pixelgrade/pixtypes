@@ -101,7 +101,9 @@ class PixTypesPlugin {
 
 		add_action( 'plugins_loaded', array( $this, 'register_metaboxes' ), 14 );
 		add_action( 'init', array( $this, 'register_entities' ), 99999 );
-		add_action( 'init', array( $this, 'theme_version_check' ) );
+
+		// We need this later that the default 10 so we can have things happening between the init-10 and the PixTypes config
+		add_action( 'init', array( $this, 'theme_version_check' ), 15 );
 
 		/**
 		 * Ajax Callbacks
