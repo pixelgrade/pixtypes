@@ -9,26 +9,40 @@
  */
 
 
-function load_metaboxes_fromdb( array $meta_boxes ){
+function load_metaboxes_fromdb( $meta_boxes ) {
+	// make sure we are in good working order
+	if ( empty( $meta_boxes ) ) {
+		$meta_boxes = array();
+	}
+
 	$options = get_option('pixtypes_settings');
 
-	if ( !isset($options["themes"])) return;
-	$theme_types = $options["themes"];
-	if ( empty($theme_types) || !array($theme_types)) return;
-	foreach ( $theme_types as $key => $theme ) {
-		if ( isset( $theme['metaboxes']) && is_array( $theme['metaboxes'] )) {
-			foreach ( $theme['metaboxes'] as $metabox){
-				$meta_boxes[] = $metabox;
-			}
+	if ( empty( $options['themes'] ) ) {
+		return $meta_boxes;
+	}
+
+	// We only want to display the metaboxes of the current theme
+	if ( class_exists('wpgrade') ) {
+		$current_theme = wpgrade::shortname();
+	} else {
+		$current_theme = 'pixtypes';
+	}
+
+	if ( empty( $options['themes'][ $current_theme ]['metaboxes'] ) ) {
+		return $meta_boxes;
+	}
+
+	$theme_metaboxes = $options['themes'][ $current_theme ]['metaboxes'];
+	if ( ! empty( $theme_metaboxes ) && is_array( $theme_metaboxes ) ) {
+		foreach ( $theme_metaboxes as $metabox ) {
+			$meta_boxes[] = $metabox;
 		}
 	}
 
 	return $meta_boxes;
 }
-
 add_filter( 'cmb_meta_boxes', 'load_metaboxes_fromdb', 1 );
 
-add_action( 'init', 'cmb_initialize_cmb_meta_boxes', 9999 );
 /*
  * Initialize the metabox class.
  */
@@ -41,3 +55,4 @@ function cmb_initialize_cmb_meta_boxes() {
 	}
 
 }
+add_action( 'init', 'cmb_initialize_cmb_meta_boxes', 9999 );
