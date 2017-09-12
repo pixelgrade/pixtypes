@@ -2,7 +2,7 @@
 Contributors: pixelgrade, euthelup, babbardel, vlad.olaru, cristianfrumusanu, razvanonofrei
 Tags: custom, post-types, metadata, builder, gallery
 Requires at least: 4.6.0
-Tested up to: 4.7.2
+Tested up to: 4.8.1
 Stable tag: 1.4.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
