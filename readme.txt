@@ -1,9 +1,9 @@
 === PixTypes ===
 Contributors: pixelgrade, euthelup, babbardel, vlad.olaru, cristianfrumusanu, razvanonofrei
 Tags: custom, post-types, metadata, builder, gallery
-Requires at least: 4.3.0
-Tested up to: 4.7.2
-Stable tag: 1.4.6
+Requires at least: 4.6.0
+Tested up to: 4.8.1
+Stable tag: 1.4.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,6 @@ With [PixTypes](https://github.com/pixelgrade/pixtypes) you can allow your theme
 
 Note: This plugin is addressed to developers, it doesn't do nothing if it isn't [properly configured](https://github.com/pixelgrade/pixtypes#pixytpes_config).
 
-
 == Installation ==
 
 1. First you will need to configure your theme to [define PixTypes settings](https://github.com/pixelgrade/pixtypes#pixytpes_config)
@@ -23,6 +22,10 @@ Note: This plugin is addressed to developers, it doesn't do nothing if it isn't 
 3. After activating PixTypes all your custom post-types should be visible now.
 
 == Changelog ==
+
+= 1.4.7 =
+* Small improvements to the metabox system.
+* Fixed Color Picker style.
 
 = 1.4.6 =
 * Fixed HTTPS WP admin issue with regards to assets.
