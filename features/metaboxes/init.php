@@ -1011,7 +1011,7 @@ class cmb_Meta_Box {
 
 			// validate meta value
 			if ( isset( $field['validate_func'] ) ) {
-				$ok = call_user_func( array( 'cmb_Meta_Box_Validate', $field['validate_func'] ), $new );
+				$ok = call_user_func( $field['validate_func'], $new, $field, $post_id );
 				if ( $ok === false ) { // pass away when meta value is invalid
 					continue;
 				}
