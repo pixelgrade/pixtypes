@@ -24,7 +24,7 @@ class PixTypesPlugin {
 	 *
 	 * @const   string
 	 */
-	protected $version = '1.4.7';
+	protected $version;
 	/**
 	 * Unique identifier for your plugin.
 	 *
@@ -71,15 +71,16 @@ class PixTypesPlugin {
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 *
 	 * @since     1.0.0
+	 *
+	 * @param string $version
 	 */
-	protected function __construct() {
-
+	protected function __construct( $version = '1.0.0' ) {
+		$this->version = $version;
 		$this->plugin_basepath = plugin_dir_path( __FILE__ );
 		$this->config          = self::config();
 
 		// Load plugin text domain
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
-//		add_action( 'admin_init', array( $this, 'wpgrade_init_plugin' ) );
 
 		// Add the options page and menu item only when is needed.
 		if ( isset( $this->config['display_settings'] ) && $this->config['display_settings'] ) {
@@ -91,25 +92,20 @@ class PixTypesPlugin {
 
 		}
 
-		// Load admin style sheet and JavaScript.
+		// Load admin stylesheet and JavaScript files.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
-
-		// Load public-facing style sheet and JavaScript.
-//		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-//		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 		add_action( 'plugins_loaded', array( $this, 'register_metaboxes' ), 14 );
 		add_action( 'init', array( $this, 'register_entities' ), 99999 );
 
-		// We need this later that the default 10 so we can have things happening between the init-10 and the PixTypes config
+		// We need this later then the default 10 priority so we can have things happening between the init-10 and the PixTypes config
 		add_action( 'init', array( $this, 'theme_version_check' ), 15 );
 
 		/**
-		 * Ajax Callbacks
+		 * Ajax Callbacks - only for logged in users
 		 */
 		add_action( 'wp_ajax_unset_pixtypes', array( &$this, 'ajax_unset_pixtypes' ) );
-		add_action( 'wp_ajax_nopriv_unset_pixtypes', array( &$this, 'ajax_unset_pixtypes' ) );
 	}
 
 	/**
@@ -117,13 +113,14 @@ class PixTypesPlugin {
 	 *
 	 * @since     1.0.0
 	 *
+	 * @param string $version The current plugin version.
 	 * @return    object    A single instance of this class.
 	 */
-	public static function get_instance() {
+	public static function get_instance( $version = '1.0.0' ) {
 
 		// If the single instance hasn't been set, set it now.
 		if ( null == self::$instance ) {
-			self::$instance = new self;
+			self::$instance = new self( $version );
 		}
 
 		return self::$instance;
@@ -132,11 +129,6 @@ class PixTypesPlugin {
 	public static function config() {
 		// @TODO maybe check this
 		return include 'plugin-config.php';
-	}
-
-	public function wpgrade_init_plugin() {
-//		$this->plugin_textdomain();
-//		$this->add_wpgrade_shortcodes_button();
 	}
 
 	/**
@@ -183,18 +175,22 @@ class PixTypesPlugin {
 					/** POST TYPES slugs **/
 					if ( ! empty( $theme_types[ $current_theme ]['post_types'] ) ) {
 						foreach ( $theme_types[ $current_theme ]['post_types'] as $key => $post_type ) {
-							$testable_slug = $is_slug_unique = '';
-							$testable_slug = str_replace( $theme_name . '-', '', $post_type["rewrite"]["slug"] );
+							$testable_slug = str_replace( $theme_name . '-', '', $post_type['rewrite']['slug'] );
 
 							/** for our current theme we try to prioritize slugs */
-							if ( isset( $post_type["rewrite"] ) && self::is_custom_post_type_slug_unique( $testable_slug ) ) {
+							if ( isset( $post_type['rewrite'] ) && self::is_custom_post_type_slug_unique( $testable_slug ) ) {
 								/** this slug is unique we can quit the theme suffix */
-								$theme_types[ $current_theme ]['post_types'][ $key ]["rewrite"]["slug"] = $testable_slug;
+								$theme_types[ $current_theme ]['post_types'][ $key ]['rewrite']['slug'] = $testable_slug;
 							}
 
 							// process menu icon if it exists
 							if ( isset( $post_type['menu_icon'] ) ) {
-								$theme_types[ $current_theme ]['post_types'][ $key ]['menu_icon'] = plugins_url( 'assets/' . $post_type['menu_icon'], __FILE__ );
+								// If we have been given a dashicon, use it without processing
+								if ( false !== strpos( $post_type['menu_icon'], 'dashicon' ) ) {
+									$theme_types[ $current_theme ]['post_types'][ $key ]['menu_icon'] =  $post_type['menu_icon'];
+								} else {
+									$theme_types[ $current_theme ]['post_types'][ $key ]['menu_icon'] = plugins_url( 'assets/' . $post_type['menu_icon'], __FILE__ );
+								}
 							}
 						}
 					}
@@ -202,11 +198,10 @@ class PixTypesPlugin {
 					/** TAXONOMIES slugs **/
 					if ( ! empty( $theme_types[ $current_theme ]['taxonomies'] ) ) {
 						foreach ( $theme_types[ $current_theme ]['taxonomies'] as $key => $tax ) {
-							$testable_slug = $is_slug_unique = '';
-							$testable_slug = str_replace( $theme_name . '-', '', $tax["rewrite"]["slug"] );
-							if ( isset( $tax["rewrite"] ) && self::is_tax_slug_unique( $testable_slug ) ) {
+							$testable_slug = str_replace( $theme_name . '-', '', $tax['rewrite']['slug'] );
+							if ( isset( $tax['rewrite'] ) && self::is_tax_slug_unique( $testable_slug ) ) {
 								/** this slug is unique we can quit the theme suffix */
-								$theme_types[ $current_theme ]['taxonomies'][ $key ]["rewrite"]["slug"] = $testable_slug;
+								$theme_types[ $current_theme ]['taxonomies'][ $key ]['rewrite']['slug'] = $testable_slug;
 							}
 						}
 					}
@@ -217,14 +212,9 @@ class PixTypesPlugin {
 
 		update_option( $config['settings-key'], $types_settings );
 
-//		flush_rewrite_rules();
-//		global $wp_rewrite;
-//		$wp_rewrite->generate_rewrite_rules();
-//		flush_rewrite_rules();
-
 		/**
 		 * http://wordpress.stackexchange.com/questions/36152/flush-rewrite-rules-not-working-on-plugin-deactivation-invalid-urls-not-showing
-		 * nothing from above works in plugin so ...
+		 * nothing from above works in plugins so ...
 		 */
 		delete_option( 'rewrite_rules' );
 	}
@@ -298,31 +288,13 @@ class PixTypesPlugin {
 	}
 
 	/**
-	 * Register and enqueue public-facing style sheet.
-	 *
-	 * @since    1.0.0
-	 */
-	function enqueue_styles() {
-		wp_enqueue_style( $this->plugin_slug . '-plugin-styles', plugins_url( 'css/public.css', __FILE__ ), array(), $this->version );
-	}
-
-	/**
-	 * Register and enqueues public-facing JavaScript files.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_scripts() {
-		wp_enqueue_script( $this->plugin_slug . '-plugin-script', plugins_url( 'js/public.js', __FILE__ ), array( 'jquery' ), $this->version );
-	}
-
-	/**
 	 * Register the administration menu for this plugin into the WordPress Dashboard menu.
 	 */
 	function add_plugin_admin_menu() {
 
 		$this->plugin_screen_hook_suffix = add_options_page(
-			esc_html__( 'PixTypes', $this->plugin_slug ),
-			esc_html__( 'PixTypes', $this->plugin_slug ),
+			esc_html__( 'PixTypes', 'pixtypes' ),
+			esc_html__( 'PixTypes', 'pixtypes' ),
 			'manage_options',
 			$this->plugin_slug,
 			array( $this, 'display_plugin_admin_page' )
@@ -341,11 +313,137 @@ class PixTypesPlugin {
 	 * Add settings action link to the plugins page.
 	 */
 	function add_action_links( $links ) {
-		return array_merge( array( 'settings' => '<a href="' . admin_url( 'options-general.php?page=pixtypes' ) . '">' . esc_html__( 'Settings', $this->plugin_slug ) . '</a>' ), $links );
+		return array_merge( array( 'settings' => '<a href="' . admin_url( 'options-general.php?page=pixtypes' ) . '">' . esc_html__( 'Settings', 'pixtypes' ) . '</a>' ), $links );
 	}
 
 	function register_entities() {
-		require_once( $this->plugin_basepath . 'features/custom-entities.php' );
+		// register post types
+		$options = $updated_options  = apply_filters( 'pixtypes_settings_pre_register_entitites', get_option( 'pixtypes_settings' ) );
+		$updated_options['display_settings'] = false;
+
+		// go through each theme and activate portfolio post types
+		if ( empty( $options['themes'] ) || ! array( $options['themes'] ) ) {
+			return;
+		}
+
+		/** A pixelgrade theme will always have this class so we know we can import new settings **/
+		$current_theme = false;
+		if ( class_exists( 'wpgrade' ) ) {
+			$current_theme = wpgrade::shortname();
+		}
+
+		$theme_types = $options['themes'];
+		foreach ( $theme_types as $key => $theme ) {
+			// post types
+			if ( isset( $theme['post_types'] ) && is_array( $theme['post_types'] ) ) {
+				// Remember what post types we have removed from settings so we can skip registering their taxonomies
+				$deleted_post_types = array();
+				foreach ( $theme['post_types'] as $post_type => $post_type_args ) {
+					// First check if the post type is already registered - we bail if that is the case
+					if ( post_type_exists( $post_type ) ) {
+						continue;
+					}
+
+					// Second, for post types not belonging to the current theme, we only register them if there are posts
+					if ( false !== $current_theme && $key != $current_theme ) {
+						// We get the posts to see if there are any - we include all post statuses (trash and auto-draft need to be specified directly)
+						$posts = get_posts( array( 'post_type' => $post_type, 'post_status' => array( 'any', 'trash', 'auto-draft' ), 'posts_per_page' => '1' ) );
+						if ( empty( $posts ) ) {
+							// We should also delete the post type from the settings - no worries; if the theme gets activated again, all this will come back
+							// This is just for auto-cleanup
+							unset( $updated_options['themes'][ $key ]['post_types'][ $post_type ] );
+							$deleted_post_types[] = $post_type;
+							continue;
+						}
+					}
+
+					$is_jetpack_compatible = false;
+					if ( strpos( $post_type, 'jetpack' ) !== false ) {
+						///$xxxx = str_replace(  'jetpack-', '', $post_type);
+						$is_jetpack_compatible = true;
+					}
+
+					if ( $is_jetpack_compatible ) {
+						$post_type_key = strstr( $post_type, '-' );
+						$post_type_key = substr( $post_type_key, 1 );
+					} else {
+						// eliminate the theme prefix
+						$post_type_key = strstr( $post_type, '_' );
+						$post_type_key = substr( $post_type_key, 1 );
+					}
+
+					// process menu icon if it exists
+					if ( isset( $post_type_args['menu_icon'] ) ) {
+						// If we have been given a dashicon or full URL, use it without processing
+						if ( false === strpos( $post_type_args['menu_icon'], 'dashicon' ) && false === filter_var( $post_type_args['menu_icon'], FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED ) ) {
+							$post_type_args['menu_icon'] = plugins_url( 'assets/' . $post_type_args['menu_icon'], __FILE__ );
+						}
+					}
+
+					if ( isset( $options[ 'enable_' . $post_type_key ] ) ) {
+						$updated_options['display_settings'] = true;
+						if ( $options[ 'enable_' . $post_type_key ] ) {
+							register_post_type( $post_type, $post_type_args );
+						}
+					}
+				}
+			}
+
+			// taxonomies
+			if ( isset( $theme['taxonomies'] ) && is_array( $theme['taxonomies'] ) ) {
+				foreach ( $theme['taxonomies'] as $tax => $tax_args ) {
+					// First check if the taxonomy is already registered - we bail if that is the case
+					if ( taxonomy_exists( $tax ) ) {
+						continue;
+					}
+
+					// If we have deleted post types settings we need to skip registering their taxonomies
+					if ( ! empty( $tax_args['post_types'] ) && ! empty( $deleted_post_types ) ) {
+						if ( ! is_array( $tax_args['post_types'] ) ) {
+							if ( in_array( $tax_args['post_types'], $deleted_post_types ) ) {
+								continue;
+							}
+						} else {
+							$temp = array_diff( $tax_args['post_types'], $deleted_post_types );
+							if ( empty( $temp ) ) {
+								continue;
+							}
+						}
+					}
+
+					$tax_post_types = $tax_args['post_types'];
+					// remove "post_types", isn't a register_taxonomy argument we are just using it for post type linking
+					unset( $tax_args['post_types'] );
+
+					$is_jetpack_compatible = false;
+					if ( strpos( $tax, 'jetpack' ) !== false ) {
+						///$xxxx = str_replace(  'jetpack-', '', $tax);
+						$is_jetpack_compatible = true;
+					}
+
+					if ( $is_jetpack_compatible ) {
+						$tax_key = strstr( $tax, '-' );
+						$tax_key = substr( $tax_key, 1 );
+					} else {
+						// eliminate the theme prefix
+						$tax_key = strstr( $tax, '_' );
+						$tax_key = substr( $tax_key, 1 );
+					}
+
+					if ( isset( $options[ 'enable_' . $tax_key ] ) ) {
+						$updated_options['display_settings'] = true;
+						if ( $options[ 'enable_' . $tax_key ] ) {
+							register_taxonomy( $tax, $tax_post_types, $tax_args );
+						}
+					}
+				}
+			}
+		}
+
+		// Only update if we have actually changed something
+		if ( $options != $updated_options ) {
+			update_option( 'pixtypes_settings', $updated_options );
+		}
 	}
 
 	function register_metaboxes() {
@@ -368,7 +466,7 @@ class PixTypesPlugin {
 		foreach ( $wp_post_types as $key => $post_type ) {
 			$rewrite = $post_type->rewrite;
 			/** if this post_type has a rewrite rule check for it */
-			if ( ! empty( $rewrite ) && isset( $rewrite["slug"] ) && $slug == $rewrite["slug"] ) {
+			if ( ! empty( $rewrite ) && isset( $rewrite['slug'] ) && $slug == $rewrite['slug'] ) {
 				$is_unique = false;
 			} elseif ( $slug == $key ) {
 				/** the post_type doesn't have a slug param, so the slug is the name itself */
@@ -387,15 +485,15 @@ class PixTypesPlugin {
 	 * @return boolean
 	 */
 	static function is_tax_slug_unique( $slug ) {
-
 		global $wp_taxonomies;
-		$is_unique = true;
+
 		/** Suppose it's true */
+		$is_unique = true;
 
 		foreach ( $wp_taxonomies as $key => $tax ) {
 			$rewrite = $tax->rewrite;
 			/** if this post_type has a rewrite rule check for it */
-			if ( ! empty( $rewrite ) && isset( $rewrite["slug"] ) && $slug == $rewrite["slug"] ) {
+			if ( ! empty( $rewrite ) && isset( $rewrite['slug'] ) && $slug == $rewrite['slug'] ) {
 				$is_unique = false;
 			} elseif ( $slug == $key ) {
 				/** the post_type doesn't have a slug param, so the slug is the name itself */
@@ -432,7 +530,7 @@ class PixTypesPlugin {
 					'with_front' => false,
 				),
 				'has_archive'   => 'portfolio-archive',
-				'menu_icon'     => plugins_url( 'assets/report.png', __FILE__ ),
+				'menu_icon'     => 'dashicons-portfolio',
 				'supports'      => array( 'title', 'editor', 'thumbnail', 'page-attributes', 'excerpt' ),
 				'yarpp_support' => true,
 			),
@@ -458,6 +556,7 @@ class PixTypesPlugin {
 				),
 				'has_archive'   => 'galleries-archive',
 				'menu_position' => null,
+				'menu_icon'     => 'dashicons-format-gallery',
 				'supports'      => array( 'title', 'thumbnail', 'page-attributes', 'excerpt' ),
 				'yarpp_support' => true,
 			),
@@ -545,7 +644,7 @@ class PixTypesPlugin {
 	}
 
 	/**
-	 * Ajax callback for unseting unneeded post types
+	 * Ajax callback for cleaning up the settings for a theme
 	 */
 	function ajax_unset_pixtypes() {
 		$result = array( 'success' => false, 'msg' => 'Incorect nonce' );
@@ -554,13 +653,13 @@ class PixTypesPlugin {
 			die();
 		}
 
-		if ( isset( $_POST['post_type'] ) ) {
-			$key     = $_POST['post_type'];
+		if ( isset( $_POST['theme_slug'] ) ) {
+			$key     = $_POST['theme_slug'];
 			$options = get_option( 'pixtypes_settings' );
 			if ( isset( $options['themes'][ $key ] ) ) {
 				unset( $options['themes'][ $key ] );
 				update_option( 'pixtypes_settings', $options );
-				$result['msg']     = 'Post type ' . $key . ' is gone.';
+				$result['msg']     = 'Settings for ' . ucfirst( $key ) . ' have been cleaned up!';
 				$result['success'] = true;
 			}
 		}
@@ -573,12 +672,16 @@ class PixTypesPlugin {
 	 * On every wpgrade themes update we need to reconvert theme options into plugin options
 	 */
 	function theme_version_check() {
+		if ( class_exists( 'wpgrade' ) ) {
+			// Each theme should have it's pixtypes config theme version saved
+			$options = get_option( 'pixtypes_settings' );
 
-		$options = get_option( 'pixtypes_settings' );
+			// Make sure that we fix things just in case
+			if ( ! isset( $options['wpgrade_theme_version'] ) ) {
+				$options['wpgrade_theme_version'] = '0.0.1';
+			}
 
-		if ( class_exists( 'wpgrade' ) && isset( $options['wpgrade_theme_version'] ) ) {
-
-			if ( wpgrade::themeversion() != $options['wpgrade_theme_version'] ) {
+			if ( version_compare( wpgrade::themeversion(), $options['wpgrade_theme_version'], '!=' ) ) {
 				// here the theme is updating it's options
 				if ( function_exists( 'wpgrade_callback_geting_active' ) ) {
 					wpgrade_callback_geting_active();

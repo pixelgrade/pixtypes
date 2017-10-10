@@ -48,7 +48,7 @@ function theme_getting_active () {
 					'with_front' => false,
 				),
 				'has_archive'   => 'portfolio-archive',
-				'menu_icon'     => 'report.png',
+				'menu_icon'     => 'dashicons-portfolio',
 				'menu_position' => null,
 				'hierarchical' => true,
 				'supports'      => array(

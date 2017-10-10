@@ -6,9 +6,9 @@ $display_option = array(
 );
 
 $options = get_option( 'pixtypes_settings' );
-// go through each theme and activate portfolio post types
-if ( isset( $options["themes"] ) ) {
-	$theme_types = $options["themes"];
+// go through each theme and activate the post types settings
+if ( isset( $options['themes'] ) ) {
+	$theme_types = $options['themes'];
 	foreach ( $theme_types as $key => $theme ) {
 
 		$theme_name = str_replace( '_pixtypes_theme', '', $key );
@@ -22,10 +22,21 @@ if ( isset( $options["themes"] ) ) {
 				$display_option[ str_replace( $theme_name . '_', '', $post_type ) ] = true;
 			}
 			$display_settings = true;
-		} else {
-			return array( 'type' => 'hidden' );
 		}
 	}
+}
+
+// Check if we have any post type that should be shown settings
+$hide = true;
+foreach ( $display_option as $post_type => $display ) {
+	if ( $display ) {
+		$hide = false;
+		break;
+	}
+}
+
+if ( $hide ) {
+	return array( 'type' => 'hidden' );
 }
 
 $options_config = array(

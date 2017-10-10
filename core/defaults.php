@@ -27,8 +27,8 @@
 
 		'errors' => array
 			(
-				'is_numeric' => esc_html__('Numberic value required.', pixtypes::textdomain()),
-				'not_empty' => esc_html__('Field is required.', pixtypes::textdomain()),
+				'is_numeric' => esc_html__('Numberic value required.', 'pixtypes' ),
+				'not_empty' => esc_html__('Field is required.', 'pixtypes' ),
 			),
 
 		'callbacks' => array

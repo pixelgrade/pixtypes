@@ -42,8 +42,12 @@ $errors    = $processor->errors(); ?>
 			</p>
 		<?php endif; ?>
 
-		<?php echo $f = pixtypes::form( $config, $processor );
-		echo $f->field( 'hiddens' )->render(); ?>
+		<?php
+		$f = pixtypes::form( $config, $processor ); ?>
+
+		<?php echo $f->startform() ?>
+
+		<?php echo $f->field( 'hiddens' )->render(); ?>
 
 		<?php echo $f->field( 'post_types' )->render(); ?>
 
@@ -69,11 +73,11 @@ $errors    = $processor->errors(); ?>
 		<div class="uninstall_area postbox">
 
 			<div class="handlediv" title="Click to toggle"><br></div>
-			<h3 class="hndle"><span><?php esc_html_e( 'Danger Zone', 'pixtypes' ); ?></span></h3>
+			<h3 class="hndle"><span><?php esc_html_e( 'Extra Careful Zone', 'pixtypes' ); ?></span></h3>
 
 			<div class="inside">
 
-				<p><?php esc_html_e( 'If you are done with copying your content from old post types to new ones, you can also get rid of the old post types.', 'pixtypes' ); ?></p>
+				<p><?php esc_html_e( 'If you are done with copying your content from old themes to new ones, you can also get rid of the old themes settings and post types.', 'pixtypes' ); ?></p>
 				<form method="post" id="unset_pixypes"
 				      action="<?php echo admin_url( 'options-general.php?page=pixtypes' ) ?>">
 					<input type="hidden" class="unset_nonce" name="unset_nonce"
@@ -82,7 +86,7 @@ $errors    = $processor->errors(); ?>
 						<?php
 						if ( isset( $options['themes'] ) && count( $options['themes'] ) > 1 ) {
 							foreach ( $options['themes'] as $key => $theme ) {
-								echo '<li><button class="button delete-action" type="submit" name="unset_pixtype" value="' . $key . '">' . esc_html__( 'Unset', 'pixtypes' ) . ' ' . $key . '</button></li>';
+								echo '<li><button class="button delete-action" type="submit" name="unset_pixtype" value="' . $key . '">' . esc_html__( 'Clean-up after', 'pixtypes' ) . ' ' . ucfirst( $key ) . '</button></li>';
 							}
 						} ?>
 					</ul>

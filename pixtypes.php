@@ -1,24 +1,15 @@
 <?php
 /*
-* @package   PixTypes
-* @author    Pixelgrade <contact@pixelgrade.com>
-* @license   GPL-2.0+
-* @link      https://pixelgrade.com
-* @copyright 2013-2017 Pixelgrade
-*
-* @wordpress-plugin
-Plugin Name: PixTypes
-Plugin URI:  https://pixelgrade.com
-Description: Custom post types and meta-boxes needed by your theme
-Version: 1.4.7
-Author: Pixelgrade
-Author URI: https://pixelgrade.com
-Author Email: contact@pixelgrade.com
-Text Domain: pixtypes
-License:     GPL-2.0+
-License URI: http://www.gnu.org/licenses/gpl-2.0.txt
-Domain Path: /lang
-*/
+ * Plugin Name: PixTypes
+ * Plugin URI: https://wordpress.org/plugins/pixtypes/
+ * Description: Custom post types and meta-boxes needed by your themes.
+ * Version: 1.4.8
+ * Author URI: https://pixelgrade.com
+ * Author Email: hello@pixelgrade.com
+ * License: GPL2+
+ * Text Domain: pixtypes
+ * Domain Path: /lang/
+ */
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -33,7 +24,6 @@ if ( ! defined( 'EXT' ) ) {
 require 'core/bootstrap' . EXT;
 
 $config = include 'plugin-config' . EXT;
-include 'features/class-pix-query' . EXT;
 // set textdomain
 pixtypes::settextdomain( $config['textdomain'] );
 
@@ -55,8 +45,8 @@ if ( $current_data === false ) {
 // Load Callbacks
 // --------------
 
-$basepath     = dirname( __FILE__ ) . DIRECTORY_SEPARATOR;
-$callbackpath = $basepath . 'callbacks' . DIRECTORY_SEPARATOR;
+$basepath     = trailingslashit( dirname( __FILE__ ) );
+$callbackpath = trailingslashit( $basepath . 'callbacks' );
 pixtypes::require_all( $callbackpath );
 
 require_once( plugin_dir_path( __FILE__ ) . 'class-pixtypes.php' );
@@ -66,4 +56,4 @@ register_activation_hook( __FILE__, array( 'PixTypesPlugin', 'activate' ) );
 //register_deactivation_hook( __FILE__, array( 'PixTypesPlugin', 'deactivate' ) );
 
 global $pixtypes_plugin;
-$pixtypes_plugin = PixTypesPlugin::get_instance();
+$pixtypes_plugin = PixTypesPlugin::get_instance( '1.4.8' );

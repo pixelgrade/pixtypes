@@ -60,7 +60,7 @@
 
 		/** ajax callbacks */
 		$('#unset_pixypes').on('click', 'button', function(e){
-			var response = confirm('Be sure that you don\'t need this post type anymore');
+			var response = confirm('Make sure that you have moved the theme specific content you were interested in. If at any time you wish to access it again, reactivate that previous theme.');
 
 			if ( response == false ) {
 				e.preventDefault();
@@ -68,9 +68,9 @@
 				e.preventDefault();
 
 				var ajax_nounce = $(this).parents('ul').siblings('.unset_nonce').val();
-				// reload likes number
+				// Cleanup pixtypes settings
 				jQuery.ajax({
-					type: "post",url: locals.ajax_url,data: { action: 'unset_pixtypes', _ajax_nonce: ajax_nounce, post_type: $(this).val() },
+					type: "post",url: locals.ajax_url,data: { action: 'unset_pixtypes', _ajax_nonce: ajax_nounce, theme_slug: $(this).val() },
 					//beforeSend: function() {jQuery("#loading").show("slow");}, //show loading just when link is clicked
 					//complete: function() { jQuery("#loading").hide("fast");}, //stop showing loading when the process is complete
 					success: function( response ){

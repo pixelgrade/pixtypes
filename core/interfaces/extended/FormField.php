@@ -1,9 +1,5 @@
 <?php defined('ABSPATH') or die;
 
-/* This file is property of Pixel Grade Media. You may NOT copy, or redistribute
- * it. Please see the license that came with your copy for more information.
- */
-
 /**
  * @package    pixtypes
  * @category   core
