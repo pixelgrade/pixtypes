@@ -52,6 +52,7 @@ function cmb_initialize_cmb_meta_boxes() {
 		require_once 'init.php';
 
 		require_once 'cmb-field-select2/cmb-field-select2.php';
+		require_once 'cmb-field-select2-v2/cmb-field-select2.php';
 	}
 
 }
