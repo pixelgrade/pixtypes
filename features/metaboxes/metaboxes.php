@@ -34,14 +34,29 @@ function load_metaboxes_fromdb( $meta_boxes ) {
 
 	$theme_metaboxes = $options['themes'][ $current_theme ]['metaboxes'];
 	if ( ! empty( $theme_metaboxes ) && is_array( $theme_metaboxes ) ) {
-		foreach ( $theme_metaboxes as $metabox ) {
-			$meta_boxes[] = $metabox;
-		}
+		$meta_boxes = array_merge( $meta_boxes, $theme_metaboxes );
 	}
 
 	return $meta_boxes;
 }
 add_filter( 'cmb_meta_boxes', 'load_metaboxes_fromdb', 1 );
+
+/**
+ * This is just a wrapper that provides an agnostic filter name, rather than relying on CMB's hook.
+ *
+ * @param array $meta_boxes
+ *
+ * @return array
+ */
+function gather_metaboxes_dynamically( $meta_boxes ) {
+	// make sure we are in good working order
+	if ( empty( $meta_boxes ) ) {
+		$meta_boxes = array();
+	}
+
+	return apply_filters( 'pixelgrade_filter_metaboxes', $meta_boxes );
+}
+add_filter( 'cmb_meta_boxes', 'gather_metaboxes_dynamically', 10 );
 
 /*
  * Initialize the metabox class.
