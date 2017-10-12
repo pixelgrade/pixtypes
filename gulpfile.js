@@ -1,52 +1,41 @@
 /*
  * Load Plugins
  */
-var gulp = require( 'gulp' ),
-	sass = require( 'gulp-ruby-sass' ),
-	prefix = require( 'gulp-autoprefixer' ),
+var gulp = require( 'gulp-help' )( require( 'gulp' ) ),
 	exec = require( 'gulp-exec' ),
-	clean = require( 'gulp-clean' ),
-	zip = require( 'gulp-zip' );
-
-
-gulp.task( 'styles', function() {
-	return gulp.src( 'scss/**/*.scss' )
-		.pipe( sass( {sourcemap: true, style: 'nested'} ) )
-		.on( 'error', function( e ) {
-			console.log( e.message );
-		} )
-		.pipe( prefix( "last 1 version", "> 1%", "ie 8", "ie 7" ) )
-		.pipe( gulp.dest( './css/' ) )
-		.pipe( notify( 'Styles task complete' ) );
-} );
-
-gulp.task( 'styles-watch', function() {
-	return gulp.watch( 'scss/**/*.scss', ['styles'] );
-} );
-
-/**
- * Create a zip archive out of the cleaned folder and delete the folder
- */
-gulp.task( 'zip', ['build'], function() {
-
-	return gulp.src( './' )
-		.pipe( exec( 'cd ./../; rm -rf pixtypes.zip; cd ./build/; zip -r -X ./../pixtypes.zip ./pixtypes; cd ./../; rm -rf build' ) );
-
-} );
+    rsync = require('gulp-rsync'),
+    fs = require( 'fs' ),
+    del = require( 'del' );
 
 /**
  * Copy theme folder outside in a build folder, recreate styles before that
  */
-gulp.task( 'copy-folder', function() {
+gulp.task( 'copy-folder', 'Copy plugin production files to a build folder', function() {
 
-	return gulp.src( './' )
-		.pipe( exec( 'rm -Rf ./../build; mkdir -p ./../build/pixtypes; cp -Rf ./* ./../build/pixtypes/' ) );
+    var dir = process.cwd();
+    return gulp.src( './*' )
+        .pipe( exec( 'rm -Rf ./../build; mkdir -p ./../build/pixtypes;', {
+            silent: true,
+            continueOnError: true // default: false
+        } ) )
+        .pipe(rsync({
+            root: dir,
+            destination: '../build/pixtypes/',
+            // archive: true,
+            progress: false,
+            silent: false,
+            compress: false,
+            recursive: true,
+            emptyDirectories: true,
+            clean: true,
+            exclude: ['node_modules']
+        }));
 } );
 
 /**
  * Clean the folder of unneeded files and folders
  */
-gulp.task( 'build', ['copy-folder'], function() {
+gulp.task( 'build', 'Remove unneeded files and folders from the build folder', ['copy-folder'], function() {
 
 	// files that should not be present in build zip
 	files_to_remove = [
@@ -65,23 +54,44 @@ gulp.task( 'build', ['copy-folder'], function() {
 		'wpgrade-core/**/scss',
 		'pxg.json',
 		'build',
-		'.idea',
-		'**/*.css.map',
-		'**/.sass*',
-		'.sass*',
-		'**/.git*',
-		'*.sublime-project',
-		'.DS_Store',
-		'**/.DS_Store',
-		'__MACOSX',
-		'**/__MACOSX'
+        '.idea',
+        '.editorconfig',
+        '**/.svn*',
+        '**/*.css.map',
+        '**/.sass*',
+        '.sass*',
+        '**/.git*',
+        '*.sublime-project',
+        '.DS_Store',
+        '**/.DS_Store',
+        '__MACOSX',
+        '**/__MACOSX',
+        'README.md',
+        '.csscomb',
+        '.csscomb.json',
+        '.codeclimate.yml',
+        'tests',
+        'circle.yml',
+        '.circleci',
+        '.labels',
+        '.jscsrc',
+        '.jshintignore',
+        'browserslist'
 	];
 
 	files_to_remove.forEach( function( e, k ) {
 		files_to_remove[k] = '../build/pixtypes/' + e;
 	} );
 
-	return gulp.src( files_to_remove, {read: false} )
-		.pipe( clean( {force: true} ) );
+    return del.sync( files_to_remove, {force: true} );
 } );
 
+/**
+ * Create a zip archive out of the cleaned folder and delete the folder
+ */
+gulp.task( 'zip', 'Create the plugin installer archive and delete the build folder', ['build'], function() {
+
+    return gulp.src( './' )
+        .pipe( exec( 'cd ./../; rm -rf pixtypes.zip; cd ./build/; zip -r -X ./../pixtypes.zip ./pixtypes; cd ./../; rm -rf build' ) );
+
+} );
