@@ -3412,6 +3412,8 @@ body .mce-toolbar.mce-last .mce-container.mce-first .mce-menubtn.mce-first .mce-
   align-items: center; }
   .cmb-type-colorpicker .wp-color-result:after {
     content: none; }
+  .cmb-type-colorpicker .wp-color-result .wp-color-result-text {
+      display: none; }
 .cmb-type-colorpicker .wp-picker-container {
   position: absolute;
   right: 0;

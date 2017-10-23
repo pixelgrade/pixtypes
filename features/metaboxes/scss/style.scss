@@ -2413,6 +2413,10 @@ body .mce-toolbar.mce-last .mce-container.mce-first .mce-menubtn.mce-first {
 		&:after {
 			content: none;
 		}
+
+		.wp-color-result-text {
+			display: none;
+		}
 	}
 
 	.wp-picker-container {
