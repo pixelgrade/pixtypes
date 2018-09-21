@@ -1012,19 +1012,19 @@ class cmb_Meta_Box {
 			// validate meta value
 			if ( isset( $field['validate_func'] ) ) {
 				$ok = call_user_func( $field['validate_func'], $new, $field, $post_id );
-				if ( $ok === false ) { // pass away when meta value is invalid
+				if ( $ok === false ) { // do nothing when meta value is invalid
 					continue;
 				}
-			} elseif ( $field['multiple'] ) {
+			}
+
+			if ( $field['multiple'] ) {
 				delete_post_meta( $post_id, $name );
 				if ( ! empty( $new ) ) {
 					foreach ( $new as $add_new ) {
 						add_post_meta( $post_id, $name, $add_new, false );
 					}
 				}
-			} elseif ( '' !== $new && $new != $old ) {
-				update_post_meta( $post_id, $name, $new );
-			} elseif ( '' == $new ) {
+			} elseif ( '' == $new || $new != $old ) {
 				update_post_meta( $post_id, $name, $new );
 			}
 
