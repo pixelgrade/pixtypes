@@ -44,6 +44,7 @@ gulp.task( 'build', 'Remove unneeded files and folders from the build folder', [
 		'config.rb',
 		'gulpfile.js',
 		'package.json',
+        'package-lock.json',
 		'wpgrade-core/vendor/redux2',
 		'wpgrade-core/features',
 		'wpgrade-core/tests',
