@@ -2,7 +2,7 @@
 Contributors: pixelgrade, euthelup, babbardel, vlad.olaru, cristianfrumusanu, razvanonofrei
 Tags: custom, post-types, metadata, builder, gallery
 Requires at least: 4.6.0
-Tested up to: 4.8.2
+Tested up to: 4.9.8
 Stable tag: 1.4.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -22,6 +22,9 @@ Note: This plugin is addressed to developers, it doesn't do nothing if it isn't 
 3. After activating PixTypes all your custom post-types should be visible now.
 
 == Changelog ==
+
+= 1.4.10 =
+* Fixed a bug related to not being able to empty file/image fields.
 
 = 1.4.9 =
 * Workflow to configure metaboxes dynamically rather than through the database.
