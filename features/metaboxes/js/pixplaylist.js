@@ -23,26 +23,6 @@
 
 				var controler = wp.media.EditPixPlaylist._frame.states.get( 'video-playlist-edit' );
 
-				// force display settings off
-				//controler.attributes.displaySettings = false;
-
-				//but still keep the reverse button in our modal
-				//controler.gallerySettings = function( browser ) {
-				//	var library = this.get('library');
-				//	if ( ! library || ! browser ) {
-				//		return;
-				//	}
-				//
-				//	library.gallery = library.gallery || new Backbone.Model();
-				//	browser.toolbar.set( 'reverse', {
-				//		text:     l10n.reverseOrder,
-				//		priority: 80,
-				//		click: function() {
-				//			library.reset( library.toArray().reverse() );
-				//		}
-				//	});
-				//};
-
 				wp.media.EditPixPlaylist._frame.states.add( 'playlist-edit', controler );
 
 				// on update send our attachments ids into a post meta field
