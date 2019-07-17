@@ -103,7 +103,6 @@ function save_pixtypes_settings( $values ){
 
 					$is_jetpack_compatible = false;
 					if ( strpos( $name, 'jetpack' ) !== FALSE ) {
-						///$xxxx = str_replace(  'jetpack-', '', $name);
 						$is_jetpack_compatible = true;
 					}
 

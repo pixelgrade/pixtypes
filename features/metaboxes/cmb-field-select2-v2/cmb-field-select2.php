@@ -52,18 +52,6 @@ function pw_select_v2( $field, $meta ) {
 function pw_multiselect_v2( $field, $meta ) {
 	$options = array();
 
-//	if ( isset( $field['options'] ) && ! empty( $field['options'] ) ) {
-//		foreach ( $field['options'] as $option_key => $option ) {
-//			$opt_label = is_array( $option ) && array_key_exists( 'name', $option ) ? $option['name'] : $option;
-//			$opt_value = is_array( $option ) && array_key_exists( 'value', $option ) ? $option['value'] : $option_key;
-//
-//			$options[] = array(
-//				'id' => $opt_value,
-//				'text' => $opt_label
-//			);
-//		}
-//	}
-
 	echo '<select name="', $field['id'], '[]" id="', $field['id'], '" data-placeholder="' . $field['desc'] . '" class="select2">';
 	echo '<option></option>';
 	if ( isset( $field['options'] ) && ! empty( $field['options'] ) ) {
@@ -75,14 +63,6 @@ function pw_multiselect_v2( $field, $meta ) {
 		}
 	}
 	echo '</select>';
-
-//	wp_localize_script( 'pw-select2-field-init', $field['id'] . '_data', $options );
-//
-//	if ( ! empty( $meta ) ) {
-//		$meta = implode( ',', $meta );
-//	}
-//
-//	echo '<input type="hidden" name="' . $field['id'] . '" id="' . $field['id'] . '" data-placeholder="' . $field['desc'] . '" class="select2" value="' . $meta . '" />';
 }
 
 /**

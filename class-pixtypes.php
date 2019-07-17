@@ -375,7 +375,7 @@ class PixTypesPlugin {
 					// process menu icon if it exists
 					if ( isset( $post_type_args['menu_icon'] ) ) {
 						// If we have been given a dashicon or full URL, use it without processing
-						if ( false === strpos( $post_type_args['menu_icon'], 'dashicon' ) && false === filter_var( $post_type_args['menu_icon'], FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED ) ) {
+						if ( false === strpos( $post_type_args['menu_icon'], 'dashicon' ) && false === filter_var( $post_type_args['menu_icon'], FILTER_VALIDATE_URL ) ) {
 							$post_type_args['menu_icon'] = plugins_url( 'assets/' . $post_type_args['menu_icon'], __FILE__ );
 						}
 					}
@@ -647,7 +647,7 @@ class PixTypesPlugin {
 	 * Ajax callback for cleaning up the settings for a theme
 	 */
 	function ajax_unset_pixtypes() {
-		$result = array( 'success' => false, 'msg' => 'Incorect nonce' );
+		$result = array( 'success' => false, 'msg' => 'Incorrect nonce' );
 		if ( ! wp_verify_nonce( $_POST['_ajax_nonce'], 'unset_pixtype' ) ) {
 			echo json_encode( $result );
 			die();

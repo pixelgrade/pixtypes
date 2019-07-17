@@ -244,7 +244,5 @@ function pix_builder_display_content( $content = '', $decode = true ) {
 	$content = apply_filters( 'prepend_attachment', $content );
 
 	// in case there is a shortcode
-//	return nl2br( $content );
-//	return do_shortcode( $content );
 	return $content;
 }
