@@ -380,14 +380,10 @@ jQuery(document).ready(function ($) {
 		$(selector).find('select, input:radio').trigger('change');
 	};
 
-	var gutenbergMetaboxes = $('#custom_portfolio_page_settings'),
-		gutenbergEditor = $('.editor-block-list__layout'),
-		gutenbergContent = $('.edit-post-layout__content .edit-post-visual-editor');
-
 	function showMetaboxesGutenberg() {
-		gutenbergMetaboxes.show();
-		gutenbergEditor.hide();
-		gutenbergContent.css(
+		$('#custom_portfolio_page_settings').show();
+		$('.editor-block-list__layout').hide();
+		$('.edit-post-layout__content .edit-post-visual-editor').css(
 			{
 				'flex-basis': 0,
 				'flex': 'unset'
@@ -396,9 +392,9 @@ jQuery(document).ready(function ($) {
 	}
 
 	function hideMetaboxesGutenberg() {
-		gutenbergMetaboxes.hide();
-		gutenbergEditor.show();
-		gutenbergContent.removeAttr('style');
+		$('#custom_portfolio_page_settings').hide();
+		$('.editor-block-list__layout').show();
+		$('.edit-post-layout__content .edit-post-visual-editor').removeAttr('style');
 	}
 
 	/**
