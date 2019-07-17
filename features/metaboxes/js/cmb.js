@@ -412,6 +412,34 @@ jQuery(document).ready(function ($) {
 				}
 			});
 
+			// Make metaboxes show on Gutenberg Editor
+			if ($('body').hasClass('block-editor-page')) {
+
+				var templateSelector = $('.editor-page-attributes__template select'),
+					gutenbergEditor = $('.editor-block-list__layout'),
+					portfolioMetaboxes = $('#custom_portfolio_page_settings'),
+					editorContainer = $('.edit-post-layout__content .edit-post-visual-editor');
+
+
+
+				templateSelector.on('change', function(){
+					if (templateSelector.val() === 'page-templates/custom-portfolio-page.php') {
+						portfolioMetaboxes.show();
+						gutenbergEditor.hide();
+						editorContainer.css(
+							{
+								'flex-basis': 0,
+								'flex': 'unset'
+							}
+						);
+					} else {
+						portfolioMetaboxes.hide();
+						gutenbergEditor.show();
+						editorContainer.removeAttr('style');
+					}
+				});
+			}
+
 			if ( condition ) {
 				display_metabox( el, !hide );
 			} else {
@@ -446,38 +474,6 @@ jQuery(document).ready(function ($) {
 			toggle_metaboxes(this);
 		});
 	});
-
-//		$.ajax({
-//			type: 'post',
-//			dataType: 'json',
-//			url: window.ajaxurl,
-//			data: {
-//				'action': 'ajax_update_metaboxes',
-//				'new_page_template': $(this).val(),
-//				'post_ID': window.cmb_ajax_data.post_id,
-//				'post_type': window.cmb_ajax_data.post_type,
-//				'ajax_nonce': window.cmb_ajax_data.ajax_nonce
-//				// do a nonce here
-//			},
-//			success: function (response) {
-//
-//				if (response.hasOwnProperty('metaboxes')) {
-//					$('#postbox-container-2').html(response.metaboxes);
-//				}
-//
-////				// update wp-editors
-////				$('#postbox-container-2 .wp-editor-area').each(function (i, e) {
-////					var editor_id = $(e).attr('name');
-////
-////					var editor = new tinymce.Editor(e);
-////					tinyMCE.add(editor);
-////					editor.render();
-////				});
-//
-//				$(window).trigger('load');
-//			}
-//		});
-//	});
 
 	//LENS - Ahaaaaaa!!! This is so evil and shameful, but I like it
 
