@@ -380,6 +380,27 @@ jQuery(document).ready(function ($) {
 		$(selector).find('select, input:radio').trigger('change');
 	};
 
+	var gutenbergMetaboxes = $('#custom_portfolio_page_settings'),
+		gutenbergEditor = $('.editor-block-list__layout'),
+		gutenbergContent = $('.edit-post-layout__content .edit-post-visual-editor');
+
+	function showMetaboxesGutenberg() {
+		gutenbergMetaboxes.show();
+		gutenbergEditor.hide();
+		gutenbergContent.css(
+			{
+				'flex-basis': 0,
+				'flex': 'unset'
+			}
+		);
+	}
+
+	function hideMetaboxesGutenberg() {
+		gutenbergMetaboxes.hide();
+		gutenbergEditor.show();
+		gutenbergContent.removeAttr('style');
+	}
+
 	/**
 	 * Fold elements when the entire page is loaded
 	 * Some css classes are added dynamically, they can only be used after the load event
@@ -392,6 +413,10 @@ jQuery(document).ready(function ($) {
 		$('.show_metabox_on').each(function () {
 			toggle_metaboxes(this);
 		});
+
+		if ($('.editor-page-attributes__template select').val() === 'page-templates/custom-portfolio-page.php') {
+			showMetaboxesGutenberg();
+		}
 	});
 
 	var toggle_metaboxes = function(el) {
@@ -405,6 +430,8 @@ jQuery(document).ready(function ($) {
 
 		if ( key == 'page-template' ) {
 
+			var templateSelector = $('.editor-page-attributes__template select');
+
 			var condition = false;
 			$.each(value, function(key,val){
 				if ( $('select#page_template').val() == val ) {
@@ -415,27 +442,11 @@ jQuery(document).ready(function ($) {
 			// Make metaboxes show on Gutenberg Editor
 			if ($('body').hasClass('block-editor-page')) {
 
-				var templateSelector = $('.editor-page-attributes__template select'),
-					gutenbergEditor = $('.editor-block-list__layout'),
-					portfolioMetaboxes = $('#custom_portfolio_page_settings'),
-					editorContainer = $('.edit-post-layout__content .edit-post-visual-editor');
-
-
-
 				templateSelector.on('change', function(){
 					if (templateSelector.val() === 'page-templates/custom-portfolio-page.php') {
-						portfolioMetaboxes.show();
-						gutenbergEditor.hide();
-						editorContainer.css(
-							{
-								'flex-basis': 0,
-								'flex': 'unset'
-							}
-						);
+						showMetaboxesGutenberg()
 					} else {
-						portfolioMetaboxes.hide();
-						gutenbergEditor.show();
-						editorContainer.removeAttr('style');
+						hideMetaboxesGutenberg();
 					}
 				});
 			}
