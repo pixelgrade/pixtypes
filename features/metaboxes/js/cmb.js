@@ -101,12 +101,12 @@ jQuery(document).ready(function ($) {
 			$(this).after('<div id="picker-' + i + '" style="z-index: 1000; background: #EEE; border: 1px solid #CCC; position: absolute; display: block;"></div>');
 			$('#picker-' + i).hide().farbtastic($(this));
 		})
-			.focus(function () {
-				$(this).next().show();
-			})
-			.blur(function () {
-				$(this).next().hide();
-			});
+		                               .focus(function () {
+			                               $(this).next().show();
+		                               })
+		                               .blur(function () {
+			                               $(this).next().hide();
+		                               });
 	}
 
 	/**
@@ -197,7 +197,7 @@ jQuery(document).ready(function ($) {
 	 * Ajax oEmbed display
 	 */
 
-		// ajax on paste
+	// ajax on paste
 	$('.cmb_oembed').bind('paste', function (e) {
 		var pasteitem = $(this);
 		// paste event is fired before the value is filled, so wait a bit
@@ -430,7 +430,8 @@ jQuery(document).ready(function ($) {
 
 			var condition = false;
 			$.each(value, function(key,val){
-				if ( $('select#page_template').val() == val ) {
+				var $select = $('select#page_template').length ? $('select#page_template') : $('.editor-page-attributes__template select');
+				if ( $select.val() === val ) {
 					condition = true;
 				}
 			});
@@ -667,5 +668,4 @@ jQuery(document).ready(function ($) {
 		}
 
 	});
-
 });
