@@ -682,14 +682,10 @@ class PixTypesPlugin {
 			}
 
 			if ( version_compare( wpgrade::themeversion(), $options['wpgrade_theme_version'], '!=' ) ) {
-				// here the theme is updating it's options
-				if ( function_exists( 'wpgrade_callback_geting_active' ) ) {
-					wpgrade_callback_geting_active();
-					// the plugin will copy these options into it's own field
-					self::activate( false );
-					// end finally merge user's settings with the theme ones
-					save_pixtypes_settings( $options );
-				}
+				// the plugin will copy these options into it's own field
+				self::activate( false );
+				// end finally merge user's settings with the theme ones
+				save_pixtypes_settings( $options );
 			}
 		}
 	}
