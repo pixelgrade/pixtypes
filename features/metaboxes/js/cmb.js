@@ -415,7 +415,7 @@ jQuery(document).ready(function ($) {
 		}
 	});
 
-	var toggle_metaboxes = function(el) {
+	function toggle_metaboxes(el) {
 
 		var $el = $(el),
 			key = $el.data('key'),
@@ -424,37 +424,40 @@ jQuery(document).ready(function ($) {
 
 		if ( typeof value === 'undefined' ) return;
 
-		if ( key == 'page-template' ) {
+		if ( key === 'page-template' ) {
 
-			var templateSelector = $('.editor-page-attributes__template select');
-
+			var templateSelector = 'select#page_template';
+			var gutenbergTemplateSelector = '.editor-page-attributes__template select';
 			var condition = false;
-			$.each(value, function(key,val){
-				var $select = $('select#page_template').length ? $('select#page_template') : $('.editor-page-attributes__template select');
-				if ( $select.val() === val ) {
+			var isGutenberg = $( 'body' ).hasClass( 'block-editor-page' );
+
+			var $select = isGutenberg ? $( gutenbergTemplateSelector ) : templateSelector;
+
+			$.each( value, function( key, val ) {
+				var isGutenbergDefaultTemplate = isGutenberg && ( ! $select.val().length );
+				if ( $select.val() === val || ( isGutenbergDefaultTemplate && val === 'default' ) ) {
 					condition = true;
 				}
-			});
+			} );
 
 			// Make metaboxes show on Gutenberg Editor
-			if ($('body').hasClass('block-editor-page')) {
-
-				templateSelector.on('change', function(){
-					if (templateSelector.val() === 'page-templates/custom-portfolio-page.php') {
-						showMetaboxesGutenberg()
+			if ( isGutenberg ) {
+				$select.on( 'change', function() {
+					if ( $select.val() === 'page-templates/custom-portfolio-page.php' ) {
+						showMetaboxesGutenberg();
 					} else {
 						hideMetaboxesGutenberg();
 					}
-				});
+				} );
 			}
 
 			if ( condition ) {
-				display_metabox( el, !hide );
+				display_metabox( el, ! hide );
 			} else {
 				display_metabox( el, hide );
 			}
 
-		} else if ( key == 'select_value') {
+		} else if ( key === 'select_value') {
 			// in the future
 		}
 
