@@ -1,0 +1,76 @@
+
+#hero_area_background__page[id] {
+
+    .inside {
+        padding: 15px;
+    }
+
+    #pixvideos,
+    #pixgallery {
+        min-height: 0;
+
+        > ul {
+            min-height: 0;
+        }
+
+        &:not(.has-items) > a {
+            position: static;
+            background: #F9F8F8;
+            padding: 20px;
+            text-decoration: none;
+
+            > div {
+                position: static;
+                transform: none;
+            }
+        }
+
+        &.has-items {
+
+            > ul {
+                display: flex;
+                margin: -8px 0 0 -8px;
+
+                > li {
+                    margin: 0;
+                    padding-top: 8px;
+                    padding-left: 8px;
+                    flex: 1 1 auto;
+                }
+            }
+        }
+    }
+
+    .cmb-type {
+        border-top: 0;
+        padding-bottom: 0;
+    }
+
+    .cmb-type-gallery {
+        + .cmb-type-playlist,
+        + .cmb-type-playlist_disabled {
+            padding-top: 15px;
+        }
+    }
+
+    .cmb-type-colorpicker {
+        align-items: center;
+    }
+
+    .wp-picker-container {
+        position: static;
+        margin-top: 0;
+    }
+
+    .cmb_metabox_description {
+        width: auto;
+        flex-basis: auto;
+        flex-grow: 1;
+    }
+
+    .wp-color-result {
+        position: relative;
+        margin-right: 0;
+        margin-bottom: 0;
+    }
+}

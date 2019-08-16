@@ -53,4 +53,3 @@ build/config/buildinfo.properties
 
 gulpfile.js
 node_modules
-package-lock.json

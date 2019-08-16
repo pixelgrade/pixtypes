@@ -2,8 +2,6 @@
 *   $GRID PAGE BUILDER
 \*----------------------------------------*/
 
-@import "compass";
-
 $border   : #d9d9d9;
 $light    : #919191;
 $body     : #515150;
@@ -48,7 +46,7 @@ $accent   : #0095ea;
       // Partial Fix
       border:1px dashed $border;
       // padding: 12px;
-      @include box-sizing(border-box);
+      box-sizing: border-box;
     }
 
     &:hover {
@@ -72,7 +70,7 @@ $accent   : #0095ea;
       border:1px dashed $border;
       background: #f7f7f7;
 
-      @include box-sizing(border-box);
+      box-sizing: border-box;
     }
   }
 
@@ -107,7 +105,7 @@ $accent   : #0095ea;
     opacity: 0;
     z-index: 100;
 
-    @include transition (all 0.15s);
+    transition: all 0.15s;
 
     li {
       display: inline-block;
@@ -177,7 +175,7 @@ $accent   : #0095ea;
     position: absolute;
     top:50%;
     right: 0;
-    @include translateY(-50%);
+    transform: translateY(-50%);
     height: 100%;
     width: 36px;
 
@@ -188,7 +186,7 @@ $accent   : #0095ea;
     // background-color: red;
 
     cursor: col-resize;
-    @include transition(all 0.15s);
+    transition: all 0.15s;
 
     &:hover {
       background-image: url('../images/icon--drag-hover.svg');
@@ -199,12 +197,12 @@ $accent   : #0095ea;
           position:absolute;
           top: 50%;
           left: 50%;
-          @include translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 
           display: flex;
 
           background: $dark;
-          @include border-radius(6px);
+          border-radius: 6px;
 
           > li {
             width: 47px;
@@ -230,7 +228,7 @@ $accent   : #0095ea;
   .item__content {
     height: 100%;
     padding: 12px;
-    @include box-sizing(border-box);
+    box-sizing: border-box;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -339,7 +337,7 @@ $accent   : #0095ea;
   position:absolute;
   top:50%;
   left: 50%;
-  @include translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 // Main Wrapper
@@ -375,7 +373,7 @@ $accent   : #0095ea;
       max-width: 800px;
       left: 50%;
       top: 50%;
-      @include translate(-50%, -50%);
+      transform: translate(-50%, -50%);
     }
 
     .media-modal-content {
