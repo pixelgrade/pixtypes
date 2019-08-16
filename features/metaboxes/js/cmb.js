@@ -434,12 +434,12 @@ jQuery(document).ready(function ($) {
 
 		if ( key === 'page-template' ) {
 
-			var templateSelector = 'select#page_template';
-			var gutenbergTemplateSelector = '.editor-page-attributes__template select';
+			var $templateSelector = $('select#page_template');
+			var $gutenbergTemplateSelector = $('.editor-page-attributes__template select');
 			var condition = false;
 			var isGutenberg = $( 'body' ).hasClass( 'block-editor-page' );
 
-			var $select = isGutenberg ? $( gutenbergTemplateSelector ) : $( templateSelector );
+			var $select = isGutenberg ? $gutenbergTemplateSelector : $templateSelector ;
 
 			$.each( value, function( key, val ) {
 				var isGutenbergDefaultTemplate = isGutenberg && ( ! $select.val().length );
