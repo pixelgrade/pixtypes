@@ -415,6 +415,14 @@ jQuery(document).ready(function ($) {
 		}
 	});
 
+	function toggle_portfolio_metabox( $select ) {
+		if ( $select.val() === 'page-templates/custom-portfolio-page.php' ) {
+			showMetaboxesGutenberg();
+		} else {
+			hideMetaboxesGutenberg();
+		}
+	}
+
 	function toggle_metaboxes(el) {
 
 		var $el = $(el),
@@ -431,7 +439,7 @@ jQuery(document).ready(function ($) {
 			var condition = false;
 			var isGutenberg = $( 'body' ).hasClass( 'block-editor-page' );
 
-			var $select = isGutenberg ? $( gutenbergTemplateSelector ) : templateSelector;
+			var $select = isGutenberg ? $( gutenbergTemplateSelector ) : $( templateSelector );
 
 			$.each( value, function( key, val ) {
 				var isGutenbergDefaultTemplate = isGutenberg && ( ! $select.val().length );
@@ -443,11 +451,7 @@ jQuery(document).ready(function ($) {
 			// Make metaboxes show on Gutenberg Editor
 			if ( isGutenberg ) {
 				$select.on( 'change', function() {
-					if ( $select.val() === 'page-templates/custom-portfolio-page.php' ) {
-						showMetaboxesGutenberg();
-					} else {
-						hideMetaboxesGutenberg();
-					}
+					toggle_portfolio_metabox( $select );
 				} );
 			}
 
