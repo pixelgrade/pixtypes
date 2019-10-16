@@ -684,7 +684,7 @@ class PixTypesPlugin {
 			if ( version_compare( wpgrade::themeversion(), $options['wpgrade_theme_version'], '!=' ) ) {
 				// the plugin will copy these options into it's own field
 				self::activate( false );
-				// end finally merge user's settings with the theme ones
+				// and finally merge user's settings with the theme ones
 				save_pixtypes_settings( $options );
 			}
 		}
