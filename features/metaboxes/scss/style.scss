@@ -1743,7 +1743,7 @@ $accent: #07d3f8;
 	.gmap_pins_container {
 		flex-basis: 100%;
 	}
-	
+
 	// Hide default field description
 	.cmb_metabox_description {
 		display: none;
@@ -1755,6 +1755,7 @@ $accent: #07d3f8;
 	// padding-bottom: 30px;
 
 	.gmap_pin {
+		position: relative;
 		display: flex;
 		justify-content: space-between;
 		& > * {
@@ -1770,7 +1771,10 @@ $accent: #07d3f8;
 		}
 
 		.pin_delete {
-			flex-basis: 2%;
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			right: -12px;
 			opacity: 0;
 			color: #AA0000;
 		}
@@ -1938,7 +1942,7 @@ $accent: #07d3f8;
 	&:last-of-type {
 		padding-bottom: 0;
 	}
-	
+
 	& + .cmb-type {
 		border-top: 1px solid #EEEEEE;
 	}
@@ -1953,7 +1957,7 @@ $accent: #07d3f8;
 	// Sidebar
 	#postbox-container-1 & {
 		padding: 10px 0;
-		
+
 		+ .cmb-type {
 			border-top: none;
 		}
@@ -2063,11 +2067,11 @@ $accent: #07d3f8;
 			display: none;
 		}
 	}
-	.cmb-type-wysiwyg, 
-	// .cmb-type-textarea_small, 
-	// .cmb-type-textarea, 
+	.cmb-type-wysiwyg,
+	// .cmb-type-textarea_small,
+	// .cmb-type-textarea,
 	// .cmb-type-textarea_medium,
-	// .cmb-type-text, 
+	// .cmb-type-text,
 	{
 	  .cmb_metabox_description {
 		flex-basis: 100%;
@@ -2102,25 +2106,25 @@ $accent: #07d3f8;
 	width: 100%;
 }
 .cmb_metabox {
-	input[type=text], 
-	input[type=search], 
-	input[type=tel], 
-	input[type=time], 
-	input[type=url], 
-	input[type=week], 
-	input[type=password], 
-	input[type=date], 
-	input[type=datetime], 
-	input[type=datetime-local], 
-	input[type=email], 
+	input[type=text],
+	input[type=search],
+	input[type=tel],
+	input[type=time],
+	input[type=url],
+	input[type=week],
+	input[type=password],
+	input[type=date],
+	input[type=datetime],
+	input[type=datetime-local],
+	input[type=email],
 	input[type=month],
-	input[type=number], 
-	select, 
-	// textarea 
+	input[type=number],
+	select,
+	// textarea
 	{
 		@extend %input-fields;
 	}
-	
+
 }
 
 .cmb_metabox select,
@@ -2178,7 +2182,7 @@ $accent: #07d3f8;
 	display: flex;
 	flex-wrap: nowrap;
     align-items: flex-start;
-	
+
 	// Checkbox
 	input[type=checkbox],
 	input[type=radio] {
@@ -2281,7 +2285,7 @@ $accent: #07d3f8;
 		    right: -19px;
 		}
 	}
-	
+
 }
 
 .cmb-type-text_range output {

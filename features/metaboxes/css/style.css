@@ -2934,6 +2934,7 @@ div.time-picker li.selected {
 .gmap_pins_container {
   position: relative; }
   .gmap_pins_container .gmap_pin {
+    position: relative;
     display: flex;
     justify-content: space-between; }
     .gmap_pins_container .gmap_pin > * {
@@ -2943,7 +2944,10 @@ div.time-picker li.selected {
     .gmap_pins_container .gmap_pin .pin_name {
       flex-basis: 29%; }
     .gmap_pins_container .gmap_pin .pin_delete {
-      flex-basis: 2%;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: -12px;
       opacity: 0;
       color: #AA0000; }
     .gmap_pins_container .gmap_pin:hover .pin_delete {
@@ -3413,7 +3417,7 @@ body .mce-toolbar.mce-last .mce-container.mce-first .mce-menubtn.mce-first .mce-
   .cmb-type-colorpicker .wp-color-result:after {
     content: none; }
   .cmb-type-colorpicker .wp-color-result .wp-color-result-text {
-      display: none; }
+    display: none; }
 .cmb-type-colorpicker .wp-picker-container {
   position: absolute;
   right: 0;
