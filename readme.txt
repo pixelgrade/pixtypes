@@ -2,9 +2,9 @@
 Contributors: pixelgrade, euthelup, babbardel, vlad.olaru, cristianfrumusanu, razvanonofrei
 Tags: custom, post-types, metadata, builder, gallery
 Requires at least: 4.9.9
-Tested up to: 5.2.2
+Tested up to: 5.7.0
 Requires PHP: 5.3.0
-Stable tag: 1.4.13
+Stable tag: 1.4.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,6 +23,9 @@ Note: This plugin is addressed to developers, it doesn't do nothing if it isn't 
 3. After activating PixTypes all your custom post-types should be visible now.
 
 == Changelog ==
+
+= 1.4.14 =
+* Improve compatibility with WordPress 5.7.
 
 = 1.4.13 =
 * Fixed a bug where, on some themes, metaboxes would still not appear when Gutenberg editor was active.
