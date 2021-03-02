@@ -44,7 +44,7 @@ jQuery(document).ready(function ($) {
 		}
 	}
 
-	$(window).load(function () {
+	$(window).on('load', function () {
 		verifyFormatMetaboxes();
 	});
 

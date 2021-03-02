@@ -1,5 +1,5 @@
 (function ($) {
-	$(window).load(function () {
+	$(window).on('load', function () {
 		// Link any localized strings.
 		var l10n = wp.media.view.l10n = typeof _wpMediaViewsL10n === 'undefined' ? {} : _wpMediaViewsL10n;
 

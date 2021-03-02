@@ -353,7 +353,7 @@
 
 	}; /* get_block_template */
 
-	$(window).load(function () {
+	$(window).on('load', function () {
 
 		var last_opened_block = {};
 		wp.media.controller.PixBuilderSingleImage = wp.media.controller.FeaturedImage.extend({
