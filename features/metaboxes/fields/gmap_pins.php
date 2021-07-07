@@ -31,7 +31,10 @@ global $post; ?>
 			}
 		}
 
+		$counter = 0;
+
 		foreach ( $meta as $key => $pin ) { ?>
+
 			<li class="gmap_pin">
 				<fieldset class="pin_location_url">
 					<label
@@ -45,7 +48,11 @@ global $post; ?>
 					<input type="text" name="<?php echo $field['id']; ?>[<?php echo $key ?>][name]"
 					       value="<?php echo $pin['name']; ?>"/>
 				</fieldset>
-				<span class="pin_delete"></span>
+                <?php if( $counter > 0 ) { ?>
+				    <span class="pin_delete"></span>
+                <?php }
+                    $counter++;
+                ?>
 			</li>
 		<?php } ?>
 	</ul>
