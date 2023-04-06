@@ -3,12 +3,12 @@
  * Plugin Name: PixTypes
  * Plugin URI: https://wordpress.org/plugins/pixtypes/
  * Description: Custom post types and meta-boxes needed by your themes.
- * Version: 1.4.14
+ * Version: 1.4.15
  * Author: Pixelgrade
  * Author URI: https://pixelgrade.com
  * Author Email: contact@pixelgrade.com
  * Requires at least: 4.9.9
- * Tested up to: 5.7.0
+ * Tested up to: 5.9
  * Text Domain: pixtypes
  * License:     GPL-2.0 or later.
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -60,4 +60,4 @@ register_activation_hook( __FILE__, array( 'PixTypesPlugin', 'activate' ) );
 //register_deactivation_hook( __FILE__, array( 'PixTypesPlugin', 'deactivate' ) );
 
 global $pixtypes_plugin;
-$pixtypes_plugin = PixTypesPlugin::get_instance( '1.4.14' );
+$pixtypes_plugin = PixTypesPlugin::get_instance( '1.4.15' );

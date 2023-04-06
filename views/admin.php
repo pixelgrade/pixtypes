@@ -53,6 +53,8 @@ $errors    = $processor->errors(); ?>
 
 		<?php echo $f->field( 'taxonomies' )->render(); ?>
 
+		<?php wp_nonce_field( 'pixtypes-save-settings' ); ?>
+
 		<button type="submit" class="button button-primary">
 			<?php esc_html_e( 'Save Changes', 'pixtypes' ); ?>
 		</button>

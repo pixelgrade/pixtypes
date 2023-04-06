@@ -9,6 +9,8 @@
 
 function save_pixtypes_settings( $values ){
 
+	check_admin_referer( 'pixtypes-save-settings' );
+
 	if ( class_exists('wpgrade') ) {
 		$current_theme = wpgrade::shortname();
 	} else {

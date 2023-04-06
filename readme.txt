@@ -1,10 +1,10 @@
 === PixTypes ===
-Contributors: pixelgrade, euthelup, babbardel, vlad.olaru, cristianfrumusanu, razvanonofrei
+Contributors: pixelgrade, babbardel, vlad.olaru, razvanonofrei
 Tags: custom, post-types, metadata, builder, gallery
 Requires at least: 4.9.9
-Tested up to: 5.7.0
+Tested up to: 5.9
 Requires PHP: 5.3.0
-Stable tag: 1.4.14
+Stable tag: 1.4.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,6 +23,9 @@ Note: This plugin is addressed to developers, it doesn't do nothing if it isn't 
 3. After activating PixTypes all your custom post-types should be visible now.
 
 == Changelog ==
+
+= 1.4.15 =
+* Security fix.
 
 = 1.4.14 =
 * Improve compatibility with WordPress 5.7.
