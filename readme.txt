@@ -2,9 +2,9 @@
 Contributors: pixelgrade, babbardel, vlad.olaru, razvanonofrei
 Tags: custom, post-types, metadata, builder, gallery
 Requires at least: 4.9.9
-Tested up to: 5.9
+Tested up to: 6.3.0
 Requires PHP: 5.3.0
-Stable tag: 1.4.15
+Stable tag: 1.4.16
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,8 +24,11 @@ Note: This plugin is addressed to developers, it doesn't do nothing if it isn't 
 
 == Changelog ==
 
+= 1.4.16 =
+* XSS Security fix.
+
 = 1.4.15 =
-* Security fix.
+* CSRF Security fix.
 
 = 1.4.14 =
 * Improve compatibility with WordPress 5.7.
