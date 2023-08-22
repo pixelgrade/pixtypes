@@ -138,52 +138,11 @@ function theme_getting_active () {
 }
 ```
 
-=== Old Change Log  ===
-
-1.3.5
-Improved the multicheck field
-
-1.3.2
-WordPress 4.3 compatibility
-Fixed Sticky buttons for the PixBuilder field
-
-1.3.1
-
-Allow portfolio to be a jetpack compatible type
-Small fixes to the gallery field
-
-1.2.10
-
-Show / Hide options bug fix
-
-1.2.9
-
-Gmap pins added
-
-1.2.6
-
-Builder field added
-Support for wp 4.0
-Small fixes
-
-1.2.2
-
-Small fixes to metaboxes
-
-1.2.1
-
-Github Updater slug fix
-And small fixes...
-
-1.2.0
-
-Ajax Update
-Gallery Metabox works now even if there is no wp-editor on page
-And small fixes...
-
-1.1.0
-
-Add admin panel
-Fixes
-
-1.0.0 - Here we go
+## Development Notes
+Gulp 3.x doesn't work on Node.js 12.x or above. You have to downgrade Node.js to 11.5.0
+```
+nvm install 11.15.0
+nvm use 11.15.0 # Just in case it didn't automatically select the 11.15.0 as the main node.
+nvm uninstall 13.1.0
+npm rebuild node-sass
+```
