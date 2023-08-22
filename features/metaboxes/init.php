@@ -1121,7 +1121,7 @@ function cmb_editor_footer_scripts() {
 		} ?>
 		<script type="text/javascript">
 			jQuery(function ($) {
-				$('td.savesend input').val('<?php echo $label; ?>');
+				$('td.savesend input').val('<?php echo esc_html( $label , 'pixtypes' ); ?>');
 			});
 		</script>
 		<?php
