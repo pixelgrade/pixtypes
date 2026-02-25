@@ -33,14 +33,14 @@ add_filter( 'cmb_render_pw_multiselect_cpt', 'pw_select2', 10, 2 );
  * Render select box field
  */
 function pw_select( $field, $meta ) {
-	echo '<select name="', $field['id'], '" id="', $field['id'], '" data-placeholder="' . $field['desc'] . '" class="select2">';
+	echo '<select name="', esc_attr( $field['id'] ), '" id="', esc_attr( $field['id'] ), '" data-placeholder="' . esc_attr( $field['desc'] ) . '" class="select2">';
 	echo '<option></option>';
 	if ( isset( $field['options'] ) && ! empty( $field['options'] ) ) {
 		foreach ( $field['options'] as $option_key => $option ) {
 			$opt_label = is_array( $option ) && array_key_exists( 'name', $option ) ? $option['name'] : $option;
 			$opt_value = is_array( $option ) && array_key_exists( 'value', $option ) ? $option['value'] : $option_key;
 
-			echo '<option value="', $opt_value, '" ', selected( $meta == $opt_value ) ,'>', $opt_label, '</option>';
+			echo '<option value="', esc_attr( $opt_value ), '" ', selected( $meta == $opt_value ) ,'>', esc_html( $opt_label ), '</option>';
 		}
 	}
 	echo '</select>';
@@ -70,7 +70,7 @@ function pw_multiselect( $field, $meta ) {
 		$meta = implode( ',', $meta );
 	}
 
-	echo '<input type="hidden" name="' . $field['id'] . '" id="' . $field['id'] . '" data-placeholder="' . $field['desc'] . '" class="select2" value="' . $meta . '" />';
+	echo '<input type="hidden" name="' . esc_attr( $field['id'] ) . '" id="' . esc_attr( $field['id'] ) . '" data-placeholder="' . esc_attr( $field['desc'] ) . '" class="select2" value="' . esc_attr( $meta ) . '" />';
 }
 
 /**
@@ -107,7 +107,7 @@ function pw_multiselect_cpt( $field, $meta ) {
 		$meta = implode( ',', $meta );
 	}
 
-	echo '<input type="hidden" name="' . $field['id'] . '" id="' . $field['id'] . '" data-placeholder="' . $field['desc'] . '" class="select2" value="' . $meta . '" />';
+	echo '<input type="hidden" name="' . esc_attr( $field['id'] ) . '" id="' . esc_attr( $field['id'] ) . '" data-placeholder="' . esc_attr( $field['desc'] ) . '" class="select2" value="' . esc_attr( $meta ) . '" />';
 }
 
 /**

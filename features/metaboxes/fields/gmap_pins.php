@@ -16,7 +16,7 @@ wp_localize_script( 'gmap_pins', 'l18n_gmap_pins', array(
 
 global $post; ?>
 <div class="gmap_pins_container">
-	<ul class="gmap_pins" data-field_name="<?php echo $field['id']; ?>">
+	<ul class="gmap_pins" data-field_name="<?php echo esc_attr( $field['id'] ); ?>">
 		<?php if ( empty( $meta ) ) {
 			$meta = array(
 				1 => array(
@@ -35,15 +35,15 @@ global $post; ?>
 			<li class="gmap_pin">
 				<fieldset class="pin_location_url">
 					<label
-						for="<?php echo $field['id']; ?>[<?php echo $key ?>][location_url]">#<?php echo $key . ' ' . esc_html__( 'Location URL', 'pixtypes' ); ?></label>
-					<input type="text" name="<?php echo $field['id']; ?>[<?php echo $key ?>][location_url]"
-					       value="<?php echo $pin['location_url']; ?>"/>
+						for="<?php echo esc_attr( $field['id'] ); ?>[<?php echo esc_attr( $key ); ?>][location_url]">#<?php echo esc_html( $key ) . ' ' . esc_html__( 'Location URL', 'pixtypes' ); ?></label>
+					<input type="text" name="<?php echo esc_attr( $field['id'] ); ?>[<?php echo esc_attr( $key ); ?>][location_url]"
+					       value="<?php echo esc_attr( $pin['location_url'] ); ?>"/>
 				</fieldset>
 				<fieldset class="pin_name">
 					<label
-						for="<?php echo $field['id']; ?>[<?php echo $key ?>][name]"><?php esc_html_e( 'Name', 'pixtypes' ); ?></label>
-					<input type="text" name="<?php echo $field['id']; ?>[<?php echo $key ?>][name]"
-					       value="<?php echo $pin['name']; ?>"/>
+						for="<?php echo esc_attr( $field['id'] ); ?>[<?php echo esc_attr( $key ); ?>][name]"><?php esc_html_e( 'Name', 'pixtypes' ); ?></label>
+					<input type="text" name="<?php echo esc_attr( $field['id'] ); ?>[<?php echo esc_attr( $key ); ?>][name]"
+					       value="<?php echo esc_attr( $pin['name'] ); ?>"/>
 				</fieldset>
 				<span class="pin_delete"></span>
 			</li>
@@ -53,6 +53,6 @@ global $post; ?>
 	<span class="button add_new_location"><?php esc_html_e( 'Add New Location', 'pixtypes' ) ?></span>
 
 	<?php if ( isset( $field['desc'] ) && ! empty( $field['desc'] ) ) { ?>
-		<span class="cmb_metabox_description"><?php echo $field['desc']; ?></span>
+		<span class="cmb_metabox_description"><?php echo wp_kses_post( $field['desc'] ); ?></span>
 	<?php } ?>
 </div>

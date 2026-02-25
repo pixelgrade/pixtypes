@@ -56,15 +56,15 @@ class PixtypesHTMLTagImpl implements PixtypesHTMLTag {
 			if ($value !== false && $value !== null) {
 				if ( ! empty($value)) {
 					if (is_array($value)) {
-						$htmlvalue = implode(' ', $value);
+						$htmlvalue = esc_attr( implode(' ', $value) );
 						$attr_segments[] = "$key=\"$htmlvalue\"";
 					}
 					else { // value is not an array
-						$attr_segments[] = "$key=\"$value\"";
+						$attr_segments[] = "$key=\"" . esc_attr( $value ) . "\"";
 					}
 				}
 				else { // empty html tag; ie. no value html tag
-					$attr_segments[] = $key;
+					$attr_segments[] = esc_attr( $key );
 				}
 			}
 		}

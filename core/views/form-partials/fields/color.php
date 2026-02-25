@@ -9,5 +9,5 @@
 	/* @var string $rendering */
 
 	$type = 'color';
-	include 'text'.EXT;
+	include 'text'.PIXTYPES_EXT;
 

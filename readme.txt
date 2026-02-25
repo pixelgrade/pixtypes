@@ -1,10 +1,10 @@
 === PixTypes ===
 Contributors: pixelgrade, babbardel, vlad.olaru, razvanonofrei
 Tags: custom, post-types, metadata, builder, gallery
-Requires at least: 4.9.9
-Tested up to: 6.3.0
-Requires PHP: 5.3.0
-Stable tag: 1.4.16
+Requires at least: 6.0
+Tested up to: 6.9.1
+Requires PHP: 7.4
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,6 +23,23 @@ Note: This plugin is addressed to developers, it doesn't do nothing if it isn't 
 3. After activating PixTypes all your custom post-types should be visible now.
 
 == Changelog ==
+
+= 2.0.0 =
+* Security: Fixed Stored XSS vulnerability in HTML attribute rendering (HTMLTag class).
+* Security: Fixed Reflected XSS via field_id parameter in oEmbed handler.
+* Security: Fixed XSS via cmb_send_label using proper JS escaping (wp_json_encode).
+* Security: Added nonce verification and capability checks to gallery AJAX preview handler.
+* Security: Added nonce verification and capability checks to playlist AJAX preview handler.
+* Security: Added capability check (manage_options) to theme settings cleanup AJAX handler.
+* Security: Removed URL-controllable debug mode; now tied to WP_DEBUG constant.
+* Security: Added output escaping throughout admin views and form templates.
+* Security: Restricted POST input processing to expected fields only.
+* Security: Sanitized all $_GET/$_POST/$_REQUEST superglobal usage with appropriate functions.
+* Security: Updated nonce action strings to use specific identifiers.
+* Improvement: Prefixed all global functions with pixtypes_ to prevent namespace collisions.
+* Improvement: Removed deprecated &$this reference patterns for PHP 8 compatibility.
+* Improvement: Updated minimum requirements to WordPress 6.0 and PHP 7.4.
+* Improvement: Replaced EXT constant with PIXTYPES_EXT to avoid conflicts.
 
 = 1.4.16 =
 * XSS Security fix.

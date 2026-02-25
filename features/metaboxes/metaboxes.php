@@ -9,7 +9,7 @@
  */
 
 
-function load_metaboxes_fromdb( $meta_boxes ) {
+function pixtypes_load_metaboxes_fromdb( $meta_boxes ) {
 	// make sure we are in good working order
 	if ( empty( $meta_boxes ) ) {
 		$meta_boxes = array();
@@ -39,7 +39,7 @@ function load_metaboxes_fromdb( $meta_boxes ) {
 
 	return $meta_boxes;
 }
-add_filter( 'cmb_meta_boxes', 'load_metaboxes_fromdb', 1 );
+add_filter( 'cmb_meta_boxes', 'pixtypes_load_metaboxes_fromdb', 1 );
 
 /**
  * This is just a wrapper that provides an agnostic filter name, rather than relying on CMB's hook.
@@ -48,7 +48,7 @@ add_filter( 'cmb_meta_boxes', 'load_metaboxes_fromdb', 1 );
  *
  * @return array
  */
-function gather_metaboxes_dynamically( $meta_boxes ) {
+function pixtypes_gather_metaboxes_dynamically( $meta_boxes ) {
 	// make sure we are in good working order
 	if ( empty( $meta_boxes ) ) {
 		$meta_boxes = array();
@@ -56,12 +56,12 @@ function gather_metaboxes_dynamically( $meta_boxes ) {
 
 	return apply_filters( 'pixelgrade_filter_metaboxes', $meta_boxes );
 }
-add_filter( 'cmb_meta_boxes', 'gather_metaboxes_dynamically', 10 );
+add_filter( 'cmb_meta_boxes', 'pixtypes_gather_metaboxes_dynamically', 10 );
 
 /*
  * Initialize the metabox class.
  */
-function cmb_initialize_cmb_meta_boxes() {
+function pixtypes_cmb_initialize_meta_boxes() {
 
 	if ( ! class_exists( 'cmb_Meta_Box' ) ) {
 		require_once 'init.php';
@@ -71,4 +71,4 @@ function cmb_initialize_cmb_meta_boxes() {
 	}
 
 }
-add_action( 'init', 'cmb_initialize_cmb_meta_boxes', 9999 );
+add_action( 'init', 'pixtypes_cmb_initialize_meta_boxes', 9999 );

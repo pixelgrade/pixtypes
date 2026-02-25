@@ -3,12 +3,13 @@
  * Plugin Name: PixTypes
  * Plugin URI: https://wordpress.org/plugins/pixtypes/
  * Description: Custom post types and meta-boxes needed by your themes.
- * Version: 1.4.16
+ * Version: 2.0.0
  * Author: Pixelgrade
  * Author URI: https://pixelgrade.com
  * Author Email: contact@pixelgrade.com
- * Requires at least: 4.9.9
- * Tested up to: 6.3.0
+ * Requires at least: 6.0
+ * Tested up to: 6.7
+ * Requires PHP: 7.4
  * Text Domain: pixtypes
  * License:     GPL-2.0 or later.
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -20,21 +21,21 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-// ensure EXT is defined
-if ( ! defined( 'EXT' ) ) {
-	define( 'EXT', '.php' );
+// ensure PIXTYPES_EXT is defined
+if ( ! defined( 'PIXTYPES_EXT' ) ) {
+	define( 'PIXTYPES_EXT', '.php' );
 }
 
-require 'core/bootstrap' . EXT;
+require 'core/bootstrap' . PIXTYPES_EXT;
 
-$config = include 'plugin-config' . EXT;
+$config = include 'plugin-config' . PIXTYPES_EXT;
 // set textdomain
 pixtypes::settextdomain( $config['textdomain'] );
 
 // Ensure Test Data
 // ----------------
 
-$defaults = include 'plugin-defaults' . EXT;
+$defaults = include 'plugin-defaults' . PIXTYPES_EXT;
 
 $current_data = get_option( $config['settings-key'] );
 
@@ -60,4 +61,4 @@ register_activation_hook( __FILE__, array( 'PixTypesPlugin', 'activate' ) );
 //register_deactivation_hook( __FILE__, array( 'PixTypesPlugin', 'deactivate' ) );
 
 global $pixtypes_plugin;
-$pixtypes_plugin = PixTypesPlugin::get_instance( '1.4.15' );
+$pixtypes_plugin = PixTypesPlugin::get_instance( '2.0.0' );

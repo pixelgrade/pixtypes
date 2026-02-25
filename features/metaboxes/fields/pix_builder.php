@@ -4,7 +4,7 @@
 	$gridster_params = '';
 
 	if( isset( $field['gridster_params'] ) ) {
-		$gridster_params = ' data-params=\'' . json_encode( $field['gridster_params'] ) . '\'';
+		$gridster_params = ' data-params=\'' . esc_attr( wp_json_encode( $field['gridster_params'] ) ) . '\'';
 	}
 
 	global $post;
@@ -23,13 +23,13 @@
 	$post_type = get_post_type();
 	if ( $post_type !== 'page' ) {
 		echo '<style>
-		.post-type-' . $post_type . ' #postdivrich {
+		.post-type-' . esc_html( sanitize_html_class( $post_type ) ) . ' #postdivrich {
 			display: none !important;
 		}
 		</style>';
 	}
 
-	echo '<input type="hidden" name="', $field['id'], '" id="pix_builder" value="', '' !== $meta ? htmlspecialchars( $meta ) : $content, '" ' . $gridster_params . ' ' . ( $base64_decode ? 'data-base64_encoded="true"' : '' ) .' />'; ?>
+	echo '<input type="hidden" name="', esc_attr( $field['id'] ), '" id="pix_builder" value="', '' !== $meta ? esc_attr( $meta ) : esc_attr( $content ), '" ' . $gridster_params . ' ' . ( $base64_decode ? 'data-base64_encoded="true"' : '' ) .' />'; ?>
 	<div class="pixbuilder-controls">
 		<button class="add_block button button-primary button-large"
 		        value="image"> <?php esc_html_e( '+ Add Image', 'pixtypes' ); ?></button>
@@ -77,12 +77,12 @@
 										$attach = wp_get_attachment_image_src( $block->content );
 
 										if ( isset( $attach[0] ) && ! empty( $attach[0] ) ) {
-											$content          = '<img class="image_preview" src="' . $attach[0] . '">';
-											$controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' . $block->content . '"><span>' . esc_html__( 'Set Image', 'pixtypes' ) . '</span></a>';
+											$content          = '<img class="image_preview" src="' . esc_url( $attach[0] ) . '">';
+											$controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' . esc_attr( $block->content ) . '"><span>' . esc_html__( 'Set Image', 'pixtypes' ) . '</span></a>';
 										}
 									} else {
 										$content          = '<img class="image_preview">';
-										$controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' . $block->content . '"><span>' . esc_html__( 'Set Image', 'pixtypes' ) . '</pan></a>';
+										$controls_content = '<a class="open_media" href="#" class="wp-gallery" data-attachment_id="' . esc_attr( $block->content ) . '"><span>' . esc_html__( 'Set Image', 'pixtypes' ) . '</pan></a>';
 									}
 								}
 								break;
@@ -114,10 +114,10 @@
 								$middle_status = '';
 							}
 						} ?>
-						<li id="block_<?php echo $block->id ?>" class="block-type--<?php echo $block->type; ?> item"
-						    data-type="<?php echo $block->type ?>" data-row="<?php echo $block->row ?>"
-						    data-col="<?php echo $block->col ?>" data-sizex="<?php echo $block->size_x ?>"
-						    data-sizey="<?php echo $block->size_y ?>">
+						<li id="block_<?php echo esc_attr( $block->id ); ?>" class="block-type--<?php echo esc_attr( $block->type ); ?> item"
+						    data-type="<?php echo esc_attr( $block->type ); ?>" data-row="<?php echo esc_attr( $block->row ); ?>"
+						    data-col="<?php echo esc_attr( $block->col ); ?>" data-sizex="<?php echo esc_attr( $block->size_x ); ?>"
+						    data-sizey="<?php echo esc_attr( $block->size_y ); ?>">
 							<div class="item__controls">
 								<ul class="nav nav--controls">
 									<li class="edit"><?php echo $controls_content ?></li>
@@ -130,29 +130,29 @@
 													<div
 														class="position__ui-cell top <?php echo 0 == intval($block->position['top']) ? '' : 'active'; ?>">
 														<div class="position__ui-handle"
-														     data-step="<?php echo $block->position['top']; ?>"><?php esc_html_e( 'top', 'pixtypes' ); ?></div>
+														     data-step="<?php echo esc_attr( $block->position['top'] ); ?>"><?php esc_html_e( 'top', 'pixtypes' ); ?></div>
 													</div>
 												</div>
 												<div class="position__ui-row">
 													<div
 														class="position__ui-cell left <?php echo 0 == intval($block->position['left']) ? '' : 'active'; ?>">
 														<div class="position__ui-handle"
-														     data-step="<?php echo $block->position['left']; ?>"><?php esc_html_e( 'left', 'pixtypes' ); ?></div>
+														     data-step="<?php echo esc_attr( $block->position['left'] ); ?>"><?php esc_html_e( 'left', 'pixtypes' ); ?></div>
 													</div>
-													<div class="position__ui-cell middle <?php echo $middle_status; ?>">
+													<div class="position__ui-cell middle <?php echo esc_attr( $middle_status ); ?>">
 														<div class="position__ui-handle">middle</div>
 													</div>
 													<div
 														class="position__ui-cell right <?php echo 0 == intval($block->position['right']) ? '' : 'active'; ?>">
 														<div class="position__ui-handle"
-														     data-step="<?php echo $block->position['right']; ?>"><?php esc_html_e( 'right', 'pixtypes' ); ?></div>
+														     data-step="<?php echo esc_attr( $block->position['right'] ); ?>"><?php esc_html_e( 'right', 'pixtypes' ); ?></div>
 													</div>
 												</div>
 												<div class="position__ui-row">
 													<div
 														class="position__ui-cell bottom <?php echo 0 == intval($block->position['bottom']) ? '' : 'active'; ?>">
 														<div class="position__ui-handle"
-														     data-step="<?php echo $block->position['bottom']; ?>"><?php esc_html_e( 'bottom', 'pixtypes' ); ?></div>
+														     data-step="<?php echo esc_attr( $block->position['bottom'] ); ?>"><?php esc_html_e( 'bottom', 'pixtypes' ); ?></div>
 													</div>
 												</div>
 											</div>
@@ -163,7 +163,7 @@
 									<li class="move drag_handler"></li>
 								</ul>
 							</div>
-							<div class="item__content block_content <?php echo $empty_class; ?>">
+							<div class="item__content block_content <?php echo esc_attr( $empty_class ); ?>">
 								<?php echo $content ?>
 							</div>
 						</li>
@@ -174,8 +174,8 @@
 		</ul>
 	</div>
 </div>
-<?php add_action( 'admin_footer', 'my_admin_footer_function' );
-function my_admin_footer_function() { ?>
+<?php add_action( 'admin_footer', 'pixtypes_admin_footer_function' );
+function pixtypes_admin_footer_function() { ?>
 	<div class="pix_builder_editor_modal_container" style="display:none">
 		<div class="modal_wrapper">
 			<div class="media-modal wp-core-ui">

@@ -54,11 +54,11 @@
 <?php elseif ($rendering == 'blocks'):  ?>
 	<div class="switch">
 		<input <?php echo $field->htmlattributes($attrs) ?> />
-		<label for="<?php echo $idname ?>"><?php echo $processed_label ?></label>
+		<label for="<?php echo esc_attr( $idname ) ?>"><?php echo wp_kses_post( $processed_label ) ?></label>
 	</div>
 <?php else: # rendering != 'inline' ?>
-	<label for="<?php echo $idname ?>">
+	<label for="<?php echo esc_attr( $idname ) ?>">
 		<input <?php echo $field->htmlattributes($attrs) ?> />
-		<?php echo $processed_label ?>
+		<?php echo wp_kses_post( $processed_label ) ?>
 	</label>
 <?php endif; ?>

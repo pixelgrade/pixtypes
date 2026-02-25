@@ -33,14 +33,14 @@ add_filter( 'cmb_render_pw_multiselect_cpt_v2', 'pw_select2_v2', 10, 2 );
  * Render select box field
  */
 function pw_select_v2( $field, $meta ) {
-	echo '<select name="', $field['id'], '" id="', $field['id'], '" data-placeholder="' . $field['desc'] . '" class="select2">';
+	echo '<select name="', esc_attr( $field['id'] ), '" id="', esc_attr( $field['id'] ), '" data-placeholder="' . esc_attr( $field['desc'] ) . '" class="select2">';
 	echo '<option></option>';
 	if ( isset( $field['options'] ) && ! empty( $field['options'] ) ) {
 		foreach ( $field['options'] as $option_key => $option ) {
 			$opt_label = is_array( $option ) && array_key_exists( 'name', $option ) ? $option['name'] : $option;
 			$opt_value = is_array( $option ) && array_key_exists( 'value', $option ) ? $option['value'] : $option_key;
 
-			echo '<option value="', $opt_value, '" ', selected( $meta == $opt_value ) ,'>', $opt_label, '</option>';
+			echo '<option value="', esc_attr( $opt_value ), '" ', selected( $meta == $opt_value ) ,'>', esc_html( $opt_label ), '</option>';
 		}
 	}
 	echo '</select>';
@@ -52,14 +52,14 @@ function pw_select_v2( $field, $meta ) {
 function pw_multiselect_v2( $field, $meta ) {
 	$options = array();
 
-	echo '<select name="', $field['id'], '[]" id="', $field['id'], '" data-placeholder="' . $field['desc'] . '" class="select2">';
+	echo '<select name="', esc_attr( $field['id'] ), '[]" id="', esc_attr( $field['id'] ), '" data-placeholder="' . esc_attr( $field['desc'] ) . '" class="select2">';
 	echo '<option></option>';
 	if ( isset( $field['options'] ) && ! empty( $field['options'] ) ) {
 		foreach ( $field['options'] as $option_key => $option ) {
 			$opt_label = is_array( $option ) && array_key_exists( 'name', $option ) ? $option['name'] : $option;
 			$opt_value = is_array( $option ) && array_key_exists( 'value', $option ) ? $option['value'] : $option_key;
 
-			echo '<option value="', $opt_value, '" ', selected( $meta == $opt_value ) ,'>', $opt_label, '</option>';
+			echo '<option value="', esc_attr( $opt_value ), '" ', selected( $meta == $opt_value ) ,'>', esc_html( $opt_label ), '</option>';
 		}
 	}
 	echo '</select>';
@@ -85,11 +85,11 @@ function pw_multiselect_cpt_v2( $field, $meta ) {
 			$meta = explode(  ',', $meta );
 		}
 
-		echo '<select name="', $field['id'], '[]" id="', $field['id'], '" data-placeholder="' . $field['desc'] . '" data-allow-clear="false" multiple class="select2">';
+		echo '<select name="', esc_attr( $field['id'] ), '[]" id="', esc_attr( $field['id'] ), '" data-placeholder="' . esc_attr( $field['desc'] ) . '" data-allow-clear="false" multiple class="select2">';
 
 		if ( ! empty( $cpt_posts ) ) {
 			foreach ( $cpt_posts as $post ) {
-				echo '<option value="', $post->ID, '" ', selected( in_array( $post->ID, $meta ), true ) ,'>', $post->post_title, '</option>';
+				echo '<option value="', esc_attr( $post->ID ), '" ', selected( in_array( $post->ID, $meta ), true ) ,'>', esc_html( $post->post_title ), '</option>';
 			}
 		}
 

@@ -120,7 +120,7 @@
 
 		if ( ids !== '' ) {
 			$.ajax({
-				type: "post", url: locals.ajax_url, data: {action: 'ajax_pixgallery_preview', attachments_ids: ids},
+				type: "post", url: locals.ajax_url, data: {action: 'ajax_pixgallery_preview', attachments_ids: ids, nonce: locals.nonce},
 				beforeSend: function () {
 					$('.open_pixgallery i').removeClass('dashicons-images-alt2');
 					$('.open_proof_pixgallery i').addClass('dashicons-update');

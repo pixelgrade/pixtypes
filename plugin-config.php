@@ -2,10 +2,7 @@
 
 $basepath = dirname( __FILE__ ) . DIRECTORY_SEPARATOR;
 
-$debug = false;
-if ( isset( $_GET['debug'] ) && $_GET['debug'] == 'true' ) {
-	$debug = true;
-}
+$debug = defined( 'WP_DEBUG' ) && WP_DEBUG;
 
 $options = get_option( 'pixtypes_settings' );
 
@@ -29,11 +26,11 @@ return array(
 
 	'fields' => array(
 		'hiddens'
-		=> include 'settings/hiddens' . EXT,
+		=> include 'settings/hiddens' . PIXTYPES_EXT,
 		'post_types'
-		=> include 'settings/post_types' . EXT,
+		=> include 'settings/post_types' . PIXTYPES_EXT,
 		'taxonomies'
-		=> include 'settings/taxonomies' . EXT,
+		=> include 'settings/taxonomies' . PIXTYPES_EXT,
 	),
 
 	'processor' => array(

@@ -11,13 +11,13 @@
 
 <tr valign="top">
 	<th scope="row">
-		<?php echo $label ?>
+		<?php echo esc_html( $label ) ?>
 	</th>
 	<td>
 		<fieldset>
 
 			<legend class="screen-reader-text">
-				<span><?php echo $label ?></span>
+				<span><?php echo esc_html( $label ) ?></span>
 			</legend>
 
 			<?php foreach ($field->getmeta('options', array()) as $fieldname => $conf): ?>
@@ -27,7 +27,7 @@
 
 			<?php if ($field->hasmeta('note')): ?>
 				<small>
-					<em>(<?php echo $field->getmeta('note') ?>)</em>
+					<em>(<?php echo esc_html( $field->getmeta('note') ) ?>)</em>
 				</small>
 			<?php endif; ?>
 

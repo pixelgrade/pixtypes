@@ -154,6 +154,10 @@ class PixtypesProcessorImpl implements PixtypesProcessor {
 		$defaults = pixtypes::defaults();
 		$plugin_cleanup = $this->meta->get('cleanup', array());
 
+		// Only process expected fields — discard any extra $_POST keys.
+		$allowed_keys = array_keys( $this->fields->metadata_array() );
+		$input = array_intersect_key( $input, array_flip( $allowed_keys ) );
+
 		foreach ($this->fields->metadata_array() as $key => $field) {
 
 			// ensure a value is present

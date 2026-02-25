@@ -11,7 +11,7 @@
 ?>
 <div class="postbox">
 	<div class="handlediv" title="Click to toggle"><br></div>
-	<h3 class="hndle"><span><?php echo $label ?></span></h3>
+	<h3 class="hndle"><span><?php echo esc_html( $label ) ?></span></h3>
 
 	<div class="inside">
 		<?php foreach ($field->getmeta('options', array()) as $fieldname => $fieldconfig):
@@ -23,13 +23,13 @@
 			$fielddesc = $field->getmeta('desc', null);
 			$show_group = $field->getmeta('show_group', null);  ?>
 
-			<div class="row" <?php if ( $fieldconfig['type'] == 'group' ) echo 'id="' . $fieldname . '"'; ?>>
+			<div class="row" <?php if ( $fieldconfig['type'] == 'group' ) echo 'id="' . esc_attr( $fieldname ) . '"'; ?>>
 				<?php if ( ! empty($fielddesc)): ?>
-					<div class="field-desc"><?php echo $fielddesc ?></div>
+					<div class="field-desc"><?php echo esc_html( $fielddesc ) ?></div>
 				<?php endif;
 				echo $field->render();
 				if ( ! empty($fieldnote)): ?>
-					<span class="note"><?php echo $fieldnote ?></span>
+					<span class="note"><?php echo esc_html( $fieldnote ) ?></span>
 				<?php endif; ?>
 			</div>
 

@@ -64,7 +64,7 @@ $meta_rows = json_decode($meta, true);?>
         }
     }
 
-    echo '<input type="hidden" name="'. $field['id'] .'" id="portfolio_gallery_val" />'; ?>
+    echo '<input type="hidden" name="'. esc_attr( $field['id'] ) .'" id="portfolio_gallery_val" />'; ?>
 
     <div id="wpgrade_portfolio_editor_modal" style="display: none">
         <div class="modal_wrapper">

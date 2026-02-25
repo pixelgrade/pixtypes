@@ -105,7 +105,7 @@ class PixTypesPlugin {
 		/**
 		 * Ajax Callbacks - only for logged in users
 		 */
-		add_action( 'wp_ajax_unset_pixtypes', array( &$this, 'ajax_unset_pixtypes' ) );
+		add_action( 'wp_ajax_unset_pixtypes', array( $this, 'ajax_unset_pixtypes' ) );
 	}
 
 	/**
@@ -648,23 +648,28 @@ class PixTypesPlugin {
 	 */
 	function ajax_unset_pixtypes() {
 		$result = array( 'success' => false, 'msg' => 'Incorrect nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( 'Unauthorized' );
+		}
+
 		if ( ! wp_verify_nonce( $_POST['_ajax_nonce'], 'unset_pixtype' ) ) {
-			echo json_encode( $result );
+			echo wp_json_encode( $result );
 			die();
 		}
 
 		if ( isset( $_POST['theme_slug'] ) ) {
-			$key     = $_POST['theme_slug'];
+			$key     = sanitize_key( $_POST['theme_slug'] );
 			$options = get_option( 'pixtypes_settings' );
 			if ( isset( $options['themes'][ $key ] ) ) {
 				unset( $options['themes'][ $key ] );
 				update_option( 'pixtypes_settings', $options );
-				$result['msg']     = 'Settings for ' . ucfirst( $key ) . ' have been cleaned up!';
+				$result['msg']     = 'Settings for ' . esc_html( ucfirst( $key ) ) . ' have been cleaned up!';
 				$result['success'] = true;
 			}
 		}
 
-		echo json_encode( $result );
+		echo wp_json_encode( $result );
 		exit;
 	}
 

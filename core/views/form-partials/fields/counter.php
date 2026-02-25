@@ -36,8 +36,8 @@
 	<?php $attrs['class'][] = 'small-text' ?>
 	<input <?php echo $field->htmlattributes($attrs) ?> class="small-text" />
 <?php else: # standard field ?>
-	<label for="<?php echo $idname ?>">
+	<label for="<?php echo esc_attr( $idname ) ?>">
 		<input <?php echo $field->htmlattributes($attrs) ?> />
-		<?php echo $label ?>
+		<?php echo esc_html( $label ) ?>
 	</label>
 <?php endif; ?>

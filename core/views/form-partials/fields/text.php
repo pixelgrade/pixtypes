@@ -23,15 +23,15 @@
 	<input <?php echo $field->htmlattributes($attrs) ?>/>
 <?php elseif ($rendering == 'blocks'):  ?>
 <div class="text">
-	<label id="<?php echo $name ?>"><?php echo $label ?></label>
+	<label id="<?php echo esc_attr( $name ) ?>"><?php echo esc_html( $label ) ?></label>
 	<input <?php echo $field->htmlattributes($attrs) ?> />
-	<span><?php echo $desc ?></span>
+	<span><?php echo esc_html( $desc ) ?></span>
 </div>
 <?php else: # ?>
 	<div>
-		<p><?php echo $desc ?></p>
-		<label id="<?php echo $name ?>">
-			<?php echo $label ?>
+		<p><?php echo esc_html( $desc ) ?></p>
+		<label id="<?php echo esc_attr( $name ) ?>">
+			<?php echo esc_html( $label ) ?>
 			<input <?php echo $field->htmlattributes($attrs) ?>/>
 		</label>
 	</div>

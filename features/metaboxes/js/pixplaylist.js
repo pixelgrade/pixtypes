@@ -107,7 +107,8 @@
 				url: playlist_locals.ajax_url,
 				data: {
 					action: 'pixplaylist_preview',
-					attachments_ids: ids
+					attachments_ids: ids,
+					nonce: playlist_locals.nonce
 				},
 				success: function( response ) {
 					if ( response.success ) {

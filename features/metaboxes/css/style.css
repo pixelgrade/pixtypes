@@ -3219,7 +3219,10 @@ div.time-picker li.selected {
     right: 8px;
     color: #DDD; }
   .cmb_metabox .selector-wrapper > select {
-    width: 100%; }
+    width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; }
 
 .cmb_metabox .cmb-type-multicheck {
   margin-left: -24px; }

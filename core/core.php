@@ -20,7 +20,7 @@ class pixtypes {
 	 */
 	static function defaults() {
 		if (self::$defaults === null) {
-			self::$defaults = include self::corepath().'defaults'.EXT;
+			self::$defaults = include self::corepath().'defaults'.PIXTYPES_EXT;
 		}
 
 		return self::$defaults;
@@ -268,7 +268,7 @@ class pixtypes {
 		asort($priority_list, SORT_ASC);
 
 		foreach ($priority_list as $file => $priority) {
-			if (strpos($file, EXT)) {
+			if (strpos($file, PIXTYPES_EXT)) {
 				require $file;
 			}
 		}

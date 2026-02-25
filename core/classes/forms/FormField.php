@@ -69,8 +69,8 @@ class PixtypesFormFieldImpl extends PixtypesHTMLElementImpl implements PixtypesF
 		foreach ($patterns as $pattern) {
 			foreach ($template_paths as $path) {
 				$dirpath = rtrim($path, '\\/').DIRECTORY_SEPARATOR;
-				if (file_exists($dirpath.$pattern.EXT)) {
-					return $this->render_template_file($dirpath.$pattern.EXT);
+				if (file_exists($dirpath.$pattern.PIXTYPES_EXT)) {
+					return $this->render_template_file($dirpath.$pattern.PIXTYPES_EXT);
 				}
 			}
 		}

@@ -1,12 +1,12 @@
 <?php defined('ABSPATH') or die;
 
-	// ensure EXT is defined
-	if ( ! defined('EXT')) {
-		define('EXT', '.php');
+	// ensure PIXTYPES_EXT is defined
+	if ( ! defined('PIXTYPES_EXT')) {
+		define('PIXTYPES_EXT', '.php');
 	}
 
 	$basepath = dirname(__FILE__).DIRECTORY_SEPARATOR;
-	require $basepath.'core'.EXT;
+	require $basepath.'core'.PIXTYPES_EXT;
 
 	// load classes
 

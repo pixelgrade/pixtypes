@@ -12,7 +12,7 @@
  * @copyright 2013 Pixel Grade Media
  */
 
-$config = include pixtypes::pluginpath() . 'plugin-config' . EXT;
+$config = include pixtypes::pluginpath() . 'plugin-config' . PIXTYPES_EXT;
 
 // invoke processor
 $processor = pixtypes::processor( $config );
@@ -61,11 +61,11 @@ $errors    = $processor->errors(); ?>
 
 		<?php echo $f->endform() ?>
 
-	<?php elseif ( $status['state'] == 'error' ): ?>
+	<?php elseif ( 'error' === $status['state'] ): ?>
 
 		<h3><?php esc_html_e( 'Critical Error', 'pixtypes' ); ?></h3>
 
-		<p><?php echo $status['message'] ?></p>
+		<p><?php echo esc_html( $status['message'] ); ?></p>
 
 	<?php endif; ?>
 
@@ -88,7 +88,7 @@ $errors    = $processor->errors(); ?>
 						<?php
 						if ( isset( $options['themes'] ) && count( $options['themes'] ) > 1 ) {
 							foreach ( $options['themes'] as $key => $theme ) {
-								echo '<li><button class="button delete-action" type="submit" name="unset_pixtype" value="' . $key . '">' . esc_html__( 'Clean-up after', 'pixtypes' ) . ' ' . ucfirst( $key ) . '</button></li>';
+								echo '<li><button class="button delete-action" type="submit" name="unset_pixtype" value="' . esc_attr( $key ) . '">' . esc_html__( 'Clean-up after', 'pixtypes' ) . ' ' . esc_html( ucfirst( $key ) ) . '</button></li>';
 							}
 						} ?>
 					</ul>

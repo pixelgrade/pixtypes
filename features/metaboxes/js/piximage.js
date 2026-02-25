@@ -128,7 +128,7 @@
 
 		if ( id != '' && id != '-1' ) {
 			$.ajax({
-				type: "post", url: locals.ajax_url, data: {action: 'ajax_pixgallery_preview', attachments_ids: id},
+				type: "post", url: locals.ajax_url, data: {action: 'ajax_pixgallery_preview', attachments_ids: id, nonce: locals.nonce},
 				beforeSend: function () {
 					$elem.find('.open_piximage i').removeClass('dashicons-images-alt2');
 				}, //show loading just when link is clicked
