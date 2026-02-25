@@ -3214,10 +3214,7 @@ div.time-picker li.selected {
   flex-basis: 46%;
   position: relative; }
   .cmb_metabox .selector-wrapper:before {
-    top: 13px;
-    position: absolute;
-    right: 8px;
-    color: #DDD; }
+    display: none; }
   .cmb_metabox .selector-wrapper > select {
     width: 100%;
     -webkit-appearance: none;
