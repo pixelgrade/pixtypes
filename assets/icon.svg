@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- Background circle -->
+  <circle cx="64" cy="64" r="64" fill="#3BBFA0"/>
+
+  <!-- Card group shifted down-left for visual centering -->
+  <g transform="translate(-6, 4)">
+    <!-- Back card (slightly rotated) -->
+    <rect x="30" y="32" width="56" height="42" rx="4" ry="4" fill="#FFFFFF" opacity="0.35" transform="rotate(-6 58 53)"/>
+
+    <!-- Middle card -->
+    <rect x="36" y="38" width="56" height="42" rx="4" ry="4" fill="#FFFFFF" opacity="0.6" transform="rotate(2 64 59)"/>
+
+    <!-- Front card (main) -->
+    <rect x="42" y="44" width="56" height="42" rx="4" ry="4" fill="#FFFFFF"/>
+
+    <!-- Content lines on front card -->
+    <rect x="49" y="52" width="24" height="3" rx="1.5" fill="#3BBFA0"/>
+    <rect x="49" y="59" width="42" height="2.5" rx="1.25" fill="#2A9A80" opacity="0.4"/>
+    <rect x="49" y="65" width="36" height="2.5" rx="1.25" fill="#2A9A80" opacity="0.4"/>
+    <rect x="49" y="71" width="30" height="2.5" rx="1.25" fill="#2A9A80" opacity="0.4"/>
+
+    <!-- "T" type indicator badge -->
+    <rect x="76" y="22" width="30" height="30" rx="6" ry="6" fill="#F9E547"/>
+    <text x="91" y="44" font-family="Arial, Helvetica, sans-serif" font-weight="bold" font-size="20" fill="#2A2A2A" text-anchor="middle">T</text>
+  </g>
+</svg>
