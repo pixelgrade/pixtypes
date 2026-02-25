@@ -1,4 +1,7 @@
-<?php return array
+<?php
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+return array
 	(
 		'cleanup' => array
 			(

@@ -1,3 +1,4 @@
+<?php if ( ! defined( 'ABSPATH' ) ) exit; ?>
 <div class="pix_builder_container hidden">
 	<?php
 	$base64_decode = false;

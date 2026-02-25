@@ -8,7 +8,7 @@ Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A WordPress plugin for managing custom post types and custom meta boxes from a theme.
+Theme-driven post types, taxonomies &amp; custom fields.
 
 == Description ==
 

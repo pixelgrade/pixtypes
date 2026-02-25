@@ -2,7 +2,7 @@
 /**
  * Plugin Name: PixTypes
  * Plugin URI: https://wordpress.org/plugins/pixtypes/
- * Description: Custom post types and meta-boxes needed by your themes.
+ * Description: Theme-driven post types, taxonomies & custom fields.
  * Version: 2.0.0
  * Author: Pixelgrade
  * Author URI: https://pixelgrade.com
