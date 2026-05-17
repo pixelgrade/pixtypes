@@ -19,4 +19,5 @@
 		);
 ?>
 
+<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- htmlattributes() escapes attribute names and values. ?>
 <input <?php echo $field->htmlattributes($attrs) ?>/>

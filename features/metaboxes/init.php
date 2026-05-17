@@ -194,10 +194,12 @@ class cmb_Meta_Box {
 		}
 
 		// If we're showing it based on ID, get the current ID
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only metabox display condition.
 		if ( isset( $_GET['post'] ) ) {
-			$post_id = absint( $_GET['post'] );
+			$post_id = absint( wp_unslash( $_GET['post'] ) );
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Read-only metabox display condition.
 		} elseif ( isset( $_POST['post_ID'] ) ) {
-			$post_id = absint( $_POST['post_ID'] );
+			$post_id = absint( wp_unslash( $_POST['post_ID'] ) );
 		}
 		if ( ! isset( $post_id ) ) {
 			return false;
@@ -222,18 +224,21 @@ class cmb_Meta_Box {
 		}
 
 		// Get the current ID
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only metabox display condition.
 		if ( isset( $_GET['post'] ) ) {
-			$post_id = absint( $_GET['post'] );
+			$post_id = absint( wp_unslash( $_GET['post'] ) );
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Read-only metabox display condition.
 		} elseif ( isset( $_POST['post_ID'] ) ) {
-			$post_id = absint( $_POST['post_ID'] );
+			$post_id = absint( wp_unslash( $_POST['post_ID'] ) );
 		}
 		if ( ! ( isset( $post_id ) || is_page() ) ) {
 			return false;
 		}
 
 		// if we are on an ajax request get the new template
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only metabox display condition.
 		if ( isset( $_REQUEST['new_page_template'] ) && ! empty( $_REQUEST['new_page_template'] ) ) {
-			$current_template = $_REQUEST['new_page_template'];
+			$current_template = sanitize_text_field( wp_unslash( $_REQUEST['new_page_template'] ) );
 		} else {
 			// Get current template
 			$current_template = get_post_meta( $post_id, '_wp_page_template', true );
@@ -253,10 +258,12 @@ class cmb_Meta_Box {
 	function add_for_specific_select_value( $display, $meta_box ) {
 
 		// Get the current ID
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only metabox display condition.
 		if ( isset( $_GET['post'] ) ) {
-			$post_id = absint( $_GET['post'] );
+			$post_id = absint( wp_unslash( $_GET['post'] ) );
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Read-only metabox display condition.
 		} elseif ( isset( $_POST['post_ID'] ) ) {
-			$post_id = absint( $_POST['post_ID'] );
+			$post_id = absint( wp_unslash( $_POST['post_ID'] ) );
 		}
 
 		if ( ! ( isset( $post_id ) || is_page() ) ) {
@@ -280,8 +287,9 @@ class cmb_Meta_Box {
 					$metavalue = $display_on['on']['value'];
 
 					// if we are on an ajax request get the new metafield current value
+					// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only metabox display condition.
 					if ( isset( $_REQUEST['new_metafield_value'] ) && ! empty( $_REQUEST['new_metafield_value'] ) ) {
-						$current_value = $_REQUEST['new_metafield_value'];
+						$current_value = sanitize_text_field( wp_unslash( $_REQUEST['new_metafield_value'] ) );
 					} else {
 						// Get current meta value
 						$current_value = get_post_meta( $post_id, $metakey, true );
@@ -347,29 +355,27 @@ class cmb_Meta_Box {
 		    // Allow others to filter the show_on value on the fly
             $show_on = apply_filters( 'pixtypes_cmb_metabox_show_on', $this->_meta_box['show_on'], $this->_meta_box );
 
-            if ( ! empty( $show_on ) ) {
+	            if ( ! empty( $show_on ) ) {
+					echo '<input type="hidden" class="show_metabox_on"';
 
-	            $data_key = '';
-	            if ( isset( $show_on['key'] ) && ! empty( $show_on['key'] ) ) {
-		            $data_key = ' data-key="' . $show_on['key'] . '"';
+					if ( isset( $show_on['value'] ) && ! empty( $show_on['value'] ) ) {
+						echo ' data-value="', esc_attr( wp_json_encode( $show_on['value'] ) ), '"';
+					}
+
+					if ( isset( $show_on['key'] ) && ! empty( $show_on['key'] ) ) {
+						echo ' data-key="', esc_attr( $show_on['key'] ), '"';
+					}
+
+					if ( isset( $show_on['hide'] ) && ! empty( $show_on['hide'] ) ) {
+						echo ' data-hide="', esc_attr( wp_json_encode( $show_on['hide'] ) ), '"';
+					}
+
+					echo ' />';
 	            }
+			}
 
-	            $data_value = '';
-	            if ( isset( $show_on['value'] ) && ! empty( $show_on['value'] ) ) {
-		            $data_value = ' data-value=\'' . json_encode( $show_on['value'] ) . '\'';
-	            }
-
-	            $data_hide = '';
-	            if ( isset( $show_on['hide'] ) && ! empty( $show_on['hide'] ) ) {
-		            $data_hide = ' data-hide=\'' . json_encode( $show_on['hide'] ) . '\'';
-	            }
-
-	            echo '<input type="hidden" class="show_metabox_on" ' . $data_value . $data_key . $data_hide . ' />';
-            }
-		}
-
-		// Use nonce for verification
-		echo '<input type="hidden" name="wp_meta_box_nonce" value="', wp_create_nonce( 'pixtypes_save_metabox' ), '" />';
+			// Use nonce for verification
+			echo '<input type="hidden" name="wp_meta_box_nonce" value="', esc_attr( wp_create_nonce( 'pixtypes_save_metabox' ) ), '" />';
 
 		// load assets only when we have a metabox on page
 		pixtypes_cmb_enqueue_scripts();
@@ -414,39 +420,40 @@ class cmb_Meta_Box {
 				$meta_exists = true;
 			}
 
-			if ( isset( $field['options'] ) && isset( $field['options']['hidden'] ) && $field['options']['hidden'] == true ) {
-				echo '<li style="display:none;">';
-			} else {
+				if ( isset( $field['options'] ) && isset( $field['options']['hidden'] ) && $field['options']['hidden'] == true ) {
+					echo '<li style="display:none;">';
+				} else {
 
-				$requires = '';
-				if ( isset( $field['display_on'] ) ) {
+					$display_on = array();
+					if ( isset( $field['display_on'] ) ) {
 
-					$classes .= ' display_on';
+						$classes .= ' display_on';
 
-					$display_on = $field['display_on'];
-
-					if ( isset( $display_on['display'] ) && ! empty( $display_on['display'] ) ) {
-						$requires .= ' data-action="show"';
-					} else {
-						$requires .= ' data-action="hide" style="display:none;"';
+						$display_on = $field['display_on'];
 					}
 
-					if ( isset( $display_on['on'] ) && is_array( $display_on['on'] ) ) {
+					echo '<li class="' . esc_attr( $classes ) . '"';
 
-						$on = $display_on['on'];
-
-						$requires .= 'data-when_key="' . esc_attr( $on['field'] ) . '"';
-
-						if ( is_array( $on['value'] ) ) {
-							$requires .= 'data-has_value=\'' . esc_attr( wp_json_encode( $on['value'] ) ) . '\'';
+					if ( ! empty( $display_on ) ) {
+						if ( isset( $display_on['display'] ) && ! empty( $display_on['display'] ) ) {
+							echo ' data-action="show"';
 						} else {
-							$requires .= 'data-has_value="' . esc_attr( $on['value'] ) . '"';
+							echo ' data-action="hide" style="display:none;"';
+						}
+
+						if ( isset( $display_on['on'] ) && is_array( $display_on['on'] ) ) {
+							$on = $display_on['on'];
+							echo ' data-when_key="' . esc_attr( $on['field'] ) . '"';
+							if ( is_array( $on['value'] ) ) {
+								echo ' data-has_value="' . esc_attr( wp_json_encode( $on['value'] ) ) . '"';
+							} else {
+								echo ' data-has_value="' . esc_attr( $on['value'] ) . '"';
+							}
 						}
 					}
-				}
 
-				echo '<li class="' . esc_attr( $classes ) . '" ' . $requires . '>';
-			}
+					echo '>';
+				}
 
 			echo '<div class="cmb_metabox_description">';
 			if ( ! ( $field['type'] == 'portfolio-gallery' || $field['type'] == 'gallery' || $field['type'] == 'pix_builder' || $field['type'] == 'gmap_pins' ) ) {
@@ -479,33 +486,28 @@ class cmb_Meta_Box {
 					break;
 
 				case 'text_range':
-					$atts = '';
-
-					if ( isset( $field['html_args'] ) && ! empty( $field['html_args'] ) ) {
-						foreach ( $field['html_args'] as $key => $att ) {
-							$atts .= esc_attr( $key ) . '="' . esc_attr( $att ) . '" ';
+						echo '<input class="cmb_text_range" type="range" name="' . esc_attr( $field['id'] ) . '" id="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( '' !== $meta ? $meta : $field['std'] ) . '"';
+						if ( isset( $field['html_args'] ) && ! empty( $field['html_args'] ) ) {
+							foreach ( $field['html_args'] as $key => $att ) {
+								echo ' ' . esc_attr( $key ) . '="' . esc_attr( $att ) . '"';
+							}
 						}
-					} ?>
-					<input class="cmb_text_range" type="range" name="<?php echo esc_attr( $field['id'] ); ?>"
-					       id="<?php echo esc_attr( $field['id'] ); ?>"
-					       value="<?php echo esc_attr( '' !== $meta ? $meta : $field['std'] ); ?>" <?php echo $atts; ?>
-					       style="background-size: <?php echo esc_attr( 0 !== $meta ? $meta : $field['std'] ); ?>% 100%;"
-					       oninput="<?php echo esc_attr( $field['id'] . '_output.value = ' . $field['id'] . '.value' ); ?>"/>
-					<output name="<?php echo esc_attr( $field['id'] ); ?>_output" id="<?php echo esc_attr( $field['id'] ); ?>_output">
-						<?php echo esc_html( '' !== $meta ? $meta : $field['std'] ); ?>
-					</output>
-					<?php break;
-				case 'text_date':
-					echo '<input class="cmb_text_small cmb_datepicker" type="text" name="', esc_attr( $field['id'] ), '" id="', esc_attr( $field['id'] ), '" value="', esc_attr( '' !== $meta ? $meta : $field['std'] ), '" />';
-					break;
-				case 'text_date_timestamp':
-					echo '<input class="cmb_text_small cmb_datepicker" type="text" name="', esc_attr( $field['id'] ), '" id="', esc_attr( $field['id'] ), '" value="', esc_attr( '' !== $meta ? date( 'm\/d\/Y', $meta ) : $field['std'] ), '" />';
-					break;
+						echo ' style="background-size: ' . esc_attr( 0 !== $meta ? $meta : $field['std'] ) . '% 100%;" oninput="' . esc_attr( $field['id'] . '_output.value = ' . $field['id'] . '.value' ) . '"/>'; ?>
+						<output name="<?php echo esc_attr( $field['id'] ); ?>_output" id="<?php echo esc_attr( $field['id'] ); ?>_output">
+							<?php echo esc_html( '' !== $meta ? $meta : $field['std'] ); ?>
+						</output>
+						<?php break;
+					case 'text_date':
+						echo '<input class="cmb_text_small cmb_datepicker" type="text" name="', esc_attr( $field['id'] ), '" id="', esc_attr( $field['id'] ), '" value="', esc_attr( '' !== $meta ? $meta : $field['std'] ), '" />';
+						break;
+					case 'text_date_timestamp':
+						echo '<input class="cmb_text_small cmb_datepicker" type="text" name="', esc_attr( $field['id'] ), '" id="', esc_attr( $field['id'] ), '" value="', esc_attr( '' !== $meta ? gmdate( 'm\/d\/Y', $meta ) : $field['std'] ), '" />';
+						break;
 
-				case 'text_datetime_timestamp':
-					echo '<input class="cmb_text_small cmb_datepicker" type="text" name="', esc_attr( $field['id'] ), '[date]" id="', esc_attr( $field['id'] ), '_date" value="', esc_attr( '' !== $meta ? date( 'm\/d\/Y', $meta ) : $field['std'] ), '" />';
-					echo '<input class="cmb_timepicker text_time" type="text" name="', esc_attr( $field['id'] ), '[time]" id="', esc_attr( $field['id'] ), '_time" value="', esc_attr( '' !== $meta ? date( 'h:i A', $meta ) : $field['std'] ), '" />';
-					break;
+					case 'text_datetime_timestamp':
+						echo '<input class="cmb_text_small cmb_datepicker" type="text" name="', esc_attr( $field['id'] ), '[date]" id="', esc_attr( $field['id'] ), '_date" value="', esc_attr( '' !== $meta ? gmdate( 'm\/d\/Y', $meta ) : $field['std'] ), '" />';
+						echo '<input class="cmb_timepicker text_time" type="text" name="', esc_attr( $field['id'] ), '[time]" id="', esc_attr( $field['id'] ), '_time" value="', esc_attr( '' !== $meta ? gmdate( 'h:i A', $meta ) : $field['std'] ), '" />';
+						break;
 				case 'text_time':
 					echo '<input class="cmb_timepicker text_time" type="text" name="', esc_attr( $field['id'] ), '" id="', esc_attr( $field['id'] ), '" value="', esc_attr( '' !== $meta ? $meta : $field['std'] ), '" />';
 					break;
@@ -532,19 +534,17 @@ class cmb_Meta_Box {
 					echo '<textarea class="cmb_textarea" name="', esc_attr( $field['id'] ), '" id="', esc_attr( $field['id'] ), '" cols="60" rows="4">', esc_textarea( $meta ), '</textarea>';
 					break;
 				case 'textarea_code':
-					$rows = $cols = '';
-					if( isset( $field['rows'] ) && ! empty( $field['rows'] ) ) {
-						$rows =  'rows="' . esc_attr( $field['rows'] ) . '"';
-					}
-
-					if( isset( $field['cols'] ) && ! empty( $field['cols'] ) ) {
-						$cols = 'cols="' . esc_attr( $field['cols'] ) . '"';
-					} else {
-						$cols = 'style="width: 100%"';
-					}
-
-					echo '<textarea name="', esc_attr( $field['id'] ), '" id="', esc_attr( $field['id'] ), '" ' . $cols .' ' . $rows . ' class="cmb_textarea cmb_textarea_code">', esc_textarea( $meta ), '</textarea>';
-					break;
+						echo '<textarea name="', esc_attr( $field['id'] ), '" id="', esc_attr( $field['id'] ), '"';
+						if( isset( $field['cols'] ) && ! empty( $field['cols'] ) ) {
+							echo ' cols="', esc_attr( $field['cols'] ), '"';
+						} else {
+							echo ' style="width: 100%"';
+						}
+						if( isset( $field['rows'] ) && ! empty( $field['rows'] ) ) {
+							echo ' rows="', esc_attr( $field['rows'] ), '"';
+						}
+						echo ' class="cmb_textarea cmb_textarea_code">', esc_textarea( $meta ), '</textarea>';
+						break;
 				case 'select':
 					//we DON'T consider the '0' string as empty, nor do we consider (int)0 as empty
 					if ( ( empty( $meta ) && ! $meta === 0 && ! $meta === '0' ) && ! empty( $field['std'] ) ) {
@@ -591,8 +591,12 @@ class cmb_Meta_Box {
 				case 'select_cpt_term':
 					echo '<div class="selector-wrapper dashicons-before dashicons-arrow-down-alt2">';
 					echo '<select name="', esc_attr( $field['id'] ), '" id="', esc_attr( $field['id'] ), '">';
-					$cpt_terms = get_terms( $field['taxonomy'], 'orderby=count&hide_empty=0' );
-					if ( ! empty( $cpt_terms ) ) {
+					$cpt_terms = get_terms( array(
+						'taxonomy'   => $field['taxonomy'],
+						'orderby'    => 'count',
+						'hide_empty' => false,
+					) );
+					if ( ! empty( $cpt_terms ) && ! is_wp_error( $cpt_terms ) ) {
 						foreach ( $cpt_terms as $term ) {
 							echo '<option value="', esc_attr( $term->slug ), '"', $meta == $term->slug ? ' selected="selected"' : '', '>', esc_html( $term->name ), '</option>';
 						}
@@ -655,7 +659,13 @@ class cmb_Meta_Box {
 					echo '<div class="selector-wrapper dashicons-before dashicons-arrow-down-alt2">';
 					echo '<select name="', esc_attr( $field['id'] ), '" id="', esc_attr( $field['id'] ), '">';
 					$names = wp_get_object_terms( $post->ID, $field['taxonomy'] );
-					$terms = get_terms( $field['taxonomy'], 'hide_empty=0' );
+					$terms = get_terms( array(
+						'taxonomy'   => $field['taxonomy'],
+						'hide_empty' => false,
+					) );
+					if ( is_wp_error( $terms ) ) {
+						$terms = array();
+					}
 					foreach ( $terms as $term ) {
 						if ( ! is_wp_error( $names ) && ! empty( $names ) && ! strcmp( $term->slug, $names[0]->slug ) ) {
 							echo '<option value="' . esc_attr( $term->slug ) . '" selected>' . esc_html( $term->name ) . '</option>';
@@ -668,7 +678,13 @@ class cmb_Meta_Box {
 					break;
 				case 'taxonomy_radio':
 					$names = wp_get_object_terms( $post->ID, $field['taxonomy'] );
-					$terms = get_terms( $field['taxonomy'], 'hide_empty=0' );
+					$terms = get_terms( array(
+						'taxonomy'   => $field['taxonomy'],
+						'hide_empty' => false,
+					) );
+					if ( is_wp_error( $terms ) ) {
+						$terms = array();
+					}
 					echo '<ul>';
 					foreach ( $terms as $term ) {
 						if ( ! is_wp_error( $names ) && ! empty( $names ) && ! strcmp( $term->slug, $names[0]->slug ) ) {
@@ -682,7 +698,13 @@ class cmb_Meta_Box {
 				case 'taxonomy_multicheck':
 					echo '<ul>';
 					$names = wp_get_object_terms( $post->ID, $field['taxonomy'] );
-					$terms = get_terms( $field['taxonomy'], 'hide_empty=0' );
+					$terms = get_terms( array(
+						'taxonomy'   => $field['taxonomy'],
+						'hide_empty' => false,
+					) );
+					if ( is_wp_error( $terms ) ) {
+						$terms = array();
+					}
 					foreach ( $terms as $term ) {
 						echo '<li><input type="checkbox" name="', esc_attr( $field['id'] ), '[]" id="', esc_attr( $field['id'] ), '" value="', esc_attr( $term->name ), '"';
 						foreach ( $names as $name ) {
@@ -705,14 +727,14 @@ class cmb_Meta_Box {
 					);
 					$attachments = get_posts( $args );
 					if ( $attachments ) {
-						echo '<ul class="attach_list">';
-						foreach ( $attachments as $attachment ) {
-							echo '<li>' . wp_get_attachment_link( $attachment->ID, 'thumbnail', 0, 0, 'Download' );
-							echo '<span>';
-							echo apply_filters( 'the_title', '&nbsp;' . $attachment->post_title );
-							echo '</span></li>';
-						}
-						echo '</ul>';
+							echo '<ul class="attach_list">';
+							foreach ( $attachments as $attachment ) {
+								echo '<li>' . wp_get_attachment_link( $attachment->ID, 'thumbnail', 0, 0, 'Download' );
+								echo '<span>';
+								echo wp_kses_post( apply_filters( 'the_title', '&nbsp;' . $attachment->post_title ) );
+								echo '</span></li>';
+							}
+							echo '</ul>';
 					}
 					break;
 				case 'file':
@@ -771,33 +793,36 @@ class cmb_Meta_Box {
 					break;
 				case 'portfolio-gallery':
 
-					$file_path = plugin_basename( __FILE__ ) . 'fields/portfolio-gallery.php';
-					if ( file_exists( $file_path ) ) {
-						ob_start();
-						include( $file_path );
-						echo ob_get_clean();
-					}
+						$file_path = plugin_basename( __FILE__ ) . 'fields/portfolio-gallery.php';
+						if ( file_exists( $file_path ) ) {
+							ob_start();
+							include( $file_path );
+							// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Field templates render escaped metabox controls.
+							echo ob_get_clean();
+						}
 
 					break;
 				case 'gallery':
 
 					$file_path = plugin_dir_path( __FILE__ ) . 'fields/gallery.php';
-					if ( file_exists( $file_path ) ) {
-						ob_start();
-						include( $file_path );
-						echo ob_get_clean();
-					}
+						if ( file_exists( $file_path ) ) {
+							ob_start();
+							include( $file_path );
+							// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Field templates render escaped metabox controls.
+							echo ob_get_clean();
+						}
 
 					break;
 
 				case 'image':
 
 					$file_path = plugin_dir_path( __FILE__ ) . 'fields/image.php';
-					if ( file_exists( $file_path ) ) {
-						ob_start();
-						include( $file_path );
-						echo ob_get_clean();
-					}
+						if ( file_exists( $file_path ) ) {
+							ob_start();
+							include( $file_path );
+							// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Field templates render escaped metabox controls.
+							echo ob_get_clean();
+						}
 
 					break;
 
@@ -809,11 +834,12 @@ class cmb_Meta_Box {
 					}
 
 					$file_path = plugin_dir_path( __FILE__ ) . 'fields/playlist.php';
-					if ( file_exists( $file_path ) ) {
-						ob_start();
-						include( $file_path );
-						echo ob_get_clean();
-					}
+						if ( file_exists( $file_path ) ) {
+							ob_start();
+							include( $file_path );
+							// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Field templates render escaped metabox controls.
+							echo ob_get_clean();
+						}
 
 					break;
 
@@ -824,11 +850,12 @@ class cmb_Meta_Box {
 
 
 					$file_path = plugin_dir_path( __FILE__ ) . 'fields/pix_builder.php';
-					if ( file_exists( $file_path ) ) {
-						ob_start();
-						include( $file_path );
-						echo ob_get_clean();
-					} else {
+						if ( file_exists( $file_path ) ) {
+							ob_start();
+							include( $file_path );
+							// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Field templates render escaped metabox controls.
+							echo ob_get_clean();
+						} else {
 						echo '<p>Wrong path </p>';
 					}
 
@@ -837,11 +864,12 @@ class cmb_Meta_Box {
 				case 'gmap_pins':
 
 					$file_path = plugin_dir_path( __FILE__ ) . 'fields/gmap_pins.php';
-					if ( file_exists( $file_path ) ) {
-						ob_start();
-						include( $file_path );
-						echo ob_get_clean();
-					} else {
+						if ( file_exists( $file_path ) ) {
+							ob_start();
+							include( $file_path );
+							// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Field templates render escaped metabox controls.
+							echo ob_get_clean();
+						} else {
 						echo '<p>Wrong path </p>';
 					}
 
@@ -853,10 +881,10 @@ class cmb_Meta_Box {
 					echo '<div id="', esc_attr( $field['id'] ), '_status" class="cmb_media_status ui-helper-clearfix embed_wrap">';
 					if ( $meta != '' ) {
 						$check_embed = $GLOBALS['wp_embed']->run_shortcode( '[embed]' . esc_url( $meta ) . '[/embed]' );
-						if ( $check_embed ) {
-							echo '<div class="embed_status">';
-							echo $check_embed;
-							echo '<a href="#" class="cmb_remove_file_button" rel="', esc_attr( $field['id'] ), '">Remove Embed</a>';
+							if ( $check_embed ) {
+								echo '<div class="embed_status">';
+								echo wp_kses_post( $check_embed );
+								echo '<a href="#" class="cmb_remove_file_button" rel="', esc_attr( $field['id'] ), '">Remove Embed</a>';
 							echo '</div>';
 						} else {
 							echo 'URL is not a valid oEmbed URL.';
@@ -927,17 +955,19 @@ class cmb_Meta_Box {
 						.attr('data-has_value', '<?php echo esc_js( $display_on['on']['value'] ); ?>');
 				});
 			})(jQuery);
-		</script>
-		<?php
-		$script = ob_get_clean();
-		echo( $script );
+			</script>
+			<?php
+			$script = ob_get_clean();
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Script is generated above with escaped dynamic values.
+			echo( $script );
 	}
 
 	// Save data from metabox
 	function save( $post_id ) {
 
 		// verify nonce
-		if ( ! isset( $_POST['wp_meta_box_nonce'] ) || ! wp_verify_nonce( $_POST['wp_meta_box_nonce'], 'pixtypes_save_metabox' ) ) {
+		$nonce = isset( $_POST['wp_meta_box_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['wp_meta_box_nonce'] ) ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'pixtypes_save_metabox' ) ) {
 			return $post_id;
 		}
 
@@ -947,7 +977,8 @@ class cmb_Meta_Box {
 		}
 
 		// check permissions
-		if ( 'page' == $_POST['post_type'] ) {
+		$posted_post_type = isset( $_POST['post_type'] ) ? sanitize_key( wp_unslash( $_POST['post_type'] ) ) : '';
+		if ( 'page' == $posted_post_type ) {
 			if ( ! current_user_can( 'edit_page', $post_id ) ) {
 				return $post_id;
 			}
@@ -969,7 +1000,8 @@ class cmb_Meta_Box {
 			}
 
 			$old = get_post_meta( $post_id, $name, ! $field['multiple'] /* If multicheck this can be multiple values */ );
-			$new = isset( $_POST[ $field['id'] ] ) ? $_POST[ $field['id'] ] : null;
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Field values are normalized by field type and passed through validation filters below.
+			$new = isset( $_POST[ $field['id'] ] ) ? wp_unslash( $_POST[ $field['id'] ] ) : null;
 
 			if ( $type_comp == true && in_array( $field['type'], array(
 					'taxonomy_select',
@@ -1033,7 +1065,7 @@ class cmb_Meta_Box {
 				$name = $field['id'] . "_id";
 				$old  = get_post_meta( $post_id, $name, ! $field['multiple'] /* If multicheck this can be multiple values */ );
 				if ( isset( $field['save_id'] ) && $field['save_id'] ) {
-					$new = isset( $_POST[ $name ] ) ? $_POST[ $name ] : null;
+					$new = isset( $_POST[ $name ] ) ? sanitize_text_field( wp_unslash( $_POST[ $name ] ) ) : null;
 				} else {
 					$new = "";
 				}
@@ -1079,29 +1111,29 @@ function pixtypes_cmb_register_scripts( $hook ) {
 		$cmb_script_array[] = 'wp-color-picker';
 		$cmb_style_array[]  = 'wp-color-picker';
 
-		wp_register_script( 'cmb-tooltipster', CMB_META_BOX_URL . 'js/jquery.tooltipster.min.js' );
-		wp_register_script( 'cmb-timepicker', CMB_META_BOX_URL . 'js/jquery.timePicker.min.js' );
-		wp_register_script( 'pixgallery', CMB_META_BOX_URL . 'js/pixgallery.js' );
-		wp_register_script( 'piximage', CMB_META_BOX_URL . 'js/piximage.js' );
-		wp_register_script( 'pixplaylist', CMB_META_BOX_URL . 'js/pixplaylist.js' );
-		wp_register_script( 'gridster', CMB_META_BOX_URL . 'js/jquery.gridster.js' );
-		wp_register_script( 'pix_builder', CMB_META_BOX_URL . 'js/pix_builder.js', array( 'gridster' ), $plugin_version );
+			wp_register_script( 'cmb-tooltipster', CMB_META_BOX_URL . 'js/jquery.tooltipster.min.js', array(), $plugin_version, true );
+			wp_register_script( 'cmb-timepicker', CMB_META_BOX_URL . 'js/jquery.timePicker.min.js', array(), $plugin_version, true );
+			wp_register_script( 'pixgallery', CMB_META_BOX_URL . 'js/pixgallery.js', array(), $plugin_version, true );
+			wp_register_script( 'piximage', CMB_META_BOX_URL . 'js/piximage.js', array(), $plugin_version, true );
+			wp_register_script( 'pixplaylist', CMB_META_BOX_URL . 'js/pixplaylist.js', array(), $plugin_version, true );
+			wp_register_script( 'gridster', CMB_META_BOX_URL . 'js/jquery.gridster.js', array(), $plugin_version, true );
+			wp_register_script( 'pix_builder', CMB_META_BOX_URL . 'js/pix_builder.js', array( 'gridster' ), $plugin_version, true );
 		wp_localize_script( 'pix_builder', 'l18n_pix_builder', array(
 			'set_image' => esc_html__( 'Set Image', 'pixtypes' ),
 		) );
-		wp_register_script( 'gmap_pins', CMB_META_BOX_URL . 'js/gmap_pins.js', array(), $plugin_version );
+			wp_register_script( 'gmap_pins', CMB_META_BOX_URL . 'js/gmap_pins.js', array(), $plugin_version, true );
 
-		wp_register_script( 'cmb-scripts', CMB_META_BOX_URL . 'js/cmb.js', $cmb_script_array, $plugin_version );
+			wp_register_script( 'cmb-scripts', CMB_META_BOX_URL . 'js/cmb.js', $cmb_script_array, $plugin_version, true );
 		wp_localize_script( 'cmb-scripts', 'cmb_ajax_data', array(
 			'ajax_nonce' => wp_create_nonce( 'ajax_nonce' ),
 			'post_id'    => get_the_ID(),
 			'post_type'  => get_post_type()
 		) );
 
-		wp_register_style( 'gridster', CMB_META_BOX_URL . 'css/jquery.gridster.css' );
+			wp_register_style( 'gridster', CMB_META_BOX_URL . 'css/jquery.gridster.css', array(), $plugin_version );
 
 		wp_register_style( 'pix_builder', CMB_META_BOX_URL . 'css/pix_builder.css', array( 'gridster' ), $plugin_version );
-		wp_register_style( 'tooltipster', CMB_META_BOX_URL . 'css/tooltipster.css' );
+			wp_register_style( 'tooltipster', CMB_META_BOX_URL . 'css/tooltipster.css', array(), $plugin_version );
 		wp_register_style( 'cmb-styles', CMB_META_BOX_URL . 'css/style.css', $cmb_style_array, $plugin_version );
 	}
 }
@@ -1115,8 +1147,11 @@ function pixtypes_cmb_enqueue_scripts(){
 }
 
 function pixtypes_cmb_editor_footer_scripts() {
-	if ( isset( $_GET['cmb_force_send'] ) && 'true' === $_GET['cmb_force_send'] ) {
-		$label = isset( $_GET['cmb_send_label'] ) ? sanitize_text_field( $_GET['cmb_send_label'] ) : '';
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only media footer label override.
+	$force_send = isset( $_GET['cmb_force_send'] ) ? sanitize_text_field( wp_unslash( $_GET['cmb_force_send'] ) ) : '';
+	if ( 'true' === $force_send ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only media footer label override.
+		$label = isset( $_GET['cmb_send_label'] ) ? sanitize_text_field( wp_unslash( $_GET['cmb_send_label'] ) ) : '';
 		if ( empty( $label ) ) {
 			$label = esc_html__( 'Select File', 'pixtypes' );
 		} ?>
@@ -1136,12 +1171,16 @@ add_filter( 'get_media_item_args', 'pixtypes_cmb_force_send' );
 function pixtypes_cmb_force_send( $args ) {
 
 	// if the Gallery tab is opened from a custom meta box field, add Insert Into Post button
-	if ( isset( $_GET['cmb_force_send'] ) && 'true' == $_GET['cmb_force_send'] ) {
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only media library argument filter.
+	$force_send = isset( $_GET['cmb_force_send'] ) ? sanitize_text_field( wp_unslash( $_GET['cmb_force_send'] ) ) : '';
+	if ( 'true' == $force_send ) {
 		$args['send'] = true;
 	}
 
 	// if the From Computer tab is opened AT ALL, add Insert Into Post button after an image is uploaded
-	if ( isset( $_POST['attachment_id'] ) && '' != $_POST["attachment_id"] ) {
+	// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Read-only media library argument filter.
+	$attachment_id = isset( $_POST['attachment_id'] ) ? absint( wp_unslash( $_POST['attachment_id'] ) ) : 0;
+	if ( 0 !== $attachment_id ) {
 
 		$args['send'] = true;
 
@@ -1155,7 +1194,7 @@ function pixtypes_cmb_force_send( $args ) {
 	}
 
 	// change the label of the button on the From Computer tab
-	if ( isset( $_POST['attachment_id'] ) && '' != $_POST["attachment_id"] ) {
+	if ( 0 !== $attachment_id ) {
 
 		echo '
 			<script type="text/javascript">
@@ -1191,12 +1230,11 @@ add_action( 'wp_ajax_cmb_oembed_handler', 'pixtypes_cmb_oembed_ajax_results' );
 function pixtypes_cmb_oembed_ajax_results() {
 
 	// verify our nonce
-	if ( ! ( isset( $_REQUEST['cmb_ajax_nonce'], $_REQUEST['oembed_url'] ) && wp_verify_nonce( $_REQUEST['cmb_ajax_nonce'], 'ajax_nonce' ) ) ) {
+	$cmb_ajax_nonce = isset( $_REQUEST['cmb_ajax_nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['cmb_ajax_nonce'] ) ) : '';
+	$oembed_string  = isset( $_REQUEST['oembed_url'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['oembed_url'] ) ) : '';
+	if ( empty( $cmb_ajax_nonce ) || ! wp_verify_nonce( $cmb_ajax_nonce, 'ajax_nonce' ) ) {
 		die();
 	}
-
-	// sanitize our search string
-	$oembed_string = sanitize_text_field( $_REQUEST['oembed_url'] );
 
 	if ( empty( $oembed_string ) ) {
 		$return = '<p class="ui-state-error-text">' . esc_html__( 'Please Try Again', 'pixtypes' ) . '</p>';
@@ -1208,7 +1246,7 @@ function pixtypes_cmb_oembed_ajax_results() {
 		$oembed_url = esc_url( $oembed_string );
 		// Post ID is needed to check for embeds
 		if ( isset( $_REQUEST['post_id'] ) ) {
-			$GLOBALS['post'] = get_post( absint( $_REQUEST['post_id'] ) );
+			$GLOBALS['post'] = get_post( absint( wp_unslash( $_REQUEST['post_id'] ) ) );
 		}
 		// ping WordPress for an embed
 		$check_embed = $wp_embed->run_shortcode( '[embed]' . $oembed_url . '[/embed]' );
@@ -1217,21 +1255,22 @@ function pixtypes_cmb_oembed_ajax_results() {
 
 		if ( $check_embed && $check_embed != $fallback ) {
 			// Embed data
-			$return = '<div class="embed_status">' . $check_embed . '<a href="#" class="cmb_remove_file_button" rel="' . esc_attr( sanitize_text_field( $_REQUEST['field_id'] ) ) . '">' . esc_html__( 'Remove Embed', 'pixtypes' ) . '</a></div>';
+			$field_id = isset( $_REQUEST['field_id'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['field_id'] ) ) : '';
+			$return = '<div class="embed_status">' . $check_embed . '<a href="#" class="cmb_remove_file_button" rel="' . esc_attr( $field_id ) . '">' . esc_html__( 'Remove Embed', 'pixtypes' ) . '</a></div>';
 			// set our response id
 			$found = 'found';
 
-		} else {
-			// error info when no oEmbeds were found
-			$return = '<p class="ui-state-error-text">' . sprintf( esc_html__( 'No oEmbed Results Found for %s. View more info at', 'pixtypes' ), $fallback ) . ' <a href="http://codex.wordpress.org/Embeds" target="_blank">codex.wordpress.org/Embeds</a>.</p>';
-			// set our response id
-			$found = 'not found';
+			} else {
+				// error info when no oEmbeds were found
+				/* translators: %s: The fallback oEmbed URL/link returned by WordPress. */
+				$return = '<p class="ui-state-error-text">' . sprintf( esc_html__( 'No oEmbed Results Found for %s. View more info at', 'pixtypes' ), wp_kses_post( $fallback ) ) . ' <a href="http://codex.wordpress.org/Embeds" target="_blank">codex.wordpress.org/Embeds</a>.</p>';
+				// set our response id
+				$found = 'not found';
 		}
 	}
 
 	// send back our encoded data
-	echo json_encode( array( 'result' => $return, 'id' => $found ) );
-	die();
+	wp_send_json( array( 'result' => $return, 'id' => $found ) );
 }
 
 // End. That's it, folks! //
@@ -1248,7 +1287,7 @@ function pixtypes_ajax_pixgallery_preview() {
 
 	$result = array( 'success' => false, 'output' => '' );
 
-	$ids = isset( $_REQUEST['attachments_ids'] ) ? sanitize_text_field( $_REQUEST['attachments_ids'] ) : '';
+	$ids = isset( $_REQUEST['attachments_ids'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['attachments_ids'] ) ) : '';
 
 	if ( empty( $ids ) ) {
 		echo wp_json_encode( $result );
@@ -1284,7 +1323,7 @@ function pixtypes_ajax_pixplaylist_preview() {
 		wp_send_json_error( 'Unauthorized' );
 	}
 
-	$ids = isset( $_REQUEST['attachments_ids'] ) ? sanitize_text_field( $_REQUEST['attachments_ids'] ) : '';
+	$ids = isset( $_REQUEST['attachments_ids'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['attachments_ids'] ) ) : '';
 
 	if ( empty( $ids ) ) {
 		wp_send_json_error( 'empty' );

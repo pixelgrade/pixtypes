@@ -99,7 +99,8 @@ class PixtypesProcessorImpl implements PixtypesProcessor {
 			}
 
 			if ($this->form_was_submitted()) {
-				$input = $this->cleanup_input($_POST);
+				// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce is verified in form_was_submitted().
+				$input = $this->cleanup_input( wp_unslash( $_POST ) );
 				$errors = $this->validate_input($input);
 
 				if (empty($errors)) {
@@ -207,7 +208,14 @@ class PixtypesProcessorImpl implements PixtypesProcessor {
 	 * @return boolean
 	 */
 	protected function form_was_submitted() {
-		return $_SERVER['REQUEST_METHOD'] === 'POST';
+		$request_method = isset( $_SERVER['REQUEST_METHOD'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) : '';
+		if ( 'POST' !== $request_method ) {
+			return false;
+		}
+
+		$nonce = isset( $_POST['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ) : '';
+
+		return wp_verify_nonce( $nonce, 'pixtypes-save-settings' );
 	}
 
 	/**

@@ -49,15 +49,18 @@
 ?>
 
 <?php if ($rendering == 'inline'): ?>
+	<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- htmlattributes() escapes attribute names and values. ?>
 	<input <?php echo $field->htmlattributes($attrs) ?> />
 
 <?php elseif ($rendering == 'blocks'):  ?>
 	<div class="switch">
+		<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- htmlattributes() escapes attribute names and values. ?>
 		<input <?php echo $field->htmlattributes($attrs) ?> />
 		<label for="<?php echo esc_attr( $idname ) ?>"><?php echo wp_kses_post( $processed_label ) ?></label>
 	</div>
 <?php else: # rendering != 'inline' ?>
 	<label for="<?php echo esc_attr( $idname ) ?>">
+		<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- htmlattributes() escapes attribute names and values. ?>
 		<input <?php echo $field->htmlattributes($attrs) ?> />
 		<?php echo wp_kses_post( $processed_label ) ?>
 	</label>

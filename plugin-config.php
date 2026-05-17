@@ -54,7 +54,7 @@ return array(
 	),
 
 	'errors' => array(
-		'not_empty' => esc_html__( 'Invalid Value.', pixtypes::textdomain() ),
+		'not_empty' => esc_html__( 'Invalid Value.', 'pixtypes' ),
 	),
 
 	'callbacks' => array(

@@ -20,10 +20,12 @@
 ?>
 
 <?php if ($rendering == 'inline'): ?>
+	<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- htmlattributes() escapes attribute names and values. ?>
 	<input <?php echo $field->htmlattributes($attrs) ?>/>
 <?php elseif ($rendering == 'blocks'):  ?>
 <div class="text">
 	<label id="<?php echo esc_attr( $name ) ?>"><?php echo esc_html( $label ) ?></label>
+	<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- htmlattributes() escapes attribute names and values. ?>
 	<input <?php echo $field->htmlattributes($attrs) ?> />
 	<span><?php echo esc_html( $desc ) ?></span>
 </div>
@@ -32,6 +34,7 @@
 		<p><?php echo esc_html( $desc ) ?></p>
 		<label id="<?php echo esc_attr( $name ) ?>">
 			<?php echo esc_html( $label ) ?>
+			<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- htmlattributes() escapes attribute names and values. ?>
 			<input <?php echo $field->htmlattributes($attrs) ?>/>
 		</label>
 	</div>

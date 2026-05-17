@@ -34,9 +34,11 @@
 
 <?php if ($is_inline_field): ?>
 	<?php $attrs['class'][] = 'small-text' ?>
+	<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- htmlattributes() escapes attribute names and values. ?>
 	<input <?php echo $field->htmlattributes($attrs) ?> class="small-text" />
 <?php else: # standard field ?>
 	<label for="<?php echo esc_attr( $idname ) ?>">
+		<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- htmlattributes() escapes attribute names and values. ?>
 		<input <?php echo $field->htmlattributes($attrs) ?> />
 		<?php echo esc_html( $label ) ?>
 	</label>

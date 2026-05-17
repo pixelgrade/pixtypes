@@ -2,11 +2,11 @@
 <div class="pix_builder_container hidden">
 	<?php
 	$base64_decode = false;
-	$gridster_params = '';
+		$gridster_params = array();
 
-	if( isset( $field['gridster_params'] ) ) {
-		$gridster_params = ' data-params=\'' . esc_attr( wp_json_encode( $field['gridster_params'] ) ) . '\'';
-	}
+		if( isset( $field['gridster_params'] ) ) {
+			$gridster_params = $field['gridster_params'];
+		}
 
 	global $post;
 	$content = $field['std'];
@@ -30,7 +30,14 @@
 		</style>';
 	}
 
-	echo '<input type="hidden" name="', esc_attr( $field['id'] ), '" id="pix_builder" value="', '' !== $meta ? esc_attr( $meta ) : esc_attr( $content ), '" ' . $gridster_params . ' ' . ( $base64_decode ? 'data-base64_encoded="true"' : '' ) .' />'; ?>
+		echo '<input type="hidden" name="', esc_attr( $field['id'] ), '" id="pix_builder" value="', '' !== $meta ? esc_attr( $meta ) : esc_attr( $content ), '"';
+		if ( ! empty( $gridster_params ) ) {
+			echo ' data-params="', esc_attr( wp_json_encode( $gridster_params ) ), '"';
+		}
+		if ( $base64_decode ) {
+			echo ' data-base64_encoded="true"';
+		}
+		echo ' />'; ?>
 	<div class="pixbuilder-controls">
 		<button class="add_block button button-primary button-large"
 		        value="image"> <?php esc_html_e( '+ Add Image', 'pixtypes' ); ?></button>
@@ -121,7 +128,12 @@
 						    data-sizey="<?php echo esc_attr( $block->size_y ); ?>">
 							<div class="item__controls">
 								<ul class="nav nav--controls">
-									<li class="edit"><?php echo $controls_content ?></li>
+										<li class="edit">
+											<?php
+											// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Built above from escaped attributes and translated labels.
+											echo $controls_content;
+											?>
+										</li>
 									<li class="position"><span><?php esc_html_e( 'Position', 'pixtypes' ); ?></span>
 										<div class="position__ui">
 											<div
@@ -163,10 +175,13 @@
 										<span><?php esc_html_e( 'Remove', 'pixtypes' ); ?></span></li>
 									<li class="move drag_handler"></li>
 								</ul>
-							</div>
-							<div class="item__content block_content <?php echo esc_attr( $empty_class ); ?>">
-								<?php echo $content ?>
-							</div>
+								</div>
+								<div class="item__content block_content <?php echo esc_attr( $empty_class ); ?>">
+									<?php
+									// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Builder content is rendered through PixBuilder/WordPress content renderers above.
+									echo $content;
+									?>
+								</div>
 						</li>
 						<?php
 					}

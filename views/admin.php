@@ -46,12 +46,16 @@ $errors    = $processor->errors(); ?>
 		<?php
 		$f = pixtypes::form( $config, $processor ); ?>
 
+		<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Form renderer escapes its markup. ?>
 		<?php echo $f->startform() ?>
 
+		<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Field renderer escapes its own controls. ?>
 		<?php echo $f->field( 'hiddens' )->render(); ?>
 
+		<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Field renderer escapes its own controls. ?>
 		<?php echo $f->field( 'post_types' )->render(); ?>
 
+		<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Field renderer escapes its own controls. ?>
 		<?php echo $f->field( 'taxonomies' )->render(); ?>
 
 		<?php wp_nonce_field( 'pixtypes-save-settings' ); ?>
@@ -60,6 +64,7 @@ $errors    = $processor->errors(); ?>
 			<?php esc_html_e( 'Save Changes', 'pixtypes' ); ?>
 		</button>
 
+		<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Form renderer escapes its markup. ?>
 		<?php echo $f->endform() ?>
 
 	<?php elseif ( 'error' === $status['state'] ): ?>
@@ -80,11 +85,11 @@ $errors    = $processor->errors(); ?>
 
 			<div class="inside">
 
-				<p><?php esc_html_e( 'If you are done with copying your content from old themes to new ones, you can also get rid of the old themes settings and post types.', 'pixtypes' ); ?></p>
-				<form method="post" id="unset_pixypes"
-				      action="<?php echo admin_url( 'options-general.php?page=pixtypes' ) ?>">
-					<input type="hidden" class="unset_nonce" name="unset_nonce"
-					       value="<?php echo wp_create_nonce( 'unset_pixtype' ); ?>"/>
+		<p><?php esc_html_e( 'If you are done with copying your content from old themes to new ones, you can also get rid of the old themes settings and post types.', 'pixtypes' ); ?></p>
+		<form method="post" id="unset_pixypes"
+		      action="<?php echo esc_url( admin_url( 'options-general.php?page=pixtypes' ) ) ?>">
+			<input type="hidden" class="unset_nonce" name="unset_nonce"
+			       value="<?php echo esc_attr( wp_create_nonce( 'unset_pixtype' ) ); ?>"/>
 					<ul>
 						<?php
 						if ( isset( $options['themes'] ) && count( $options['themes'] ) > 1 ) {

@@ -27,6 +27,7 @@
 				<?php if ( ! empty($fielddesc)): ?>
 					<div class="field-desc"><?php echo esc_html( $fielddesc ) ?></div>
 				<?php endif;
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Nested field renderer escapes its own controls.
 				echo $field->render();
 				if ( ! empty($fieldnote)): ?>
 					<span class="note"><?php echo esc_html( $fieldnote ) ?></span>

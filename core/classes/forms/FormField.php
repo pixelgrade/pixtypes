@@ -75,7 +75,7 @@ class PixtypesFormFieldImpl extends PixtypesHTMLElementImpl implements PixtypesF
 			}
 		}
 
-		throw new Exception('Failed to match any pattern for field ['.$this->getmeta('name').'] of type '.$this->getmeta('type', '[unknown]'));
+		throw new Exception( 'Failed to match any pattern for field [' . esc_html( $this->getmeta( 'name' ) ) . '] of type ' . esc_html( $this->getmeta( 'type', '[unknown]' ) ) );
 	}
 
 	/**

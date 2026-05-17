@@ -21,6 +21,7 @@
 			</legend>
 
 			<?php foreach ($field->getmeta('options', array()) as $fieldname => $conf): ?>
+				<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Nested field renderer escapes its own controls. ?>
 				<?php echo $form->field($fieldname, $conf)->render() ?>
 				<br/>
 			<?php endforeach; ?>

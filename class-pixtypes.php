@@ -279,7 +279,7 @@ class PixTypesPlugin {
 
 		$screen = get_current_screen();
 		if ( $screen->id == $this->plugin_screen_hook_suffix ) {
-			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'js/admin.js', __FILE__ ), array( 'jquery' ), $this->version );
+			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'js/admin.js', __FILE__ ), array( 'jquery' ), $this->version, true );
 			wp_localize_script( $this->plugin_slug . '-admin-script', 'locals',
 				array(
 					'ajax_url' => admin_url( 'admin-ajax.php' )
@@ -317,13 +317,38 @@ class PixTypesPlugin {
 		return array_merge( array( 'settings' => '<a href="' . admin_url( 'options-general.php?page=pixtypes' ) . '">' . esc_html__( 'Settings', 'pixtypes' ) . '</a>' ), $links );
 	}
 
+	/**
+	 * Extract the user-facing settings key from a registered entity slug.
+	 *
+	 * @param string $entity    The post type or taxonomy slug.
+	 * @param string $delimiter The delimiter used to strip a theme/vendor prefix.
+	 *
+	 * @return string
+	 */
+	protected function get_entity_settings_key( $entity, $delimiter ) {
+		$entity = (string) $entity;
+		$key    = strstr( $entity, $delimiter );
+
+		if ( false === $key ) {
+			return $entity;
+		}
+
+		$key = substr( $key, 1 );
+
+		if ( '' === $key ) {
+			return $entity;
+		}
+
+		return $key;
+	}
+
 	function register_entities() {
 		// register post types
 		$options = $updated_options  = apply_filters( 'pixtypes_settings_pre_register_entitites', get_option( 'pixtypes_settings' ) );
 		$updated_options['display_settings'] = false;
 
 		// go through each theme and activate portfolio post types
-		if ( empty( $options['themes'] ) || ! array( $options['themes'] ) ) {
+		if ( empty( $options['themes'] ) || ! is_array( $options['themes'] ) ) {
 			return;
 		}
 
@@ -365,12 +390,10 @@ class PixTypesPlugin {
 					}
 
 					if ( $is_jetpack_compatible ) {
-						$post_type_key = strstr( $post_type, '-' );
-						$post_type_key = substr( $post_type_key, 1 );
+						$post_type_key = $this->get_entity_settings_key( $post_type, '-' );
 					} else {
 						// eliminate the theme prefix
-						$post_type_key = strstr( $post_type, '_' );
-						$post_type_key = substr( $post_type_key, 1 );
+						$post_type_key = $this->get_entity_settings_key( $post_type, '_' );
 					}
 
 					// process menu icon if it exists
@@ -423,12 +446,10 @@ class PixTypesPlugin {
 					}
 
 					if ( $is_jetpack_compatible ) {
-						$tax_key = strstr( $tax, '-' );
-						$tax_key = substr( $tax_key, 1 );
+						$tax_key = $this->get_entity_settings_key( $tax, '-' );
 					} else {
 						// eliminate the theme prefix
-						$tax_key = strstr( $tax, '_' );
-						$tax_key = substr( $tax_key, 1 );
+						$tax_key = $this->get_entity_settings_key( $tax, '_' );
 					}
 
 					if ( isset( $options[ 'enable_' . $tax_key ] ) ) {
@@ -654,13 +675,14 @@ class PixTypesPlugin {
 			wp_send_json_error( 'Unauthorized' );
 		}
 
-		if ( ! wp_verify_nonce( $_POST['_ajax_nonce'], 'unset_pixtype' ) ) {
+		$ajax_nonce = isset( $_POST['_ajax_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) ) : '';
+		if ( ! wp_verify_nonce( $ajax_nonce, 'unset_pixtype' ) ) {
 			echo wp_json_encode( $result );
 			die();
 		}
 
 		if ( isset( $_POST['theme_slug'] ) ) {
-			$key     = sanitize_key( $_POST['theme_slug'] );
+			$key     = sanitize_key( wp_unslash( $_POST['theme_slug'] ) );
 			$options = get_option( 'pixtypes_settings' );
 			if ( isset( $options['themes'][ $key ] ) ) {
 				unset( $options['themes'][ $key ] );

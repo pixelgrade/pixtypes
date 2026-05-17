@@ -19,10 +19,10 @@ if ( ! defined( 'PIXTYPES_SELECT2_URL' ) ) {
  * Enqueue scripts and styles, call requested select box field
  */
 function pw_select2( $field, $meta ) {
-	wp_enqueue_script( 'pw-select2-field-js', PIXTYPES_SELECT2_URL . 'js/select2/select2.min.js', array( 'jquery-ui-sortable' ), '3.5.1' );
-	wp_enqueue_script( 'pw-select2-field-init', PIXTYPES_SELECT2_URL . 'js/select2-init.js', array( 'pw-select2-field-js' ), null );
+	wp_enqueue_script( 'pw-select2-field-js', PIXTYPES_SELECT2_URL . 'js/select2/select2.min.js', array( 'jquery-ui-sortable' ), '3.5.1', true );
+	wp_enqueue_script( 'pw-select2-field-init', PIXTYPES_SELECT2_URL . 'js/select2-init.js', array( 'pw-select2-field-js' ), '1.0.1', true );
 	wp_enqueue_style( 'pw-select2-field-css', PIXTYPES_SELECT2_URL . 'js/select2/select2.css', array(), '3.5.1' );
-	wp_enqueue_style( 'pw-select2-field-mods', PIXTYPES_SELECT2_URL . 'css/select2.css', array(), null );
+	wp_enqueue_style( 'pw-select2-field-mods', PIXTYPES_SELECT2_URL . 'css/select2.css', array(), '1.0.1' );
 
 	call_user_func( $field['type'], $field, $meta );
 }

@@ -54,17 +54,18 @@ class PixtypesHTMLTagImpl implements PixtypesHTMLTag {
 		$attributes = pixtypes::merge($this->attrs->metadata_array(), $extra);
 		foreach ($attributes as $key => $value) {
 			if ($value !== false && $value !== null) {
+				$htmlkey = esc_attr( $key );
 				if ( ! empty($value)) {
 					if (is_array($value)) {
 						$htmlvalue = esc_attr( implode(' ', $value) );
-						$attr_segments[] = "$key=\"$htmlvalue\"";
+						$attr_segments[] = "$htmlkey=\"$htmlvalue\"";
 					}
 					else { // value is not an array
-						$attr_segments[] = "$key=\"" . esc_attr( $value ) . "\"";
+						$attr_segments[] = "$htmlkey=\"" . esc_attr( $value ) . "\"";
 					}
 				}
 				else { // empty html tag; ie. no value html tag
-					$attr_segments[] = esc_attr( $key );
+					$attr_segments[] = $htmlkey;
 				}
 			}
 		}

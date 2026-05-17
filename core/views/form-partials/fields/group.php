@@ -22,6 +22,7 @@
 			$fieldexample = $field->getmeta('group-example', null);
 			$fieldnote = $field->getmeta('group-note', null); ?>
 				<div class="field" <?php if ( $fieldconfig['type'] == 'group' ) echo 'id="' . esc_attr( $fieldname ) . '"'; ?> >
+					<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Nested field renderer escapes its own controls. ?>
 					<?php echo $field->render();
 					if ( ! empty($fieldnote)): ?>
 						<span class="field-note"><?php echo esc_html( $fieldnote ) ?></span>

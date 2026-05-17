@@ -20,6 +20,7 @@
 		);
 ?>
 
+<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- htmlattributes() escapes attribute names and values. ?>
 <select <?php echo $field->htmlattributes() ?>>
 	<?php foreach ($this->getmeta('options', array()) as $key => $label): ?>
 		<option <?php if ($key == $selected): ?>selected<?php endif; ?>

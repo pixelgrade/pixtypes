@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 wp_enqueue_media();
 wp_enqueue_script( 'pixplaylist' );
 // ensure the wordpress modal scripts even if an editor is not present
-wp_enqueue_script( 'jquery-ui-dialog', false, array( 'jquery' ), false, true );
+wp_enqueue_script( 'jquery-ui-dialog', false, array( 'jquery' ), '1.0.0', true );
 wp_localize_script( 'pixplaylist', 'playlist_locals', array(
 	'ajax_url'      => admin_url( 'admin-ajax.php' ),
 	'nonce'         => wp_create_nonce( 'pixtypes_playlist_preview' ),

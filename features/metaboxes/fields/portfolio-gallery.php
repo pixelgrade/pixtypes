@@ -58,13 +58,14 @@ $meta_rows = json_decode($meta, true);?>
             <input type="hidden" name='pattern_type' value="1" class="to_meta"/>
         </li>
         <?php
-    } else {
+	    } else {
 
-        foreach ( $meta_rows as $key => $pattern ) {
-            $pattern = (array)$pattern;
-            echo wpgrade_get_portfolio_backend_type( (int)$pattern['pattern_type'], $key, $pattern );
-        }
-    }
+	        foreach ( $meta_rows as $key => $pattern ) {
+	            $pattern = (array)$pattern;
+	            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Theme helper renders escaped portfolio backend controls.
+	            echo wpgrade_get_portfolio_backend_type( (int)$pattern['pattern_type'], $key, $pattern );
+	        }
+	    }
 
     echo '<input type="hidden" name="'. esc_attr( $field['id'] ) .'" id="portfolio_gallery_val" />'; ?>
 

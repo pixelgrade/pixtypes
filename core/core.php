@@ -186,7 +186,7 @@ class pixtypes {
 			return $callbacks[$key];
 		}
 		else { // missing callback
-			throw new Exception('Missing callback for ['.$key.'].');
+			throw new Exception( 'Missing callback for [' . esc_html( $key ) . '].' );
 		}
 	}
 
