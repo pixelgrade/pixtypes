@@ -3,12 +3,12 @@
  * Plugin Name: PixTypes
  * Plugin URI: https://wordpress.org/plugins/pixtypes/
  * Description: Theme-driven post types, taxonomies & custom fields.
- * Version: 2.0.1
+ * Version: 2.0.2
  * Author: Pixelgrade
  * Author URI: https://pixelgrade.com
  * Author Email: contact@pixelgrade.com
  * Requires at least: 6.0
- * Tested up to: 7.0
+ * Tested up to: 7.1
  * Requires PHP: 7.4
  * Text Domain: pixtypes
  * License:     GPL-2.0 or later.
@@ -61,4 +61,4 @@ register_activation_hook( __FILE__, array( 'PixTypesPlugin', 'activate' ) );
 //register_deactivation_hook( __FILE__, array( 'PixTypesPlugin', 'deactivate' ) );
 
 global $pixtypes_plugin;
-$pixtypes_plugin = PixTypesPlugin::get_instance( '2.0.1' );
+$pixtypes_plugin = PixTypesPlugin::get_instance( '2.0.2' );

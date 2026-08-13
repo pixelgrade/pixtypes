@@ -4,7 +4,7 @@ Tags: custom, post-types, metadata, builder, gallery
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,6 +23,9 @@ Note: This plugin is addressed to developers, it doesn't do nothing if it isn't 
 3. After activating PixTypes all your custom post-types should be visible now.
 
 == Changelog ==
+
+= 2.0.2 =
+* Declared compatibility with WordPress 7.1.
 
 = 2.0.1 =
 * Compatibility: Confirmed compatibility with WordPress 7.0.
