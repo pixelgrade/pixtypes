@@ -1058,7 +1058,9 @@ class cmb_Meta_Box {
 					}
 				}
 			} elseif ( '' == $new || $new != $old ) {
-				update_post_meta( $post_id, $name, $new );
+				// Metadata APIs unslash strings; preserve the builder's encoded JSON.
+				$stored_value = 'pix_builder' === $field['type'] ? wp_slash( $new ) : $new;
+				update_post_meta( $post_id, $name, $stored_value );
 			}
 
 			if ( 'file' == $field['type'] ) {
@@ -1397,7 +1399,7 @@ function pixbuilder_on_restore_revision( $post_ID, $revision_ID ) {
 	if ( false === $revision_meta ) {
 		delete_post_meta( $post_ID, '_pile_project_builder' );
 	} else {
-		update_post_meta( $post_ID, '_pile_project_builder', $revision_meta );
+		update_post_meta( $post_ID, '_pile_project_builder', wp_slash( $revision_meta ) );
 	}
 }
 add_action( 'wp_restore_post_revision', 'pixbuilder_on_restore_revision', 20, 2 );
@@ -1418,7 +1420,7 @@ function pixbuilder_save_revision_meta( $post_ID, $post ) {
 
 		if ( false !== $meta ) {
 			//we will only save one entry per revision, hence the update_metadata
-			update_metadata( 'post', $post_ID, '_pile_project_builder', $meta );
+			update_metadata( 'post', $post_ID, '_pile_project_builder', wp_slash( $meta ) );
 		}
 	}
 }
